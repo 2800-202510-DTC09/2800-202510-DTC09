@@ -1,6 +1,5 @@
 {
 	"scripts": {
-		"dev:start": "env NODE_ENV=dev node ./src/index.mjs",
 		"start": "node ./src/index.mjs"
 	},
 	"dependencies": {
