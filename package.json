@@ -1,4 +1,8 @@
 {
+	"scripts": {
+		"dev:start": "env NODE_ENV=dev node ./src/index.mjs",
+		"start": "node ./src/index.mjs"
+	},
 	"dependencies": {
 		"cors": "^2.8.5",
 		"express": "^5.1.0",
