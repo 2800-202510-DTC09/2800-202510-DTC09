@@ -44,6 +44,11 @@ app.post('/todos', async (req, res) => {
    res.status(201).json(newTodo);
 });
 
+app.get('/todos/:id', async (req, res) => {
+   const todos = await Todo.findById(req.params.id);
+   res.json(todos);
+});
+
 app.put('/todos/:id', async (req, res) => {
    const updatedTodo = await Todo.findByIdAndUpdate(req.params.id, req.body, {
       new: true,
