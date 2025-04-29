@@ -3,12 +3,14 @@
 		"start": "node ./src/index.mjs"
 	},
 	"dependencies": {
+		"common-es": "^1.0.1",
 		"cors": "^2.8.5",
 		"express": "^5.1.0",
 		"mongoose": "^8.14.0"
 	},
 	"devDependencies": {
 		"@types/cors": "^2.8.17",
-		"@types/express": "^5.0.1"
+		"@types/express": "^5.0.1",
+		"esbuild": "^0.25.3"
 	}
 }

@@ -2,13 +2,16 @@ import express from 'express';
 import {connect, model, Schema} from 'mongoose';
 import cors from 'cors';
 import {join} from 'path';
+import {getGlobals} from 'common-es';
+
+const {__dirname, __filename} = getGlobals(import.meta.url);
 
 // Initialize the app
 const app = express();
 app.use(cors());
 app.use(express.json());
 
-app.use(express.static(join(import.meta.dirname, 'public')));
+app.use(express.static(join(__dirname, 'public')));
 
 // MongoDB connection
 connect('mongodb://localhost:27017/todoapp', {
