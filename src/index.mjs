@@ -15,7 +15,7 @@ app.use(express.json());
 app.use(express.static(join(__dirname, 'public')));
 
 // MongoDB connection
-connect('mongodb://localhost:27017/todoapp', {
+connect(`mongodb://${env.MONGO_HOST}:${env.MONGO_PORT}/todoapp`, {
    useNewUrlParser: true,
    useUnifiedTopology: true,
 });
