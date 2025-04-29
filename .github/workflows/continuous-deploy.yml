@@ -23,13 +23,31 @@ jobs:
     with:
       image_tags: '["latest"]'
 
+  convert-secret:
+    name: Convert secret
+    runs-on: ubuntu-24.04
+    needs: release-latest
+    outputs:
+      uri: ${{ steps.output.outputs.uri }}
+      client_id: ${{ steps.output.outputs.client_id }}
+      apps: ${{ steps.output.outputs.apps }}
+    steps:
+      - name: Output secret
+        id: output
+        shell: sh
+        run: |
+          echo 'uri=${{ secrets.URI }}' >> $GITHUB_OUTPUT
+          echo 'client_id=${{ secrets.CLIENT_ID }}' >> $GITHUB_OUTPUT
+          echo 'apps=${{ secrets.APPS }}' >> $GITHUB_OUTPUT
+
   deploy-latest:
     name: Release latest
-    needs: release-latest
+    needs: convert-secret
     uses: silver886/github-actions/.github/workflows/deploy-cloudflare-truenas.yaml@master
+    with:
+      uri: ${{ needs.convert-secret.outputs.uri }}
+      client_id: ${{ needs.convert-secret.outputs.client_id }}
+      apps: ${{ needs.convert-secret.outputs.apps }}
     secrets:
-      uri: ${{ secrets.URI }}
-      client_id: ${{ secrets.CLIENT_ID }}
-      apps: ${{ secrets.APPS }}
       client_secret: ${{ secrets.CLIENT_SECRET }}
       api_key: ${{ secrets.API_KEY }}
