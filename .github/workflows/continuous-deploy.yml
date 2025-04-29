@@ -15,7 +15,7 @@ jobs:
 
   release-latest:
     name: Release latest
-    if: ${{ github.ref == 'refs/heads/master' }}
+    if: ${{ github.ref == 'refs/heads/main' }}
     permissions:
       contents: read
       packages: write
