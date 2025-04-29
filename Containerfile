@@ -32,4 +32,6 @@ COPY --from=bundle /var/workdir/dist/ /var/workdir/
 
 WORKDIR /var/workdir/
 
-ENTRYPOINT node index.js
+RUN npm install @dotenvx/dotenvx --save
+
+ENTRYPOINT npx dotenvx run --overload --strict -f .env -fk keys/.env.keys -- node index.js

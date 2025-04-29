@@ -3,6 +3,7 @@ import {connect, model, Schema} from 'mongoose';
 import cors from 'cors';
 import {join} from 'path';
 import {getGlobals} from 'common-es';
+import {env} from 'process';
 
 const {__dirname, __filename} = getGlobals(import.meta.url);
 
@@ -56,6 +57,6 @@ app.delete('/todos/:id', async (req, res) => {
 });
 
 // Start the server
-app.listen(5000, () => {
-   console.log('Server running on http://localhost:5000');
+app.listen(env.PORT, () => {
+   console.log(`Server running on http://localhost:${env.PORT}`);
 });

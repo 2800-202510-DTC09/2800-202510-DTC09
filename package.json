@@ -1,6 +1,6 @@
 {
 	"scripts": {
-		"start": "node ./src/index.mjs"
+		"local": "dotenvx run --overload --strict -f .env.local -- node ./src/index.mjs"
 	},
 	"dependencies": {
 		"common-es": "^1.0.1",
@@ -9,6 +9,7 @@
 		"mongoose": "^8.14.0"
 	},
 	"devDependencies": {
+		"@dotenvx/dotenvx": "^1.41.0",
 		"@types/cors": "^2.8.17",
 		"@types/express": "^5.0.1",
 		"esbuild": "^0.25.3"

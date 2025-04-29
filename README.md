@@ -4,13 +4,10 @@ Modern lifestyles often leave people unaware of how their daily habits contribut
 
 ## Contribution
 
-Install these tools:
+Install [pnpm](https://pnpm.io/) instead of npm:
 
-- [pnpm](https://pnpm.io/)
-- [dotenvx](https://dotenvx.com/)
-
-Use this command `dotenvx ext precommit --install` to setup git hook.
+Use this command `pnpm dotenvx ext precommit --install` to setup git hook.
 
 Use this command `pnpm i --frozen-lockfile` to install dependencies.
 
-Use this command `dotenvx run --overload --strict -f .\.env.local -- pnpm start` to start server locally.
+Use this command `pnpm local` to start server locally.
