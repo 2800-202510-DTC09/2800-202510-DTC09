@@ -26,8 +26,6 @@ jobs:
   deploy-latest:
     name: Release latest
     needs: release-latest
-    permissions:
-      packages: read
     uses: silver886/github-actions/.github/workflows/deploy-cloudflare-truenas.yaml@master
     with:
       uri: ${{ vars.URI }}
@@ -36,4 +34,3 @@ jobs:
     secrets:
       client_secret: ${{ secrets.CLIENT_SECRET }}
       api_key: ${{ secrets.API_KEY }}
-      password: ${{ github.token }}
