@@ -27,10 +27,9 @@ jobs:
     name: Release latest
     needs: release-latest
     uses: silver886/github-actions/.github/workflows/deploy-cloudflare-truenas.yaml@master
-    with:
+    secrets:
       uri: ${{ secrets.URI }}
       client_id: ${{ secrets.CLIENT_ID }}
       apps: ${{ secrets.APPS }}
-    secrets:
       client_secret: ${{ secrets.CLIENT_SECRET }}
       api_key: ${{ secrets.API_KEY }}
