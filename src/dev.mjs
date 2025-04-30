@@ -4,20 +4,22 @@ import fs from 'node:fs';
 import {spawn} from 'child_process';
 
 if (env.NODE_ENV === 'dev') {
-   if (!fs.existsSync(bin)) {
-      await install(bin);
-   }
+   (async () => {
+      if (!fs.existsSync(bin)) {
+         await install(bin);
+      }
 
-   spawn(
-      bin,
-      [
-         'access',
-         'tcp',
-         '--hostname',
-         env.MONGO_SERVER,
-         '--url',
-         `${env.MONGO_HOST}:${env.MONGO_PORT}`,
-      ],
-      {stdio: 'inherit'},
-   );
+      spawn(
+         bin,
+         [
+            'access',
+            'tcp',
+            '--hostname',
+            env.MONGO_SERVER,
+            '--url',
+            `${env.MONGO_HOST}:${env.MONGO_PORT}`,
+         ],
+         {stdio: 'inherit'},
+      );
+   })();
 }
