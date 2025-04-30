@@ -6,7 +6,7 @@ import cors from 'cors';
 import {__dirname} from './common-es.mjs';
 import {} from './dev.mjs';
 
-export const app = express();
+const app = express();
 app.use(cors());
 app.use(express.static(join(__dirname, 'public')));
 app.use(express.json());
