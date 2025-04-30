@@ -1,0 +1,75 @@
+/* Tailwind custom colors */
+:root {
+  --color-primary: #3B8E65;
+  --color-secondary: #2C6E4E;
+  --color-accent: #F7B538;
+  --color-light: #E8F5E9;
+  --color-dark: #1E3A29;
+}
+
+.container {
+  width: 100%;
+  max-width: 1200px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.btn-primary {
+  display: inline-block;
+  background-color: var(--color-accent);
+  color: var(--color-dark);
+  font-weight: 700;
+  padding: 0.75rem 2rem;
+  border-radius: 9999px;
+  font-size: 1.125rem;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  text-decoration: none;
+}
+
+.btn-primary:hover {
+  opacity: 0.9;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
+}
+
+.feature-card {
+  background-color: var(--color-light);
+  padding: 1.5rem;
+  border-radius: 0.5rem;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.feature-icon {
+  height: 3rem;
+  width: 3rem;
+  border-radius: 9999px;
+  background-color: rgba(59, 142, 101, 0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1rem;
+}
+
+/* Step styles for How It Works section in index.html */
+.step-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  max-width: 20rem;
+}
+
+.step-number {
+  height: 3.5rem;
+  width: 3.5rem;
+  border-radius: 9999px;
+  background-color: var(--color-primary);
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.25rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+}
