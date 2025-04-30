@@ -30,7 +30,7 @@ jobs:
     with:
       uri: ${{ vars.URI }}
       client_id: ${{ vars.CLIENT_ID }}
-      apps: ${{ vars.APPS_DEV }}
+      apps: ${{ vars.DEV_APPS }}
     secrets:
       client_secret: ${{ secrets.CLIENT_SECRET }}
       api_key: ${{ secrets.API_KEY }}
