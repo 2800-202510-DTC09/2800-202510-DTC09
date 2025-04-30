@@ -4,6 +4,8 @@ import cors from 'cors';
 import {join} from 'path';
 import {getGlobals} from 'common-es';
 import {env} from 'process';
+import {serve, setup} from 'swagger-ui-express';
+import swaggerJsdoc from 'swagger-jsdoc';
 
 const {__dirname, __filename} = getGlobals(import.meta.url);
 
@@ -13,6 +15,35 @@ app.use(cors());
 app.use(express.json());
 
 app.use(express.static(join(__dirname, 'public')));
+import('./api/index.mjs');
+
+app.use(
+   '/api-docs',
+   serve,
+   setup(
+      swaggerJsdoc({
+         failOnErrors: true,
+         definition: {
+            openapi: '3.0.0',
+            info: {
+               title: 'Employee API',
+               description: 'Employee API Information',
+               contact: {
+                  name: 'Sagi Weizmann',
+               },
+            },
+            servers: [
+               {
+                  url: `http://127.0.0.1:${env.PORT}/api/v1`,
+               },
+            ],
+         },
+         apis: [
+            './src/api/**/*.mjs',
+         ],
+      }),
+   ),
+);
 
 // MongoDB connection
 connect(`mongodb://${env.MONGO_HOST}:${env.MONGO_PORT}/todoapp`, {
@@ -28,12 +59,6 @@ const Todo = model(
       completed: Boolean,
    }),
 );
-
-// Routes
-app.get('/todos', async (req, res) => {
-   const todos = await Todo.find();
-   res.json(todos);
-});
 
 app.post('/todos', async (req, res) => {
    const newTodo = new Todo({
