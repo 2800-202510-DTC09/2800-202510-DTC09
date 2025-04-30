@@ -2,14 +2,14 @@ import express from 'express';
 import {connect, model, Schema} from 'mongoose';
 import cors from 'cors';
 import {join} from 'path';
-import {getGlobals} from 'common-es';
 import {env} from 'process';
 
-const {__dirname, __filename} = getGlobals(import.meta.url);
+import {__dirname} from './common-es.mjs';
+import {} from './dev.mjs';
 
-// Initialize the app
-const app = express();
-app.use(cors());
+export const app = express();
+// app.use(cors());
+app.use(express.static(join(__dirname, 'public')));
 app.use(express.json());
 
 app.use(express.static(join(__dirname, 'public')));
@@ -63,5 +63,5 @@ app.delete('/todos/:id', async (req, res) => {
 
 // Start the server
 app.listen(env.PORT, () => {
-   console.log(`Server running on http://localhost:${env.PORT}`);
+   console.log(`Server running on http://127.0.0.1:${env.PORT}`);
 });

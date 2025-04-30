@@ -12,6 +12,7 @@
 		"@dotenvx/dotenvx": "^1.41.0",
 		"@types/cors": "^2.8.17",
 		"@types/express": "^5.0.1",
+		"cloudflared": "^0.7.0",
 		"esbuild": "^0.25.3"
 	}
 }
