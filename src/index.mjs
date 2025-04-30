@@ -19,21 +19,16 @@ app.use(
    serve,
    setup(
       swaggerJsdoc({
-         failOnErrors: true,
          definition: {
             openapi: '3.0.0',
             info: {
-               title: 'Employee API',
-               description: 'Employee API Information',
-               contact: {
-                  name: 'Sagi Weizmann',
-               },
+               title: 'SustainMe API',
             },
             servers: [
-               {
-                  url: `http://127.0.0.1:${env.PORT}/api/v1`,
-               },
-            ],
+               `http://127.0.0.1:${env.PORT}`,
+               `https://${env.DEV_SERVER}`,
+               `https://${env.PROD_SERVER}`,
+            ].map((v) => ({url: `${v}/api`})),
          },
          apis: [
             './src/api/**/*.mjs',
@@ -42,13 +37,8 @@ app.use(
    ),
 );
 
-// MongoDB connection
-connect(`mongodb://${env.MONGO_HOST}:${env.MONGO_PORT}/todoapp`, {
-   useNewUrlParser: true,
-   useUnifiedTopology: true,
-});
+connect(`mongodb://${env.MONGO_HOST}:${env.MONGO_PORT}/sustain-me`);
 
-// Start the server
 app.listen(env.PORT, () => {
    console.log(`Server running on http://127.0.0.1:${env.PORT}`);
 });

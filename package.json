@@ -1,6 +1,6 @@
 {
 	"scripts": {
-		"local": "dotenvx run --overload --strict -f .env.local -- nodemon ./src/index.mjs"
+		"local": "nodemon --exec dotenvx --ext js,mjs,json -- run --overload --strict -f .env.local -- node ./src/index.mjs"
 	},
 	"dependencies": {
 		"common-es": "^1.0.1",
