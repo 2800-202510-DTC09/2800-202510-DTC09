@@ -13,8 +13,32 @@ jobs:
     with:
       image_tags: '["${{ github.ref_name }}","${{ github.sha }}"]'
 
-  release-latest:
-    name: Release latest
+  release-dev:
+    name: Release dev
+    if: ${{ github.ref == 'refs/heads/dev' }}
+    permissions:
+      contents: read
+      packages: write
+    uses: silver886/github-actions/.github/workflows/release-oci.yaml@master
+    with:
+      image_tags: '["dev"]'
+
+  deploy-dev:
+    name: Deploy dev
+    needs: release-dev
+    environment: dev
+    uses: silver886/github-actions/.github/workflows/deploy-cloudflare-truenas.yaml@master
+    with:
+      uri: ${{ vars.URI }}
+      client_id: ${{ vars.CLIENT_ID }}
+      image_tag: dev
+      apps: ${{ vars.DEV_APPS }}
+    secrets:
+      client_secret: ${{ secrets.CLIENT_SECRET }}
+      api_key: ${{ secrets.API_KEY }}
+
+  release-main:
+    name: Release main
     if: ${{ github.ref == 'refs/heads/main' }}
     permissions:
       contents: read
@@ -23,9 +47,10 @@ jobs:
     with:
       image_tags: '["latest"]'
 
-  deploy-latest:
-    name: Release latest
-    needs: release-latest
+  deploy-main:
+    name: Deploy main
+    needs: release-main
+    environment: main
     uses: silver886/github-actions/.github/workflows/deploy-cloudflare-truenas.yaml@master
     with:
       uri: ${{ vars.URI }}
