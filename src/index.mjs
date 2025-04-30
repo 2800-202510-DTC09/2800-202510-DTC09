@@ -1,18 +1,15 @@
+import {env} from 'process';
+import {join} from 'path';
 import express from 'express';
 import {connect, model, Schema} from 'mongoose';
 import cors from 'cors';
-import {join} from 'path';
-import {env} from 'process';
-
 import {__dirname} from './common-es.mjs';
 import {} from './dev.mjs';
 
 export const app = express();
-// app.use(cors());
+app.use(cors());
 app.use(express.static(join(__dirname, 'public')));
 app.use(express.json());
-
-app.use(express.static(join(__dirname, 'public')));
 
 // MongoDB connection
 connect(`mongodb://${env.MONGO_HOST}:${env.MONGO_PORT}/todoapp`, {
