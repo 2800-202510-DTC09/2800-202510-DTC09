@@ -42,6 +42,9 @@ importers:
       '@types/swagger-ui-express':
         specifier: ^4.1.8
         version: 4.1.8
+      cloudflared:
+        specifier: ^0.7.0
+        version: 0.7.0
       esbuild:
         specifier: ^0.25.3
         version: 0.25.3
@@ -349,6 +352,10 @@ packages:
   chokidar@3.6.0:
     resolution: {integrity: sha512-7VT13fmjotKpGipCW9JEQAusEPE+Ei8nl6/g4FBAmIm0GOOLMua9NDDo/DWp0ZAxCr3cPq5ZpBqmPAQgDda2Pw==}
     engines: {node: '>= 8.10.0'}
+
+  cloudflared@0.7.0:
+    resolution: {integrity: sha512-CB60WqD8N/ZoT3cNVlLai8X4fIk9bY3cfx7/7h8RAi1LDrEe/ioZS9Fin3ohr9pKrzXGStiYKtm6qPyFbx3S6w==}
+    hasBin: true
 
   commander@11.1.0:
     resolution: {integrity: sha512-yPVavfyCcRhmorC7rWlkHn15b4wDVgVmBA7kV4QVBsF7kv/9TKJAbAXVTxvTnwP8HHKjRCJDClKbciiYS7p0DQ==}
@@ -1212,6 +1219,8 @@ snapshots:
       readdirp: 3.6.0
     optionalDependencies:
       fsevents: 2.3.3
+
+  cloudflared@0.7.0: {}
 
   commander@11.1.0: {}
 
