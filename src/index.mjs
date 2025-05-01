@@ -27,7 +27,6 @@ app.use(
             info: {title: 'SustainMe API'},
             servers: [
                {url: '/api'},
-               {url: '/api/user'},
             ],
          },
          apis: fastGlob.sync(`./api/**/*.mjs`, {cwd: __dirname}).map((v) => {
