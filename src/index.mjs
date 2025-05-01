@@ -1,19 +1,34 @@
 import {env} from 'process';
-import {join} from 'path';
+import {join, relative, sep} from 'path';
+import {readdirSync, statSync} from 'fs';
 import express from 'express';
 import {connect} from 'mongoose';
-import cors from 'cors';
+// import cors from 'cors';
 import {serve, setup} from 'swagger-ui-express';
 import swaggerJsdoc from 'swagger-jsdoc';
-import {__dirname} from './common-es.mjs';
+import {__dirname, __filename} from './common-es.mjs';
 import {} from './dev.mjs';
 
 export const app = express();
+
 app.use(express.static(join(__dirname, 'public')));
 
-app.use(cors());
+// app.use(cors());
 app.use(express.json());
-import('./api/index.mjs');
+
+function walk(dir, callback) {
+   readdirSync(dir).forEach((file) => {
+      const path = join(dir, file);
+      if (statSync(path).isDirectory()) {
+         walk(path, callback);
+      } else {
+         callback(path);
+      }
+   });
+}
+walk(join(__dirname, 'api'), (path) => {
+   import(`./${relative(__dirname, path).replaceAll(sep, '/')}`);
+});
 app.use(
    '/api-docs',
    serve,
