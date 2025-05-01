@@ -1,6 +1,6 @@
 import {env} from 'process';
 import {bin, install} from 'cloudflared';
-import fs from 'node:fs';
+import fs from 'fs';
 import {spawn} from 'child_process';
 
 if (env.NODE_ENV === 'dev') {

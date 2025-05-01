@@ -3,7 +3,6 @@ import {join, relative, sep} from 'path';
 import {readdirSync, statSync} from 'fs';
 import express from 'express';
 import {connect} from 'mongoose';
-// import cors from 'cors';
 import {serve, setup} from 'swagger-ui-express';
 import swaggerJsdoc from 'swagger-jsdoc';
 import {__dirname, __filename} from './common-es.mjs';
@@ -13,7 +12,6 @@ export const app = express();
 
 app.use(express.static(join(__dirname, 'public')));
 
-// app.use(cors());
 app.use(express.json());
 
 function walk(dir, callback) {
