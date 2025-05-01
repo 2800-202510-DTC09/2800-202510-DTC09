@@ -39,7 +39,7 @@ jobs:
   purge-cache-dev:
     name: Purge cache dev
     needs: deploy-dev
-    runs-on: ubuntu-2404
+    runs-on: ubuntu-24.04
     steps:
       - name: Purge Cloudflare cache
         shell: sh
@@ -74,7 +74,7 @@ jobs:
   purge-cache-latest:
     name: Purge cache latest
     needs: deploy-latest
-    runs-on: ubuntu-2404
+    runs-on: ubuntu-24.04
     steps:
       - name: Purge Cloudflare cache
         shell: sh
