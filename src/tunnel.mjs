@@ -1,9 +1,9 @@
-import {env} from 'process';
 import {existsSync, readdirSync, rmSync, statSync} from 'fs';
-import {exec, execFileSync, spawn} from 'child_process';
+import {join} from 'path';
+import {env} from 'process';
+import {execFileSync, spawn} from 'child_process';
 import {bin, install} from 'cloudflared';
 import {connect} from 'mongoose';
-import {join} from 'path';
 
 (async () => {
    if (!existsSync(bin)) {
@@ -40,8 +40,6 @@ import {join} from 'path';
       ],
       {stdio: 'inherit'},
    );
-
-   console.log('lloll');
 
    await connect(`mongodb://${env.MONGO_HOST}:${env.MONGO_PORT}/sustain-me`);
 })();
