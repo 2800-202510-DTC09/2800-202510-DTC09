@@ -1,25 +1,23 @@
 import {env} from 'process';
-import {bin, install} from 'cloudflared';
 import fs from 'fs';
 import {spawn} from 'child_process';
+import {bin, install} from 'cloudflared';
 
-if (env.NODE_ENV === 'dev') {
-   (async () => {
-      if (!fs.existsSync(bin)) {
-         await install(bin);
-      }
+(async () => {
+   if (!fs.existsSync(bin)) {
+      await install(bin);
+   }
 
-      spawn(
-         bin,
-         [
-            'access',
-            'tcp',
-            '--hostname',
-            env.MONGO_SERVER,
-            '--url',
-            `${env.MONGO_HOST}:${env.MONGO_PORT}`,
-         ],
-         {stdio: 'inherit'},
-      );
-   })();
-}
+   spawn(
+      bin,
+      [
+         'access',
+         'tcp',
+         '--hostname',
+         env.MONGO_SERVER,
+         '--url',
+         `${env.MONGO_HOST}:${env.MONGO_PORT}`,
+      ],
+      {stdio: 'inherit'},
+   );
+})();

@@ -3,19 +3,19 @@
 		"local": "nodemon --exec dotenvx --ext js,mjs,json -- run --overload --strict -f .env.local -- node ./src/index.mjs"
 	},
 	"dependencies": {
+		"@dotenvx/dotenvx": "^1.42.0",
 		"common-es": "^1.0.1",
 		"express": "^5.1.0",
+		"fast-glob": "^3.3.3",
 		"mongoose": "^8.14.0",
 		"swagger-jsdoc": "^6.2.8",
 		"swagger-ui-express": "^5.0.1"
 	},
 	"devDependencies": {
-		"@dotenvx/dotenvx": "^1.41.0",
 		"@types/express": "^5.0.1",
 		"@types/swagger-jsdoc": "^6.0.4",
 		"@types/swagger-ui-express": "^4.1.8",
 		"cloudflared": "^0.7.0",
-		"esbuild": "^0.25.3",
 		"nodemon": "^3.1.10"
 	}
 }
