@@ -8,9 +8,9 @@ api.use('/badge', badge);
 export const Badge = model(
    'badge',
    new Schema({
-      name: String,
-      description: String,
-      icon: String,
-      criteria: String,
+      name: Schema.Types.String,
+      description: Schema.Types.String,
+      icon: Schema.Types.String,
+      criteria: Schema.Types.String,
    }),
 );

@@ -8,7 +8,10 @@ api.use('/user', user);
 export const User = model(
    'user',
    new Schema({
-      username: String,
-      password: String,
+      username: Schema.Types.String,
+      password: Schema.Types.String,
+      badges: [
+         Schema.Types.ObjectId,
+      ],
    }),
 );
