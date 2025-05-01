@@ -19,25 +19,22 @@ RUN pnpm install --frozen-lockfile
 FROM base AS bundle
 
 RUN echo "export var import_meta_url = require('url').pathToFileURL(__filename);" > import-meta-url.js
-RUN echo "
-require('esbuild').build({
-  entryPoints: ['src/index.mjs'],
-  outdir: 'dist',
-  bundle: true,
-  platform: 'node',
-  inject: ['import-meta-url.js'],
-  define: {'import.meta.url': 'import_meta_url'},
-  plugins: [{
-    name: 'skip-html',
-    setup(build) {
-      build.onLoad({filter: /\bpublic\b/}, () => {
-        return {contents: '', loader: 'binary'};
-      });
-    },
-  }],
-});"  > esbuild.js
-
-RUN node esbuild.js
+RUN echo "require('esbuild').build({ \
+  entryPoints: ['src/index.mjs'], \
+  outdir: 'dist', \
+  bundle: true, \
+  platform: 'node', \
+  inject: ['import-meta-url.js'], \
+  define: {'import.meta.url': 'import_meta_url'}, \
+  plugins: [{ \
+    name: 'skip-html', \
+    setup(build) { \
+      build.onLoad({filter: /\bpublic\b/}, () => { \
+        return {contents: '', loader: 'binary'}; \
+      }); \
+    }, \
+  }], \
+});" | node -
 
 ###########################################################################
 # Build runtime image
