@@ -9,8 +9,9 @@ import fastGlob from 'fast-glob';
 
 if (env.NODE_ENV === 'dev') {
    import('./dev.mjs');
+} else {
+   connect(`mongodb://${env.MONGO_HOST}:${env.MONGO_PORT}/sustain-me`);
 }
-connect(`mongodb://${env.MONGO_HOST}:${env.MONGO_PORT}/sustain-me`);
 
 export const app = express();
 
