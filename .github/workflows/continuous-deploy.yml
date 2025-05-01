@@ -44,9 +44,9 @@ jobs:
       - name: Purge Cloudflare cache
         shell: sh
         run: |
-          curl 'https://api.cloudflare.com/client/v4/zones/${{ vars.ZONE_ID }}/purge_cache'
-            -X POST
-            -H '${{ secrets.API_TOKEN }}'
+          curl 'https://api.cloudflare.com/client/v4/zones/${{ vars.ZONE_ID }}/purge_cache' \
+            -X POST \
+            -H '${{ secrets.API_TOKEN }}' \
             --data-raw "{\"hosts\":$(echo '${{ vars.DEV_APPS }}' | jq -rc '[.[] | . + ".${{ vars.DOMAIN_NAME }}"]')}"
 
   release-latest:
@@ -79,7 +79,7 @@ jobs:
       - name: Purge Cloudflare cache
         shell: sh
         run: |
-          curl 'https://api.cloudflare.com/client/v4/zones/${{ vars.ZONE_ID }}/purge_cache'
-            -X POST
-            -H '${{ secrets.API_TOKEN }}'
+          curl 'https://api.cloudflare.com/client/v4/zones/${{ vars.ZONE_ID }}/purge_cache' \
+            -X POST \
+            -H '${{ secrets.API_TOKEN }}' \
             --data-raw "{\"hosts\":$(echo '${{ vars.APPS }}' | jq -rc '[.[] | . + ".${{ vars.DOMAIN_NAME }}"]')}"
