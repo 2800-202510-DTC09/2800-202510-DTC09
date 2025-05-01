@@ -1,4 +1,5 @@
-import {User, user} from './index.mjs';
+import {User} from '../../model/user.mjs';
+import {user} from './index.mjs';
 
 /**
  * @openapi
