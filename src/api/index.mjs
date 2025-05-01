@@ -1,3 +1,5 @@
+import {Router} from 'express';
 import {app} from '../index.mjs';
 
-export const todos = app.route('/todos');
+export const api = Router();
+app.use('/api', api);

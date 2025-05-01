@@ -3,8 +3,8 @@ import {user} from './index.mjs';
 /**
  * @openapi
  * /user/{id}:
- *   get:
- *     description: Get user by ID
+ *   delete:
+ *     description: Delete user
  *     parameters:
  *       - in: path
  *         name: id
@@ -13,12 +13,12 @@ import {user} from './index.mjs';
  *         required: true
  *         description: User ID
  *     responses:
- *       '200':
- *         description: Found a user
+ *       '202':
+ *         description: User is deleted
  *       '404':
  *         description: User not found
  */
-user.get('/:id', async (req, res) => {
+user.delete('/:id', async (req, res) => {
    // const api = await Todo.find();
-   res.json({a: req.params.id});
+   res.json({a: req.body});
 });
