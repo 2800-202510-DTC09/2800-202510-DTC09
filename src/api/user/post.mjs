@@ -5,6 +5,8 @@ import {user} from './index.mjs';
  * /user:
  *   post:
  *     description: Create user
+ *     tags:
+ *       - User
  *     requestBody:
  *       description: User information
  *       required: true

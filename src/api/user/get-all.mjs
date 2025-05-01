@@ -5,6 +5,8 @@ import {user} from './index.mjs';
  * /user:
  *   get:
  *     description: Get all users
+ *     tags:
+ *       - User
  *     responses:
  *       '200':
  *         description: Fetched all users

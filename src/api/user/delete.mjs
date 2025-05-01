@@ -5,6 +5,8 @@ import {user} from './index.mjs';
  * /user/{id}:
  *   delete:
  *     description: Delete user
+ *     tags:
+ *       - User
  *     parameters:
  *       - in: path
  *         name: id

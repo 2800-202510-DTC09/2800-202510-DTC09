@@ -5,6 +5,8 @@ import {user} from './index.mjs';
  * /user/{id}:
  *   get:
  *     description: Get user by ID
+ *     tags:
+ *       - User
  *     parameters:
  *       - in: path
  *         name: id

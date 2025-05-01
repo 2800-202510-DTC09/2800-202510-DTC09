@@ -5,6 +5,8 @@ import {user} from './index.mjs';
  * /user/{id}:
  *   put:
  *     description: Update user
+ *     tags:
+ *       - User
  *     parameters:
  *       - in: path
  *         name: id
