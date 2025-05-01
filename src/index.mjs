@@ -53,7 +53,7 @@ app.use(session({
    }
 }));
 
-// Routes for auth/login (preliminary)
+// Routes for auth/login/logout (preliminary)
 
 app.post('/login', (req, res) => {
    const { username, password } = req.body;
@@ -66,9 +66,14 @@ app.post('/login', (req, res) => {
 });
 
 app.get('/logout', (req, res) => {
-   req.session.destroy(() => {
-      res.redirect('/login.html');
-   });
+  req.session.destroy(err => {
+    if (err) {
+      console.error('Logout error:', err);
+      return res.status(500).send('Error logging out');
+    }
+    res.clearCookie('connect.sid'); 
+    res.redirect('/login.html');
+  });
 });
 
 app.get('/home', (req, res) => {
