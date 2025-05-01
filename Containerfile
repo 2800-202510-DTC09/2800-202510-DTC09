@@ -19,8 +19,7 @@ RUN pnpm install --frozen-lockfile
 FROM base AS bundle
 
 RUN echo "export var import_meta_url = require('url').pathToFileURL(__filename);" > import-meta-url.js
-RUN <<EOD
-cat <<EOF > esbuild.js
+RUN echo "
 require('esbuild').build({
   entryPoints: ['src/index.mjs'],
   outdir: 'dist',
@@ -36,9 +35,7 @@ require('esbuild').build({
       });
     },
   }],
-});
-EOF
-EOD
+});"  > esbuild.js
 
 RUN node esbuild.js
 
