@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en" class="bg-light text-dark font-sans">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Login | SustainMe</title>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Nunito:wght@400&family=Poppins:wght@700&display=swap"
+    rel="stylesheet" />
+
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script type="module">
+    import config from './css/tailwind.config.js';
+    tailwind.config = config;
+  </script>
+
+  <!-- Custom Styles -->
+  <link rel="stylesheet" href="./css/style.css" />
+</head>
+
+<body class="flex flex-col min-h-screen bg-light text-dark font-sans">
+  <!-- Header -->
+  <header id="navbarPlaceholder"></header>
+
+  <!-- Main Content -->
+  <main class="flex-grow flex items-center justify-center px-4 py-16">
+    <section class="bg-white shadow-md rounded-lg p-8 max-w-md w-full">
+      <h1 class="text-3xl font-heading text-primary text-center mb-6">Login</h1>
+
+      <form id="loginForm" class="space-y-5">
+        <div>
+          <label for="username" class="block font-bold text-sm mb-1">Username</label>
+          <input type="text" id="username" name="username" required
+            class="w-full border border-gray-300 rounded px-4 py-2 focus:outline-none focus:ring-2 focus:ring-primary" />
+        </div>
+
+        <div>
+          <label for="password" class="block font-bold text-sm mb-1">Password</label>
+          <input type="password" id="password" name="password" required
+            class="w-full border border-gray-300 rounded px-4 py-2 focus:outline-none focus:ring-2 focus:ring-primary" />
+        </div>
+
+        <p id="loginError" class="hidden text-red-600 font-bold text-sm mt-2"></p>
+
+        <button type="submit"
+          class="btn-primary w-full py-2 rounded text-white font-bold hover:opacity-90 transition duration-300">
+          Login
+        </button>
+      </form>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer id="footerPlaceholder" class="mt-12"></footer>
+
+  <!-- Component + Login Logic -->
+  <script type="module">
+    // Inject header/footer components
+    fetch('./components/nav/header.html')
+      .then(res => res.text())
+      .then(html => document.getElementById("navbarPlaceholder").innerHTML = html);
+
+    fetch('./components/nav/footer.html')
+      .then(res => res.text())
+      .then(html => document.getElementById("footerPlaceholder").innerHTML = html);
+
+    // Define the behaviour of the submit button
+    document.getElementById("loginForm").addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const form = e.target;
+      const username = form.username.value.trim();
+      const password = form.password.value.trim();
+
+      const res = await fetch("/login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ username, password })
+      });
+
+      const result = await res.json();
+
+      if (result.success) {
+        window.location.href = "/home";
+      } else {
+        const errorBox = document.getElementById("loginError");
+        errorBox.textContent = result.error || "Login failed";
+        errorBox.classList.remove("hidden");
+      }
+    });
+  </script>
+</body>
+
+</html>
+
