@@ -24,14 +24,10 @@ app.use(
       swaggerJsdoc({
          definition: {
             openapi: '3.0.0',
-            info: {
-               title: 'SustainMe API',
-            },
+            info: {title: 'SustainMe API'},
             servers: [
-               `http://127.0.0.1:${env.PORT}`,
-               `https://${env.DEV_SERVER}`,
-               `https://${env.PROD_SERVER}`,
-            ].map((v) => ({url: `${v}/api`})),
+               {url: '/api'},
+            ],
          },
          apis: fastGlob.sync(`./api/**/*.mjs`, {cwd: __dirname}).map((v) => {
             import(v);
