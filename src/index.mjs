@@ -7,6 +7,11 @@ import swaggerJsdoc from 'swagger-jsdoc';
 import {__dirname} from './common-es.mjs';
 import fastGlob from 'fast-glob';
 
+// For auth/login 
+import session from 'express-session';
+import { mockUsers } from './mock/users.js';
+
+
 if (env.NODE_ENV === 'dev') {
    import('./dev.mjs');
 }
@@ -36,6 +41,46 @@ app.use(
       }),
    ),
 );
+
+
+app.use(session({
+   secret: 'bad secret',
+   resave: false,
+   saveUninitialized: false,
+   cookie: {
+      httpOnly: true,
+      maxAge: 1000 * 60 * 60 // 1 hour
+   }
+}));
+
+// Routes for auth/login (preliminary)
+
+app.post('/login', (req, res) => {
+   const { username, password } = req.body;
+   const user = mockUsers.find(u => u.username === username);
+   if (!user || user.password !== password) {
+      return res.status(401).json({ success: false, error: 'Invalid username or password' });
+   }
+   req.session.user = { id: user.id, username: user.username, role: user.role };
+   res.json({ success: true });
+});
+
+app.get('/logout', (req, res) => {
+   req.session.destroy(() => {
+      res.redirect('/login.html');
+   });
+});
+
+app.get('/home', (req, res) => {
+   if (!req.session.user) return res.redirect('/login.html');
+   res.sendFile(join(__dirname, 'public', 'home.html'));
+});
+
+app.get('/users', (req, res) => {
+   if (!req.session.user) return res.status(401).json({ error: 'Not logged in' });
+   res.json({ user: req.session.user });
+});
+
 
 app.listen(env.PORT, () => {
    console.log(`Server running on http://127.0.0.1:${env.PORT}`);
