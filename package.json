@@ -6,6 +6,7 @@
 		"@dotenvx/dotenvx": "^1.42.0",
 		"common-es": "^1.0.1",
 		"express": "^5.1.0",
+		"express-session": "^1.18.1",
 		"fast-glob": "^3.3.3",
 		"mongoose": "^8.14.0",
 		"swagger-jsdoc": "^6.2.8",
