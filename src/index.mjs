@@ -25,10 +25,29 @@ app.use((req, res, next) => {
 });
 
 app.use(express.static(join(__dirname, 'public')));
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
 
-// Session setup
+app.use(express.json());
+app.use(
+   '/api-docs',
+   serve,
+   setup(
+      swaggerJsdoc({
+         definition: {
+            openapi: '3.0.0',
+            info: {title: 'SustainMe API'},
+            servers: [
+               {url: '/api'},
+            ],
+         },
+         apis: fastGlob.sync(`./api/**/*.mjs`, {cwd: __dirname}).map((v) => {
+            import(v);
+            return join(relative(cwd(), __dirname), v);
+         }),
+      }),
+   ),
+);
+
+
 app.use(session({
    secret: 'bad secret',
    resave: false,
@@ -40,6 +59,7 @@ app.use(session({
 }));
 
 // Routes for auth/login/logout (preliminary)
+
 app.post('/login', (req, res) => {
    const { username, password } = req.body;
    const user = mockUsers.find(u => u.username === username);
@@ -71,24 +91,7 @@ app.get('/users', (req, res) => {
    res.json({ user: req.session.user });
 });
 
-// Sign up flow
-app.get('/signup', (req, res) => {
-	res.redirect('/signup.html');
-});
-
-// Super basic signup route. I'll add nuance/security later.
-app.post('/signup', (req, res) => {
-  const { username, password } = req.body;
-
-  // Basic input check
-  if (!username || !password || password.length < 4) {
-    return res.redirect('/signup.html?error=1');
-  }
-
-  res.redirect(`/signup-success.html?username=${encodeURIComponent(username)}`);
-});
 
 app.listen(env.PORT, () => {
    console.log(`Server running on http://127.0.0.1:${env.PORT}`);
 });
-
