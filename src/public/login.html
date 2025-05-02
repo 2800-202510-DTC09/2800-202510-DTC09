@@ -25,9 +25,6 @@
 </head>
 
 <body class="flex flex-col min-h-screen bg-light text-dark font-sans">
-  <!-- Header -->
-  <header id="navbarPlaceholder"></header>
-
   <!-- Main Content -->
   <main class="flex-grow flex items-center justify-center px-4 py-16">
     <section class="bg-white shadow-md rounded-lg p-8 max-w-md w-full">
@@ -56,19 +53,8 @@
     </section>
   </main>
 
-  <!-- Footer -->
-  <footer id="footerPlaceholder" class="mt-12"></footer>
-
   <!-- Component + Login Logic -->
   <script type="module">
-    // Inject header/footer components
-    fetch('./components/nav/header.html')
-      .then(res => res.text())
-      .then(html => document.getElementById("navbarPlaceholder").innerHTML = html);
-
-    fetch('./components/nav/footer.html')
-      .then(res => res.text())
-      .then(html => document.getElementById("footerPlaceholder").innerHTML = html);
 
     // Define the behaviour of the submit button
     document.getElementById("loginForm").addEventListener("submit", async (e) => {
