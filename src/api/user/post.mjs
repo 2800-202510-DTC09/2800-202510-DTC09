@@ -1,3 +1,4 @@
+import {User} from '../../model/user.mjs';
 import {user} from './index.mjs';
 
 /**
@@ -26,6 +27,5 @@ import {user} from './index.mjs';
  *         description: An user is created
  */
 user.post('/', async (req, res) => {
-   // const api = await Todo.find();
-   res.json({a: req.body});
+   res.json(await User.create(req.body));
 });

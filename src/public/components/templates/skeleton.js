@@ -1,10 +1,10 @@
 // Loads header and footer onto the current page
 document.addEventListener('DOMContentLoaded', function () {
-  
+
   // Load header
   const navbarPlaceholder = document.getElementById('navbarPlaceholder');
   if (navbarPlaceholder) {
-    fetch('/components/nav/header.html')
+    fetch('components/nav/header.html')
       .then(response => response.text())
       .then(html => {
         navbarPlaceholder.innerHTML = html;
@@ -23,7 +23,7 @@ document.addEventListener('DOMContentLoaded', function () {
   // Load footer
   const footerPlaceholder = document.getElementById('footerPlaceholder');
   if (footerPlaceholder) {
-    fetch('/components/nav/footer.html')
+    fetch('components/nav/footer.html')
       .then(response => response.text())
       .then(html => {
         footerPlaceholder.innerHTML = html;

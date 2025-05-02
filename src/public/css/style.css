@@ -1,4 +1,3 @@
-/* Tailwind custom colors */
 :root {
   --color-primary: #3B8E65;
   --color-secondary: #2C6E4E;
@@ -14,17 +13,34 @@
   margin-right: auto;
 }
 
-.btn-primary {
+.btn {
   display: inline-block;
+  padding: 0.5rem 1.5rem;
+  border-radius: 9999px;
+  font-weight: 700;
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.btn-outline {
+  background-color: transparent;
+  color: white;
+  border: 1px solid white;
+}
+
+.btn-outline:hover {
+  background-color: white;
+  color: black;
+}
+
+.btn-primary {
   background-color: var(--color-accent);
   color: var(--color-dark);
-  font-weight: 700;
   padding: 0.75rem 2rem;
-  border-radius: 9999px;
   font-size: 1.125rem;
-  transition: all 0.3s ease;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   text-decoration: none;
+  border: none;
 }
 
 .btn-primary:hover {
@@ -51,7 +67,6 @@
   margin-bottom: 1rem;
 }
 
-/* Step styles for How It Works section in index.html */
 .step-container {
   display: flex;
   flex-direction: column;
@@ -72,4 +87,52 @@
   font-size: 1.25rem;
   font-weight: 700;
   margin-bottom: 1rem;
+}
+
+.leaf img {
+  animation: bubble 7s linear infinite;
+  cursor: pointer;
+}
+
+.leaf img:hover {
+  width: 20%;
+}
+
+@keyframes bubble {
+  0% {
+      transform: translateY(0);
+      opacity: 0;
+  }
+  50% {
+      opacity: 1;
+  }
+  70% {
+      opacity: 1;
+  }
+  100% {
+      transform: translateY(-90vh);
+      opacity: 0;
+  }
+}
+
+.leaf img:nth-child(1) {
+  animation-delay: 2s;
+}
+.leaf img:nth-child(2) {
+  animation-delay: 1s;
+}
+.leaf img:nth-child(3) {
+  animation-delay: 3s;
+}
+.leaf img:nth-child(4) {
+  animation-delay: 4.5s;
+}
+.leaf img:nth-child(5) {
+  animation-delay: 3s;
+}
+.leaf img:nth-child(6) {
+  animation-delay: 6s;
+}
+.leaf img:nth-child(7) {
+  animation-delay: 7s;
 }

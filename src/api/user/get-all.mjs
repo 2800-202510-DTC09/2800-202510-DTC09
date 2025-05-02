@@ -1,3 +1,4 @@
+import {User} from '../../model/user.mjs';
 import {user} from './index.mjs';
 
 /**
@@ -12,6 +13,5 @@ import {user} from './index.mjs';
  *         description: Fetched all users
  */
 user.get('/', async (req, res) => {
-   // const api = await Todo.find();
-   res.json({a: true});
+   res.json(await User.find());
 });
