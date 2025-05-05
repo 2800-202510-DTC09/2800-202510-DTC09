@@ -8,5 +8,12 @@ export const User = model(
       badges: [
          Schema.Types.ObjectId,
       ],
+      score: Schema.Types.Number,
+      types: [
+         {
+            id: Schema.Types.ObjectId,
+            factor: Schema.Types.Number,
+         },
+      ],
    }),
 );
