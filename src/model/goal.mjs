@@ -8,6 +8,7 @@ export const Goal = model(
       icon: Schema.Types.String,
       emission: Schema.Types.Number,
       emissionDiff: Schema.Types.Number,
-      emissionDiffPeriod: Schema.Types.Number,
+      emissionDiffStart: Schema.Types.Date,
+      emissionDiffEnd: Schema.Types.Date,
    }),
 );
