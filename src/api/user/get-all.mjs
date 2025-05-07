@@ -1,5 +1,5 @@
 import {User} from '../../model/user.mjs';
-import {user} from './index.mjs';
+import {normalize, user} from './index.mjs';
 
 /**
  * @openapi
@@ -13,12 +13,5 @@ import {user} from './index.mjs';
  *         description: Fetched all users
  */
 user.get('/', async (req, res) => {
-   res.json(
-      (await User.find()).map((v) => ({
-         username: v.username,
-         badges: v.badges,
-         score: v.score,
-         types: v.types,
-      })),
-   );
+   res.json((await User.find()).map(normalize));
 });
