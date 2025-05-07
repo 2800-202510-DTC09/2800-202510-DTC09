@@ -4,7 +4,6 @@
   <meta charset="UTF-8" />
   <title>Sign Up | SustainMe</title>
 
-  <!-- Fonts & Tailwind -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400&family=Poppins:wght@700&display=swap" rel="stylesheet" />
@@ -14,7 +13,6 @@
 
 <body class="flex flex-col min-h-screen bg-light text-dark font-sans">
 
-  <!-- Main Content -->
   <main class="flex-grow flex items-center justify-center px-4 py-16">
     <section class="bg-white shadow-md rounded-lg p-8 max-w-md w-full">
       <h1 class="text-3xl font-heading text-primary text-center mb-6">Create an Account</h1>
@@ -42,6 +40,7 @@
     </section>
   </main>
 
+  <script>
     // Error display if redirected with ?error=1
     const params = new URLSearchParams(window.location.search);
     if (params.get("error") === "1") {
@@ -52,4 +51,3 @@
   </script>
 </body>
 </html>
-
