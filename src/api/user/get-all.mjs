@@ -1,5 +1,6 @@
 import {User} from '../../model/user.mjs';
 import {normalize, user} from './index.mjs';
+import {status} from 'http-status';
 
 /**
  * @openapi
@@ -11,7 +12,14 @@ import {normalize, user} from './index.mjs';
  *     responses:
  *       '200':
  *         description: Fetched all users
+ *       '500':
+ *         description: Server internal error
  */
 user.get('/', async (req, res) => {
-   res.json((await User.find()).map(normalize));
+   try {
+      res.status(status.OK).json(normalize(await User.find()));
+   } catch (e) {
+      console.error(e);
+      res.sendStatus(status.INTERNAL_SERVER_ERROR);
+   }
 });

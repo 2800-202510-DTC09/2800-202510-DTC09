@@ -1,5 +1,6 @@
 import {User} from '../../model/user.mjs';
 import {normalize, user} from './index.mjs';
+import {status} from 'http-status';
 
 /**
  * @openapi
@@ -20,9 +21,21 @@ import {normalize, user} from './index.mjs';
  *         description: Found a user
  *       '404':
  *         description: User not found
+ *       '500':
+ *         description: Server internal error
  */
 user.get('/id/:id', async (req, res) => {
-   res.json(normalize(await User.findById(req.params.id)));
+   try {
+      const users = normalize(await User.findById(req.params.id));
+      if (users.length) {
+         res.status(status.OK).json(users.pop());
+      } else {
+         res.sendStatus(status.NOT_FOUND);
+      }
+   } catch (e) {
+      console.error(e);
+      res.sendStatus(status.INTERNAL_SERVER_ERROR);
+   }
 });
 
 /**
@@ -44,7 +57,21 @@ user.get('/id/:id', async (req, res) => {
  *         description: Found a user
  *       '404':
  *         description: User not found
+ *       '500':
+ *         description: Server internal error
  */
 user.get('/username/:username', async (req, res) => {
-   res.json(normalize(await User.findOne({username: req.params.username})));
+   try {
+      const users = normalize(
+         await User.findOne({username: req.params.username}),
+      );
+      if (users.length) {
+         res.status(status.OK).json(users.pop());
+      } else {
+         res.sendStatus(status.NOT_FOUND);
+      }
+   } catch (e) {
+      console.error(e);
+      res.sendStatus(status.INTERNAL_SERVER_ERROR);
+   }
 });
