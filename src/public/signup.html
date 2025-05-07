@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" class="bg-light text-dark font-sans">
+<html lang="en" class="h-full">
 <head>
   <meta charset="UTF-8" />
   <title>Sign Up | SustainMe</title>
@@ -7,47 +7,68 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400&family=Poppins:wght@700&display=swap" rel="stylesheet" />
+
   <script src="https://cdn.tailwindcss.com"></script>
+  <script>const module = {};</script>
+  <script src="/css/tailwind.config.js"></script>
+  <script>
+    tailwind.config = module.exports;
+  </script>
+
   <link rel="stylesheet" href="./css/style.css" />
+  <style>
+    .backdrop-blur-sm {
+        --tw-backdrop-blur: blur(4px);
+        backdrop-filter: var(--tw-backdrop-filter, ) var(--tw-backdrop-blur, ) var(--tw-backdrop-brightness, ) var(--tw-backdrop-contrast, ) var(--tw-backdrop-grayscale, ) var(--tw-backdrop-hue-rotate, ) var(--tw-backdrop-invert, ) var(--tw-backdrop-opacity, ) var(--tw-backdrop-saturate, ) var(--tw-backdrop-sepia, );
+    }
+  </style>
 </head>
 
-<body class="flex flex-col min-h-screen bg-light text-dark font-sans">
+<body class="h-full font-sans bg-cover bg-center bg-no-repeat" style="background-image: url('/assets/background.jpg');">
+  <div class="flex flex-col items-center justify-center min-h-screen px-4 py-8">
+    <div class="mb-8">
+      <img src="/assets/DTC9Logo1.png" class="h-20 w-20 md:h-24 md:w-24" alt="SustainMe Logo">
+    </div>
 
-  <main class="flex-grow flex items-center justify-center px-4 py-16">
-    <section class="bg-white shadow-md rounded-lg p-8 max-w-md w-full">
-      <h1 class="text-3xl font-heading text-primary text-center mb-6">Create an Account</h1>
+    <main class="flex-grow flex items-center justify-center w-full">
+      <section class="bg-white bg-opacity-80 backdrop-blur-sm shadow-xl rounded-lg p-8 max-w-md w-full">
+        <h1 class="text-3xl font-heading text-dark text-center mb-6">Create an Account</h1>
 
-      <form action="/signup" method="POST" class="space-y-5">
-        <div>
-          <label for="username" class="block text-sm font-bold mb-1">Username</label>
-          <input type="text" id="username" name="username" required
-            class="w-full border border-gray-300 rounded px-4 py-2 focus:outline-none focus:ring-2 focus:ring-primary" />
-          <p id="usernameError" class="hidden text-red-600 text-sm font-bold mt-1"></p>
-        </div>
+        <form action="/signup" method="POST" class="space-y-5">
+          <div>
+            <label for="username" class="block text-sm font-bold mb-1 text-gray-700">Username</label>
+            <input type="text" id="username" name="username" required
+              class="w-full border border-gray-300 rounded px-4 py-2 focus:outline-none focus:ring-2 focus:ring-primary bg-white bg-opacity-75 placeholder-gray-500" />
+            <p id="usernameError" class="hidden text-red-500 text-sm font-bold mt-1"></p>
+          </div>
 
-        <div>
-          <label for="password" class="block text-sm font-bold mb-1">Password</label>
-          <input type="password" id="password" name="password" required
-            class="w-full border border-gray-300 rounded px-4 py-2 focus:outline-none focus:ring-2 focus:ring-primary" />
-          <p id="passwordError" class="hidden text-red-600 text-sm font-bold mt-1"></p>
-        </div>
+          <div>
+            <label for="password" class="block text-sm font-bold mb-1 text-gray-700">Password</label>
+            <input type="password" id="password" name="password" required
+              class="w-full border border-gray-300 rounded px-4 py-2 focus:outline-none focus:ring-2 focus:ring-primary bg-white bg-opacity-75 placeholder-gray-500" />
+            <p id="passwordError" class="hidden text-red-500 text-sm font-bold mt-1"></p>
+          </div>
 
-        <button type="submit"
-          class="btn-primary w-full py-2 rounded text-white font-bold hover:opacity-90 transition duration-300">
-          Sign Up
-        </button>
-      </form>
-    </section>
-  </main>
+          <button type="submit"
+            class="btn btn-outline w-full py-2.5 text-lg">
+            Sign Up
+          </button>
+        </form>
+        <p class="text-center text-gray-700 mt-6">
+          Already have an account? <a href="/login.html" class="text-primary hover:underline font-semibold">Login here</a>
+        </p>
+      </section>
+    </main>
 
-  <script>
-    // Error display if redirected with ?error=1
-    const params = new URLSearchParams(window.location.search);
-    if (params.get("error") === "1") {
-      const errorBox = document.getElementById("usernameError");
-      errorBox.textContent = "Invalid input. Please check all fields.";
-      errorBox.classList.remove("hidden");
-    }
-  </script>
+    <script>
+      // Error display if redirected with ?error=1
+      const params = new URLSearchParams(window.location.search);
+      if (params.get("error") === "1") {
+        const errorBox = document.getElementById("usernameError");
+        errorBox.textContent = "Invalid input. Please check all fields.";
+        errorBox.classList.remove("hidden");
+      }
+    </script>
+  </div>
 </body>
 </html>
