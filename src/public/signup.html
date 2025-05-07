@@ -42,24 +42,6 @@
     </section>
   </main>
 
-<<<<<<< HEAD
-
-  <script type="module">
-=======
-  <!-- Footer -->
-  <footer id="footerPlaceholder" class="mt-12"></footer>
-
-  <script type="module">
-    // Inject shared header/footer
-    fetch('./components/nav/header.html')
-      .then(res => res.text())
-      .then(html => document.getElementById("navbarPlaceholder").innerHTML = html);
-
-    fetch('./components/nav/footer.html')
-      .then(res => res.text())
-      .then(html => document.getElementById("footerPlaceholder").innerHTML = html);
-
->>>>>>> 5112afc (Add basic signup form)
     // Error display if redirected with ?error=1
     const params = new URLSearchParams(window.location.search);
     if (params.get("error") === "1") {
