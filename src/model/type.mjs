@@ -1,10 +1,9 @@
 import {model, Schema} from 'mongoose';
 
-export const Badge = model(
-   'badge',
+export const Type = model(
+   'type',
    new Schema({
       name: Schema.Types.String,
       description: Schema.Types.String,
-      icon: Schema.Types.String,
    }),
 );

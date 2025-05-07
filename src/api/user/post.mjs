@@ -1,5 +1,8 @@
+import {Error} from 'mongoose';
 import {User} from '../../model/user.mjs';
-import {user} from './index.mjs';
+import {normalize, user} from './index.mjs';
+import {hash} from 'bcryptjs';
+import {status} from 'http-status';
 
 /**
  * @openapi
@@ -9,7 +12,7 @@ import {user} from './index.mjs';
  *     tags:
  *       - User
  *     requestBody:
- *       description: User information
+ *       description: User basic information
  *       required: true
  *       content:
  *         application/json:
@@ -25,7 +28,27 @@ import {user} from './index.mjs';
  *     responses:
  *       '200':
  *         description: An user is created
+ *       '400':
+ *         description: Given data is invalid
+ *       '500':
+ *         description: Server internal error
  */
 user.post('/', async (req, res) => {
-   res.json(await User.create(req.body));
+   try {
+      res.status(status.OK).json(
+         normalize(
+            await new User({
+               username: req.body.username,
+               password: await hash(req.body.password, 10),
+            }).save(),
+         ),
+      );
+   } catch (e) {
+      if (e.name === Error.ValidationError.name) {
+         res.status(status.BAD_REQUEST).json(e.errors);
+      } else {
+         console.error(e);
+         res.sendStatus(status.INTERNAL_SERVER_ERROR);
+      }
+   }
 });

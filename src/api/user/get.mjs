@@ -1,8 +1,10 @@
-import {user} from './index.mjs';
+import {User} from '../../model/user.mjs';
+import {normalize, user} from './index.mjs';
+import {status} from 'http-status';
 
 /**
  * @openapi
- * /user/{id}:
+ * /user/id/{id}:
  *   get:
  *     description: Get user by ID
  *     tags:
@@ -19,8 +21,57 @@ import {user} from './index.mjs';
  *         description: Found a user
  *       '404':
  *         description: User not found
+ *       '500':
+ *         description: Server internal error
  */
-user.get('/:id', async (req, res) => {
-   // const api = await Todo.find();
-   res.json({a: req.params.id});
+user.get('/id/:id', async (req, res) => {
+   try {
+      const users = normalize(await User.findById(req.params.id));
+      if (users.length) {
+         res.status(status.OK).json(users.pop());
+      } else {
+         res.sendStatus(status.NOT_FOUND);
+      }
+   } catch (e) {
+      console.error(e);
+      res.sendStatus(status.INTERNAL_SERVER_ERROR);
+   }
+});
+
+/**
+ * @openapi
+ * /user/username/{username}:
+ *   get:
+ *     description: Get user by username
+ *     tags:
+ *       - User
+ *     parameters:
+ *       - in: path
+ *         name: username
+ *         schema:
+ *           type: string
+ *         required: true
+ *         description: User name
+ *     responses:
+ *       '200':
+ *         description: Found a user
+ *       '404':
+ *         description: User not found
+ *       '500':
+ *         description: Server internal error
+ */
+user.get('/username/:username', async (req, res) => {
+   try {
+      const users = normalize(
+         await User.findOne({username: req.params.username}),
+      );
+      if (users.length) {
+         res.status(status.OK).json(users.pop());
+      } else {
+         res.sendStatus(status.NOT_FOUND);
+      }
+   } catch (e) {
+      console.error(e);
+      res.sendStatus(status.INTERNAL_SERVER_ERROR);
+   }
 });

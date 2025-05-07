@@ -19,6 +19,10 @@ if (env.NODE_ENV === 'dev') {
 }
 
 export const app = express();
+app.use((req, res, next) => {
+   req.timestamp = Date.now();
+   next();
+});
 
 app.use(express.static(join(__dirname, 'public')));
 
