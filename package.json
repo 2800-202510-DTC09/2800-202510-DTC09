@@ -4,16 +4,19 @@
 	},
 	"dependencies": {
 		"@dotenvx/dotenvx": "^1.42.0",
+		"bcryptjs": "^3.0.2",
 		"common-es": "^1.0.1",
 		"express": "^5.1.0",
 		"express-session": "^1.18.1",
 		"fast-glob": "^3.3.3",
 		"mongoose": "^8.14.0",
+		"mongoose-unique-validator": "^4.0.1",
 		"swagger-jsdoc": "^6.2.8",
 		"swagger-ui-express": "^5.0.1"
 	},
 	"devDependencies": {
 		"@types/express": "^5.0.1",
+		"@types/mongoose-unique-validator": "^1.0.9",
 		"@types/swagger-jsdoc": "^6.0.4",
 		"@types/swagger-ui-express": "^4.1.8",
 		"cloudflared": "^0.7.0",

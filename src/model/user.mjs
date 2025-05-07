@@ -1,4 +1,5 @@
 import {model, Schema} from 'mongoose';
+import mongooseUniqueValidator from 'mongoose-unique-validator';
 
 export const User = model(
    'user',
@@ -38,5 +39,7 @@ export const User = model(
          required: true,
          default: [],
       },
+   }).plugin(mongooseUniqueValidator, {
+      message: 'Path `{PATH}` is not unique.',
    }),
 );
