@@ -3,17 +3,40 @@ import {model, Schema} from 'mongoose';
 export const User = model(
    'user',
    new Schema({
-      username: Schema.Types.String,
-      password: Schema.Types.String,
-      badges: [
-         Schema.Types.ObjectId,
-      ],
-      score: Schema.Types.Number,
-      types: [
-         {
-            id: Schema.Types.ObjectId,
-            factor: Schema.Types.Number,
-         },
-      ],
+      username: {
+         type: Schema.Types.String,
+         required: true,
+         unique: true,
+      },
+      password: {
+         type: Schema.Types.String,
+         required: true,
+      },
+      badges: {
+         type: [
+            Schema.Types.ObjectId,
+         ],
+         required: true,
+         default: [],
+      },
+      score: {
+         type: Schema.Types.Number,
+         required: true,
+         default: 0,
+      },
+      types: {
+         type: [
+            {
+               id: {
+                  type: Schema.Types.ObjectId,
+               },
+               factor: {
+                  type: Schema.Types.Number,
+               },
+            },
+         ],
+         required: true,
+         default: [],
+      },
    }),
 );
