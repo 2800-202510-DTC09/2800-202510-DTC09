@@ -1,3 +1,71 @@
+//Load input in diet section
+function loadDietInput(parent, labelText, inputName, inputType) {
+
+    //Create elements
+    inputDiv = document.createElement("div");
+    inputLabel = document.createElement("label");
+    input = document.createElement("input");
+
+    //Set up inputDiv
+    inputDiv.classList.add("form-diet-content-input-div");
+    inputDiv.id = `diet-content-${inputName}-input-div`;
+
+    //Set up input
+    input.classList.add("form-input");
+    input.id = `diet-${inputName}-input`;
+    input.setAttribute("name", inputName);
+    input.setAttribute("type", inputType);
+
+    //Set up inputLabel
+    inputLabel.classList.add("form-label");
+    inputLabel.id = `diet-${inputName}-input-label`;
+    inputLabel.setAttribute("for", input.id);
+    inputLabel.textContent = labelText;
+
+    //Add children to inputDiv
+    inputDiv.appendChild(inputLabel);
+    inputDiv.appendChild(input);
+
+    //Add children to parent
+    parent.appendChild(inputDiv);
+}
+
+//Load diet section
+function loadDietSection(parent) {
+
+    //Create elements
+    dietDiv = document.createElement("div");
+    dietHeader = document.createElement("p");
+    dietContent = document.createElement("div");
+
+    //Set up dietDiv
+    dietDiv.classList.add("form-diet-div");
+    dietDiv.id = "diet-div";
+
+    //Set up diet header
+    dietHeader.classList.add("form-header");
+    dietHeader.id = "diet-header";
+    dietHeader.textContent = "Diet";
+
+    //Set up diet content
+    dietContent.classList.add("form-diet-content");
+    dietContent.id = "form-diet-content";
+
+    //Add inputs into diet content;
+    loadDietInput(dietContent, "How much beef do you eat in a month? (kg):", "beef-eaten", "number");
+    loadDietInput(dietContent, "How much pork do you eat in a month? (kg):", "pork-eaten", "number");
+    loadDietInput(dietContent, "How much chicken do you eat in a month? (kg):", "chicken-eaten", "number");
+    loadDietInput(dietContent, "How much cheese do you eat in a month? (g):", "cheese-eaten", "number");
+    loadDietInput(dietContent, "How much milk do you drink in a month? (L):", "milk-drunk", "number");
+
+    //Add children to dietDiv
+    dietDiv.appendChild(dietHeader);
+    dietDiv.appendChild(dietContent);
+
+    //Add children to parent
+    parent.appendChild(dietDiv);
+}
+
 //Load water section
 function loadWaterSection(parent) {
     //Create elements
@@ -399,6 +467,7 @@ function loadForm() {
     loadVehicleSection(formElement);
     loadElectricitySection(formElement);
     loadWaterSection(formElement);
+    loadDietSection(formElement);
     contentDiv.appendChild(formElement);
 }
 

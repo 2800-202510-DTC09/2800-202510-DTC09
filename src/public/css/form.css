@@ -111,3 +111,27 @@
     justify-content: space-between;
     gap: 5px;
 }
+
+.form-diet-div {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 5px;
+    width: 700px;
+}
+
+.form-diet-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 30px;
+    width: 700px;
+}
+
+.form-diet-content-input-div {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    gap: 5px;
+    width: 700px;
+}
