@@ -30,19 +30,19 @@
     <div class="flex justify-between items-start mb-6">
       <div class="flex items-center space-x-6">
         <!-- Profile Picture Placeholder !TODO MAKE THIS CLICKABLE SO THE IMAGE CAN BE EXPANDED OR CHANGED FROM HERE -->
-        <div class="h-24 w-24 rounded-full bg-primary flex items-center justify-center text-white text-3xl font-bold">U 
+        <div class="h-24 w-24 rounded-full bg-primary flex items-center justify-center text-white text-3xl font-bold">U
         </div>
         <div>
           <h1 class="text-3xl font-heading text-dark">Welcome, User</h1>
           <p class="text-neutral-500">Joined: Jan 2024 • 14-day streak</p>
         </div>
       </div>
-      
+
       <div class="bg-green-100 rounded-lg p-4 shadow-md max-w-xs">
         <h2 class="text-lg font-heading text-dark mb-2">📍 Location</h2>
-        <p class="text-neutral-700">City: Vancouver</p>
-        <p class="text-neutral-700">Country: Canada</p>
-        <p class="text-neutral-700">Timezone: PST</p>
+        <p class="text-neutral-700" data-location="city">City: Loading...</p>
+        <p class="text-neutral-700" data-location="country">Country: Loading...</p>
+        <p class="text-neutral-700" data-location="timezone">Timezone: Loading...</p>
       </div>
     </div>
 
@@ -102,6 +102,8 @@
 
   <!-- Scripts -->
   <script src="./components/templates/skeleton.js"></script>
+  <script src="./location.js"></script>
+
 </body>
 
 </html>
