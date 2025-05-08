@@ -1,3 +1,48 @@
+//Load water section
+function loadWaterSection(parent) {
+    //Create elements
+    waterDiv = document.createElement("div");
+    waterHeader = document.createElement("p");
+    waterUsageDiv = document.createElement("div");
+    waterUsageLabel = document.createElement("label");
+    waterUsageInput = document.createElement("input");
+
+    //Set up electricity div
+    waterDiv.classList.add("form-water-div");
+    waterDiv.id = `form-water-div`;
+
+    //Set up electricity header
+    waterHeader.classList.add("form-header");
+    waterHeader.id = `electricity-header`;
+    waterHeader.textContent = "Water";
+
+    //Set up electricity usage div
+    waterUsageDiv.classList.add("form-water-usage-div");
+    waterUsageDiv.id = "water-usage-div";
+
+    //Set up elecricity usage input and label
+    waterUsageInput.classList.add("form-input");
+    waterUsageInput.id = `water-usage-input`;
+    waterUsageInput.setAttribute("name", `water-usage-input`);
+    waterUsageInput.setAttribute("type", "number");
+
+    waterUsageLabel.classList.add("form-label");
+    waterUsageLabel.id = "water-usage-label";
+    waterUsageLabel.setAttribute("for", waterUsageInput.id);
+    waterUsageLabel.textContent = "How much water do you use each month? (cubic metres):";
+
+    //Add children to electricity usage div
+    waterUsageDiv.appendChild(waterUsageLabel);
+    waterUsageDiv.appendChild(waterUsageInput);
+
+    //Add children to electricity section
+    waterDiv.appendChild(waterHeader);
+    waterDiv.appendChild(waterUsageDiv);
+
+    //Add children to parent
+    parent.appendChild(waterDiv);
+}
+
 //Load electricity section
 function loadElectricitySection(parent) {
     
@@ -30,7 +75,7 @@ function loadElectricitySection(parent) {
     electricityUsageLabel.classList.add("form-label");
     electricityUsageLabel.id = "electricity-usage-label";
     electricityUsageLabel.setAttribute("for", electricityUsageInput.id);
-    electricityUsageLabel.textContent = "How much electricty do you use each mont? (kWh):";
+    electricityUsageLabel.textContent = "How much electricty do you use each month? (kWh):";
 
     //Add children to electricity usage div
     electricityUsageDiv.appendChild(electricityUsageLabel);
@@ -353,6 +398,7 @@ function loadForm() {
     loadHousingSection(formElement);
     loadVehicleSection(formElement);
     loadElectricitySection(formElement);
+    loadWaterSection(formElement);
     contentDiv.appendChild(formElement);
 }
 
