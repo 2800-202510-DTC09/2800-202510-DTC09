@@ -1,3 +1,120 @@
+//Load input for selecting primary flight class for lifestyle section
+function loadLifeStyleFlightClassSelectorInput(parent) {
+
+    //Create elements
+    classSelectorDiv = document.createElement("div");
+    classSelectorLabel = document.createElement("label");
+    classSelector = document.createElement("select");
+    classSelectorFirstClassOption = document.createElement("option");
+    classSelectorBusinessClassOption = document.createElement("option");
+
+    //Set up class selector div
+    classSelectorDiv.classList.add("form-lifestyle-content-input-div")
+    classSelectorDiv.id = `diet-content-flight-class-selector-div`;
+
+    //Set up class selector
+    classSelector.classList.add("form-select")
+    classSelector.id = "lifestyle-content-class-selector";
+    classSelector.setAttribute("name",`lifestyle-content-class-selector`);
+    classSelector.setAttribute("type", "number");
+
+    //Set up class selector label
+    classSelectorLabel.classList.add("form-label");
+    classSelectorLabel.id = "lifestule-content-class-label";
+    classSelectorLabel.setAttribute("for", classSelector.id);
+    classSelectorLabel.textContent = "What class do you usually fly?:";
+
+    //Set up class selector options
+    classSelectorFirstClassOption.classList.add("form-option");
+    classSelectorFirstClassOption.id = "lifestyle-content-class-selector-first-class-option";
+    classSelectorFirstClassOption.setAttribute("value", "first-class");
+    classSelectorFirstClassOption.textContent = "First Class";
+
+    classSelectorBusinessClassOption.classList.add("form-option");
+    classSelectorBusinessClassOption.id = "lifestyle-content-class-selector-business-class-option";
+    classSelectorBusinessClassOption.setAttribute("value", "business-class");
+    classSelectorBusinessClassOption.textContent = "Business Class";
+
+    classSelector.appendChild(classSelectorBusinessClassOption);
+    classSelector.appendChild(classSelectorFirstClassOption);
+
+    //Add children to classSelectorDiv
+    classSelectorDiv.appendChild(classSelectorLabel);
+    classSelectorDiv.appendChild(classSelector);
+
+    //Add children to parent
+    parent.appendChild(classSelectorDiv);
+}
+
+//Load input in Lifestyle section
+function loadLifestyleInput(parent, labelText, inputName, inputType) {
+    
+    //Create elements
+    inputDiv = document.createElement("div");
+    inputLabel = document.createElement("label");
+    input = document.createElement("input");
+
+    //Set up inputDiv
+    inputDiv.classList.add("form-lifestyle-content-input-div");
+    inputDiv.id = `lifestyle-content-${inputName}-input-div`;
+
+    //Set up input
+    input.classList.add("form-input");
+    input.id = `lifestyle-${inputName}-input`;
+    input.setAttribute("name", inputName);
+    input.setAttribute("type", inputType);
+
+    //Set up inputLabel
+    inputLabel.classList.add("form-label");
+    inputLabel.id = `lifestyle-${inputName}-input-label`;
+    inputLabel.setAttribute("for", input.id);
+    inputLabel.textContent = labelText;
+
+    //Add children to inputDiv
+    inputDiv.appendChild(inputLabel);
+    inputDiv.appendChild(input);
+
+    //Add children to parent
+    parent.appendChild(inputDiv);
+}
+
+//Load Lifestyle section
+function loadLifestyleSection(parent) {
+
+    //Create elements
+    lifestyleDiv = document.createElement("div");
+    lifestyleHeader= document.createElement("p");
+    lifestyleContent = document.createElement("div");
+
+
+    //Set up lifestyleDiv
+    lifestyleDiv.classList.add("form-lifestyle-div");
+    lifestyleDiv.id = "lifestyle-div";
+
+    //Set up lifestyle header
+    lifestyleHeader.classList.add("form-header");
+    lifestyleHeader.id = "lifestyle-header";
+    lifestyleHeader.textContent = "Lifestyle";
+
+    //Set up lifestyle content
+    lifestyleContent.classList.add("form-lifestyle-content");
+    lifestyleContent.id = "form-lifestyle-content";
+
+    //Add first two inputs to lifestyleContent
+    loadLifestyleInput(lifestyleContent, "How much have you flown on domestic flights this year? (km):", "domestic-flight-distance", "number");
+    loadLifestyleInput(lifestyleContent, "How much have you flown on international flights this year? (km):", "international-flight-distance", "number");
+    loadLifeStyleFlightClassSelectorInput(lifestyleContent);
+    loadLifestyleInput(lifestyleContent, "How much clothing do you buy in a year? (kg):", "clothing-mass", "number");
+    loadLifestyleInput(lifestyleContent, "How many times is something shipped to your house each month?:", "amount-shipped", "number");
+
+    //Add children to lifestyleDiv
+    lifestyleDiv.appendChild(lifestyleHeader);
+    lifestyleDiv.appendChild(lifestyleContent);
+
+    //Add children to parent
+    parent.appendChild(lifestyleDiv);
+}
+
 //Load input in diet section
 function loadDietInput(parent, labelText, inputName, inputType) {
 
@@ -468,6 +585,7 @@ function loadForm() {
     loadElectricitySection(formElement);
     loadWaterSection(formElement);
     loadDietSection(formElement);
+    loadLifestyleSection(formElement);
     contentDiv.appendChild(formElement);
 }
 
