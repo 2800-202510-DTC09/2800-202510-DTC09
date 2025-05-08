@@ -1,71 +1,157 @@
 <!DOCTYPE html>
+<html lang="en">
 
-<html lang="en" class="bg-light text-dark font-sans">
 <head>
-  <meta charset="UTF-8" />
-  <title>Sign Up | SustainMe</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Signup</title>
 
-  <!-- Fonts & Tailwind -->
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400&family=Poppins:wght@700&display=swap" rel="stylesheet" />
-  <script src="https://cdn.tailwindcss.com"></script>
-  <link rel="stylesheet" href="./css/style.css" />
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400&family=Poppins:wght@700&display=swap"
+        rel="stylesheet">
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>const module = {};</script>
+    <script src="/css/tailwind.config.js"></script>
+    <script>
+        tailwind.config = module.exports
+    </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/echarts@5.4.3/dist/echarts.min.js"></script>
+
+    <link rel="stylesheet" href="/css/style.css">
 </head>
 
-<body class="flex flex-col min-h-screen bg-light text-dark font-sans">
-  <!-- Header -->
-  <header id="navbarPlaceholder"></header>
+<body class="bg-light text-dark font-sans" style="background-image: url('/assets/background.jpg'); background-size: cover; background-position: center; background-repeat: no-repeat; background-attachment: fixed;">
 
-  <!-- Main Content -->
-  <main class="flex-grow flex items-center justify-center px-4 py-16">
-    <section class="bg-white shadow-md rounded-lg p-8 max-w-md w-full">
-      <h1 class="text-3xl font-heading text-primary text-center mb-6">Create an Account</h1>
+    <!-- Navbar Placeholder -->
+    <!-- <div id="navbarPlaceholder"></div> -->
 
-      <form action="/signup" method="POST" class="space-y-5">
-        <div>
-          <label for="username" class="block text-sm font-bold mb-1">Username</label>
-          <input type="text" id="username" name="username" required
-            class="w-full border border-gray-300 rounded px-4 py-2 focus:outline-none focus:ring-2 focus:ring-primary" />
-          <p id="usernameError" class="hidden text-red-600 text-sm font-bold mt-1"></p>
+    <main>
+
+        <div class="min-h-screen bg-transparent flex flex-col justify-center py-12 sm:px-6 lg:px-8">
+            <div class="sm:mx-auto sm:w-full sm:max-w-md">
+                <h2 class="mt-6 text-center text-4xl leading-9 font-extrabold text-gray-50">
+                    Create a new account
+                </h2>
+                <p class="mt-2 text-center text-md leading-5 text-gray-50 max-w">
+                    Or
+                    <a href="/login"
+                        class="font-medium text-blue-600 hover:text-blue-500 focus:outline-none focus:underline transition ease-in-out duration-150">
+                        login to your account
+                    </a>
+                </p>
+            </div>
+
+            <div class="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
+                <div class="bg-white py-8 px-4 shadow sm:rounded-lg sm:px-10">
+                    <form method="POST" action="/signup">
+                        <div>
+                            <label for="email" class="block text-sm font-medium leading-5  text-gray-700">Name</label>
+                            <div class="mt-1 relative rounded-md shadow-sm">
+                                <input id="name" name="name" placeholder="John Doe" type="text" required=""
+                                    class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out sm:text-sm sm:leading-5">
+                                <div
+                                    class="hidden absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
+                                    <svg class="h-5 w-5 text-red-500" fill="currentColor" viewBox="0 0 20 20">
+                                        <path fill-rule="evenodd"
+                                            d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z"
+                                            clip-rule="evenodd">
+                                        </path>
+                                    </svg>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="mt-6">
+                            <label for="username"
+                                class="block text-sm font-medium leading-5 text-gray-700">Username</label>
+                            <div class="mt-1 flex rounded-md shadow-sm">
+                                <span
+                                    class="inline-flex h-10 items-center px-3 rounded-l-md border border-r-0 border-gray-300 bg-gray-50 text-gray-500 sm:text-sm">
+                                    <img src="/assets/leaf.png" alt="Leaf icon" class="w-4 h-4 ml-1">
+                                </span>
+                                <input id="username" name="username" placeholder="john" type="text" required=""
+                                    class="flex-1 border border-gray-300 form-input pl-3 block w-full rounded-none rounded-r-md transition duration-150 ease-in-out sm:text-sm sm:leading-5">
+                            </div>
+                        </div>
+
+                        <div class="mt-6">
+                            <label for="email" class="block text-sm font-medium leading-5 text-gray-700">
+                                Email address
+                            </label>
+                            <div class="mt-1 relative rounded-md shadow-sm">
+                                <input id="email" name="email" placeholder="user@example.com" type="email" required=""
+                                    class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out sm:text-sm sm:leading-5">
+                                <div
+                                    class="hidden absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
+                                    <svg class="h-5 w-5 text-red-500" fill="currentColor" viewBox="0 0 20 20">
+                                        <path fill-rule="evenodd"
+                                            d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z"
+                                            clip-rule="evenodd"></path>
+                                    </svg>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="mt-6">
+                            <label for="password" class="block text-sm font-medium leading-5 text-gray-700">
+                                Password
+                            </label>
+                            <div class="mt-1 rounded-md shadow-sm">
+                                <input id="password" name="password" type="password" required=""
+                                    class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out sm:text-sm sm:leading-5">
+                            </div>
+                        </div>
+
+                        <div class="mt-6">
+                            <label for="password_confirmation"
+                                class="block text-sm font-medium leading-5 text-gray-700">
+                                Confirm Password
+                            </label>
+                            <div class="mt-1 rounded-md shadow-sm">
+                                <input id="password_confirmation" name="password_confirmation" type="password"
+                                    required=""
+                                    class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out sm:text-sm sm:leading-5">
+                            </div>
+                        </div>
+
+                        <div class="mt-6">
+                            <span class="block w-full rounded-md shadow-sm">
+                                <button type="submit"
+                                    class="w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-500 focus:outline-none focus:border-indigo-700 focus:shadow-outline-indigo active:bg-indigo-700 transition duration-150 ease-in-out">
+                                    Create account
+                                </button>
+                            </span>
+                        </div>
+                    </form>
+
+                </div>
+            </div>
         </div>
 
-        <div>
-          <label for="password" class="block text-sm font-bold mb-1">Password</label>
-          <input type="password" id="password" name="password" required
-            class="w-full border border-gray-300 rounded px-4 py-2 focus:outline-none focus:ring-2 focus:ring-primary" />
-          <p id="passwordError" class="hidden text-red-600 text-sm font-bold mt-1"></p>
-        </div>
+    </main>
 
-        <button type="submit"
-          class="btn-primary w-full py-2 rounded text-white font-bold hover:opacity-90 transition duration-300">
-          Sign Up
-        </button>
-      </form>
-    </section>
-  </main>
+    <!-- Footer Placeholder -->
+    <!-- <div id="footerPlaceholder"></div> -->
 
-  <!-- Footer -->
-  <footer id="footerPlaceholder" class="mt-12"></footer>
+    <!-- Scripts -->
+    <script src="/components/templates/skeleton.js"></script>
 
-  <script type="module">
-    // Inject shared header/footer
-    fetch('./components/nav/header.html')
-      .then(res => res.text())
-      .then(html => document.getElementById("navbarPlaceholder").innerHTML = html);
+    <script>
+        document.querySelector('form').addEventListener('submit', function (e) {
+            const password = document.getElementById('password').value;
+            const confirmPassword = document.getElementById('password_confirmation').value;
 
-    fetch('./components/nav/footer.html')
-      .then(res => res.text())
-      .then(html => document.getElementById("footerPlaceholder").innerHTML = html);
-
-    // Error display if redirected with ?error=1
-    const params = new URLSearchParams(window.location.search);
-    if (params.get("error") === "1") {
-      const errorBox = document.getElementById("usernameError");
-      errorBox.textContent = "Invalid input. Please check all fields.";
-      errorBox.classList.remove("hidden");
-    }
-  </script>
+            if (password !== confirmPassword) {
+                e.preventDefault(); // stop form from submitting
+                alert('Passwords do not match!');
+            }
+        });
+    </script>
 </body>
-</html>
 
+</html>
