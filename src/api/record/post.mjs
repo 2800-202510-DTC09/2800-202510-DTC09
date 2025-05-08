@@ -1,4 +1,9 @@
-import {record} from './index.mjs';
+import {Error, isObjectIdOrHexString, isValidObjectId} from 'mongoose';
+import {Record} from '../../model/record.mjs';
+import {record, normalize} from './index.mjs';
+import {status} from 'http-status';
+import {User} from '../../model/user.mjs';
+import {Type} from '../../model/type.mjs';
 
 /**
  * @openapi
@@ -15,23 +20,60 @@ import {record} from './index.mjs';
  *           schema:
  *             type: object
  *             properties:
- *               name:
+ *               userId:
  *                 type: string
- *                 example: New comer
+ *                 example: 681342414429d3a18ad3fb45
+ *               emission:
+ *                 type: number
+ *                 example: 10
  *               description:
  *                 type: string
- *                 example: Joined the app
- *               icon:
+ *                 example: New car first drive
+ *               typeId:
  *                 type: string
- *                 example: /assets/icon.png
- *               criteria:
- *                 type: string
- *                 example: date > 0
+ *                 example: 681a3ef31674a09cc7fa43e3
  *     responses:
  *       200:
  *         description: An record is created
+ *       400:
+ *         description: Given data is invalid
+ *       500:
+ *         description: Server internal error
  */
 record.post('/', async (req, res) => {
-   // const api = await Todo.find();
-   res.json({a: req.body});
+   try {
+      // const check=(await Promise.all([
+      //    User.findById(req.body.userId),
+      //    Type.findById(req.body.typeId),
+      // ])).map((v)=>{
+      //    if (!v){
+      //       return
+      //    }
+      // })
+
+      res.status(status.OK).json(
+         await normalize(
+            await new Record(
+               Object.fromEntries(
+                  [
+                     'userId',
+                     'emission',
+                     'description',
+                     'typeId',
+                  ].map((v) => [
+                     v,
+                     req.body[v],
+                  ]),
+               ),
+            ).save(),
+         ),
+      );
+   } catch (e) {
+      if (e.name === Error.ValidationError.name) {
+         res.status(status.BAD_REQUEST).json(e.errors);
+      } else {
+         console.error(e);
+         res.sendStatus(status.INTERNAL_SERVER_ERROR);
+      }
+   }
 });

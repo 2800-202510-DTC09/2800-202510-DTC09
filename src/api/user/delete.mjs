@@ -1,4 +1,4 @@
-import status from 'http-status';
+import {status} from 'http-status';
 import {User} from '../../model/user.mjs';
 import {user} from './index.mjs';
 

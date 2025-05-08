@@ -1,4 +1,5 @@
 import {model, Schema} from 'mongoose';
+import mongooseUniqueValidator from 'mongoose-unique-validator';
 
 export const Record = model(
    'record',
@@ -17,7 +18,7 @@ export const Record = model(
             required: true,
             default: '',
          },
-         type: {
+         typeId: {
             type: Schema.Types.ObjectId,
             required: true,
          },
