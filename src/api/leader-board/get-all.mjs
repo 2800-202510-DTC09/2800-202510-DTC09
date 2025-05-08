@@ -8,7 +8,7 @@ import {leaderBoard} from './index.mjs';
  *     tags:
  *       - Leader Board
  *     responses:
- *       '200':
+ *       200:
  *         description: Fetched all leaderBoards
  */
 leaderBoard.get('/', async (req, res) => {

@@ -27,7 +27,7 @@ import axios from 'axios';
  *                 type: string
  *                 example: "203.0.113.195"
  *     responses:
- *       '200':
+ *       200:
  *         description: Location data retrieved successfully
  *         content:
  *           application/json:
@@ -46,7 +46,7 @@ import axios from 'axios';
  *                 timezone:
  *                   type: string
  *                   example: "America/Vancouver"
- *       '400':
+ *       400:
  *         description: Missing client IP
  *         content:
  *           application/json:

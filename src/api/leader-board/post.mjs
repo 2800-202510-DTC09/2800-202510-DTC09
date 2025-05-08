@@ -28,7 +28,7 @@ import {leaderBoard} from './index.mjs';
  *                 type: string
  *                 example: date > 0
  *     responses:
- *       '200':
+ *       200:
  *         description: An leaderBoard is created
  */
 leaderBoard.post('/', async (req, res) => {

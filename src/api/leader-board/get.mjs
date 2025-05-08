@@ -15,9 +15,9 @@ import {leaderBoard} from './index.mjs';
  *         required: true
  *         description: leaderBoard ID
  *     responses:
- *       '200':
+ *       200:
  *         description: Found a leaderBoard
- *       '404':
+ *       404:
  *         description: leaderBoard not found
  */
 leaderBoard.get('/:id', async (req, res) => {

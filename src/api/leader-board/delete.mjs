@@ -15,9 +15,9 @@ import {leaderBoard} from './index.mjs';
  *         required: true
  *         description: leaderBoard ID
  *     responses:
- *       '202':
+ *       202:
  *         description: leaderBoard is deleted
- *       '404':
+ *       404:
  *         description: leaderBoard not found
  */
 leaderBoard.delete('/:id', async (req, res) => {
