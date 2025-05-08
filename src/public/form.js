@@ -1,3 +1,49 @@
+//Load electricity section
+function loadElectricitySection(parent) {
+    
+    //Create elements
+    electricityDiv = document.createElement("div");
+    electricityHeader = document.createElement("p");
+    electricityUsageDiv = document.createElement("div");
+    electricityUsageLabel = document.createElement("label");
+    electricityUsageInput = document.createElement("input");
+
+    //Set up electricity div
+    electricityDiv.classList.add("form-electricity-div");
+    electricityDiv.id = `form-electricity-div`;
+
+    //Set up electricity header
+    electricityHeader.classList.add("form-header");
+    electricityHeader.id = `electricity-header`;
+    electricityHeader.textContent = "Electricity";
+
+    //Set up electricity usage div
+    electricityUsageDiv.classList.add("form-electricity-usage-div");
+    electricityUsageDiv.id = "electricity-usage-div";
+
+    //Set up elecricity usage input and label
+    electricityUsageInput.classList.add("form-input");
+    electricityUsageInput.id = `electricity-usage-input`;
+    electricityUsageInput.setAttribute("name", `electricity-usage-input`);
+    electricityUsageInput.setAttribute("type", "number");
+
+    electricityUsageLabel.classList.add("form-label");
+    electricityUsageLabel.id = "electricity-usage-label";
+    electricityUsageLabel.setAttribute("for", electricityUsageInput.id);
+    electricityUsageLabel.textContent = "How much electricty do you use each mont? (kWh):";
+
+    //Add children to electricity usage div
+    electricityUsageDiv.appendChild(electricityUsageLabel);
+    electricityUsageDiv.appendChild(electricityUsageInput);
+
+    //Add children to electricity section
+    electricityDiv.appendChild(electricityHeader);
+    electricityDiv.appendChild(electricityUsageDiv);
+
+    //Add children to parent
+    parent.appendChild(electricityDiv);
+}
+
 //Reload a vehicle's input if type changes
 function reloadVehicleInputs(vehicleNumber) {
     //Get parent
@@ -275,7 +321,6 @@ function loadHousingInputSection(parent, sectionName, labelText, inputType, inpu
 
 }
 
-
 //Load housing section for form
 function loadHousingSection(parent) {
     
@@ -307,6 +352,7 @@ function loadForm() {
     contentDiv.innerHTML = "";
     loadHousingSection(formElement);
     loadVehicleSection(formElement);
+    loadElectricitySection(formElement);
     contentDiv.appendChild(formElement);
 }
 
