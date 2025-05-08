@@ -1,0 +1,46 @@
+.form-content {
+    display: flex;  
+    flex-direction: column;
+    justify-content: center; /* Centers the parent horizontally */
+    width: fit-content; /* Makes the parent only as wide as the child */
+    margin: 0 auto; /* Centers the parent within the body */
+    background-color: lightgray; /* Just for visibility */
+    padding: 10px;
+    margin-top: 40px;
+    background-color: #FFFFFF;
+}
+
+.form-start-text {
+    width: 500px;
+    height: 350px;
+    text-align: center;
+    font-size: 40px;
+}
+
+.form-start-button {
+    margin-left: auto;
+    background-color: blue;
+    color: #FFFFFF;
+    height: 75px;
+    width: 100px;
+}
+
+.form-element {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+}
+
+.form-heating-div {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    gap:5px;
+    width: 700px;
+}
+
+.form-header {
+    font-size: 30px;
+}
