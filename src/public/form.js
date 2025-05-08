@@ -1,3 +1,63 @@
+function generateSectionHeader(parent, headerText, headerIcon, toolTipText) {
+
+    //Create Elements
+    console.log(toolTipText);
+    headerDiv = document.createElement("div");
+    nameSectionDiv = document.createElement("div");
+    toolTipDiv = document.createElement("div");
+    nameText = document.createElement("name");
+    svgIcon = document.createElement("i");
+    infoSvgIcon = document.createElement("i");
+    infoToolTipText = document.createElement("span");
+
+    //Set up header div
+    headerDiv.classList.add("form-header-div");
+    headerDiv.id = `${parent.id}-header-div`;
+
+    //Set up svg icon for header
+    svgIcon.classList.add("material-icons");
+    svgIcon.classList.add("form-header-icon");
+    svgIcon.setAttribute("style", "font-size: 30px");
+    svgIcon.textContent = headerIcon;
+    
+
+    //Set up header text
+    nameText.classList.add("form-header-text");
+    nameText.id = `${parent.id}-header-text`;
+    nameText.textContent = headerText;
+
+    //Set up name section div
+    nameSectionDiv.classList.add("form-header-name-section");
+    nameSectionDiv.id = `${parent.id}-header-name-section`;
+    nameSectionDiv.appendChild(svgIcon);
+    nameSectionDiv.appendChild(nameText);
+
+    //Set up tooltip div
+    toolTipDiv.classList.add("tooltip");
+    toolTipDiv.classList.add("form-tooltip-div");
+    toolTipDiv.id = `${parent.id}-header-tooltip-div`;
+
+    //Set up svg icon for tooltip div
+    infoSvgIcon.classList.add("material-symbols-rounded");
+    infoSvgIcon.textContent = "info";
+    infoSvgIcon.setAttribute("style", "color: blue");
+
+    //Set up tooltiptext
+    infoToolTipText.classList.add("tooltiptext");
+    infoToolTipText.textContent = toolTipText;
+
+    //Add children to tooltip div
+    toolTipDiv.appendChild(infoSvgIcon);
+    toolTipDiv.appendChild(infoToolTipText);
+
+    //Append childrent to headerDiv
+    headerDiv.appendChild(nameSectionDiv);
+    headerDiv.appendChild(toolTipDiv);
+    
+    //Return header div
+    return headerDiv;
+}
+
 //Load input for selecting primary flight class for lifestyle section
 function loadLifeStyleFlightClassSelectorInput(parent) {
 
@@ -83,7 +143,6 @@ function loadLifestyleSection(parent) {
 
     //Create elements
     lifestyleDiv = document.createElement("div");
-    lifestyleHeader= document.createElement("p");
     lifestyleContent = document.createElement("div");
 
 
@@ -92,9 +151,7 @@ function loadLifestyleSection(parent) {
     lifestyleDiv.id = "lifestyle-div";
 
     //Set up lifestyle header
-    lifestyleHeader.classList.add("form-header");
-    lifestyleHeader.id = "lifestyle-header";
-    lifestyleHeader.textContent = "Lifestyle";
+    lifestyleHeader = generateSectionHeader(lifestyleDiv, "Lifestyle", "directions_walk", "look at that mean mini-maui just tippity-tappity tap tap tap hey WHAT CAN I SAY ANYEAY YOU'RE WELCOME");
 
     //Set up lifestyle content
     lifestyleContent.classList.add("form-lifestyle-content");
@@ -152,7 +209,6 @@ function loadDietSection(parent) {
 
     //Create elements
     dietDiv = document.createElement("div");
-    dietHeader = document.createElement("p");
     dietContent = document.createElement("div");
 
     //Set up dietDiv
@@ -160,9 +216,7 @@ function loadDietSection(parent) {
     dietDiv.id = "diet-div";
 
     //Set up diet header
-    dietHeader.classList.add("form-header");
-    dietHeader.id = "diet-header";
-    dietHeader.textContent = "Diet";
+    dietHeader = generateSectionHeader(dietDiv, "Diet", "lunch_dining", "burgers are based");
 
     //Set up diet content
     dietContent.classList.add("form-diet-content");
@@ -187,7 +241,6 @@ function loadDietSection(parent) {
 function loadWaterSection(parent) {
     //Create elements
     waterDiv = document.createElement("div");
-    waterHeader = document.createElement("p");
     waterUsageDiv = document.createElement("div");
     waterUsageLabel = document.createElement("label");
     waterUsageInput = document.createElement("input");
@@ -197,9 +250,7 @@ function loadWaterSection(parent) {
     waterDiv.id = `form-water-div`;
 
     //Set up electricity header
-    waterHeader.classList.add("form-header");
-    waterHeader.id = `electricity-header`;
-    waterHeader.textContent = "Water";
+    waterHeader = generateSectionHeader(waterDiv, "Water", "shower", "water is kinda wet");
 
     //Set up electricity usage div
     waterUsageDiv.classList.add("form-water-usage-div");
@@ -233,7 +284,6 @@ function loadElectricitySection(parent) {
     
     //Create elements
     electricityDiv = document.createElement("div");
-    electricityHeader = document.createElement("p");
     electricityUsageDiv = document.createElement("div");
     electricityUsageLabel = document.createElement("label");
     electricityUsageInput = document.createElement("input");
@@ -243,9 +293,7 @@ function loadElectricitySection(parent) {
     electricityDiv.id = `form-electricity-div`;
 
     //Set up electricity header
-    electricityHeader.classList.add("form-header");
-    electricityHeader.id = `electricity-header`;
-    electricityHeader.textContent = "Electricity";
+    electricityHeader = generateSectionHeader(electricityDiv, "Electricity", "bolt", "a shocking charge");
 
     //Set up electricity usage div
     electricityUsageDiv.classList.add("form-electricity-usage-div");
@@ -462,9 +510,7 @@ function loadVehicleSection(parent) {
 
     //Set up vehicleDiv and add header text
     vehicleDiv.classList.add("form-vehicle-div");
-    vehicleText = document.createElement("p");
-    vehicleText.classList.add("form-header");
-    vehicleText.textContent = "Vehicles";
+    vehicleText = generateSectionHeader(vehicleDiv, "Vehicle", "directions_car", "vehicles are pogchamp");
     vehicleDiv.appendChild(vehicleText);
 
     //Set up vechicleContainer
@@ -557,10 +603,9 @@ function loadHousingSection(parent) {
     //Create and get all elements
     housingDiv = document.createElement("div");
     housingDiv.classList.add("form-housing-div");
+    housingDiv.id = "form-housing-div"
 
-    housingText = document.createElement("p");
-    housingText.classList.add("form-header");
-    housingText.textContent = "Housing";
+    housingText = generateSectionHeader(housingDiv, "Housing", "home", "an epic house");
 
     //Append children to housing div
     housingDiv.appendChild(housingText);
