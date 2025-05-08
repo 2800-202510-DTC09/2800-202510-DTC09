@@ -1,15 +1,16 @@
-import {cwd, env} from 'process';
-import {join, relative} from 'path';
+import { cwd, env } from 'process';
+import { join, relative } from 'path';
 import express from 'express';
-import {connect} from 'mongoose';
-import {serve, setup} from 'swagger-ui-express';
+import { connect } from 'mongoose';
+import { serve, setup } from 'swagger-ui-express';
 import swaggerJsdoc from 'swagger-jsdoc';
-import {__dirname} from './common-es.mjs';
+import { __dirname } from './common-es.mjs';
 import fastGlob from 'fast-glob';
 
 // For auth/login 
 import session from 'express-session';
-import { mockUsers } from './mock/users.js';
+import { User } from './model/user.mjs';
+import bcrypt from 'bcryptjs';
 
 
 if (env.NODE_ENV === 'dev') {
@@ -34,12 +35,12 @@ app.use(
       swaggerJsdoc({
          definition: {
             openapi: '3.0.0',
-            info: {title: 'SustainMe API'},
+            info: { title: 'SustainMe API' },
             servers: [
-               {url: '/api'},
+               { url: '/api' },
             ],
          },
-         apis: fastGlob.sync(`./api/**/*.mjs`, {cwd: __dirname}).map((v) => {
+         apis: fastGlob.sync(`./api/**/*.mjs`, { cwd: __dirname }).map((v) => {
             import(v);
             return join(relative(cwd(), __dirname), v);
          }),
@@ -58,27 +59,39 @@ app.use(session({
    }
 }));
 
-// Routes for auth/login/logout (preliminary)
+// Routes for auth/login/logout 
 
-app.post('/login', (req, res) => {
-   const { username, password } = req.body;
-   const user = mockUsers.find(u => u.username === username);
-   if (!user || user.password !== password) {
-      return res.status(401).json({ success: false, error: 'Invalid username or password' });
+app.post('/login', async (req, res) => {
+   try {
+      const { username, password } = req.body;
+      const user = await User.findOne({ username });
+
+      if (!user) {
+         return res.status(401).json({ success: false, error: 'Invalid username or password' });
+      }
+
+      const passwordMatch = await bcrypt.compare(password, user.password);
+      if (!passwordMatch) {
+         return res.status(401).json({ success: false, error: 'Invalid username or password' });
+      }
+      req.session.user = { id: user.id, username: user.username, role: user.role };
+      console.log("Login successful for:", username);
+      res.json({ success: true });
+   } catch (error) {
+      console.error('Login error:', error);
+      res.status(500).json({ success: false, error: 'Internal server error' });
    }
-   req.session.user = { id: user.id, username: user.username, role: user.role };
-   res.json({ success: true });
 });
 
 app.get('/logout', (req, res) => {
-  req.session.destroy(err => {
-    if (err) {
-      console.error('Logout error:', err);
-      return res.status(500).send('Error logging out');
-    }
-    res.clearCookie('connect.sid'); 
-    res.redirect('/login.html');
-  });
+   req.session.destroy(err => {
+      if (err) {
+         console.error('Logout error:', err);
+         return res.status(500).send('Error logging out');
+      }
+      res.clearCookie('connect.sid');
+      res.redirect('/login.html');
+   });
 });
 
 app.get('/home', (req, res) => {
