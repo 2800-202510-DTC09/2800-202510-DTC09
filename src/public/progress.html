@@ -50,18 +50,27 @@
             </a>
         </div>
 
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-4">
             <div class="bg-white rounded-lg shadow-md p-6">
-                <h2 class="text-xl font-heading text-dark mb-4">Monthly Progress</h2>
-                <div id="monthlyChart" class="h-64"></div>
+                <h2 class="text-xl font-heading text-dark mb-4">Energy Usage</h2>
+                <div id="energyChart" class="h-64"></div>
             </div>
 
             <div class="bg-white rounded-lg shadow-md p-6">
-                <h2 class="text-xl font-heading text-dark mb-4">Category Breakdown</h2>
-                <div id="categoryChart" class="h-64"></div>
+                <h2 class="text-xl font-heading text-dark mb-4">Water Consumption</h2>
+                <div id="waterChart" class="h-64"></div>
+            </div>
+
+            <div class="bg-white rounded-lg shadow-md p-6">
+                <h2 class="text-xl font-heading text-dark mb-4">Carbon Footprint</h2>
+                <div id="carbonChart" class="h-64"></div>
             </div>
         </div>
 
+        <div class="bg-white rounded-lg shadow-md p-6">
+            <h2 class="text-xl font-heading text-dark mb-4">Sustainability Breakdown</h2>
+            <div id="pieChart" class="h-80"></div>
+        </div>
     </main>
 
     <!-- Footer Placeholder -->
@@ -69,8 +78,8 @@
 
     <!-- Scripts -->
     <script src="/chart.js"></script>
-    <script src="/statChart.js"></script>
     <script src="/components/templates/skeleton.js"></script>
 </body>
+
 
 </html>
