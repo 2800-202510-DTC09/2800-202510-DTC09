@@ -7,10 +7,12 @@ import swaggerJsdoc from 'swagger-jsdoc';
 import {__dirname} from './common-es.mjs';
 import fastGlob from 'fast-glob';
 
+// For site-related (i.e, non-API) routes
+import { siteRouter } from './site-routes/index.mjs';
+
+
 // For auth/login 
 import session from 'express-session';
-import { mockUsers } from './mock/users.js';
-
 
 if (env.NODE_ENV === 'dev') {
    import('./tunnel.mjs');
@@ -27,6 +29,18 @@ app.use((req, res, next) => {
 app.use(express.static(join(__dirname, 'public')));
 
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }))
+
+app.use(session({
+    secret: 'bad secret', 
+    resave: false,
+    saveUninitialized: false,
+    cookie: {
+        httpOnly: true,
+        maxAge: 1000 * 60 * 60 // 1 hour
+    }
+}));
+
 app.use(
    '/api-docs',
    serve,
@@ -47,7 +61,9 @@ app.use(
    ),
 );
 
-});
+
+// Route requests to site resources.
+app.use('/', siteRouter);
 
 
 app.listen(env.PORT, () => {
