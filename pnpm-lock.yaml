@@ -35,6 +35,9 @@ importers:
       mongoose:
         specifier: ^8.14.0
         version: 8.14.0(@aws-sdk/credential-providers@3.804.0)(socks@2.8.4)
+      mongoose-autopopulate:
+        specifier: ^1.1.0
+        version: 1.1.0(mongoose@8.14.0(@aws-sdk/credential-providers@3.804.0)(socks@2.8.4))
       mongoose-unique-validator:
         specifier: ^4.0.1
         version: 4.0.1(mongoose@8.14.0(@aws-sdk/credential-providers@3.804.0)(socks@2.8.4))
@@ -957,6 +960,11 @@ packages:
         optional: true
       socks:
         optional: true
+
+  mongoose-autopopulate@1.1.0:
+    resolution: {integrity: sha512-nTlTMlu1fLQ1bmJT7ILKbZmPGt2fHErLO4UJwzMDsHSigjtUYz0l3nvFhg511QkOkZcKBRzOnPn3DmmLIUENzg==}
+    peerDependencies:
+      mongoose: 6.x || 7.x || 8.0.0-rc0 || 8.x
 
   mongoose-unique-validator@4.0.1:
     resolution: {integrity: sha512-kd080ytRa6SmTOJlQPlAnsJHz7eH/b27dMHsN3WO2PeJc1lkcZ+ns6dLvcsu7Kx/f4SQEXu9JfL8kFkr4aFqFQ==}
@@ -2641,6 +2649,10 @@ snapshots:
     optionalDependencies:
       '@aws-sdk/credential-providers': 3.804.0
       socks: 2.8.4
+
+  mongoose-autopopulate@1.1.0(mongoose@8.14.0(@aws-sdk/credential-providers@3.804.0)(socks@2.8.4)):
+    dependencies:
+      mongoose: 8.14.0(@aws-sdk/credential-providers@3.804.0)(socks@2.8.4)
 
   mongoose-unique-validator@4.0.1(mongoose@8.14.0(@aws-sdk/credential-providers@3.804.0)(socks@2.8.4)):
     dependencies:

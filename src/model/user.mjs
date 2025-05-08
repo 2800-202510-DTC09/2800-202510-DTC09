@@ -1,5 +1,6 @@
 import {model, Schema} from 'mongoose';
 import mongooseUniqueValidator from 'mongoose-unique-validator';
+import mongooseAutoPopulate from 'mongoose-autopopulate';
 
 export const User = model(
    'user',
@@ -16,7 +17,10 @@ export const User = model(
          },
          badges: {
             type: [
-               Schema.Types.ObjectId,
+               {
+                  type: Schema.Types.ObjectId,
+                  ref: 'badge',
+               },
             ],
             required: true,
             default: [],
@@ -31,9 +35,11 @@ export const User = model(
                {
                   id: {
                      type: Schema.Types.ObjectId,
+                     ref: 'type',
                   },
                   factor: {
                      type: Schema.Types.Number,
+                     required: true,
                   },
                },
             ],
@@ -45,7 +51,9 @@ export const User = model(
          },
       },
       {timestamps: true},
-   ).plugin(mongooseUniqueValidator, {
-      message: 'Path `{PATH}` is not unique.',
-   }),
+   )
+      .plugin(mongooseUniqueValidator, {
+         message: 'Path `{PATH}` is not unique.',
+      })
+      .plugin(mongooseAutoPopulate),
 );

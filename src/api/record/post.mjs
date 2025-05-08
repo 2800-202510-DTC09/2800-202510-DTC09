@@ -20,7 +20,7 @@ import {Type} from '../../model/type.mjs';
  *           schema:
  *             type: object
  *             properties:
- *               userId:
+ *               user:
  *                 type: string
  *                 example: 681342414429d3a18ad3fb45
  *               emission:
@@ -29,7 +29,7 @@ import {Type} from '../../model/type.mjs';
  *               description:
  *                 type: string
  *                 example: New car first drive
- *               typeId:
+ *               type:
  *                 type: string
  *                 example: 681a3ef31674a09cc7fa43e3
  *     responses:
@@ -42,32 +42,63 @@ import {Type} from '../../model/type.mjs';
  */
 record.post('/', async (req, res) => {
    try {
-      // const check=(await Promise.all([
-      //    User.findById(req.body.userId),
-      //    Type.findById(req.body.typeId),
-      // ])).map((v)=>{
-      //    if (!v){
-      //       return
-      //    }
-      // })
-
-      res.status(status.OK).json(
-         await normalize(
-            await new Record(
-               Object.fromEntries(
-                  [
-                     'userId',
-                     'emission',
-                     'description',
-                     'typeId',
-                  ].map((v) => [
-                     v,
-                     req.body[v],
-                  ]),
-               ),
-            ).save(),
+      const record = await new Record(
+         Object.fromEntries(
+            [
+               'user',
+               'emission',
+               'description',
+               'type',
+            ].map((v) => [
+               v,
+               req.body[v],
+            ]),
          ),
-      );
+      ).populate([
+         'user',
+         'type',
+      ]);
+
+      console.error(record);
+
+      const errors = [];
+      await Promise.all([
+         (async () => {
+            if (!record.user) {
+               errors.push(
+                  new Error.ValidatorError({
+                     message: 'Path `user` is invalid.',
+                     type: 'required',
+                     path: 'user',
+                     value: req.body.userId,
+                     reason: '`user` not found in `users`',
+                  }),
+               );
+            }
+         })(),
+         (async () => {
+            if (!record.type) {
+               errors.push(
+                  new Error.ValidatorError({
+                     message: 'Path `type` is invalid.',
+                     type: 'required',
+                     path: 'type',
+                     value: req.body.typeId,
+                     reason: '`type` not found in `types`',
+                  }),
+               );
+            }
+         })(),
+      ]);
+      if (errors.length) {
+         const error = new Error.ValidationError();
+         errors.forEach((v) => {
+            error.addError(v.path, v);
+         });
+         throw error;
+      }
+
+      res.status(status.OK).json(normalize(await record.save()));
    } catch (e) {
       if (e.name === Error.ValidationError.name) {
          res.status(status.BAD_REQUEST).json(e.errors);
