@@ -28,7 +28,7 @@ import {record} from './index.mjs';
  *                 type: string
  *                 example: date > 0
  *     responses:
- *       '200':
+ *       200:
  *         description: An record is created
  */
 record.post('/', async (req, res) => {

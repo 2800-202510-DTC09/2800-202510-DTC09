@@ -17,11 +17,11 @@ import {user} from './index.mjs';
  *         required: true
  *         description: User ID
  *     responses:
- *       '204':
+ *       204:
  *         description: User is deleted
- *       '404':
+ *       404:
  *         description: User not found
- *       '500':
+ *       500:
  *         description: Server internal error
  */
 user.delete('/:id', async (req, res) => {

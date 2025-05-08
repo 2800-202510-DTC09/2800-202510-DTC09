@@ -26,9 +26,9 @@ import {record} from './index.mjs';
  *                 type: string
  *                 example: date > 0
  *     responses:
- *       '200':
+ *       200:
  *         description: record is updated
- *       '404':
+ *       404:
  *         description: record not found
  */
 record.put('/:id', async (req, res) => {

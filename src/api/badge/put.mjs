@@ -26,9 +26,9 @@ import {badge} from './index.mjs';
  *                 type: string
  *                 example: date > 0
  *     responses:
- *       '200':
+ *       200:
  *         description: badge is updated
- *       '404':
+ *       404:
  *         description: badge not found
  */
 badge.put('/:id', async (req, res) => {

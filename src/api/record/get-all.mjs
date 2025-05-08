@@ -8,7 +8,7 @@ import {record} from './index.mjs';
  *     tags:
  *       - Record
  *     responses:
- *       '200':
+ *       200:
  *         description: Fetched all records
  */
 record.get('/', async (req, res) => {

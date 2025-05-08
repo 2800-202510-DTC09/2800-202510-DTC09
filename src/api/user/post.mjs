@@ -26,11 +26,11 @@ import {status} from 'http-status';
  *                 type: string
  *                 example: Super_secure_password
  *     responses:
- *       '200':
+ *       200:
  *         description: An user is created
- *       '400':
+ *       400:
  *         description: Given data is invalid
- *       '500':
+ *       500:
  *         description: Server internal error
  */
 user.post('/', async (req, res) => {

@@ -1,4 +1,6 @@
-import {badge} from './index.mjs';
+import {Badge} from '../../model/badge.mjs';
+import {badge, normalize} from './index.mjs';
+import {status} from 'http-status';
 
 /**
  * @openapi
@@ -8,10 +10,16 @@ import {badge} from './index.mjs';
  *     tags:
  *       - Badge
  *     responses:
- *       '200':
+ *       200:
  *         description: Fetched all badges
+ *       500:
+ *         description: Server internal error
  */
 badge.get('/', async (req, res) => {
-   // const api = await Todo.find();
-   res.json({a: true});
+   try {
+      res.status(status.OK).json(normalize(await Badge.find()));
+   } catch (e) {
+      console.error(e);
+      res.sendStatus(status.INTERNAL_SERVER_ERROR);
+   }
 });

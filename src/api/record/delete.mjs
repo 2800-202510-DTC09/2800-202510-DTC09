@@ -15,9 +15,9 @@ import {record} from './index.mjs';
  *         required: true
  *         description: record ID
  *     responses:
- *       '202':
+ *       202:
  *         description: record is deleted
- *       '404':
+ *       404:
  *         description: record not found
  */
 record.delete('/:id', async (req, res) => {

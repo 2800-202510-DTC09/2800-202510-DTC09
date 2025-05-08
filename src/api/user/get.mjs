@@ -17,11 +17,11 @@ import {status} from 'http-status';
  *         required: true
  *         description: User ID
  *     responses:
- *       '200':
+ *       200:
  *         description: Found a user
- *       '404':
+ *       404:
  *         description: User not found
- *       '500':
+ *       500:
  *         description: Server internal error
  */
 user.get('/id/:id', async (req, res) => {
@@ -53,11 +53,11 @@ user.get('/id/:id', async (req, res) => {
  *         required: true
  *         description: User name
  *     responses:
- *       '200':
+ *       200:
  *         description: Found a user
- *       '404':
+ *       404:
  *         description: User not found
- *       '500':
+ *       500:
  *         description: Server internal error
  */
 user.get('/username/:username', async (req, res) => {

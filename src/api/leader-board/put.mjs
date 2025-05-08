@@ -26,9 +26,9 @@ import {leaderBoard} from './index.mjs';
  *                 type: string
  *                 example: date > 0
  *     responses:
- *       '200':
+ *       200:
  *         description: leaderBoard is updated
- *       '404':
+ *       404:
  *         description: leaderBoard not found
  */
 leaderBoard.put('/:id', async (req, res) => {

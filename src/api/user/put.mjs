@@ -26,9 +26,9 @@ import {user} from './index.mjs';
  *                 type: string
  *                 example: Super_secure_password
  *     responses:
- *       '200':
+ *       200:
  *         description: User is updated
- *       '404':
+ *       404:
  *         description: User not found
  */
 user.put('/:id', async (req, res) => {

@@ -10,9 +10,9 @@ import {status} from 'http-status';
  *     tags:
  *       - User
  *     responses:
- *       '200':
+ *       200:
  *         description: Fetched all users
- *       '500':
+ *       500:
  *         description: Server internal error
  */
 user.get('/', async (req, res) => {

@@ -1,4 +1,6 @@
-import {badge} from './index.mjs';
+import {Badge} from '../../model/badge.mjs';
+import {normalize, badge} from './index.mjs';
+import {status} from 'http-status';
 
 /**
  * @openapi
@@ -15,12 +17,23 @@ import {badge} from './index.mjs';
  *         required: true
  *         description: badge ID
  *     responses:
- *       '200':
+ *       200:
  *         description: Found a badge
- *       '404':
- *         description: badge not found
+ *       404:
+ *         description: Badge not found
+ *       500:
+ *         description: Server internal error
  */
 badge.get('/:id', async (req, res) => {
-   // const api = await Todo.find();
-   res.json({a: req.params.id});
+   try {
+      const badges = normalize(await Badge.findById(req.params.id));
+      if (badges.length) {
+         res.status(status.OK).json(badges.pop());
+      } else {
+         res.sendStatus(status.NOT_FOUND);
+      }
+   } catch (e) {
+      console.error(e);
+      res.sendStatus(status.INTERNAL_SERVER_ERROR);
+   }
 });

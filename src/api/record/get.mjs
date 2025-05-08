@@ -15,9 +15,9 @@ import {record} from './index.mjs';
  *         required: true
  *         description: record ID
  *     responses:
- *       '200':
+ *       200:
  *         description: Found a record
- *       '404':
+ *       404:
  *         description: record not found
  */
 record.get('/:id', async (req, res) => {

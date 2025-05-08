@@ -9,17 +9,22 @@ export const normalize = (v) =>
       v,
    ]
       .flat()
-      .filter((v) => v)
+      .filter((w) => w)
       .map((w) => {
          {
             if (!w.deletedAt || w.deletedAt > Date.now()) {
-               return {
-                  id: w.id,
-                  username: w.username,
-                  badges: w.badges,
-                  score: w.score,
-                  types: w.types,
-               };
+               return Object.fromEntries(
+                  [
+                     'id',
+                     'username',
+                     'badges',
+                     'score',
+                     'types',
+                  ].map((x) => [
+                     x,
+                     w[x],
+                  ]),
+               );
             } else {
                return null;
             }
