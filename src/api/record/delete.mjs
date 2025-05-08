@@ -1,4 +1,6 @@
+import {Record} from '../../model/record.mjs';
 import {record} from './index.mjs';
+import {status} from 'http-status';
 
 /**
  * @openapi
@@ -13,14 +15,34 @@ import {record} from './index.mjs';
  *         schema:
  *           type: string
  *         required: true
- *         description: record ID
+ *         description: Record ID
  *     responses:
  *       202:
- *         description: record is deleted
+ *         description: Record is deleted
  *       404:
- *         description: record not found
+ *         description: Record not found
+ *       500:
+ *         description: Server internal error
  */
 record.delete('/:id', async (req, res) => {
-   // const api = await Todo.find();
-   res.json({a: req.body});
+   try {
+      const record = await Record.findOne({
+         _id: req.params.id,
+         $or: [
+            {deletedAt: {$exists: false}},
+            {deletedAt: null},
+            {deletedAt: {$gt: req.timestamp}},
+         ],
+      });
+      if (record) {
+         record.deletedAt = req.timestamp;
+         await record.save();
+         res.sendStatus(status.NO_CONTENT);
+      } else {
+         res.sendStatus(status.NOT_FOUND);
+      }
+   } catch (e) {
+      console.error(e);
+      res.sendStatus(status.INTERNAL_SERVER_ERROR);
+   }
 });

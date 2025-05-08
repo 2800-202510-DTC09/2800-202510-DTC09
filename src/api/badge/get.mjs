@@ -15,7 +15,7 @@ import {status} from 'http-status';
  *         schema:
  *           type: string
  *         required: true
- *         description: badge ID
+ *         description: Badge ID
  *     responses:
  *       200:
  *         description: Found a badge

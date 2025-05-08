@@ -13,9 +13,9 @@ import {badge} from './index.mjs';
  *         schema:
  *           type: string
  *         required: true
- *         description: badge ID
+ *         description: Badge ID
  *     requestBody:
- *       description: badge information
+ *       description: Badge information
  *       required: true
  *       content:
  *         application/json:
@@ -27,9 +27,9 @@ import {badge} from './index.mjs';
  *                 example: date > 0
  *     responses:
  *       200:
- *         description: badge is updated
+ *         description: Badge is updated
  *       404:
- *         description: badge not found
+ *         description: Badge not found
  */
 badge.put('/:id', async (req, res) => {
    // const api = await Todo.find();

@@ -1,4 +1,6 @@
-import {record} from './index.mjs';
+import {Record} from '../../model/record.mjs';
+import {record, normalize} from './index.mjs';
+import {status} from 'http-status';
 
 /**
  * @openapi
@@ -13,14 +15,25 @@ import {record} from './index.mjs';
  *         schema:
  *           type: string
  *         required: true
- *         description: record ID
+ *         description: Record ID
  *     responses:
  *       200:
  *         description: Found a record
  *       404:
- *         description: record not found
+ *         description: Record not found
+ *       500:
+ *         description: Server internal error
  */
 record.get('/:id', async (req, res) => {
-   // const api = await Todo.find();
-   res.json({a: req.params.id});
+   try {
+      const records = normalize(await Record.findById(req.params.id));
+      if (records.length) {
+         res.status(status.OK).json(records.pop());
+      } else {
+         res.sendStatus(status.NOT_FOUND);
+      }
+   } catch (e) {
+      console.error(e);
+      res.sendStatus(status.INTERNAL_SERVER_ERROR);
+   }
 });

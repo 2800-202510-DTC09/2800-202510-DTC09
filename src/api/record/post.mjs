@@ -13,7 +13,7 @@ import {Type} from '../../model/type.mjs';
  *     tags:
  *       - Record
  *     requestBody:
- *       description: record information
+ *       description: Record information
  *       required: true
  *       content:
  *         application/json:
@@ -58,8 +58,6 @@ record.post('/', async (req, res) => {
          'user',
          'type',
       ]);
-
-      console.error(record);
 
       const errors = [];
       await Promise.all([

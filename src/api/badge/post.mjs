@@ -11,7 +11,7 @@ import {status} from 'http-status';
  *     tags:
  *       - Badge
  *     requestBody:
- *       description: badge information
+ *       description: Badge information
  *       required: true
  *       content:
  *         application/json:

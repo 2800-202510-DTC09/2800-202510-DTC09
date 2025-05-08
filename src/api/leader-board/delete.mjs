@@ -13,12 +13,12 @@ import {leaderBoard} from './index.mjs';
  *         schema:
  *           type: string
  *         required: true
- *         description: leaderBoard ID
+ *         description: LeaderBoard ID
  *     responses:
  *       202:
- *         description: leaderBoard is deleted
+ *         description: LeaderBoard is deleted
  *       404:
- *         description: leaderBoard not found
+ *         description: LeaderBoard not found
  */
 leaderBoard.delete('/:id', async (req, res) => {
    // const api = await Todo.find();

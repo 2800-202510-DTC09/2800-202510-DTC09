@@ -13,9 +13,9 @@ import {leaderBoard} from './index.mjs';
  *         schema:
  *           type: string
  *         required: true
- *         description: leaderBoard ID
+ *         description: LeaderBoard ID
  *     requestBody:
- *       description: leaderBoard information
+ *       description: LeaderBoard information
  *       required: true
  *       content:
  *         application/json:
@@ -27,9 +27,9 @@ import {leaderBoard} from './index.mjs';
  *                 example: date > 0
  *     responses:
  *       200:
- *         description: leaderBoard is updated
+ *         description: LeaderBoard is updated
  *       404:
- *         description: leaderBoard not found
+ *         description: LeaderBoard not found
  */
 leaderBoard.put('/:id', async (req, res) => {
    // const api = await Todo.find();

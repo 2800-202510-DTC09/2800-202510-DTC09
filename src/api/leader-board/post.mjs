@@ -8,7 +8,7 @@ import {leaderBoard} from './index.mjs';
  *     tags:
  *       - Leader Board
  *     requestBody:
- *       description: leaderBoard information
+ *       description: LeaderBoard information
  *       required: true
  *       content:
  *         application/json:

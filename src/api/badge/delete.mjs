@@ -15,12 +15,12 @@ import {status} from 'http-status';
  *         schema:
  *           type: string
  *         required: true
- *         description: badge ID
+ *         description: Badge ID
  *     responses:
  *       202:
- *         description: badge is deleted
+ *         description: Badge is deleted
  *       404:
- *         description: badge not found
+ *         description: Badge not found
  *       500:
  *         description: Server internal error
  */
