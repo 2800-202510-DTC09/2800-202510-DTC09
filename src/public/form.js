@@ -409,11 +409,11 @@ function loadVehicleSection(parent) {
     
     //Set up label for vehicle number selection
     vehicleNumberLabel.classList.add("form-label");
-    vehicleNumberLabel.textContent = "How many vehicles do you regularly drive?";
+    vehicleNumberLabel.textContent = "How many vehicles do you regularly drive?:";
     vehicleNumberLabel.setAttribute("for", vehicleNumberSelection.id);
 
     //Set up element for vehicle number selection
-    vehicleNumberSelection.classList.add("form-select");
+    vehicleNumberSelection.classList.add("form-select-large");
     vehicleNumberSelection.id = "vehicle-number-select";
     vehicleNumberSelection.setAttribute("name", "number-of-cars");
     vehicleNumberSelection.addEventListener("change", ()=>loadVehicleInputs(vehicleNumberSelection, vehicleContainer));
@@ -421,6 +421,7 @@ function loadVehicleSection(parent) {
     //Add options for vehicle number selection
     for (let i = 0; i <= 4; i++) {
         option = document.createElement("option")
+        option.classList.add("form-option");
         option.id = `vehicle-number-option-${i}`;
         option.setAttribute("value", i);
         option.textContent = i;
@@ -527,7 +528,7 @@ function loadGetStarted() {
 
     startButton = document.createElement("button");
     startButton.textContent = "Start";
-    startButton.classList.add("form-start-button")
+    startButton.classList.add("form-button")
     startButton.addEventListener("click", ()=>{
         loadForm();
     })
