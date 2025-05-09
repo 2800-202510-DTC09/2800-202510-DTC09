@@ -45,7 +45,7 @@ user.post('/', async (req, res) => {
                username: req.body.username,
                password: await hash(req.body.password, 10),
             }).save(),
-         ),
+         ).pop(),
       );
    } catch (e) {
       if (e.name === Error.ValidationError.name) {

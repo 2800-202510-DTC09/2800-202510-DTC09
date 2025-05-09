@@ -1,17 +1,17 @@
 import {Error} from 'mongoose';
-import {Badge} from '../../model/badge.mjs';
-import {normalize, badge} from './index.mjs';
+import {Type} from '../../model/type.mjs';
+import {normalize, type} from './index.mjs';
 import {status} from 'http-status';
 
 /**
  * @openapi
- * /badge:
+ * /type:
  *   post:
- *     description: Create badge
+ *     description: Create type
  *     tags:
- *       - Badge
+ *       - Type
  *     requestBody:
- *       description: Badge information
+ *       description: Type information
  *       required: true
  *       content:
  *         application/json:
@@ -20,31 +20,27 @@ import {status} from 'http-status';
  *             properties:
  *               name:
  *                 type: string
- *                 example: New comer
+ *                 example: Vehicle
  *               description:
  *                 type: string
- *                 example: Joined the app
- *               icon:
- *                 type: string
- *                 example: /assets/leaf.png
+ *                 example: Most used vehicle
  *     responses:
  *       200:
- *         description: A badge is created
+ *         description: A type is created
  *       400:
  *         description: Given data is invalid
  *       500:
  *         description: Server internal error
  */
-badge.post('/', async (req, res) => {
+type.post('/', async (req, res) => {
    try {
       res.status(status.OK).json(
          normalize(
-            await new Badge(
+            await new Type(
                Object.fromEntries(
                   [
                      'name',
                      'description',
-                     'icon',
                   ].map((v) => [
                      v,
                      req.body[v],

@@ -96,7 +96,7 @@ record.post('/', async (req, res) => {
          throw error;
       }
 
-      res.status(status.OK).json(normalize(await record.save()));
+      res.status(status.OK).json(normalize(await record.save()).pop());
    } catch (e) {
       if (e.name === Error.ValidationError.name) {
          res.status(status.BAD_REQUEST).json(e.errors);

@@ -7,6 +7,7 @@ export const Type = model(
       {
          name: {
             type: Schema.Types.String,
+            unique: true,
             required: true,
          },
          description: {
