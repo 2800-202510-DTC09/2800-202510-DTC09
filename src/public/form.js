@@ -521,21 +521,39 @@ function loadForm() {
 
 //Load get started box
 function loadGetStarted() {
+    
+    //Get parent
     contentDiv = document.getElementsByClassName("form-content")[0];
-    startText = document.createElement("p");
-    startText.textContent = "Let's begin!";
-    startText.classList.add("form-start-text");
+    
+    //Create elements
+    card = document.createElement("div");
+    text = document.createElement("p");
+    button = document.createElement("div");
 
-    startButton = document.createElement("button");
-    startButton.textContent = "Start";
-    startButton.classList.add("form-button")
-    startButton.addEventListener("click", ()=>{
+    //Set up card
+    card.classList.add("form-card");
+    card.id = "begin-card-div";
+
+    //Set up text
+    text.classList.add("form-card-text");
+    text.id = "begin-card-text";
+    text.textContent = "This form helps us estimate your carbon emmisions. Press the button to begin filling out the form.";
+
+    //Set up button
+    button.classList.add("form-button-large");
+    button.id = "begin-card-button";
+    button.textContent = "Begin";
+    button.addEventListener("click", ()=> {
         loadForm();
+        button.removeEventListener("click", arguments.callee);
     })
 
-    contentDiv.innerHTML = "";
-    contentDiv.appendChild(startText);
-    contentDiv.appendChild(startButton);
+    //Add children to card
+    card.appendChild(text);
+    card.appendChild(button);
+
+    //Append card to parent
+    contentDiv.appendChild(card);
 }
 
 // Main function. Executes once forms.html loads
