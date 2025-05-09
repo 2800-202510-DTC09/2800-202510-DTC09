@@ -1,6 +1,7 @@
 import {model, Schema} from 'mongoose';
 import mongooseUniqueValidator from 'mongoose-unique-validator';
 import mongooseAutoPopulate from 'mongoose-autopopulate';
+import {normalize as userNormalize} from './user.mjs';
 
 export const LeaderBoard = model(
    'leader-board',
@@ -31,3 +32,32 @@ export const LeaderBoard = model(
       })
       .plugin(mongooseAutoPopulate),
 );
+
+export const normalize = (v) =>
+   [
+      v,
+   ]
+      .flat()
+      .filter((w) => w)
+      .map((w) => {
+         {
+            if (!w.deletedAt || w.deletedAt > Date.now()) {
+               return {
+                  ...Object.fromEntries(
+                     [
+                        'id',
+                        'rank',
+                        'value',
+                     ].map((x) => [
+                        x,
+                        w[x],
+                     ]),
+                  ),
+                  user: userNormalize(w.user),
+               };
+            } else {
+               return null;
+            }
+         }
+      })
+      .filter((v) => v);

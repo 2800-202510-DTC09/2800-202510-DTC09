@@ -1,6 +1,6 @@
 import {Error} from 'mongoose';
-import {Badge} from '../../model/badge.mjs';
-import {normalize, badge} from './index.mjs';
+import {Badge, normalize} from '../../model/badge.mjs';
+import {badge} from './index.mjs';
 import {status} from 'http-status';
 
 /**

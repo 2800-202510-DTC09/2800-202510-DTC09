@@ -7,8 +7,8 @@ export const Badge = model(
       {
          name: {
             type: Schema.Types.String,
-            required: true,
             unique: true,
+            required: true,
          },
          description: {
             type: Schema.Types.String,
@@ -29,3 +29,30 @@ export const Badge = model(
       message: 'Path `{PATH}` is not unique.',
    }),
 );
+
+export const normalize = (v) =>
+   [
+      v,
+   ]
+      .flat()
+      .filter((w) => w)
+      .map((w) => {
+         {
+            if (!w.deletedAt || w.deletedAt > Date.now()) {
+               return Object.fromEntries(
+                  [
+                     'id',
+                     'name',
+                     'description',
+                     'icon',
+                  ].map((x) => [
+                     x,
+                     w[x],
+                  ]),
+               );
+            } else {
+               return null;
+            }
+         }
+      })
+      .filter((v) => v);

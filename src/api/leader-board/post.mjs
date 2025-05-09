@@ -1,6 +1,6 @@
 import {Error} from 'mongoose';
-import {leaderBoard, normalize} from './index.mjs';
-import {LeaderBoard} from '../../model/leader-board.mjs';
+import {leaderBoard} from './index.mjs';
+import {LeaderBoard, normalize} from '../../model/leader-board.mjs';
 import {status} from 'http-status';
 
 /**

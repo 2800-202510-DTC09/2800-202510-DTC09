@@ -1,17 +1,17 @@
 import {Error} from 'mongoose';
-import {Type, normalize} from '../../model/type.mjs';
-import {type} from './index.mjs';
+import {Goal, normalize} from '../../model/goal.mjs';
+import {goal} from './index.mjs';
 import {status} from 'http-status';
 
 /**
  * @openapi
- * /type:
+ * /goal:
  *   post:
- *     description: Create type
+ *     description: Create goal
  *     tags:
- *       - Type
+ *       - Goal
  *     requestBody:
- *       description: Type information
+ *       description: Goal information
  *       required: true
  *       content:
  *         application/json:
@@ -20,27 +20,47 @@ import {status} from 'http-status';
  *             properties:
  *               name:
  *                 type: string
- *                 example: Vehicle
+ *                 example: New comer
  *               description:
  *                 type: string
- *                 example: Most used vehicle
+ *                 example: Joined the app
+ *               icon:
+ *                 type: string
+ *                 example: /assets/leaf.png
+ *               emission:
+ *                 type: number
+ *                 example: 500
+ *               emissionDiff:
+ *                 type: number
+ *                 example: 100
+ *               emissionDiffStart:
+ *                 type: date-time
+ *                 example: 2025-01-01T00:00:00-0700
+ *               emissionDiffEnd:
+ *                 type: date-time
+ *                 example: 2025-02-01T00:00:00-0700
  *     responses:
  *       200:
- *         description: A type is created
+ *         description: A goal is created
  *       400:
  *         description: Given data is invalid
  *       500:
  *         description: Server internal error
  */
-type.post('/', async (req, res) => {
+goal.post('/', async (req, res) => {
    try {
       res.status(status.OK).json(
          normalize(
-            await new Type(
+            await new Goal(
                Object.fromEntries(
                   [
                      'name',
                      'description',
+                     'icon',
+                     'emission',
+                     'emissionDiff',
+                     'emissionDiffStart',
+                     'emissionDiffEnd',
                   ].map((v) => [
                      v,
                      req.body[v],

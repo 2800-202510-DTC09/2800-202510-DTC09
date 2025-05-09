@@ -1,6 +1,9 @@
 import {model, Schema} from 'mongoose';
 import mongooseUniqueValidator from 'mongoose-unique-validator';
 import mongooseAutoPopulate from 'mongoose-autopopulate';
+import {normalize as badgeNormalize} from './badge.mjs';
+import {normalize as goalNormalize} from './goal.mjs';
+import {normalize as typeNormalize} from './type.mjs';
 
 export const User = model(
    'user',
@@ -25,6 +28,20 @@ export const User = model(
                {
                   type: Schema.Types.ObjectId,
                   ref: 'badge',
+                  required: true,
+                  autopopulate: true,
+               },
+            ],
+            required: true,
+            default: [],
+         },
+         goals: {
+            type: [
+               {
+                  type: Schema.Types.ObjectId,
+                  ref: 'goal',
+                  required: true,
+                  autopopulate: true,
                },
             ],
             required: true,
@@ -38,9 +55,11 @@ export const User = model(
          types: {
             type: [
                {
-                  id: {
+                  type: {
                      type: Schema.Types.ObjectId,
                      ref: 'type',
+                     required: true,
+                     autopopulate: true,
                   },
                   factor: {
                      type: Schema.Types.Number,
@@ -62,3 +81,38 @@ export const User = model(
       })
       .plugin(mongooseAutoPopulate),
 );
+
+export const normalize = (v) =>
+   [
+      v,
+   ]
+      .flat()
+      .filter((w) => w)
+      .map((w) => {
+         {
+            if (!w.deletedAt || w.deletedAt > Date.now()) {
+               return {
+                  ...Object.fromEntries(
+                     [
+                        'id',
+                        'email',
+                        'username',
+                        'score',
+                     ].map((x) => [
+                        x,
+                        w[x],
+                     ]),
+                  ),
+                  badges: w.badges.map((x) => badgeNormalize(x)),
+                  goals: w.goals.map((x) => goalNormalize(x)),
+                  types: w.types.map((x) => ({
+                     type: typeNormalize(x.type),
+                     factor: x.factor,
+                  })),
+               };
+            } else {
+               return null;
+            }
+         }
+      })
+      .filter((v) => v);

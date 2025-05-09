@@ -1,5 +1,5 @@
-import {Type} from '../../model/type.mjs';
-import {normalize, type} from './index.mjs';
+import {Type, normalize} from '../../model/type.mjs';
+import {type} from './index.mjs';
 import {status} from 'http-status';
 
 /**

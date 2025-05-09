@@ -1,5 +1,5 @@
-import {User} from '../../model/user.mjs';
-import {normalize, user} from './index.mjs';
+import {User, normalize} from '../../model/user.mjs';
+import {user} from './index.mjs';
 import {status} from 'http-status';
 
 /**

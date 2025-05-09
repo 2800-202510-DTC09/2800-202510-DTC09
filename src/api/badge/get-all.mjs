@@ -1,5 +1,5 @@
-import {Badge} from '../../model/badge.mjs';
-import {badge, normalize} from './index.mjs';
+import {Badge, normalize} from '../../model/badge.mjs';
+import {badge} from './index.mjs';
 import {status} from 'http-status';
 
 /**

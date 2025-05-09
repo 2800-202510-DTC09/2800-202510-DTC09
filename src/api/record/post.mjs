@@ -1,6 +1,6 @@
 import {Error} from 'mongoose';
-import {Record} from '../../model/record.mjs';
-import {record, normalize} from './index.mjs';
+import {Record, normalize} from '../../model/record.mjs';
+import {record} from './index.mjs';
 import {status} from 'http-status';
 
 /**

@@ -24,3 +24,29 @@ export const Type = model(
       message: 'Path `{PATH}` is not unique.',
    }),
 );
+
+export const normalize = (v) =>
+   [
+      v,
+   ]
+      .flat()
+      .filter((w) => w)
+      .map((w) => {
+         {
+            if (!w.deletedAt || w.deletedAt > Date.now()) {
+               return Object.fromEntries(
+                  [
+                     'id',
+                     'name',
+                     'description',
+                  ].map((x) => [
+                     x,
+                     w[x],
+                  ]),
+               );
+            } else {
+               return null;
+            }
+         }
+      })
+      .filter((v) => v);

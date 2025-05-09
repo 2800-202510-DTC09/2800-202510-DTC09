@@ -1,6 +1,8 @@
 import {model, Schema} from 'mongoose';
 import mongooseUniqueValidator from 'mongoose-unique-validator';
 import mongooseAutoPopulate from 'mongoose-autopopulate';
+import {normalize as userNormalize} from './user.mjs';
+import {normalize as typeNormalize} from './type.mjs';
 
 export const Record = model(
    'record',
@@ -38,3 +40,33 @@ export const Record = model(
       })
       .plugin(mongooseAutoPopulate),
 );
+
+export const normalize = (v) =>
+   [
+      v,
+   ]
+      .flat()
+      .filter((w) => w)
+      .map((w) => {
+         {
+            if (!w.deletedAt || w.deletedAt > Date.now()) {
+               return {
+                  ...Object.fromEntries(
+                     [
+                        'id',
+                        'emission',
+                        'description',
+                     ].map((x) => [
+                        x,
+                        w[x],
+                     ]),
+                  ),
+                  user: userNormalize(w.user),
+                  type: typeNormalize(w.type),
+               };
+            } else {
+               return null;
+            }
+         }
+      })
+      .filter((v) => v);

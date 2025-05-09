@@ -1,34 +1,34 @@
-import {Record, normalize} from '../../model/record.mjs';
-import {record} from './index.mjs';
+import {Goal, normalize} from '../../model/goal.mjs';
+import {goal} from './index.mjs';
 import {status} from 'http-status';
 
 /**
  * @openapi
- * /record/{id}:
+ * /goal/{id}:
  *   get:
- *     description: Get record by ID
+ *     description: Get goal by ID
  *     tags:
- *       - Record
+ *       - Goal
  *     parameters:
  *       - in: path
  *         name: id
  *         schema:
  *           type: string
  *         required: true
- *         description: Record ID
+ *         description: Goal ID
  *     responses:
  *       200:
- *         description: Found a record
+ *         description: Found a goal
  *       404:
- *         description: Record not found
+ *         description: Goal not found
  *       500:
  *         description: Server internal error
  */
-record.get('/:id', async (req, res) => {
+goal.get('/:id', async (req, res) => {
    try {
-      const records = normalize(await Record.findById(req.params.id));
-      if (records.length) {
-         res.status(status.OK).json(records.pop());
+      const goals = normalize(await Goal.findById(req.params.id));
+      if (goals.length) {
+         res.status(status.OK).json(goals.pop());
       } else {
          res.sendStatus(status.NOT_FOUND);
       }
