@@ -1,3 +1,57 @@
+function generateSectionInput(parent, inputName, labelText, inputType, units) {
+
+    //Create elements
+    sectionDiv = document.createElement("div");
+    sectionInputDiv = document.createElement("div");
+    sectionLabel = document.createElement("label");
+    sectionInput = document.createElement("input");
+    sectionUnitSelect = document.createElement("select");
+
+    //Set up sectionDiv
+    sectionDiv.classList.add("form-input-section-div");
+    sectionDiv.id = `${parent.id}-${inputName}-section-div`;
+
+    //Set up section input div
+    sectionInputDiv.classList.add("form-input-input-div");
+    sectionInputDiv.classList.add(`${parent.id}-${inputName}-input-div`);
+
+    //Set up sectionInput
+    sectionInput.classList.add("form-input");
+    sectionInput.id = `${parent.id}-${inputName}-input`;
+    sectionInput.setAttribute("name", inputName);
+    sectionInput.setAttribute("type", inputType);
+
+    //Set up section label
+    sectionLabel.classList.add("form-label");
+    sectionLabel.id = `${parent.id}-${inputName}-label`;
+    sectionLabel.textContent = labelText;
+    sectionLabel.setAttribute("for", sectionInput.id);
+
+    //Set up unit select
+    sectionUnitSelect.classList.add("form-select");
+    sectionUnitSelect.id = `${parent.id}-${inputName}-unit-select`;
+    
+    units.forEach(element => {
+        option = document.createElement("option");
+        option.classList.add("form-option");
+        option.id = `${sectionUnitSelect.id}-${element}-option`;
+        option.setAttribute("value", element);
+        option.textContent = element;
+        sectionUnitSelect.appendChild(option);
+    })
+
+    //Add children to input div
+    sectionInputDiv.appendChild(sectionInput);
+    sectionInputDiv.appendChild(sectionUnitSelect);
+
+    //Add children to sectionDiv
+    sectionDiv.appendChild(sectionLabel);
+    sectionDiv.appendChild(sectionInputDiv);
+
+    //Add child to parent
+    return sectionDiv;
+}
+
 function generateSectionHeader(parent, headerText, headerIcon, toolTipText) {
 
     //Create Elements
@@ -103,39 +157,7 @@ function loadLifeStyleFlightClassSelectorInput(parent) {
     classSelectorDiv.appendChild(classSelector);
 
     //Add children to parent
-    parent.appendChild(classSelectorDiv);
-}
-
-//Load input in Lifestyle section
-function loadLifestyleInput(parent, labelText, inputName, inputType) {
-    
-    //Create elements
-    inputDiv = document.createElement("div");
-    inputLabel = document.createElement("label");
-    input = document.createElement("input");
-
-    //Set up inputDiv
-    inputDiv.classList.add("form-lifestyle-content-input-div");
-    inputDiv.id = `lifestyle-content-${inputName}-input-div`;
-
-    //Set up input
-    input.classList.add("form-input");
-    input.id = `lifestyle-${inputName}-input`;
-    input.setAttribute("name", inputName);
-    input.setAttribute("type", inputType);
-
-    //Set up inputLabel
-    inputLabel.classList.add("form-label");
-    inputLabel.id = `lifestyle-${inputName}-input-label`;
-    inputLabel.setAttribute("for", input.id);
-    inputLabel.textContent = labelText;
-
-    //Add children to inputDiv
-    inputDiv.appendChild(inputLabel);
-    inputDiv.appendChild(input);
-
-    //Add children to parent
-    parent.appendChild(inputDiv);
+    return classSelectorDiv;
 }
 
 //Load Lifestyle section
@@ -157,12 +179,19 @@ function loadLifestyleSection(parent) {
     lifestyleContent.classList.add("form-lifestyle-content");
     lifestyleContent.id = "form-lifestyle-content";
 
-    //Add first two inputs to lifestyleContent
-    loadLifestyleInput(lifestyleContent, "How much have you flown on domestic flights this year? (km):", "domestic-flight-distance", "number");
-    loadLifestyleInput(lifestyleContent, "How much have you flown on international flights this year? (km):", "international-flight-distance", "number");
-    loadLifeStyleFlightClassSelectorInput(lifestyleContent);
-    loadLifestyleInput(lifestyleContent, "How much clothing do you buy in a year? (kg):", "clothing-mass", "number");
-    loadLifestyleInput(lifestyleContent, "How many times is something shipped to your house each month?:", "amount-shipped", "number");
+    //Create inputs for lifestyle content
+    domesticFlightInput = generateSectionInput(lifestyleContent, "domestic-flight-distance","How much have you flown on domestic flights this year?:", "number", ["km"]);
+    internationalFlightInput = generateSectionInput(lifestyleContent, "international-flight-distance","How much have you flown on international flights this year?:", "number", ["km"]);
+    flightClassInput = loadLifeStyleFlightClassSelectorInput(lifestyleContent);
+    clothingInput = generateSectionInput(lifestyleContent, "clothing-mass", "How much clothing do you buy in a year?:", "number", ["kg"]);
+    shippingInput = generateSectionInput(lifestyleContent, "amount-shipped","How many times is something shipped to your house each month?:", "number", ["packages"]);
+
+    //Add children to lifestyle content
+    lifestyleContent.appendChild(domesticFlightInput);
+    lifestyleContent.appendChild(internationalFlightInput);
+    lifestyleContent.appendChild(flightClassInput);
+    lifestyleContent.appendChild(clothingInput);
+    lifestyleContent.appendChild(shippingInput);
 
     //Add children to lifestyleDiv
     lifestyleDiv.appendChild(lifestyleHeader);
@@ -170,38 +199,6 @@ function loadLifestyleSection(parent) {
 
     //Add children to parent
     parent.appendChild(lifestyleDiv);
-}
-
-//Load input in diet section
-function loadDietInput(parent, labelText, inputName, inputType) {
-
-    //Create elements
-    inputDiv = document.createElement("div");
-    inputLabel = document.createElement("label");
-    input = document.createElement("input");
-
-    //Set up inputDiv
-    inputDiv.classList.add("form-diet-content-input-div");
-    inputDiv.id = `diet-content-${inputName}-input-div`;
-
-    //Set up input
-    input.classList.add("form-input");
-    input.id = `diet-${inputName}-input`;
-    input.setAttribute("name", inputName);
-    input.setAttribute("type", inputType);
-
-    //Set up inputLabel
-    inputLabel.classList.add("form-label");
-    inputLabel.id = `diet-${inputName}-input-label`;
-    inputLabel.setAttribute("for", input.id);
-    inputLabel.textContent = labelText;
-
-    //Add children to inputDiv
-    inputDiv.appendChild(inputLabel);
-    inputDiv.appendChild(input);
-
-    //Add children to parent
-    parent.appendChild(inputDiv);
 }
 
 //Load diet section
@@ -222,12 +219,19 @@ function loadDietSection(parent) {
     dietContent.classList.add("form-diet-content");
     dietContent.id = "form-diet-content";
 
-    //Add inputs into diet content;
-    loadDietInput(dietContent, "How much beef do you eat in a month? (kg):", "beef-eaten", "number");
-    loadDietInput(dietContent, "How much pork do you eat in a month? (kg):", "pork-eaten", "number");
-    loadDietInput(dietContent, "How much chicken do you eat in a month? (kg):", "chicken-eaten", "number");
-    loadDietInput(dietContent, "How much cheese do you eat in a month? (g):", "cheese-eaten", "number");
-    loadDietInput(dietContent, "How much milk do you drink in a month? (L):", "milk-drunk", "number");
+    //Create inputs
+    beefInput = generateSectionInput(dietContent, "beef-eaten","How much beef do you eat in a month? (kg):", "number", ["kg"]);
+    porkInput = generateSectionInput(dietContent, "pork-eaten","How much pork do you eat in a month? (kg):", "number", ["kg"]);
+    chickenInput = generateSectionInput(dietContent, "chicken-eaten", "How much chicken do you eat in a month? (kg):", "number", ["kg"]);
+    cheeseInput = generateSectionInput(dietContent, "cheese-eaten", "How much cheese do you eat in a month? (g):", "number", ["kg"]);
+    milkInput = generateSectionInput(dietContent, "milk-drunk","How much milk do you drink in a month? (L):", "number", ["kg"]);
+    
+    //Add inputs to diet content
+    dietContent.appendChild(beefInput);
+    dietContent.appendChild(porkInput);
+    dietContent.appendChild(chickenInput);
+    dietContent.appendChild(cheeseInput);
+    dietContent.appendChild(milkInput);
 
     //Add children to dietDiv
     dietDiv.appendChild(dietHeader);
@@ -241,39 +245,20 @@ function loadDietSection(parent) {
 function loadWaterSection(parent) {
     //Create elements
     waterDiv = document.createElement("div");
-    waterUsageDiv = document.createElement("div");
-    waterUsageLabel = document.createElement("label");
-    waterUsageInput = document.createElement("input");
 
-    //Set up electricity div
+    //Set up water div
     waterDiv.classList.add("form-water-div");
     waterDiv.id = `form-water-div`;
 
-    //Set up electricity header
+    //Set up water header
     waterHeader = generateSectionHeader(waterDiv, "Water", "shower", "water is kinda wet");
 
-    //Set up electricity usage div
-    waterUsageDiv.classList.add("form-water-usage-div");
-    waterUsageDiv.id = "water-usage-div";
-
-    //Set up elecricity usage input and label
-    waterUsageInput.classList.add("form-input");
-    waterUsageInput.id = `water-usage-input`;
-    waterUsageInput.setAttribute("name", `water-usage-input`);
-    waterUsageInput.setAttribute("type", "number");
-
-    waterUsageLabel.classList.add("form-label");
-    waterUsageLabel.id = "water-usage-label";
-    waterUsageLabel.setAttribute("for", waterUsageInput.id);
-    waterUsageLabel.textContent = "How much water do you use each month? (cubic metres):";
-
-    //Add children to electricity usage div
-    waterUsageDiv.appendChild(waterUsageLabel);
-    waterUsageDiv.appendChild(waterUsageInput);
+    //Set up water usage input
+    waterUsageInput = generateSectionInput(waterDiv, "water-usage", "How much water do you use each month?:", "number", ["m³", "L"])
 
     //Add children to electricity section
     waterDiv.appendChild(waterHeader);
-    waterDiv.appendChild(waterUsageDiv);
+    waterDiv.appendChild(waterUsageInput);
 
     //Add children to parent
     parent.appendChild(waterDiv);
@@ -284,10 +269,7 @@ function loadElectricitySection(parent) {
     
     //Create elements
     electricityDiv = document.createElement("div");
-    electricityUsageDiv = document.createElement("div");
-    electricityUsageLabel = document.createElement("label");
-    electricityUsageInput = document.createElement("input");
-
+    
     //Set up electricity div
     electricityDiv.classList.add("form-electricity-div");
     electricityDiv.id = `form-electricity-div`;
@@ -295,28 +277,12 @@ function loadElectricitySection(parent) {
     //Set up electricity header
     electricityHeader = generateSectionHeader(electricityDiv, "Electricity", "bolt", "a shocking charge");
 
-    //Set up electricity usage div
-    electricityUsageDiv.classList.add("form-electricity-usage-div");
-    electricityUsageDiv.id = "electricity-usage-div";
-
-    //Set up elecricity usage input and label
-    electricityUsageInput.classList.add("form-input");
-    electricityUsageInput.id = `electricity-usage-input`;
-    electricityUsageInput.setAttribute("name", `electricity-usage-input`);
-    electricityUsageInput.setAttribute("type", "number");
-
-    electricityUsageLabel.classList.add("form-label");
-    electricityUsageLabel.id = "electricity-usage-label";
-    electricityUsageLabel.setAttribute("for", electricityUsageInput.id);
-    electricityUsageLabel.textContent = "How much electricty do you use each month? (kWh):";
-
-    //Add children to electricity usage div
-    electricityUsageDiv.appendChild(electricityUsageLabel);
-    electricityUsageDiv.appendChild(electricityUsageInput);
+    //Set up electricity usage input
+    electricityUsageInput = generateSectionInput(electricityDiv, "electricity-usage", "How much electricity do you use each month?", "number", ["kWh"])
 
     //Add children to electricity section
     electricityDiv.appendChild(electricityHeader);
-    electricityDiv.appendChild(electricityUsageDiv);
+    electricityDiv.appendChild(electricityUsageInput);
 
     //Add children to parent
     parent.appendChild(electricityDiv);
@@ -365,120 +331,28 @@ function reloadVehicleInputs(vehicleNumber) {
 
 //Load one vehicle
 function loadVehicle(vehicleNumber, isElectric) {
-
+    
     //Create elements
     vehicleDiv = document.createElement("div");
-    vehicleInputDiv = document.createElement("div");
     vehicleName = document.createElement("p");
-    vehicleTypeDiv = document.createElement("div");
-    vehicleEfficiencyDiv = document.createElement("div");
-    vehicleDistanceDiv = document.createElement("div");
-    vehicleTypeLabel = document.createElement("label");
     vehicleTypeSelect = document.createElement("select");
-    vehicleEfficiencyLabel = document.createElement("label");
-    vehicleEfficiencyInput = document.createElement("input");
-    vehicleDistanceLabel = document.createElement("label");
-    vehicleDistanceInput = document.createElement("input");
-    vehicleTypeSelectGasOption = document.createElement("option");
-    vehicleTypeSelectDieselOption = document.createElement("option");
-    vehicleTypeSelectElectricOption = document.createElement("option");
+    vehicleTypeLabel = document.createElement("label");
+    vehicleInputsDiv = document.createElement("div");
 
-    
-    //Set up vehicle div and name
-    vehicleDiv.classList.add("form-vehicle-div");
-    vehicleDiv.id = `vehicle-${vehicleNumber}-div`;
-    vehicleName.classList.add("form-vehicle-header");
-    vehicleName.textContent = `Vehicle ${vehicleNumber}`;
-    vehicleDiv.appendChild(vehicleName);
+    //Set up vehicle div
+    vehicleDiv.classList.add("form-vehicle-section-vehicle-div");
+    vehicleDiv.id = `form-vehicle-section-vehicle-${vehicleNumber}-div`;
 
-    //Set up vehicle input div
-    vehicleInputDiv.classList.add("form-vehicle-input-div");
-    vehicleInputDiv.id = `vehicle-${vehicleNumber}-input-div`;
+    //Set up vehicleInputs div
+    vehicleInputsDiv.classlist.add("form-vehicle-section-inputs-div");
+    vehicleInputsDiv.id = `form-vehicle-section-vehicle-${vehicleNumber}-inputs-div`;
 
     //Set up vehicle type select
-    vehicleTypeDiv.classList.add("form-vehicle-type-div");
-    vehicleTypeDiv.id = `vehicle-${vehicleNumber}-type-div`;
-    
-    vehicleTypeSelect.classList.add("form-select");
-    vehicleTypeSelect.id = (`vehicle-${vehicleNumber}-type-select`);
-    vehicleTypeSelect.setAttribute("name", `vehicle-${vehicleNumber}-type`);
-    function handler() {
-        reloadVehicleInputs(vehicleNumber);
-    }
-    
-    vehicleTypeSelect.addEventListener("change", handler);
-    
-    vehicleTypeLabel.classList.add("form-label");
-    vehicleTypeLabel.textContent = "Vehicle Type:";
-    vehicleTypeLabel.setAttribute("for", vehicleTypeSelect.id);
-
-    vehicleTypeDiv.appendChild(vehicleTypeLabel);
-    vehicleTypeDiv.appendChild(vehicleTypeSelect);
+    vehicleTypeSelect.classList.add("form-select")
+    vehicleTypeSelect.id = `form-vehicle-section-vehicle${vehicleNumber}-type-select`;
+    vehicleTypeSelect.name = `vehicle-${vehicleNumber}-type`;
 
     //Set up options for vehicle type select
-
-    vehicleTypeSelectGasOption.classList.add("form-option");
-    vehicleTypeSelectGasOption.id = `vehicle-${vehicleNumber}-type-gas-option`;
-    vehicleTypeSelectGasOption.setAttribute("value", "gas");
-    vehicleTypeSelectGasOption.textContent = "Gas";
-    
-    vehicleTypeSelectDieselOption.classList.add("form-option");
-    vehicleTypeSelectDieselOption.id = `vehicle-${vehicleNumber}-type-diesel-option`;
-    vehicleTypeSelectDieselOption.setAttribute("value", "diesel");
-    vehicleTypeSelectDieselOption.textContent = "Diesel";
-    
-    vehicleTypeSelectElectricOption.classList.add("form-option");
-    vehicleTypeSelectElectricOption.id = `vehicle-${vehicleNumber}-type-diesel-option`
-    vehicleTypeSelectElectricOption.setAttribute("value", "electric");
-    vehicleTypeSelectElectricOption.textContent = "Electric";
-    
-    vehicleTypeSelect.appendChild(vehicleTypeSelectGasOption);
-    vehicleTypeSelect.appendChild(vehicleTypeSelectDieselOption);
-    vehicleTypeSelect.appendChild(vehicleTypeSelectElectricOption);
-    
-    //Set up vehicle efficiency input
-    vehicleEfficiencyDiv.classList.add("form-vehicle-efficiency-div");
-    vehicleEfficiencyDiv.id = `vehicle-${vehicleNumber}-efficiency-div`;
-
-    vehicleEfficiencyInput.classList.add("form-input");
-    vehicleEfficiencyInput.id = `vehicle-${vehicleNumber}-efficiency-input`;
-    vehicleEfficiencyInput.setAttribute("type", "number");
-    vehicleEfficiencyInput.setAttribute("name", `vehicle-${vehicleNumber}-efficiency-input`);
-    
-    vehicleEfficiencyLabel.classList.add("form-label");
-    vehicleEfficiencyLabel.id = `vehicle-${vehicleNumber}-efficiency-label`;
-    vehicleEfficiencyLabel.setAttribute("for", vehicleEfficiencyInput.id);
-    vehicleEfficiencyLabel.textContent = "Fuel efficiency (L/100km):";
-
-    vehicleEfficiencyDiv.appendChild(vehicleEfficiencyLabel);
-    vehicleEfficiencyDiv.appendChild(vehicleEfficiencyInput);
-
-    //Set up vehicle distance input
-    vehicleDistanceDiv.classList.add("form-vehicle-distance-div");
-    vehicleDistanceDiv.id = `vehicle-${vehicleNumber}-distance-div`;
-
-    vehicleDistanceInput.classList.add("form-input");
-    vehicleDistanceInput.id = `vehicle-${vehicleNumber}-distance-input`;
-    vehicleDistanceInput.setAttribute("name", `vehicle-${vehicleNumber}-distance-input`);
-    vehicleDistanceLabel.classList.add("form-label");
-    vehicleDistanceLabel.id = `vehicle-${vehicleNumber}-distance-label`;
-    vehicleDistanceLabel.setAttribute("for", vehicleDistanceInput.id);
-    vehicleDistanceLabel.textContent = "Distance driven per week (km):";
-
-    vehicleDistanceDiv.appendChild(vehicleDistanceLabel);
-    vehicleDistanceDiv.appendChild(vehicleDistanceInput);
-
-    //Append inputs to vehicleInputDiv
-    vehicleInputDiv.appendChild(vehicleTypeDiv);
-    if(!isElectric) {
-        vehicleInputDiv.appendChild(vehicleEfficiencyDiv);
-    }
-    vehicleInputDiv.appendChild(vehicleDistanceDiv);
-
-    //Append vehicleInputDiv to vehicleDiv
-    vehicleDiv.appendChild(vehicleInputDiv);
-
-    return vehicleDiv;
 }
 
 //Load individual vehicle inputs
@@ -554,49 +428,6 @@ function loadVehicleSection(parent) {
 
 }
 
-//Load a part of the housing section
-function loadHousingInputSection(parent, sectionName, labelText, inputType, inputName, units) {
-
-    //Create all elements
-    sectionDiv = document.createElement("div");
-    sectionLabel = document.createElement("label");
-    sectionInput = document.createElement("input")
-    sectionUnits = document.createElement("select");
-
-    //Set up div
-    sectionDiv.classList.add("form-heating-div");
-    sectionDiv.id = `${sectionName}-div`;
-
-    //Set up label
-    sectionLabel.classList.add(`${sectionName}-label`);
-    sectionLabel.id = `${sectionName}-label`;
-    sectionLabel.textContent = labelText;
-    sectionLabel.setAttribute("for", sectionInput);
-
-    //Set up input
-    sectionInput.classList.add("form-input");
-    sectionInput.id = `${sectionName}-input`;
-    sectionInput.setAttribute("type", inputType);
-    sectionInput.setAttribute("name", inputName);
-
-    //Set up units
-    sectionUnits.classList.add("form-units-select");
-    sectionUnits.id = `${sectionName}-units-select`;
-    units.forEach(element => {
-        option = document.createElement("option");
-        option.setAttribute("value", element);
-        option.textContent = element;
-        sectionUnits.appendChild(option);
-    });
-
-    //Append children
-    sectionDiv.appendChild(sectionLabel);
-    sectionDiv.appendChild(sectionInput);
-    sectionDiv.appendChild(sectionUnits);
-    parent.appendChild(sectionDiv)
-
-}
-
 //Load housing section for form
 function loadHousingSection(parent) {
     
@@ -606,13 +437,20 @@ function loadHousingSection(parent) {
     housingDiv.id = "form-housing-div"
 
     housingText = generateSectionHeader(housingDiv, "Housing", "home", "an epic house");
-
-    //Append children to housing div
     housingDiv.appendChild(housingText);
-    loadHousingInputSection(housingDiv, "natural-gas", "Natural Gas:", "number", "natural-gas-amount", ["L", "kWh"]);
-    loadHousingInputSection(housingDiv, "heating-oil", "Heating Oil:", "number", "heating-oil-amount", ["L", 'kWh']);
-    loadHousingInputSection(housingDiv, "propane", "Propane:", "number", "propane-amount", ["L", "kWh"]);
-    loadHousingInputSection(housingDiv, "procoalpane", "Coal:", "number", "coal-amount", ["kg", "kWh"]);
+
+
+    //Create inputs
+    naturalGasInput = generateSectionInput(housingDiv, "natural-gas-amount", "Natural Gas:", "number", ["L", "kWh"]);
+    heatingOilInput = generateSectionInput(housingDiv, "heating-oil-amount", "Heating Oil:", "number", ["L", 'kWh']);
+    propaneInput = generateSectionInput(housingDiv, "propane-amount", "Propane:", "number", ["L", "kWh"]);
+    coalInput = generateSectionInput(housingDiv, "coalpane-amount", "Coal:", "number", ["kg", "kWh"]);
+
+    //Append inputs to housing div
+    housingDiv.appendChild(naturalGasInput);
+    housingDiv.appendChild(heatingOilInput);
+    housingDiv.appendChild(propaneInput);
+    housingDiv.appendChild(coalInput);
 
     //Append housing div to form
     parent.appendChild(housingDiv);
