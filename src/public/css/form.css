@@ -244,3 +244,36 @@
     width: auto;
     gap: 10px;
   }
+
+  .form-select-div {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 700px;
+    gap: 10px;
+  }
+
+  .form-vehicle-section-vehicle-div{
+    display: flex;
+    flex-direction: column;
+    width: auto;
+    gap: 10px;
+  }
+
+  .form-vehicle-section-inputs-div {
+    display: flex;
+    flex-direction: column;
+    width: auto;
+    gap: 10px;
+  }
+
+  .form-vehicle-container {
+    display: flex;
+    flex-direction: column;
+    width: auto;
+    gap: 20px;
+  }
+
+  .form-subheading {
+    font-size: 20px;
+  }

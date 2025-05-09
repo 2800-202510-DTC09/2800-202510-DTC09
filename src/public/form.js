@@ -1,5 +1,47 @@
+
+function generateSectionSelect(parent, selectName, labelText, options) {
+
+    //Create elements
+    selectDiv = document.createElement("div");
+    select = document.createElement("select");
+    label = document.createElement("label");
+
+    //Set up select div
+    selectDiv.classList.add("form-select-div");
+    selectDiv.id = `${parent.id}-${selectName}-select-div`;
+    
+    //Set up select
+    select.classList.add("form-select");
+    select.id = `${parent.id}-${select}-select`;
+    select.setAttribute("name", selectName);
+
+    //Set up label
+    label.classType = ("form-label");
+    label.id = `${parent.id}-${selectName}-label`;
+    label.setAttribute("for", select.id);
+    label.textContent = labelText;
+
+    //Create options and add tem to select
+    options.forEach(element => {
+        option = document.createElement("option");
+        option.classList.add("form-option");
+        option.id = `${select.id}-${element}-option`;
+        option.setAttribute("value", element);
+        option.textContent = element;
+        select.appendChild(option);
+    })
+
+    //Add children to selectDiv
+    selectDiv.appendChild(label);
+    selectDiv.appendChild(select);
+
+    //Return selectDiv
+    return selectDiv;
+}
+
 function generateSectionInput(parent, inputName, labelText, inputType, units) {
 
+    console.log(typeof(units));
     //Create elements
     sectionDiv = document.createElement("div");
     sectionInputDiv = document.createElement("div");
@@ -112,54 +154,6 @@ function generateSectionHeader(parent, headerText, headerIcon, toolTipText) {
     return headerDiv;
 }
 
-//Load input for selecting primary flight class for lifestyle section
-function loadLifeStyleFlightClassSelectorInput(parent) {
-
-    //Create elements
-    classSelectorDiv = document.createElement("div");
-    classSelectorLabel = document.createElement("label");
-    classSelector = document.createElement("select");
-    classSelectorFirstClassOption = document.createElement("option");
-    classSelectorBusinessClassOption = document.createElement("option");
-
-    //Set up class selector div
-    classSelectorDiv.classList.add("form-lifestyle-content-input-div")
-    classSelectorDiv.id = `diet-content-flight-class-selector-div`;
-
-    //Set up class selector
-    classSelector.classList.add("form-select")
-    classSelector.id = "lifestyle-content-class-selector";
-    classSelector.setAttribute("name",`lifestyle-content-class-selector`);
-    classSelector.setAttribute("type", "number");
-
-    //Set up class selector label
-    classSelectorLabel.classList.add("form-label");
-    classSelectorLabel.id = "lifestule-content-class-label";
-    classSelectorLabel.setAttribute("for", classSelector.id);
-    classSelectorLabel.textContent = "What class do you usually fly?:";
-
-    //Set up class selector options
-    classSelectorFirstClassOption.classList.add("form-option");
-    classSelectorFirstClassOption.id = "lifestyle-content-class-selector-first-class-option";
-    classSelectorFirstClassOption.setAttribute("value", "first-class");
-    classSelectorFirstClassOption.textContent = "First Class";
-
-    classSelectorBusinessClassOption.classList.add("form-option");
-    classSelectorBusinessClassOption.id = "lifestyle-content-class-selector-business-class-option";
-    classSelectorBusinessClassOption.setAttribute("value", "business-class");
-    classSelectorBusinessClassOption.textContent = "Business Class";
-
-    classSelector.appendChild(classSelectorBusinessClassOption);
-    classSelector.appendChild(classSelectorFirstClassOption);
-
-    //Add children to classSelectorDiv
-    classSelectorDiv.appendChild(classSelectorLabel);
-    classSelectorDiv.appendChild(classSelector);
-
-    //Add children to parent
-    return classSelectorDiv;
-}
-
 //Load Lifestyle section
 function loadLifestyleSection(parent) {
 
@@ -182,7 +176,7 @@ function loadLifestyleSection(parent) {
     //Create inputs for lifestyle content
     domesticFlightInput = generateSectionInput(lifestyleContent, "domestic-flight-distance","How much have you flown on domestic flights this year?:", "number", ["km"]);
     internationalFlightInput = generateSectionInput(lifestyleContent, "international-flight-distance","How much have you flown on international flights this year?:", "number", ["km"]);
-    flightClassInput = loadLifeStyleFlightClassSelectorInput(lifestyleContent);
+    flightClassInput = generateSectionSelect(lifestyleContent, "flight-class", "What class do you usually fly in?", ["Business", "First Class"]);
     clothingInput = generateSectionInput(lifestyleContent, "clothing-mass", "How much clothing do you buy in a year?:", "number", ["kg"]);
     shippingInput = generateSectionInput(lifestyleContent, "amount-shipped","How many times is something shipped to your house each month?:", "number", ["packages"]);
 
@@ -289,70 +283,75 @@ function loadElectricitySection(parent) {
 }
 
 //Reload a vehicle's input if type changes
-function reloadVehicleInputs(vehicleNumber) {
-    //Get parent
-    parent = document.getElementById(`vehicle-${vehicleNumber}-input-div`);
-    type = document.getElementById(`vehicle-${vehicleNumber}-type-select`)
-    efficiencyDiv = document.getElementById(`vehicle-${vehicleNumber}-efficiency-div`)
-    isElectric = type.value === "electric";
+function reloadVehicleInputs(event, vehicleNumber) {
+    console.log(`Reloading ${vehicleNumber}`);
 
-    if (isElectric) {
-        if (efficiencyDiv) {
-            efficiencyDiv.remove();
-        }
+    //Get vehicle input container
+    vehicleInputContainer = document.getElementById(`form-vehicle-section-vehicle-${vehicleNumber}-inputs-div`);
+    vehicleInputContainer.innerHTML = "";
+
+    if (event.target.value == "Electric") {
+        
+        //Add electric vehicle inputs
+        chargeInput = generateSectionInput(vehicleInputContainer, "charge-amount", "How much do you spend at charging stations each week?:", "number", ["$"]);
+        vehicleInputContainer.appendChild(chargeInput);
+
     } else {
-        if (!efficiencyDiv) {
-            //Set up vehicle efficiency input
-            vehicleEfficiencyDiv = document.createElement("div");
-            vehicleEfficiencyLabel = document.createElement("label");
-            vehicleEfficiencyInput = document.createElement("input");
-            child = parent.querySelector(`#vehicle-${vehicleNumber}-distance-div`);
-
-            vehicleEfficiencyDiv.classList.add("form-vehicle-efficiency-div");
-            vehicleEfficiencyDiv.id = `vehicle-${vehicleNumber}-efficiency-div`;
-
-            vehicleEfficiencyInput.classList.add("form-input");
-            vehicleEfficiencyInput.id = `vehicle-${vehicleNumber}-efficiency-input`;
-            vehicleEfficiencyInput.setAttribute("type", "number");
-            vehicleEfficiencyInput.setAttribute("name", `vehicle-${vehicleNumber}-efficiency-input`);
-            
-            vehicleEfficiencyLabel.classList.add("form-label");
-            vehicleEfficiencyLabel.id = `vehicle-${vehicleNumber}-efficiency-label`;
-            vehicleEfficiencyLabel.setAttribute("for", vehicleEfficiencyInput.id);
-            vehicleEfficiencyLabel.textContent = "Fuel efficiency (L/100km):";
-
-            vehicleEfficiencyDiv.appendChild(vehicleEfficiencyLabel);
-            vehicleEfficiencyDiv.appendChild(vehicleEfficiencyInput);
-
-            parent.insertBefore(vehicleEfficiencyDiv, child);
-        }
+        
+        //Add non-electric vehicle inputs
+        vehicleEfficiencyInput = generateSectionInput(vehicleInputsDiv, `vehicle-${vehicleNumber}-efficiency`, "What is the vehicle's fuel efficiency?:", "number", ["L/100km"]);
+        vehicleDistanceInput = generateSectionInput(vehicleInputsDiv, `vehicle-${vehicleNumber}-distance`, "How far do you drive your vehicle each week?:", "number", ["km"]);
+        vehicleInputContainer.appendChild(vehicleEfficiencyInput);
+        vehicleInputContainer.appendChild(vehicleDistanceInput);
+        
     }
 }
 
 //Load one vehicle
-function loadVehicle(vehicleNumber, isElectric) {
+function loadVehicle(vehicleNumber) {
     
     //Create elements
     vehicleDiv = document.createElement("div");
     vehicleName = document.createElement("p");
-    vehicleTypeSelect = document.createElement("select");
-    vehicleTypeLabel = document.createElement("label");
     vehicleInputsDiv = document.createElement("div");
 
     //Set up vehicle div
     vehicleDiv.classList.add("form-vehicle-section-vehicle-div");
     vehicleDiv.id = `form-vehicle-section-vehicle-${vehicleNumber}-div`;
 
+    //Set up vehicle name
+    vehicleName.classList.add("form-subheading");
+    vehicleName.id = `form-vehicle-section-vehicle-${vehicleNumber}-name`;
+    vehicleName.textContent = `Vehicle ${vehicleNumber}`;
+
     //Set up vehicleInputs div
-    vehicleInputsDiv.classlist.add("form-vehicle-section-inputs-div");
+    vehicleInputsDiv.classList.add("form-vehicle-section-inputs-div");
     vehicleInputsDiv.id = `form-vehicle-section-vehicle-${vehicleNumber}-inputs-div`;
 
     //Set up vehicle type select
-    vehicleTypeSelect.classList.add("form-select")
-    vehicleTypeSelect.id = `form-vehicle-section-vehicle${vehicleNumber}-type-select`;
-    vehicleTypeSelect.name = `vehicle-${vehicleNumber}-type`;
+    vehicleTypeSelect = generateSectionSelect(vehicleDiv, `vehicle-${vehicleNumber}-type`, `What is the vehicle's type?:`, ["Gas", "Diesel", "Electric"]);
 
-    //Set up options for vehicle type select
+    //Add event listener to vehicle type select
+    vehicleTypeSelect.addEventListener("change", (event)=>{
+        reloadVehicleInputs(event, vehicleNumber);
+    })
+
+    //Set up vehicle inputs
+    vehicleEfficiencyInput = generateSectionInput(vehicleInputsDiv, `vehicle-${vehicleNumber}-efficiency`, "What is the vehicle's fuel efficiency?:", "number", ["L/100km"]);
+    vehicleDistanceInput = generateSectionInput(vehicleInputsDiv, `vehicle-${vehicleNumber}-distance`, "How far do you drive your vehicle each week?:", "number", ["km"]);
+
+    //Add inputs to vehicleInputsDiv
+    vehicleInputsDiv.appendChild(vehicleEfficiencyInput);
+    vehicleInputsDiv.appendChild(vehicleDistanceInput);
+
+    //Add children to vehicleDiv
+    vehicleDiv.appendChild(vehicleName);
+    vehicleDiv.appendChild(vehicleTypeSelect);
+    vehicleDiv.appendChild(vehicleInputsDiv);
+
+    //Return vehicle div
+    return vehicleDiv;
+
 }
 
 //Load individual vehicle inputs
@@ -367,7 +366,7 @@ function loadVehicleInputs(event, parent) {
 
     //Load each vehicle
     for (let i = 1; i <= number; i++) {
-        vehicle = loadVehicle(i, false);
+        vehicle = loadVehicle(i);
         parent.append(vehicle);
     }
 }
