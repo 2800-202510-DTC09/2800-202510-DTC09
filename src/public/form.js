@@ -41,7 +41,6 @@ function generateSectionSelect(parent, selectName, labelText, options) {
 
 function generateSectionInput(parent, inputName, labelText, inputType, units) {
 
-    console.log(typeof(units));
     //Create elements
     sectionDiv = document.createElement("div");
     sectionInputDiv = document.createElement("div");
@@ -97,7 +96,6 @@ function generateSectionInput(parent, inputName, labelText, inputType, units) {
 function generateSectionHeader(parent, headerText, headerIcon, toolTipText) {
 
     //Create Elements
-    console.log(toolTipText);
     headerDiv = document.createElement("div");
     nameSectionDiv = document.createElement("div");
     toolTipDiv = document.createElement("div");
@@ -284,7 +282,6 @@ function loadElectricitySection(parent) {
 
 //Reload a vehicle's input if type changes
 function reloadVehicleInputs(event, vehicleNumber) {
-    console.log(`Reloading ${vehicleNumber}`);
 
     //Get vehicle input container
     vehicleInputContainer = document.getElementById(`form-vehicle-section-vehicle-${vehicleNumber}-inputs-div`);
@@ -303,7 +300,7 @@ function reloadVehicleInputs(event, vehicleNumber) {
         vehicleDistanceInput = generateSectionInput(vehicleInputsDiv, `vehicle-${vehicleNumber}-distance`, "How far do you drive your vehicle each week?:", "number", ["km"]);
         vehicleInputContainer.appendChild(vehicleEfficiencyInput);
         vehicleInputContainer.appendChild(vehicleDistanceInput);
-        
+
     }
 }
 
@@ -357,7 +354,6 @@ function loadVehicle(vehicleNumber) {
 //Load individual vehicle inputs
 function loadVehicleInputs(event, parent) {
     
-    console.log("loading vehicles!");
     //Get the parent and clear its innner HTML
     parent.innerHTML = "";
 
@@ -492,8 +488,8 @@ function loadGetStarted() {
 
 // Main function. Executes once forms.html loads
 function main() {
-    console.log("Executing main function!");
     loadGetStarted();
 }
 
+//Call main function
 main();
