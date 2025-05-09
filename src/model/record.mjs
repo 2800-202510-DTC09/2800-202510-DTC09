@@ -1,5 +1,5 @@
 import {env} from 'process';
-import {model, Schema, Error} from 'mongoose';
+import {model, Schema, Error, mongo} from 'mongoose';
 import mongooseUniqueValidator from 'mongoose-unique-validator';
 import mongooseAutoPopulate from 'mongoose-autopopulate';
 import {normalize as userNormalize} from './user.mjs';
@@ -15,7 +15,6 @@ export const Record = model(
             type: Schema.Types.ObjectId,
             ref: 'user',
             required: true,
-            autopopulate: true,
          },
          emission: {
             type: Schema.Types.Number,
@@ -30,7 +29,6 @@ export const Record = model(
             type: Schema.Types.ObjectId,
             ref: 'type',
             required: true,
-            autopopulate: true,
          },
          deletedAt: {
             type: Schema.Types.Date,
@@ -113,8 +111,14 @@ export const normalize = (v) =>
                         w[x],
                      ]),
                   ),
-                  user: userNormalize(w.user),
-                  type: typeNormalize(w.type),
+                  user:
+                     w.user instanceof mongo.ObjectId
+                        ? w.user
+                        : userNormalize(w.user),
+                  type:
+                     w.type instanceof mongo.ObjectId
+                        ? w.type
+                        : typeNormalize(w.type),
                };
             } else {
                return null;

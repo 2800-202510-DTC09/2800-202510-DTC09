@@ -1,10 +1,17 @@
-import {model, Schema, Error} from 'mongoose';
+import {model, Schema, Error, mongo} from 'mongoose';
 import mongooseUniqueValidator from 'mongoose-unique-validator';
+import mongooseAutoPopulate from 'mongoose-autopopulate';
+import {normalize as userNormalize} from './user.mjs';
 
 export const Goal = model(
    'goal',
    new Schema(
       {
+         user: {
+            type: Schema.Types.ObjectId,
+            ref: 'user',
+            required: true,
+         },
          name: {
             type: Schema.Types.String,
             required: true,
@@ -40,6 +47,7 @@ export const Goal = model(
       .plugin(mongooseUniqueValidator, {
          message: 'Path `{PATH}` is not unique.',
       })
+      .plugin(mongooseAutoPopulate)
       .plugin((schema) => {
          schema.post('validate', (res, next) => {
             const e = new Error.ValidationError();
@@ -150,21 +158,27 @@ export const normalize = (v) =>
       .map((w) => {
          {
             if (!w.deletedAt || w.deletedAt > Date.now()) {
-               return Object.fromEntries(
-                  [
-                     'id',
-                     'name',
-                     'description',
-                     'icon',
-                     'emission',
-                     'emissionDiff',
-                     'emissionDiffStart',
-                     'emissionDiffEnd',
-                  ].map((x) => [
-                     x,
-                     w[x],
-                  ]),
-               );
+               return {
+                  ...Object.fromEntries(
+                     [
+                        'id',
+                        'name',
+                        'description',
+                        'icon',
+                        'emission',
+                        'emissionDiff',
+                        'emissionDiffStart',
+                        'emissionDiffEnd',
+                     ].map((x) => [
+                        x,
+                        w[x],
+                     ]),
+                  ),
+                  user:
+                     w.user instanceof mongo.ObjectId
+                        ? w.user
+                        : userNormalize(w.user),
+               };
             }
             {
                return null;

@@ -1,4 +1,4 @@
-import {model, Schema} from 'mongoose';
+import {model, mongo, Schema} from 'mongoose';
 import mongooseUniqueValidator from 'mongoose-unique-validator';
 import mongooseAutoPopulate from 'mongoose-autopopulate';
 import {normalize as userNormalize} from './user.mjs';
@@ -11,7 +11,6 @@ export const LeaderBoard = model(
             type: Schema.Types.ObjectId,
             ref: 'user',
             required: true,
-            autopopulate: true,
          },
          rank: {
             type: Schema.Types.Number,
@@ -53,7 +52,10 @@ export const normalize = (v) =>
                         w[x],
                      ]),
                   ),
-                  user: userNormalize(w.user),
+                  user:
+                     w.user instanceof mongo.ObjectId
+                        ? w.user
+                        : userNormalize(w.user),
                };
             } else {
                return null;

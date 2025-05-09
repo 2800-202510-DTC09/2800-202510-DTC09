@@ -4,6 +4,7 @@ import mongooseAutoPopulate from 'mongoose-autopopulate';
 import {normalize as badgeNormalize} from './badge.mjs';
 import {normalize as goalNormalize} from './goal.mjs';
 import {normalize as typeNormalize} from './type.mjs';
+import {normalize as recordNormalize} from './record.mjs';
 
 export const User = model(
    'user',
@@ -70,6 +71,18 @@ export const User = model(
             required: true,
             default: [],
          },
+         records: {
+            type: [
+               {
+                  type: Schema.Types.ObjectId,
+                  ref: 'record',
+                  required: true,
+                  autopopulate: true,
+               },
+            ],
+            required: true,
+            default: [],
+         },
          deletedAt: {
             type: Schema.Types.Date,
          },
@@ -109,6 +122,7 @@ export const normalize = (v) =>
                      type: typeNormalize(x.type),
                      factor: x.factor,
                   })),
+                  records: w.records.map((x) => recordNormalize(x)),
                };
             } else {
                return null;

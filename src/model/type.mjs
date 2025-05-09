@@ -1,5 +1,6 @@
 import {model, Schema} from 'mongoose';
 import mongooseUniqueValidator from 'mongoose-unique-validator';
+import mongooseAutoPopulate from 'mongoose-autopopulate';
 
 export const Type = model(
    'type',
@@ -20,9 +21,11 @@ export const Type = model(
          },
       },
       {timestamps: true},
-   ).plugin(mongooseUniqueValidator, {
-      message: 'Path `{PATH}` is not unique.',
-   }),
+   )
+      .plugin(mongooseUniqueValidator, {
+         message: 'Path `{PATH}` is not unique.',
+      })
+      .plugin(mongooseAutoPopulate),
 );
 
 export const normalize = (v) =>
