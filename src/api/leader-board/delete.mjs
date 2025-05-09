@@ -1,10 +1,12 @@
+import {LeaderBoard} from '../../model/leader-board.mjs';
 import {leaderBoard} from './index.mjs';
+import {status} from 'http-status';
 
 /**
  * @openapi
- * /leaderBoard/{id}:
+ * /leader-board/{id}:
  *   delete:
- *     description: Delete leaderBoard
+ *     description: Delete leader board entry
  *     tags:
  *       - Leader Board
  *     parameters:
@@ -13,14 +15,34 @@ import {leaderBoard} from './index.mjs';
  *         schema:
  *           type: string
  *         required: true
- *         description: LeaderBoard ID
+ *         description: Leader board entry ID
  *     responses:
  *       202:
- *         description: LeaderBoard is deleted
+ *         description: Leader board entry is deleted
  *       404:
- *         description: LeaderBoard not found
+ *         description: Leader board entry not found
+ *       500:
+ *         description: Server internal error
  */
 leaderBoard.delete('/:id', async (req, res) => {
-   // const api = await Todo.find();
-   res.json({a: req.body});
+   try {
+      const leaderBoard = await LeaderBoard.findOne({
+         _id: req.params.id,
+         $or: [
+            {deletedAt: {$exists: false}},
+            {deletedAt: null},
+            {deletedAt: {$gt: req.timestamp}},
+         ],
+      });
+      if (leaderBoard) {
+         leaderBoard.deletedAt = req.timestamp;
+         await leaderBoard.save();
+         res.sendStatus(status.NO_CONTENT);
+      } else {
+         res.sendStatus(status.NOT_FOUND);
+      }
+   } catch (e) {
+      console.error(e);
+      res.sendStatus(status.INTERNAL_SERVER_ERROR);
+   }
 });

@@ -1,9 +1,7 @@
-import {Error, isObjectIdOrHexString, isValidObjectId} from 'mongoose';
+import {Error} from 'mongoose';
 import {Record} from '../../model/record.mjs';
 import {record, normalize} from './index.mjs';
 import {status} from 'http-status';
-import {User} from '../../model/user.mjs';
-import {Type} from '../../model/type.mjs';
 
 /**
  * @openapi
@@ -34,7 +32,7 @@ import {Type} from '../../model/type.mjs';
  *                 example: 681a3ef31674a09cc7fa43e3
  *     responses:
  *       200:
- *         description: An record is created
+ *          record is created
  *       400:
  *         description: Given data is invalid
  *       500:

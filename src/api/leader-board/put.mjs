@@ -2,7 +2,7 @@ import {leaderBoard} from './index.mjs';
 
 /**
  * @openapi
- * /leaderBoard/{id}:
+ * /leader-board/{id}:
  *   put:
  *     description: Update leaderBoard
  *     tags:

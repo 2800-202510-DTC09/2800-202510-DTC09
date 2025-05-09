@@ -1,10 +1,12 @@
-import {leaderBoard} from './index.mjs';
+import {LeaderBoard} from '../../model/leader-board.mjs';
+import {leaderBoard, normalize} from './index.mjs';
+import {status} from 'http-status';
 
 /**
  * @openapi
- * /leaderBoard/{id}:
+ * /leader-board/{id}:
  *   get:
- *     description: Get leaderBoard by ID
+ *     description: Get leader board entry by ID
  *     tags:
  *       - Leader Board
  *     parameters:
@@ -13,14 +15,25 @@ import {leaderBoard} from './index.mjs';
  *         schema:
  *           type: string
  *         required: true
- *         description: LeaderBoard ID
+ *         description: Leader board entry ID
  *     responses:
  *       200:
- *         description: Found a leaderBoard
+ *         description: Found a leader board entry
  *       404:
- *         description: LeaderBoard not found
+ *         description: Leader board entry not found
+ *       500:
+ *         description: Server internal error
  */
 leaderBoard.get('/:id', async (req, res) => {
-   // const api = await Todo.find();
-   res.json({a: req.params.id});
+   try {
+      const records = normalize(await LeaderBoard.findById(req.params.id));
+      if (records.length) {
+         res.status(status.OK).json(records.pop());
+      } else {
+         res.sendStatus(status.NOT_FOUND);
+      }
+   } catch (e) {
+      console.error(e);
+      res.sendStatus(status.INTERNAL_SERVER_ERROR);
+   }
 });
