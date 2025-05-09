@@ -1,5 +1,16 @@
 
 //Change input background color when updated
+function changeInputColor(event) {
+    if (event.target.value !== "") {
+        if (event.target.classList.contains("form-input-unconfirmed")) {
+            event.target.classList.remove("form-input-unconfirmed");
+            event.target.classList.add("form-input-confirmed");
+        }
+    } else if (event.target.classList.contains("form-input-confirmed")) {
+        event.target.classList.remove("form-input-confirmed");
+        event.target.classList.add("form-input-unconfirmed");
+    }
+}
 
 
 function generateSectionSelect(parent, selectName, selectionType, labelText, options) {
@@ -61,9 +72,13 @@ function generateSectionInput(parent, inputName, labelText, inputType, units) {
 
     //Set up sectionInput
     sectionInput.classList.add("form-input");
+    sectionInput.classList.add("form-input-unconfirmed");
     sectionInput.id = `${parent.id}-${inputName}-input`;
     sectionInput.setAttribute("name", inputName);
     sectionInput.setAttribute("type", inputType);
+    sectionInput.addEventListener("change", (event)=>{
+        changeInputColor(event);
+    })
 
     //Set up section label
     sectionLabel.classList.add("form-label");
