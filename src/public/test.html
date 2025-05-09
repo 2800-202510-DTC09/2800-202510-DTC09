@@ -1,1 +1,312 @@
-asdfasdf
+<!-- This testing function was created by claude to help with testing the feature -->
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SustainMe Tier System Tester</title>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400&family=Poppins:wght@700&display=swap"
+        rel="stylesheet">
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>const module = {};</script>
+    <script src="/css/tailwind.config.js"></script>
+    <script>
+        tailwind.config = module.exports
+    </script>
+
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body class="bg-neutral-100 font-sans">
+    <div class="container mx-auto px-4 py-8">
+        <h1 class="text-3xl font-heading text-dark mb-6">Tier System Tester</h1>
+
+        <div class="bg-white rounded-lg shadow-md p-6 mb-8">
+            <h2 class="text-xl font-heading text-dark mb-4">Test User Tier by ID</h2>
+
+            <div class="mb-4">
+                <label for="userId" class="block text-sm font-medium text-gray-700 mb-1">User ID</label>
+                <div class="flex">
+                    <input type="text" id="userId"
+                        class="flex-1 rounded-l-md border border-gray-300 px-3 py-2 text-gray-900 focus:border-primary focus:outline-none"
+                        placeholder="Enter MongoDB User ID">
+                    <button id="testButton"
+                        class="bg-primary text-white px-4 py-2 rounded-r-md hover:bg-primary-dark transition-colors">
+                        Test
+                    </button>
+                </div>
+                <p class="text-xs text-gray-500 mt-1">Example format: 681342414429d3a18ad3fb45</p>
+            </div>
+
+            <div id="manual-score-test" class="mb-6 border-t pt-4 mt-4">
+                <h3 class="text-lg font-heading text-dark mb-2">Or Test with Manual Score</h3>
+                <div class="flex items-center">
+                    <input type="number" id="manualScore"
+                        class="flex-1 rounded-l-md border border-gray-300 px-3 py-2 text-gray-900 focus:border-primary focus:outline-none"
+                        placeholder="Enter score (e.g. 1200)">
+                    <button id="manualTestButton"
+                        class="bg-primary text-white px-4 py-2 rounded-r-md hover:bg-primary-dark transition-colors">
+                        Test
+                    </button>
+                </div>
+            </div>
+
+            <div id="result-container" class="hidden">
+                <div class="p-4 border rounded-md bg-neutral-50">
+                    <div class="flex flex-col md:flex-row justify-between items-center md:items-start gap-6">
+                        <div class="flex flex-col items-center text-center md:items-start md:text-left">
+                            <div class="flex items-center gap-3 mb-2">
+                                <img id="tier-badge" src="/assets/Bronze-1.png" alt="Tier Badge" class="w-16 h-16">
+                                <div>
+                                    <span id="current-tier" class="text-2xl font-bold">Loading...</span>
+                                    <p id="user-info" class="text-sm text-gray-500"></p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="flex-1 w-full max-w-md">
+                            <div class="flex justify-between mb-1">
+                                <span class="text-sm font-medium">Progress to Next Tier</span>
+                                <span id="tier-progress-text" class="text-sm font-medium">Calculating...</span>
+                            </div>
+                            <div class="tier-progress-container">
+                                <div id="tier-progress-bar" class="tier-progress-bar" style="width: 0%"></div>
+                            </div>
+                            <div class="flex justify-between items-center mt-2">
+                                <div>
+                                    <span class="text-xs text-neutral-600">Need <span id="points-needed"
+                                            class="font-bold">...</span> more
+                                        points</span>
+                                </div>
+                                <div class="flex items-center gap-2">
+                                    <span class="text-sm">Next: </span>
+                                    <img id="next-tier-badge" src="/assets/Bronze-2.png" alt="Next Tier Badge"
+                                        class="w-8 h-8">
+                                    <span id="next-tier" class="text-sm font-semibold">Loading...</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="error-container" class="hidden mt-4 p-3 bg-red-100 text-red-700 rounded-md">
+                Error message will appear here
+            </div>
+        </div>
+
+        <div class="bg-white rounded-lg shadow-md p-6">
+            <h2 class="text-xl font-heading text-dark mb-2">Tier Thresholds</h2>
+            <p class="text-sm text-gray-500 mb-4">Reference for tier progression in the system</p>
+
+            <div class="overflow-x-auto">
+                <table class="min-w-full divide-y divide-gray-200">
+                    <thead class="bg-gray-50">
+                        <tr>
+                            <th scope="col"
+                                class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                Tier
+                            </th>
+                            <th scope="col"
+                                class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                Display Name
+                            </th>
+                            <th scope="col"
+                                class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                Required Score
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody class="bg-white divide-y divide-gray-200" id="tier-table">
+                        <!-- Tier data will be inserted here -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Tier system data
+        const TIERS = [
+            { name: 'bronze', level: 1, displayName: 'Bronze I', badge: '/assets/Bronze-1.png', threshold: 0 },
+            { name: 'bronze', level: 2, displayName: 'Bronze II', badge: '/assets/Bronze-2.png', threshold: 500 },
+            { name: 'bronze', level: 3, displayName: 'Bronze III', badge: '/assets/Bronze-3.png', threshold: 1000 },
+            { name: 'gold', level: 1, displayName: 'Gold I', badge: '/assets/Gold-1.png', threshold: 1500 },
+            { name: 'gold', level: 2, displayName: 'Gold II', badge: '/assets/Gold-2.png', threshold: 2000 },
+            { name: 'gold', level: 3, displayName: 'Gold III', badge: '/assets/Gold-3.png', threshold: 2500 },
+            { name: 'diamond', level: 1, displayName: 'Diamond I', badge: '/assets/Diamond-1.png', threshold: 3000 },
+            { name: 'diamond', level: 2, displayName: 'Diamond II', badge: '/assets/Diamond-2.png', threshold: 3500 },
+            { name: 'diamond', level: 3, displayName: 'Diamond III', badge: '/assets/Diamond-3.png', threshold: 4000 }
+        ];
+
+        // Populate tier table
+        function populateTierTable() {
+            const tierTable = document.getElementById('tier-table');
+            let html = '';
+
+            TIERS.forEach(tier => {
+                html += `
+                <tr class="hover:bg-gray-50">
+                    <td class="px-4 py-3 whitespace-nowrap text-sm font-medium text-gray-900">
+                        ${tier.name.charAt(0).toUpperCase() + tier.name.slice(1)}
+                    </td>
+                    <td class="px-4 py-3 whitespace-nowrap text-sm text-gray-500">
+                        ${tier.displayName}
+                    </td>
+                    <td class="px-4 py-3 whitespace-nowrap text-sm text-gray-500">
+                        ${tier.threshold} points
+                    </td>
+                </tr>
+                `;
+            });
+
+            tierTable.innerHTML = html;
+        }
+
+        // Update UI based on tier data
+        function updateTierDisplay(tierData) {
+            const resultContainer = document.getElementById('result-container');
+            const errorContainer = document.getElementById('error-container');
+
+            // Hide error if it was shown
+            errorContainer.classList.add('hidden');
+
+            // Show result container
+            resultContainer.classList.remove('hidden');
+
+            // Update UI elements with tier data
+            document.getElementById('current-tier').textContent = tierData.tier.displayName;
+            document.getElementById('tier-badge').src = tierData.tier.badge;
+            document.getElementById('tier-progress-text').textContent = `${tierData.tier.progress}% complete`;
+            document.getElementById('tier-progress-bar').style.width = `${tierData.tier.progress}%`;
+
+            if (tierData.tier.nextTier) {
+                document.getElementById('next-tier').textContent = tierData.tier.nextTier.displayName;
+                document.getElementById('next-tier-badge').src = tierData.tier.nextTier.badge;
+                document.getElementById('points-needed').textContent = tierData.tier.nextTier.pointsNeeded;
+            } else {
+                document.getElementById('next-tier').textContent = "Max tier reached";
+                document.getElementById('points-needed').textContent = "0";
+            }
+
+            // Add user info if available
+            if (tierData.username) {
+                document.getElementById('user-info').textContent = `User: ${tierData.username} (Score: ${tierData.score})`;
+            } else {
+                document.getElementById('user-info').textContent = `Score: ${tierData.score}`;
+            }
+
+            // Update container class based on tier
+            const container = document.querySelector('#result-container > div');
+            container.classList.remove('tier-bronze', 'tier-gold', 'tier-diamond');
+            container.classList.add(`tier-${tierData.tier.name}`);
+        }
+
+        // Handle errors
+        function showError(message) {
+            const errorContainer = document.getElementById('error-container');
+            errorContainer.textContent = message;
+            errorContainer.classList.remove('hidden');
+            document.getElementById('result-container').classList.add('hidden');
+        }
+
+        // Get user tier by ID
+        async function testUserTier(userId) {
+            try {
+                const response = await fetch(`/api/tier/test/${userId}`);
+
+                if (!response.ok) {
+                    const error = await response.json();
+                    throw new Error(error.message || 'Failed to fetch tier data');
+                }
+
+                const data = await response.json();
+                updateTierDisplay(data);
+            } catch (error) {
+                console.error('Error testing tier:', error);
+                showError(error.message || 'Error fetching tier data');
+            }
+        }
+
+        // Test with manual score
+        function testManualScore(score) {
+            // Find user's tier
+            let currentTier = TIERS[0];
+            let nextTierIndex = 1;
+
+            for (let i = 0; i < TIERS.length; i++) {
+                if (score >= TIERS[i].threshold) {
+                    currentTier = TIERS[i];
+                    nextTierIndex = i + 1;
+                } else {
+                    break;
+                }
+            }
+
+            // Calculate progress to next tier
+            let progress = 100;
+            let nextTier = null;
+
+            if (nextTierIndex < TIERS.length) {
+                nextTier = TIERS[nextTierIndex];
+                const range = nextTier.threshold - currentTier.threshold;
+                progress = Math.min(100, Math.round(((score - currentTier.threshold) / range) * 100));
+            }
+
+            // Format tier data for display
+            const tierData = {
+                score: score,
+                tier: {
+                    ...currentTier,
+                    progress,
+                    nextTier: nextTier ? {
+                        ...nextTier,
+                        pointsNeeded: nextTier.threshold - score
+                    } : null
+                }
+            };
+
+            updateTierDisplay(tierData);
+        }
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function () {
+            // Populate tier table
+            populateTierTable();
+
+            // Setup test button
+            document.getElementById('testButton').addEventListener('click', function () {
+                const userId = document.getElementById('userId').value.trim();
+
+                if (!userId) {
+                    showError('Please enter a valid User ID');
+                    return;
+                }
+
+                testUserTier(userId);
+            });
+
+            // Setup manual test button
+            document.getElementById('manualTestButton').addEventListener('click', function () {
+                const scoreInput = document.getElementById('manualScore');
+                const score = parseInt(scoreInput.value, 10);
+
+                if (isNaN(score) || score < 0) {
+                    showError('Please enter a valid score (positive number)');
+                    return;
+                }
+
+                testManualScore(score);
+            });
+        });
+    </script>
+</body>
+
+</html>

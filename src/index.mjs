@@ -1,64 +1,70 @@
-import {env} from 'process';
-import {join} from 'path';
+import {cwd, env} from 'process';
+import {join, relative} from 'path';
 import express from 'express';
-import {connect, model, Schema} from 'mongoose';
-import cors from 'cors';
+import {connect} from 'mongoose';
+import {serve, setup} from 'swagger-ui-express';
+import swaggerJsdoc from 'swagger-jsdoc';
 import {__dirname} from './common-es.mjs';
-import {} from './dev.mjs';
+import fastGlob from 'fast-glob';
 
-const app = express();
-app.use(cors());
-app.use(express.static(join(__dirname, 'public')));
-app.use(express.json());
+// For site-related (i.e, non-API) routes
+import {siteRouter} from './site-routes/index.mjs';
 
-// MongoDB connection
-connect(`mongodb://${env.MONGO_HOST}:${env.MONGO_PORT}/todoapp`, {
-   useNewUrlParser: true,
-   useUnifiedTopology: true,
+// For auth/login
+import session from 'express-session';
+
+if (env.NODE_ENV === 'dev') {
+   import('./tunnel.mjs');
+} else {
+   connect(`mongodb://${env.MONGO_HOST}:${env.MONGO_PORT}/sustain-me`);
+}
+
+export const app = express();
+app.use((req, res, next) => {
+   req.timestamp = Date.now();
+   next();
 });
 
-// Define a ToDo model
-const Todo = model(
-   'Todo',
-   new Schema({
-      text: String,
-      completed: Boolean,
+app.use(express.static(join(__dirname, 'public')));
+
+app.use(express.json());
+app.use(express.urlencoded({extended: true}));
+
+app.use(
+   session({
+      secret: 'bad secret',
+      resave: false,
+      saveUninitialized: false,
+      cookie: {
+         httpOnly: true,
+         maxAge: 1000 * 60 * 60, // 1 hour
+      },
    }),
 );
 
-// Routes
-app.get('/todos', async (req, res) => {
-   const todos = await Todo.find();
-   res.json(todos);
-});
+app.use(
+   '/api-docs',
+   serve,
+   setup(
+      swaggerJsdoc({
+         definition: {
+            openapi: '3.0.0',
+            info: {title: 'SustainMe API'},
+            servers: [
+               {url: '/api'},
+            ],
+         },
+         apis: fastGlob.sync(`./api/**/*.mjs`, {cwd: __dirname}).map((v) => {
+            import(v);
+            return join(relative(cwd(), __dirname), v);
+         }),
+      }),
+   ),
+);
 
-app.post('/todos', async (req, res) => {
-   const newTodo = new Todo({
-      text: req.body.text,
-      completed: false,
-   });
-   await newTodo.save();
-   res.status(201).json(newTodo);
-});
+// Route requests to site resources.
+app.use('/', siteRouter);
 
-app.get('/todos/:id', async (req, res) => {
-   const todos = await Todo.findById(req.params.id);
-   res.json(todos);
-});
-
-app.put('/todos/:id', async (req, res) => {
-   const updatedTodo = await Todo.findByIdAndUpdate(req.params.id, req.body, {
-      new: true,
-   });
-   res.json(updatedTodo);
-});
-
-app.delete('/todos/:id', async (req, res) => {
-   await Todo.findByIdAndDelete(req.params.id);
-   res.status(204).end();
-});
-
-// Start the server
 app.listen(env.PORT, () => {
    console.log(`Server running on http://127.0.0.1:${env.PORT}`);
 });

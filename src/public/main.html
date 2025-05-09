@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SustainMe Dashboard</title>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400&family=Poppins:wght@700&display=swap"
+        rel="stylesheet">
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>const module = {};</script>
+    <script src="/css/tailwind.config.js"></script>
+    <script>
+        tailwind.config = module.exports
+    </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/echarts@5.4.3/dist/echarts.min.js"></script>
+
+    <link rel="stylesheet" href="./CSS/style.css">
+</head>
+
+<body class="bg-neutral-100 font-sans">
+
+    <!-- Claude was used to help with styling this page -->
+
+    <!-- Navbar Placeholder -->
+    <div id="navbarPlaceholder"></div>
+
+    <main class="container mx-auto px-4 py-4">
+        <h1 class="text-3xl font-heading text-dark mb-4">Your Sustainability Dashboard</h1>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+            <div class="bg-white rounded-lg shadow-md p-6">
+                <h2 class="text-xl font-heading text-dark mb-4">Monthly Progress</h2>
+                <div id="monthlyChart" class="h-64"></div>
+            </div>
+
+            <div class="bg-white rounded-lg shadow-md p-6">
+                <h2 class="text-xl font-heading text-dark mb-4">Category Breakdown</h2>
+                <div id="categoryChart" class="h-64"></div>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- Footer Placeholder -->
+    <div id="footerPlaceholder"></div>
+
+    <!-- Scripts -->
+    <script src="/chart.js"></script>
+    <script src="/statChart.js"></script>
+    <script src="/components/templates/skeleton.js"></script>
+</body>
+
+</html>

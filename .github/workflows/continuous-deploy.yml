@@ -36,6 +36,19 @@ jobs:
       client_secret: ${{ secrets.CLIENT_SECRET }}
       api_key: ${{ secrets.API_KEY }}
 
+  purge-cache-dev:
+    name: Purge cache dev
+    needs: deploy-dev
+    runs-on: ubuntu-24.04
+    steps:
+      - name: Purge Cloudflare cache
+        shell: sh
+        run: |
+          curl 'https://api.cloudflare.com/client/v4/zones/${{ vars.ZONE_ID }}/purge_cache' \
+            -X POST \
+            -H '${{ secrets.API_TOKEN }}' \
+            --data-raw "{\"hosts\":$(echo '${{ vars.DEV_APPS }}' | jq -rc '[.[] | . + ".${{ vars.DOMAIN_NAME }}"]')}"
+
   release-latest:
     name: Release latest
     if: ${{ github.ref == 'refs/heads/main' }}
@@ -57,3 +70,16 @@ jobs:
     secrets:
       client_secret: ${{ secrets.CLIENT_SECRET }}
       api_key: ${{ secrets.API_KEY }}
+
+  purge-cache-latest:
+    name: Purge cache latest
+    needs: deploy-latest
+    runs-on: ubuntu-24.04
+    steps:
+      - name: Purge Cloudflare cache
+        shell: sh
+        run: |
+          curl 'https://api.cloudflare.com/client/v4/zones/${{ vars.ZONE_ID }}/purge_cache' \
+            -X POST \
+            -H '${{ secrets.API_TOKEN }}' \
+            --data-raw "{\"hosts\":$(echo '${{ vars.APPS }}' | jq -rc '[.[] | . + ".${{ vars.DOMAIN_NAME }}"]')}"
