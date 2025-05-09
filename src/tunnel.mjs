@@ -28,7 +28,7 @@ import {connect} from 'mongoose';
       {stdio: 'inherit'},
    );
 
-   spawn(
+   const cloudflared = spawn(
       bin,
       [
          'access',
@@ -40,6 +40,11 @@ import {connect} from 'mongoose';
       ],
       {stdio: 'inherit'},
    );
+
+   process.on('SIGUSR2', () => {
+      cloudflared.kill();
+      process.kill(process.pid, 'SIGTERM');
+   });
 
    await connect(`mongodb://${env.MONGO_HOST}:${env.MONGO_PORT}/sustain-me`);
 })();
