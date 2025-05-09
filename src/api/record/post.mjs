@@ -32,7 +32,7 @@ import {status} from 'http-status';
  *                 example: 681a3ef31674a09cc7fa43e3
  *     responses:
  *       200:
- *          record is created
+ *         description: An record is created
  *       400:
  *         description: Given data is invalid
  *       500:
@@ -40,61 +40,23 @@ import {status} from 'http-status';
  */
 record.post('/', async (req, res) => {
    try {
-      const record = await new Record(
-         Object.fromEntries(
-            [
-               'user',
-               'emission',
-               'description',
-               'type',
-            ].map((v) => [
-               v,
-               req.body[v],
-            ]),
-         ),
-      ).populate([
-         'user',
-         'type',
-      ]);
-
-      const errors = [];
-      await Promise.all([
-         (async () => {
-            if (!record.user) {
-               errors.push(
-                  new Error.ValidatorError({
-                     message: 'Path `user` is invalid.',
-                     type: 'required',
-                     path: 'user',
-                     value: req.body.userId,
-                     reason: '`user` not found in `users`',
-                  }),
-               );
-            }
-         })(),
-         (async () => {
-            if (!record.type) {
-               errors.push(
-                  new Error.ValidatorError({
-                     message: 'Path `type` is invalid.',
-                     type: 'required',
-                     path: 'type',
-                     value: req.body.typeId,
-                     reason: '`type` not found in `types`',
-                  }),
-               );
-            }
-         })(),
-      ]);
-      if (errors.length) {
-         const error = new Error.ValidationError();
-         errors.forEach((v) => {
-            error.addError(v.path, v);
-         });
-         throw error;
-      }
-
-      res.status(status.OK).json(normalize(await record.save()).pop());
+      res.status(status.OK).json(
+         normalize(
+            await new Record(
+               Object.fromEntries(
+                  [
+                     'user',
+                     'emission',
+                     'description',
+                     'type',
+                  ].map((v) => [
+                     v,
+                     req.body[v],
+                  ]),
+               ),
+            ).save(),
+         ).pop(),
+      );
    } catch (e) {
       if (e.name === Error.ValidationError.name) {
          res.status(status.BAD_REQUEST).json(e.errors);

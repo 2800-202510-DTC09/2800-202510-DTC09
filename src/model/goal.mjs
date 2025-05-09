@@ -43,6 +43,7 @@ export const Goal = model(
       .plugin((schema) => {
          schema.post('validate', (res, next) => {
             const e = new Error.ValidationError();
+
             const hasEmission = typeof res.emission === 'number';
             const hasEmissionDiff = typeof res.emissionDiff === 'number';
             const hasEmissionDiffStart = res.emissionDiffStart instanceof Date;
@@ -60,8 +61,9 @@ export const Goal = model(
                      reason: '`emission` and `emissionDiff` both exist',
                   }),
                );
-               return next(e);
-            } else if (hasEmission && hasEmissionDiffStart) {
+            }
+
+            if (hasEmission && hasEmissionDiffStart) {
                e.addError(
                   'emissionDiffStart',
                   new Error.ValidatorError({
@@ -73,8 +75,9 @@ export const Goal = model(
                      reason: '`emission` and `emissionDiffStart` both exist',
                   }),
                );
-               return next(e);
-            } else if (hasEmission && hasEmissionDiffEnd) {
+            }
+
+            if (hasEmission && hasEmissionDiffEnd) {
                e.addError(
                   'emissionDiffEnd',
                   new Error.ValidatorError({
@@ -86,8 +89,9 @@ export const Goal = model(
                      reason: '`emission` and `emissionDiffEnd` both exist',
                   }),
                );
-               return next(e);
-            } else if (!hasEmission && !hasEmissionDiff) {
+            }
+
+            if (!hasEmission && !hasEmissionDiff) {
                e.addError(
                   'emission',
                   new Error.ValidatorError({
@@ -98,8 +102,9 @@ export const Goal = model(
                      reason: '`emission` and `emissionDiff` are both empty',
                   }),
                );
-               return next(e);
-            } else if (!hasEmission && !hasEmissionDiffStart) {
+            }
+
+            if (!hasEmission && !hasEmissionDiffStart) {
                e.addError(
                   'emissionDiffStart',
                   new Error.ValidatorError({
@@ -111,8 +116,9 @@ export const Goal = model(
                         '`emissionDiff` exists but `emissionDiffStart` is empty',
                   }),
                );
-               return next(e);
-            } else if (!hasEmission && !hasEmissionDiffEnd) {
+            }
+
+            if (!hasEmission && !hasEmissionDiffEnd) {
                e.addError(
                   'emissionDiffEnd',
                   new Error.ValidatorError({
@@ -124,6 +130,9 @@ export const Goal = model(
                         '`emissionDiff` exists but `emissionDiffEnd` is empty',
                   }),
                );
+            }
+
+            if (Object.entries(e.errors).length) {
                return next(e);
             }
 
@@ -156,7 +165,8 @@ export const normalize = (v) =>
                      w[x],
                   ]),
                );
-            } else {
+            }
+            {
                return null;
             }
          }
