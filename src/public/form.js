@@ -1,5 +1,8 @@
 
-function generateSectionSelect(parent, selectName, labelText, options) {
+//Change input background color when updated
+
+
+function generateSectionSelect(parent, selectName, selectionType, labelText, options) {
 
     //Create elements
     selectDiv = document.createElement("div");
@@ -11,7 +14,7 @@ function generateSectionSelect(parent, selectName, labelText, options) {
     selectDiv.id = `${parent.id}-${selectName}-select-div`;
     
     //Set up select
-    select.classList.add("form-select");
+    select.classList.add(selectionType);
     select.id = `${parent.id}-${select}-select`;
     select.setAttribute("name", selectName);
 
@@ -174,7 +177,7 @@ function loadLifestyleSection(parent) {
     //Create inputs for lifestyle content
     domesticFlightInput = generateSectionInput(lifestyleContent, "domestic-flight-distance","How much have you flown on domestic flights this year?:", "number", ["km"]);
     internationalFlightInput = generateSectionInput(lifestyleContent, "international-flight-distance","How much have you flown on international flights this year?:", "number", ["km"]);
-    flightClassInput = generateSectionSelect(lifestyleContent, "flight-class", "What class do you usually fly in?", ["Business", "First Class"]);
+    flightClassInput = generateSectionSelect(lifestyleContent, "flight-class", "form-select-large", "What class do you usually fly in?", ["Business", "First Class"]);
     clothingInput = generateSectionInput(lifestyleContent, "clothing-mass", "How much clothing do you buy in a year?:", "number", ["kg"]);
     shippingInput = generateSectionInput(lifestyleContent, "amount-shipped","How many times is something shipped to your house each month?:", "number", ["packages"]);
 
@@ -326,7 +329,7 @@ function loadVehicle(vehicleNumber) {
     vehicleInputsDiv.id = `form-vehicle-section-vehicle-${vehicleNumber}-inputs-div`;
 
     //Set up vehicle type select
-    vehicleTypeSelect = generateSectionSelect(vehicleDiv, `vehicle-${vehicleNumber}-type`, `What is the vehicle's type?:`, ["Gas", "Diesel", "Electric"]);
+    vehicleTypeSelect = generateSectionSelect(vehicleDiv, `vehicle-${vehicleNumber}-type`, `form-select-large`, `What is the vehicle's type?:`, ["Gas", "Diesel", "Electric"]);
 
     //Add event listener to vehicle type select
     vehicleTypeSelect.addEventListener("change", (event)=>{
@@ -451,6 +454,38 @@ function loadHousingSection(parent) {
     parent.appendChild(housingDiv);
 }
 
+//Run instruction when form is saved
+function onSave(event) {
+    console.log("Form is saved! Wahoo!");
+}
+
+//Load save button
+function loadSaveButton(parent) {
+
+    //Create elements
+    saveButtonDiv = document.createElement("div");
+    saveButton = document.createElement("div");
+
+    //Set up saveButtonDiv
+    saveButtonDiv.classList.add("form-save-button-div");
+    saveButtonDiv.id = "save-button-div";
+
+    //Set up saveButton
+    saveButton.classList.add("form-button");
+    saveButton.id = "save-button";
+    saveButton.textContent = "Submit";
+    saveButton.addEventListener("click", (event) => {
+        onSave(event);
+        saveButton.removeEventListener("click", arguments.callee);
+    })
+
+    //Add saveButton to saveButtonDiv
+    saveButtonDiv.appendChild(saveButton);
+
+    //Add saveButtonDiv to parent
+    parent.appendChild(saveButtonDiv)
+}
+
 //Load the form
 function loadForm() {
     contentDiv = document.getElementsByClassName("form-content")[0];
@@ -464,6 +499,7 @@ function loadForm() {
     loadWaterSection(formElement);
     loadDietSection(formElement);
     loadLifestyleSection(formElement);
+    loadSaveButton(formElement);
     contentDiv.appendChild(formElement);
 }
 

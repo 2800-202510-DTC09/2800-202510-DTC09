@@ -277,3 +277,51 @@
   .form-subheading {
     font-size: 20px;
   }
+
+  .form-save-button-div {
+    display: flex;
+    flex-direction: row;
+    margin-left: auto;
+  }
+
+  .form-button {
+    background-color: blue;
+    color: white;
+    border-radius: 10px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    padding-left: 30px;
+    padding-right: 30px;
+  }
+
+  .form-select {
+    min-width: 100px;
+    background-color: #E5E4E2;
+  }
+
+  .form-input {
+    width: 150px;
+    border-color: black;
+    border-width: 2px;
+    border-radius: 10px;
+    padding-left: 5px;
+    padding-right: 5px;
+  }
+
+  .form-input-unconfirmed {
+    background-color: white;
+  }
+
+  .form-input-confirmed {
+    background-color: lightgreen;
+  }
+
+  .form-select-large {
+    min-width: 150px;
+    border-color: black;
+    border-width: 2px;
+    border-radius: 10px;
+    padding-left: 5px;
+    padding-right: 5px;
+    margin-right: 110px;
+  }
