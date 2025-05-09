@@ -29,7 +29,7 @@ export async function handleSignupPost(req, res) {
 		};
 
 
-		res.redirect('/home.html'); 
+		res.redirect('/main.html'); 
 
 	} catch (error) {
 		console.error('Signup error:', error);
