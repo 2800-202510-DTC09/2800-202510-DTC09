@@ -6,6 +6,11 @@ export const User = model(
    'user',
    new Schema(
       {
+         email: {
+            type: Schema.Types.String,
+            required: true,
+            unique: true,
+         },
          username: {
             type: Schema.Types.String,
             required: true,

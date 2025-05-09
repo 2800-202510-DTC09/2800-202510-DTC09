@@ -16,6 +16,7 @@ export const normalize = (v) =>
                return Object.fromEntries(
                   [
                      'id',
+                     'email',
                      'username',
                      'badges',
                      'score',

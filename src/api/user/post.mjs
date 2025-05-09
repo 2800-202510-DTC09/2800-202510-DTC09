@@ -19,9 +19,12 @@ import {status} from 'http-status';
  *           schema:
  *             type: object
  *             properties:
- *               username:
+ *               email:
  *                 type: string
  *                 example: alice@example.com
+ *               username:
+ *                 type: string
+ *                 example: alice
  *               password:
  *                 type: string
  *                 example: Super_secure_password
@@ -38,6 +41,7 @@ user.post('/', async (req, res) => {
       res.status(status.OK).json(
          normalize(
             await new User({
+               email: req.body.username,
                username: req.body.username,
                password: await hash(req.body.password, 10),
             }).save(),
