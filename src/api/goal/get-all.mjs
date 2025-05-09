@@ -1,25 +1,25 @@
-import {LeaderBoard, normalize} from '../../model/leader-board.mjs';
-import {leaderBoard} from './index.mjs';
+import {Goal, normalize} from '../../model/goal.mjs';
+import {goal} from './index.mjs';
 import {status} from 'http-status';
 
 /**
  * @openapi
- * /leader-board:
+ * /goal:
  *   get:
- *     description: Get all leader board entries
+ *     description: Get all goals
  *     tags:
- *       - Leader Board
+ *       - Goal
  *     responses:
  *       200:
- *         description: Fetched all leader board entries
+ *         description: Fetched all goals
  *       500:
  *         description: Server internal error
  */
-leaderBoard.get('/', async (req, res) => {
+goal.get('/', async (req, res) => {
    try {
       res.status(status.OK).json(
          normalize(
-            await LeaderBoard.find({
+            await Goal.find({
                $or: [
                   {deletedAt: {$exists: false}},
                   {deletedAt: null},

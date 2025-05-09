@@ -1,50 +1,52 @@
 import {Error} from 'mongoose';
-import {User, normalize} from '../../model/user.mjs';
-import {user} from './index.mjs';
-import {hash} from 'bcryptjs';
+import {Type, normalize} from '../../model/type.mjs';
+import {type} from './index.mjs';
 import {status} from 'http-status';
 
 /**
  * @openapi
- * /user:
+ * /type:
  *   post:
- *     description: Create user
+ *     description: Create type
  *     tags:
- *       - User
+ *       - Type
  *     requestBody:
- *       description: User basic information
+ *       description: Type information
  *       required: true
  *       content:
  *         application/json:
  *           schema:
  *             type: object
  *             properties:
- *               email:
+ *               name:
  *                 type: string
- *                 example: alice@example.com
- *               username:
+ *                 example: Vehicle
+ *               description:
  *                 type: string
- *                 example: alice
- *               password:
- *                 type: string
- *                 example: Super_secure_password
+ *                 example: Most used vehicle
  *     responses:
  *       200:
- *         description: An user is created
+ *         description: A type is created
  *       400:
  *         description: Given data is invalid
  *       500:
  *         description: Server internal error
  */
-user.post('/', async (req, res) => {
+type.post('/', async (req, res) => {
    try {
       res.status(status.OK).json(
          normalize(
-            await new User({
-               email: req.body.username,
-               username: req.body.username,
-               password: await hash(req.body.password, 10),
-            }).save(),
+            await new Type(
+               Object.fromEntries(
+                  [
+                     'name',
+                     'description',
+                  ].map((v) => [
+                     v,
+                     req.body[v],
+                  ]),
+               ),
+            ).save(),
          ).pop(),
       );
    } catch (e) {

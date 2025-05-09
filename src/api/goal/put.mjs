@@ -1,21 +1,21 @@
-import {badge} from './index.mjs';
+import {goal} from './index.mjs';
 
 /**
  * @openapi
- * /badge/{id}:
+ * /goal/{id}:
  *   put:
- *     description: Update badge
+ *     description: Update goal
  *     tags:
- *       - Badge
+ *       - Goal
  *     parameters:
  *       - in: path
  *         name: id
  *         schema:
  *           type: string
  *         required: true
- *         description: Badge ID
+ *         description: Goal ID
  *     requestBody:
- *       description: Badge information
+ *       description: Goal information
  *       required: true
  *       content:
  *         application/json:
@@ -27,11 +27,11 @@ import {badge} from './index.mjs';
  *                 example: date > 0
  *     responses:
  *       200:
- *         description: Badge is updated
+ *         description: Goal is updated
  *       404:
- *         description: Badge not found
+ *         description: Goal not found
  */
-badge.put('/:id', async (req, res) => {
+goal.put('/:id', async (req, res) => {
    // const api = await Todo.find();
    res.json({a: req.body});
 });

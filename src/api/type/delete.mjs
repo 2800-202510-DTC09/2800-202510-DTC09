@@ -1,32 +1,32 @@
-import {Record} from '../../model/record.mjs';
-import {record} from './index.mjs';
+import {Type} from '../../model/type.mjs';
+import {type} from './index.mjs';
 import {status} from 'http-status';
 
 /**
  * @openapi
- * /record/{id}:
+ * /type/{id}:
  *   delete:
- *     description: Delete record
+ *     description: Delete type
  *     tags:
- *       - Record
+ *       - Type
  *     parameters:
  *       - in: path
  *         name: id
  *         schema:
  *           type: string
  *         required: true
- *         description: Record ID
+ *         description: Type ID
  *     responses:
  *       202:
- *         description: Record is deleted
+ *         description: Type is deleted
  *       404:
- *         description: Record not found
+ *         description: Type not found
  *       500:
  *         description: Server internal error
  */
-record.delete('/:id', async (req, res) => {
+type.delete('/:id', async (req, res) => {
    try {
-      const record = await Record.findOne({
+      const type = await Type.findOne({
          _id: req.params.id,
          $or: [
             {deletedAt: {$exists: false}},
@@ -34,9 +34,9 @@ record.delete('/:id', async (req, res) => {
             {deletedAt: {$gt: req.timestamp}},
          ],
       });
-      if (record) {
-         record.deletedAt = req.timestamp;
-         await record.save();
+      if (type) {
+         type.deletedAt = req.timestamp;
+         await type.save();
          res.sendStatus(status.NO_CONTENT);
       } else {
          res.sendStatus(status.NOT_FOUND);

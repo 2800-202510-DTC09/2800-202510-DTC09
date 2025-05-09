@@ -1,37 +1,37 @@
-import {badge} from './index.mjs';
+import {type} from './index.mjs';
 
 /**
  * @openapi
- * /badge/{id}:
+ * /type/{id}:
  *   put:
- *     description: Update badge
+ *     description: Update type
  *     tags:
- *       - Badge
+ *       - Type
  *     parameters:
  *       - in: path
  *         name: id
  *         schema:
  *           type: string
  *         required: true
- *         description: Badge ID
+ *         description: Type ID
  *     requestBody:
- *       description: Badge information
+ *       description: Type information
  *       required: true
  *       content:
  *         application/json:
  *           schema:
  *             type: object
  *             properties:
- *               criteria:
+ *               description:
  *                 type: string
- *                 example: date > 0
+ *                 example: Driving
  *     responses:
  *       200:
- *         description: Badge is updated
+ *         description: Type is updated
  *       404:
- *         description: Badge not found
+ *         description: Type not found
  */
-badge.put('/:id', async (req, res) => {
+type.put('/:id', async (req, res) => {
    // const api = await Todo.find();
    res.json({a: req.body});
 });

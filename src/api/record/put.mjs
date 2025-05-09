@@ -13,9 +13,9 @@ import {record} from './index.mjs';
  *         schema:
  *           type: string
  *         required: true
- *         description: record ID
+ *         description: Record ID
  *     requestBody:
- *       description: record information
+ *       description: Record information
  *       required: true
  *       content:
  *         application/json:
@@ -26,10 +26,10 @@ import {record} from './index.mjs';
  *                 type: string
  *                 example: date > 0
  *     responses:
- *       '200':
- *         description: record is updated
- *       '404':
- *         description: record not found
+ *       200:
+ *         description: Record is updated
+ *       404:
+ *         description: Record not found
  */
 record.put('/:id', async (req, res) => {
    // const api = await Todo.find();

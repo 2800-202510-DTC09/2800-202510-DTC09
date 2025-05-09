@@ -2,7 +2,7 @@ import {leaderBoard} from './index.mjs';
 
 /**
  * @openapi
- * /leaderBoard/{id}:
+ * /leader-board/{id}:
  *   put:
  *     description: Update leaderBoard
  *     tags:
@@ -13,9 +13,9 @@ import {leaderBoard} from './index.mjs';
  *         schema:
  *           type: string
  *         required: true
- *         description: leaderBoard ID
+ *         description: LeaderBoard ID
  *     requestBody:
- *       description: leaderBoard information
+ *       description: LeaderBoard information
  *       required: true
  *       content:
  *         application/json:
@@ -26,10 +26,10 @@ import {leaderBoard} from './index.mjs';
  *                 type: string
  *                 example: date > 0
  *     responses:
- *       '200':
- *         description: leaderBoard is updated
- *       '404':
- *         description: leaderBoard not found
+ *       200:
+ *         description: LeaderBoard is updated
+ *       404:
+ *         description: LeaderBoard not found
  */
 leaderBoard.put('/:id', async (req, res) => {
    // const api = await Todo.find();

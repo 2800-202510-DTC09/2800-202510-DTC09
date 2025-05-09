@@ -29,7 +29,7 @@ import axios from 'axios';
  *                 type: number
  *                 example: -123.1207
  *     responses:
- *       '200':
+ *       200:
  *         description: Location data retrieved successfully
  *         content:
  *           application/json:
@@ -42,7 +42,7 @@ import axios from 'axios';
  *                 country:
  *                   type: string
  *                   example: "Canada"
- *       '400':
+ *       400:
  *         description: Missing coordinates
  *         content:
  *           application/json:

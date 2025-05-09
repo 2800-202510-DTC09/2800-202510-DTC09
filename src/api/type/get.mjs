@@ -1,34 +1,34 @@
-import {Record, normalize} from '../../model/record.mjs';
-import {record} from './index.mjs';
+import {Type, normalize} from '../../model/type.mjs';
+import {type} from './index.mjs';
 import {status} from 'http-status';
 
 /**
  * @openapi
- * /record/{id}:
+ * /type/{id}:
  *   get:
- *     description: Get record by ID
+ *     description: Get type by ID
  *     tags:
- *       - Record
+ *       - Type
  *     parameters:
  *       - in: path
  *         name: id
  *         schema:
  *           type: string
  *         required: true
- *         description: Record ID
+ *         description: Type ID
  *     responses:
  *       200:
- *         description: Found a record
+ *         description: Found a type
  *       404:
- *         description: Record not found
+ *         description: Type not found
  *       500:
  *         description: Server internal error
  */
-record.get('/:id', async (req, res) => {
+type.get('/:id', async (req, res) => {
    try {
-      const records = normalize(await Record.findById(req.params.id));
-      if (records.length) {
-         res.status(status.OK).json(records.pop());
+      const types = normalize(await Type.findById(req.params.id));
+      if (types.length) {
+         res.status(status.OK).json(types.pop());
       } else {
          res.sendStatus(status.NOT_FOUND);
       }

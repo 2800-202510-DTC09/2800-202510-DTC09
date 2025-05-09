@@ -1,54 +1,66 @@
 import {Error} from 'mongoose';
-import {Record, normalize} from '../../model/record.mjs';
-import {record} from './index.mjs';
+import {Goal, normalize} from '../../model/goal.mjs';
+import {goal} from './index.mjs';
 import {status} from 'http-status';
 
 /**
  * @openapi
- * /record:
+ * /goal:
  *   post:
- *     description: Create record
+ *     description: Create goal
  *     tags:
- *       - Record
+ *       - Goal
  *     requestBody:
- *       description: Record information
+ *       description: Goal information
  *       required: true
  *       content:
  *         application/json:
  *           schema:
  *             type: object
  *             properties:
- *               user:
+ *               name:
  *                 type: string
- *                 example: 681342414429d3a18ad3fb45
- *               emission:
- *                 type: number
- *                 example: 10
+ *                 example: New comer
  *               description:
  *                 type: string
- *                 example: New car first drive
- *               type:
+ *                 example: Joined the app
+ *               icon:
  *                 type: string
- *                 example: 681a3ef31674a09cc7fa43e3
+ *                 example: /assets/leaf.png
+ *               emission:
+ *                 type: number
+ *                 example: 500
+ *               emissionDiff:
+ *                 type: number
+ *                 example: 100
+ *               emissionDiffStart:
+ *                 type: date-time
+ *                 example: 2025-01-01T00:00:00-0700
+ *               emissionDiffEnd:
+ *                 type: date-time
+ *                 example: 2025-02-01T00:00:00-0700
  *     responses:
  *       200:
- *         description: An record is created
+ *         description: A goal is created
  *       400:
  *         description: Given data is invalid
  *       500:
  *         description: Server internal error
  */
-record.post('/', async (req, res) => {
+goal.post('/', async (req, res) => {
    try {
       res.status(status.OK).json(
          normalize(
-            await new Record(
+            await new Goal(
                Object.fromEntries(
                   [
-                     'user',
-                     'emission',
+                     'name',
                      'description',
-                     'type',
+                     'icon',
+                     'emission',
+                     'emissionDiff',
+                     'emissionDiffStart',
+                     'emissionDiffEnd',
                   ].map((v) => [
                      v,
                      req.body[v],

@@ -1,32 +1,32 @@
-import {Record} from '../../model/record.mjs';
-import {record} from './index.mjs';
+import {Goal} from '../../model/goal.mjs';
+import {goal} from './index.mjs';
 import {status} from 'http-status';
 
 /**
  * @openapi
- * /record/{id}:
+ * /goal/{id}:
  *   delete:
- *     description: Delete record
+ *     description: Delete goal
  *     tags:
- *       - Record
+ *       - Goal
  *     parameters:
  *       - in: path
  *         name: id
  *         schema:
  *           type: string
  *         required: true
- *         description: Record ID
+ *         description: Goal ID
  *     responses:
  *       202:
- *         description: Record is deleted
+ *         description: Goal is deleted
  *       404:
- *         description: Record not found
+ *         description: Goal not found
  *       500:
  *         description: Server internal error
  */
-record.delete('/:id', async (req, res) => {
+goal.delete('/:id', async (req, res) => {
    try {
-      const record = await Record.findOne({
+      const goal = await Goal.findOne({
          _id: req.params.id,
          $or: [
             {deletedAt: {$exists: false}},
@@ -34,9 +34,9 @@ record.delete('/:id', async (req, res) => {
             {deletedAt: {$gt: req.timestamp}},
          ],
       });
-      if (record) {
-         record.deletedAt = req.timestamp;
-         await record.save();
+      if (goal) {
+         goal.deletedAt = req.timestamp;
+         await goal.save();
          res.sendStatus(status.NO_CONTENT);
       } else {
          res.sendStatus(status.NOT_FOUND);

@@ -1,5 +1,5 @@
 import {Router} from 'express';
 import {api} from '../index.mjs';
 
-export const user = Router();
-api.use('/user', user);
+export const goal = Router();
+api.use('/goal', goal);

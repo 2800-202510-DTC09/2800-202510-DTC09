@@ -1,4 +1,6 @@
+import {Record, normalize} from '../../model/record.mjs';
 import {record} from './index.mjs';
+import {status} from 'http-status';
 
 /**
  * @openapi
@@ -8,10 +10,26 @@ import {record} from './index.mjs';
  *     tags:
  *       - Record
  *     responses:
- *       '200':
+ *       200:
  *         description: Fetched all records
+ *       500:
+ *         description: Server internal error
  */
 record.get('/', async (req, res) => {
-   // const api = await Todo.find();
-   res.json({a: true});
+   try {
+      res.status(status.OK).json(
+         normalize(
+            await Record.find({
+               $or: [
+                  {deletedAt: {$exists: false}},
+                  {deletedAt: null},
+                  {deletedAt: {$gt: req.timestamp}},
+               ],
+            }),
+         ),
+      );
+   } catch (e) {
+      console.error(e);
+      res.sendStatus(status.INTERNAL_SERVER_ERROR);
+   }
 });

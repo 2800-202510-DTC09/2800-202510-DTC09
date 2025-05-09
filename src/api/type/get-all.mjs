@@ -1,25 +1,25 @@
-import {LeaderBoard, normalize} from '../../model/leader-board.mjs';
-import {leaderBoard} from './index.mjs';
+import {Type, normalize} from '../../model/type.mjs';
+import {type} from './index.mjs';
 import {status} from 'http-status';
 
 /**
  * @openapi
- * /leader-board:
+ * /type:
  *   get:
- *     description: Get all leader board entries
+ *     description: Get all types
  *     tags:
- *       - Leader Board
+ *       - Type
  *     responses:
  *       200:
- *         description: Fetched all leader board entries
+ *         description: Fetched all types
  *       500:
  *         description: Server internal error
  */
-leaderBoard.get('/', async (req, res) => {
+type.get('/', async (req, res) => {
    try {
       res.status(status.OK).json(
          normalize(
-            await LeaderBoard.find({
+            await Type.find({
                $or: [
                   {deletedAt: {$exists: false}},
                   {deletedAt: null},
