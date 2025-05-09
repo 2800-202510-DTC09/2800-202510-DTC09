@@ -472,8 +472,47 @@ function loadHousingSection(parent) {
 
 //Run instruction when form is saved
 function onSave(event) {
-    console.log("Form is saved! Wahoo!");
-}
+    
+    //Get parent
+    contentDiv = document.getElementsByClassName("form-content")[0];
+    contentDiv.innerHTML = "";
+    
+    //Create elements
+    card = document.createElement("div");
+    text = document.createElement("p");
+    button = document.createElement("div");
+    checkmark = document.createElement("i")
+
+    //Set up card
+    card.classList.add("form-card");
+    card.id = "submitted-card-div";
+
+    //Set up checkmark
+    checkmark.classList.add("material-icons");
+    checkmark.setAttribute("style", "font-size: 100px; color: green; margin: auto;");
+    checkmark.id = "submitted-card-checkmark";
+    checkmark.textContent = "check_circle";
+
+    //Set up text
+    text.classList.add("form-card-text");
+    text.id = "submitted-card-text";
+    text.textContent = "Your form has been submitted! Press the button to see your results.";
+
+    //Set up button
+    button.classList.add("form-button-large");
+    button.id = "submit-card-button";
+    button.textContent = "Continue";
+    button.addEventListener("click", ()=> {
+        console.log("Continuing");
+    })
+
+    //Add children to card
+    card.appendChild(checkmark);
+    card.appendChild(text);
+    card.appendChild(button);
+
+    //Append card to parent
+    contentDiv.appendChild(card);}
 
 //Load save button
 function loadSaveButton(parent) {
