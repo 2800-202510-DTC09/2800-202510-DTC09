@@ -16,9 +16,17 @@ export const normalize = (v) =>
          {
             if (!w.deletedAt || w.deletedAt > Date.now()) {
                return {
+                  ...Object.fromEntries(
+                     [
+                        'id',
+                        'emission',
+                        'description',
+                     ].map((x) => [
+                        x,
+                        w[x],
+                     ]),
+                  ),
                   user: userNormalize(w.user),
-                  emission: w.emission,
-                  description: w.description,
                   type: typeNormalize(w.type),
                };
             } else {

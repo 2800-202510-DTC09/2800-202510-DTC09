@@ -15,6 +15,7 @@ export const normalize = (v) =>
             if (!w.deletedAt || w.deletedAt > Date.now()) {
                return Object.fromEntries(
                   [
+                     'id',
                      'name',
                      'description',
                   ].map((x) => [
