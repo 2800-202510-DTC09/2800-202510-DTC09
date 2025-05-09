@@ -1,14 +1,12 @@
 .form-content {
     display: flex;  
     flex-direction: column;
-    justify-content: center; /* Centers the parent horizontally */
-    width: fit-content; /* Makes the parent only as wide as the child */
-    margin: 0 auto; /* Centers the parent within the body */
-    background-color: lightgray; /* Just for visibility */
-    padding: 10px;
+    justify-content: center;
+    width: fit-content;
+    margin: 0 auto;
     margin-top: 40px;
     margin-bottom: 100px;
-    background-color: #FFFFFF;
+    overflow: visible;
 }
 
 .form-start-text {
@@ -32,6 +30,8 @@
     justify-content: center;
     align-items: center;
     gap: 20px;
+    background-color: white;
+    padding: 10px;
 }
 
 .form-heating-div {
@@ -329,4 +329,40 @@
 
   .form-option {
     background-color: white;
+  }
+
+
+  .form-button-large {
+    background-color: blue;
+    color: white;
+    border-radius: 10px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    padding-left: 30px;
+    padding-right: 30px;
+    width: auto;
+    font-size: 20px;
+        text-align: center;
+
+  }
+
+  .form-card {
+    width: 500px;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    background-color: white;
+    gap: 20px;
+    border: 1px solid white;
+    border-radius: 20px;
+  }
+
+  .form-card-text {
+    font-size: 30px;
+    text-align: center;
   }
