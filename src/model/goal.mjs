@@ -151,7 +151,7 @@ export const Goal = model(
 );
 
 export function normalize(v) {
-    [v]
+    return [v]
         .flat()
         .filter((w) => w)
         .map((w) => {

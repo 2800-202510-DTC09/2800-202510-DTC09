@@ -34,7 +34,7 @@ export const Badge = model(
 );
 
 export function normalize(v) {
-    [v]
+    return [v]
         .flat()
         .filter((w) => w)
         .map((w) => {
