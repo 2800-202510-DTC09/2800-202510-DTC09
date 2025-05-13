@@ -4,23 +4,39 @@ import prettierConfig from 'eslint-config-prettier/flat';
 import prettierPlugin from 'eslint-plugin-prettier';
 import globals from 'globals';
 
-export default defineConfig({
+const DEFAULT_CONFIG = {
     extends: [
         configs.javascript,
         prettierConfig,
         globalIgnores(['**/node_modules', '/.pnpm-store']),
     ],
-    languageOptions: {
-        globals: globals.node,
-    },
     plugins: {
         prettierPlugin,
     },
-    rules: {
-        'no-console': ['error', {allow: ['error']}],
-        'import-x/extensions': ['error', 'ignorePackages'],
-        'import-x/no-nodejs-modules': ['off'],
-        'import-x/no-useless-path-segments': ['off'],
-        'prettierPlugin/prettier': ['error'],
+};
+
+export default defineConfig([
+    {
+        ...DEFAULT_CONFIG,
+        languageOptions: {
+            globals: globals.node,
+        },
+        rules: {
+            'no-console': ['error', {allow: ['error']}],
+            'import-x/extensions': ['error', 'ignorePackages'],
+            'import-x/no-nodejs-modules': ['off'],
+            'import-x/no-useless-path-segments': ['off'],
+            'prettierPlugin/prettier': ['error'],
+        },
     },
-});
+    {
+        ...DEFAULT_CONFIG,
+        files: ['**/public/**'],
+        languageOptions: {
+            globals: globals.browser,
+        },
+        rules: {
+            'prettierPlugin/prettier': ['error'],
+        },
+    },
+]);
