@@ -1,5 +1,4 @@
 import {configs} from '@silver886/eslint-config';
-// eslint-disable-next-line import-x/no-unresolved
 import {defineConfig, globalIgnores} from 'eslint/config';
 import prettierConfig from 'eslint-config-prettier/flat';
 import prettierPlugin from 'eslint-plugin-prettier';

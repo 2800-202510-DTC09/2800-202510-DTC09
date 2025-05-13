@@ -49,8 +49,8 @@ importers:
         version: 5.0.1(express@5.1.0)
     devDependencies:
       '@silver886/eslint-config':
-        specifier: ^3.0.2
-        version: 3.0.2(@eslint/js@9.26.0)(@stylistic/eslint-plugin@4.2.0(eslint@9.26.0)(typescript@4.9.5))(@typescript-eslint/parser@8.32.1(eslint@9.26.0)(typescript@4.9.5))(eslint-import-resolver-typescript@4.3.4(eslint-plugin-import-x@4.11.1(eslint@9.26.0)(typescript@4.9.5))(eslint@9.26.0))(eslint-plugin-import-x@4.11.1(eslint@9.26.0)(typescript@4.9.5))(eslint@9.26.0)(typescript-eslint@8.32.1(eslint@9.26.0)(typescript@4.9.5))
+        specifier: ^3.0.3
+        version: 3.0.3(@eslint/js@9.26.0)(@stylistic/eslint-plugin@4.2.0(eslint@9.26.0)(typescript@4.9.5))(@typescript-eslint/parser@8.32.1(eslint@9.26.0)(typescript@4.9.5))(eslint-import-resolver-typescript@4.3.4(eslint-plugin-import-x@4.11.1(eslint@9.26.0)(typescript@4.9.5))(eslint@9.26.0))(eslint-plugin-import-x@4.11.1(eslint@9.26.0)(typescript@4.9.5))(eslint@9.26.0)(typescript-eslint@8.32.1(eslint@9.26.0)(typescript@4.9.5))
       '@types/express':
         specifier: ^5.0.1
         version: 5.0.1
@@ -333,8 +333,8 @@ packages:
   '@scarf/scarf@1.4.0':
     resolution: {integrity: sha512-xxeapPiUXdZAE3che6f3xogoJPeZgig6omHEy1rIY5WVsB3H2BHNnZH+gHG6x91SCWyQCzWGsuL2Hh3ClO5/qQ==}
 
-  '@silver886/eslint-config@3.0.2':
-    resolution: {integrity: sha512-imReYeOUiziSiO2/KCUiy6+LDO8fF1F+hOtHgrt8ob9tas9J11WMXgQKW6GucgRkopsJUS8Re7oNfCqpHB1Jsg==}
+  '@silver886/eslint-config@3.0.3':
+    resolution: {integrity: sha512-+coKBcsUfOA2ePEIkAfXa8725/3DFb1/HtE1dzoDi3GHm+BeylogWMtokeI8xOKFN8TDfQMbSQIWvZDTW90iuA==}
     peerDependencies:
       '@eslint/js': ^9
       '@stylistic/eslint-plugin': ^4
@@ -2498,7 +2498,7 @@ snapshots:
 
   '@scarf/scarf@1.4.0': {}
 
-  '@silver886/eslint-config@3.0.2(@eslint/js@9.26.0)(@stylistic/eslint-plugin@4.2.0(eslint@9.26.0)(typescript@4.9.5))(@typescript-eslint/parser@8.32.1(eslint@9.26.0)(typescript@4.9.5))(eslint-import-resolver-typescript@4.3.4(eslint-plugin-import-x@4.11.1(eslint@9.26.0)(typescript@4.9.5))(eslint@9.26.0))(eslint-plugin-import-x@4.11.1(eslint@9.26.0)(typescript@4.9.5))(eslint@9.26.0)(typescript-eslint@8.32.1(eslint@9.26.0)(typescript@4.9.5))':
+  '@silver886/eslint-config@3.0.3(@eslint/js@9.26.0)(@stylistic/eslint-plugin@4.2.0(eslint@9.26.0)(typescript@4.9.5))(@typescript-eslint/parser@8.32.1(eslint@9.26.0)(typescript@4.9.5))(eslint-import-resolver-typescript@4.3.4(eslint-plugin-import-x@4.11.1(eslint@9.26.0)(typescript@4.9.5))(eslint@9.26.0))(eslint-plugin-import-x@4.11.1(eslint@9.26.0)(typescript@4.9.5))(eslint@9.26.0)(typescript-eslint@8.32.1(eslint@9.26.0)(typescript@4.9.5))':
     dependencies:
       '@eslint/js': 9.26.0
       '@stylistic/eslint-plugin': 4.2.0(eslint@9.26.0)(typescript@4.9.5)

@@ -20,7 +20,7 @@
         "swagger-ui-express": "^5.0.1"
     },
     "devDependencies": {
-        "@silver886/eslint-config": "^3.0.2",
+        "@silver886/eslint-config": "^3.0.3",
         "@types/express": "^5.0.1",
         "@types/mongoose-unique-validator": "^1.0.9",
         "@types/swagger-jsdoc": "^6.0.4",
