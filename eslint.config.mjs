@@ -36,6 +36,7 @@ export default defineConfig([
             globals: globals.browser,
         },
         rules: {
+            'import-x/unambiguous': ['off'],
             'prettierPlugin/prettier': ['error'],
         },
     },

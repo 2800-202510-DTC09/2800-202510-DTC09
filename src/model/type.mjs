@@ -28,18 +28,17 @@ export const Type = model(
         .plugin(mongooseAutoPopulate),
 );
 
-export const normalize = (v) =>
+export function normalize(v) {
     [v]
         .flat()
         .filter((w) => w)
         .map((w) => {
-            {
-                if (!w.deletedAt || w.deletedAt > Date.now()) {
-                    return Object.fromEntries(
-                        ['id', 'name', 'description'].map((x) => [x, w[x]]),
-                    );
-                }
-                return null;
+            if (!w.deletedAt || w.deletedAt > Date.now()) {
+                return Object.fromEntries(
+                    ['id', 'name', 'description'].map((x) => [x, w[x]]),
+                );
             }
+            return null;
         })
-        .filter((v) => v);
+        .filter((w) => w);
+}

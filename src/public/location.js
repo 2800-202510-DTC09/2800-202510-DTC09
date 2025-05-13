@@ -75,7 +75,7 @@ window.addEventListener('DOMContentLoaded', () => {
 
             // Update The Card Elements on Profile if found, else set to Unavailable
             cityEl.textContent = `City: ${data.city || 'Unavailable'}`;
-            countryEl.textContent = `Country: ${data.country_name || 'Unavailable'}`;
+            countryEl.textContent = `Country: ${data.countryName || 'Unavailable'}`;
             timezoneEl.textContent = `Timezone: ${Intl.DateTimeFormat().resolvedOptions().timeZone || 'Unavailable'}`;
 
             // If errors occur, set the elements to Unavailable in catch block

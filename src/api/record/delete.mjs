@@ -26,7 +26,7 @@ import {record} from './index.mjs';
  */
 record.delete('/:id', async (req, res) => {
     try {
-        const record = await Record.findOne({
+        const recordData = await Record.findOne({
             _id: req.params.id,
             $or: [
                 {deletedAt: {$exists: false}},
@@ -34,9 +34,9 @@ record.delete('/:id', async (req, res) => {
                 {deletedAt: {$gt: req.timestamp}},
             ],
         });
-        if (record) {
-            record.deletedAt = req.timestamp;
-            await record.save();
+        if (recordData) {
+            recordData.deletedAt = req.timestamp;
+            await recordData.save();
             res.sendStatus(status.NO_CONTENT);
         } else {
             res.sendStatus(status.NOT_FOUND);

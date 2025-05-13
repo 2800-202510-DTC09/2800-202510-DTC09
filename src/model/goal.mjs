@@ -48,7 +48,9 @@ export const Goal = model(
             message: 'Path `{PATH}` is not unique.',
         })
         .plugin(mongooseAutoPopulate)
+        // eslint-disable-next-line max-lines-per-function
         .plugin((schema) => {
+            // eslint-disable-next-line max-lines-per-function, max-statements
             schema.post('validate', (res, next) => {
                 const e = new Error.ValidationError();
 
@@ -143,40 +145,37 @@ export const Goal = model(
                     return next(e);
                 }
 
-                next();
+                return next();
             });
         }),
 );
 
-export const normalize = (v) =>
+export function normalize(v) {
     [v]
         .flat()
         .filter((w) => w)
         .map((w) => {
-            {
-                if (!w.deletedAt || w.deletedAt > Date.now()) {
-                    return {
-                        ...Object.fromEntries(
-                            [
-                                'id',
-                                'name',
-                                'description',
-                                'icon',
-                                'emission',
-                                'emissionDiff',
-                                'emissionDiffStart',
-                                'emissionDiffEnd',
-                            ].map((x) => [x, w[x]]),
-                        ),
-                        user:
-                            w.user instanceof mongo.ObjectId
-                                ? w.user
-                                : userNormalize(w.user),
-                    };
-                }
-                {
-                    return null;
-                }
+            if (!w.deletedAt || w.deletedAt > Date.now()) {
+                return {
+                    ...Object.fromEntries(
+                        [
+                            'id',
+                            'name',
+                            'description',
+                            'icon',
+                            'emission',
+                            'emissionDiff',
+                            'emissionDiffStart',
+                            'emissionDiffEnd',
+                        ].map((x) => [x, w[x]]),
+                    ),
+                    user:
+                        w.user instanceof mongo.ObjectId
+                            ? w.user
+                            : userNormalize(w.user),
+                };
             }
+            return null;
         })
-        .filter((v) => v);
+        .filter((w) => w);
+}

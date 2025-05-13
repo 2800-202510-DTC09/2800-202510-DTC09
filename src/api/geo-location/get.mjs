@@ -1,4 +1,5 @@
 import axios from 'axios';
+import {status} from 'http-status';
 import {geoLocation} from './index.mjs';
 
 /**
@@ -64,7 +65,7 @@ geoLocation.post('/', async (req, res) => {
 
     // Return early if coordinates are missing
     if (!latitude || !longitude) {
-        return res.status(400).json({
+        return res.status(status.BAD_REQUEST).json({
             error: 'Missing coordinates',
             city: 'Unknown',
             country: 'Unknown',
@@ -83,13 +84,13 @@ geoLocation.post('/', async (req, res) => {
         const {address} = response.data;
 
         // Return formatted location data with the same logic as frontend
-        res.json({
+        return res.json({
             city: address.city || address.town || address.village || 'Unknown',
             country: address.country || 'Unknown',
         });
     } catch (error) {
         console.error('Coordinates lookup failed:', error.message);
-        res.json({
+        return res.json({
             city: 'Unknown',
             country: 'Unknown',
         });

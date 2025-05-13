@@ -32,24 +32,23 @@ export const LeaderBoard = model(
         .plugin(mongooseAutoPopulate),
 );
 
-export const normalize = (v) =>
+export function normalize(v) {
     [v]
         .flat()
         .filter((w) => w)
         .map((w) => {
-            {
-                if (!w.deletedAt || w.deletedAt > Date.now()) {
-                    return {
-                        ...Object.fromEntries(
-                            ['id', 'rank', 'value'].map((x) => [x, w[x]]),
-                        ),
-                        user:
-                            w.user instanceof mongo.ObjectId
-                                ? w.user
-                                : userNormalize(w.user),
-                    };
-                }
-                return null;
+            if (!w.deletedAt || w.deletedAt > Date.now()) {
+                return {
+                    ...Object.fromEntries(
+                        ['id', 'rank', 'value'].map((x) => [x, w[x]]),
+                    ),
+                    user:
+                        w.user instanceof mongo.ObjectId
+                            ? w.user
+                            : userNormalize(w.user),
+                };
             }
+            return null;
         })
-        .filter((v) => v);
+        .filter((w) => w);
+}

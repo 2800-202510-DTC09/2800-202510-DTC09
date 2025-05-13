@@ -26,7 +26,7 @@ import {badge} from './index.mjs';
  */
 badge.delete('/:id', async (req, res) => {
     try {
-        const badge = await Badge.findOne({
+        const badgeData = await Badge.findOne({
             _id: req.params.id,
             $or: [
                 {deletedAt: {$exists: false}},
@@ -34,9 +34,9 @@ badge.delete('/:id', async (req, res) => {
                 {deletedAt: {$gt: req.timestamp}},
             ],
         });
-        if (badge) {
-            badge.deletedAt = req.timestamp;
-            await badge.save();
+        if (badgeData) {
+            badgeData.deletedAt = req.timestamp;
+            await badgeData.save();
             res.sendStatus(status.NO_CONTENT);
         } else {
             res.sendStatus(status.NOT_FOUND);

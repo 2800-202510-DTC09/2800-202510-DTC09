@@ -1,5 +1,6 @@
 import {env} from 'process';
 import axios from 'axios';
+import {status} from 'http-status';
 import {ipLocation} from './index.mjs';
 
 /**
@@ -40,7 +41,7 @@ import {ipLocation} from './index.mjs';
  *                 city:
  *                   type: string
  *                   example: "Vancouver"
- *                 country_name:
+ *                 countryName:
  *                   type: string
  *                   example: "Canada"
  *                 timezone:
@@ -63,7 +64,7 @@ import {ipLocation} from './index.mjs';
  *                 city:
  *                   type: string
  *                   example: "Unknown"
- *                 country_name:
+ *                 countryName:
  *                   type: string
  *                   example: "Unknown"
  *                 timezone:
@@ -75,10 +76,10 @@ ipLocation.post('/', async (req, res) => {
 
     // Return early if no IP can be found
     if (!ip) {
-        return res.status(400).json({
+        return res.status(status.BAD_REQUEST).json({
             ip: null,
             city: 'Unavailable',
-            country_name: 'Unavailable',
+            countryName: 'Unavailable',
             timezone: 'Unavailable',
             error: 'Missing client IP',
         });
@@ -87,24 +88,25 @@ ipLocation.post('/', async (req, res) => {
     try {
         // Fetch location data from ipapi using axios
         const response = await axios.get(`https://api.ipapi.com/api/${ip}`, {
+            // eslint-disable-next-line camelcase
             params: {access_key: env.IPAPI_KEY},
         });
 
         // Return formatted location data to the frotend
-        res.json({
+        return res.json({
             ip,
             city: response.data.city || 'Unavailable',
-            country_name: response.data.country_name || 'Unavailable',
+            countryName: response.data.countryName || 'Unavailable',
             timezone: response.data.time_zone?.id || 'Unavailable',
         });
 
         // If errors occur, set the response elements to Unavailable in catch block
     } catch (error) {
         console.error('IP Location lookup failed:', error.message);
-        res.json({
+        return res.json({
             ip,
             city: 'Unavailable',
-            country_name: 'Unavailable',
+            countryName: 'Unavailable',
             timezone: 'Unavailable',
         });
     }

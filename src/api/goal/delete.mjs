@@ -26,7 +26,7 @@ import {goal} from './index.mjs';
  */
 goal.delete('/:id', async (req, res) => {
     try {
-        const goal = await Goal.findOne({
+        const goalData = await Goal.findOne({
             _id: req.params.id,
             $or: [
                 {deletedAt: {$exists: false}},
@@ -34,9 +34,9 @@ goal.delete('/:id', async (req, res) => {
                 {deletedAt: {$gt: req.timestamp}},
             ],
         });
-        if (goal) {
-            goal.deletedAt = req.timestamp;
-            await goal.save();
+        if (goalData) {
+            goalData.deletedAt = req.timestamp;
+            await goalData.save();
             res.sendStatus(status.NO_CONTENT);
         } else {
             res.sendStatus(status.NOT_FOUND);

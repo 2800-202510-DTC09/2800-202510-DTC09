@@ -1,6 +1,6 @@
-import {Router} from 'express';
+import {Router as router} from 'express';
 import {handleUsersGet} from './get.mjs';
 
-export const usersRouter = Router();
+export const usersRouter = router();
 
 usersRouter.get('/users', handleUsersGet);

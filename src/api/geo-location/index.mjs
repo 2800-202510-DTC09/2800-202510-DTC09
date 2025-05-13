@@ -1,5 +1,6 @@
-import {Router} from 'express';
+import {Router as router} from 'express';
 import {api} from '../index.mjs';
 
-export const geoLocation = Router();
-api.use('/geo-location', geoLocation); // Define path
+export const geoLocation = router();
+// Define path
+api.use('/geo-location', geoLocation);

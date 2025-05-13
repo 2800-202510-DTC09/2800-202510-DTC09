@@ -1,5 +1,6 @@
-import {Router} from 'express';
+import {Router as router} from 'express';
 import {api} from '../index.mjs';
 
-export const ipLocation = Router();
-api.use('/ip-location', ipLocation); // Define path
+export const ipLocation = router();
+// Define path
+api.use('/ip-location', ipLocation);

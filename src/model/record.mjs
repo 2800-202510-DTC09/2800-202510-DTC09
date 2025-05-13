@@ -86,36 +86,32 @@ export const Record = model(
                     return next(e);
                 }
 
-                next();
+                return next();
             });
         }),
 );
 
-export const normalize = (v) =>
+export function normalize(v) {
     [v]
         .flat()
         .filter((w) => w)
         .map((w) => {
-            {
-                if (!w.deletedAt || w.deletedAt > Date.now()) {
-                    return {
-                        ...Object.fromEntries(
-                            ['id', 'emission', 'description'].map((x) => [
-                                x,
-                                w[x],
-                            ]),
-                        ),
-                        user:
-                            w.user instanceof mongo.ObjectId
-                                ? w.user
-                                : userNormalize(w.user),
-                        type:
-                            w.type instanceof mongo.ObjectId
-                                ? w.type
-                                : typeNormalize(w.type),
-                    };
-                }
-                return null;
+            if (!w.deletedAt || w.deletedAt > Date.now()) {
+                return {
+                    ...Object.fromEntries(
+                        ['id', 'emission', 'description'].map((x) => [x, w[x]]),
+                    ),
+                    user:
+                        w.user instanceof mongo.ObjectId
+                            ? w.user
+                            : userNormalize(w.user),
+                    type:
+                        w.type instanceof mongo.ObjectId
+                            ? w.type
+                            : typeNormalize(w.type),
+                };
             }
+            return null;
         })
-        .filter((v) => v);
+        .filter((w) => w);
+}

@@ -95,30 +95,29 @@ export const User = model(
         .plugin(mongooseAutoPopulate),
 );
 
-export const normalize = (v) =>
+export function normalize(v) {
     [v]
         .flat()
         .filter((w) => w)
         .map((w) => {
-            {
-                if (!w.deletedAt || w.deletedAt > Date.now()) {
-                    return {
-                        ...Object.fromEntries(
-                            ['id', 'email', 'username', 'score'].map((x) => [
-                                x,
-                                w[x],
-                            ]),
-                        ),
-                        badges: w.badges.map((x) => badgeNormalize(x)),
-                        goals: w.goals.map((x) => goalNormalize(x)),
-                        types: w.types.map((x) => ({
-                            type: typeNormalize(x.type),
-                            factor: x.factor,
-                        })),
-                        records: w.records.map((x) => recordNormalize(x)),
-                    };
-                }
-                return null;
+            if (!w.deletedAt || w.deletedAt > Date.now()) {
+                return {
+                    ...Object.fromEntries(
+                        ['id', 'email', 'username', 'score'].map((x) => [
+                            x,
+                            w[x],
+                        ]),
+                    ),
+                    badges: w.badges.map((x) => badgeNormalize(x)),
+                    goals: w.goals.map((x) => goalNormalize(x)),
+                    types: w.types.map((x) => ({
+                        type: typeNormalize(x.type),
+                        factor: x.factor,
+                    })),
+                    records: w.records.map((x) => recordNormalize(x)),
+                };
             }
+            return null;
         })
-        .filter((v) => v);
+        .filter((w) => w);
+}

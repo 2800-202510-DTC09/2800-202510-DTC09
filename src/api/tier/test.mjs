@@ -49,7 +49,7 @@ tier.get('/test/:userId', async (req, res) => {
         const tierInfo = getUserTier(user.score || 0);
 
         // Return tier information and user score
-        res.status(status.OK).json({
+        return res.status(status.OK).json({
             userId: user.id,
             username: user.username,
             score: user.score || 0,
@@ -57,7 +57,7 @@ tier.get('/test/:userId', async (req, res) => {
         });
     } catch (e) {
         console.error('Error fetching tier information:', e);
-        res.status(status.INTERNAL_SERVER_ERROR).json({
+        return res.status(status.INTERNAL_SERVER_ERROR).json({
             error: 'Server error',
             message: e.message,
         });

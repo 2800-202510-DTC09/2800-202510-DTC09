@@ -1,6 +1,5 @@
 import bcrypt from 'bcryptjs';
-import {Error} from 'mongoose'; //
-import {User} from '../../model/user.mjs';
+import {User, normalize} from '../../model/user.mjs';
 
 export async function handleSignupPost(req, res) {
     const {username, email, password} = req.body;
@@ -14,21 +13,23 @@ export async function handleSignupPost(req, res) {
         const saltRounds = 10;
         const hashedPassword = await bcrypt.hash(password, saltRounds);
 
-        const newUser = new User({
-            username,
-            email,
-            password: hashedPassword,
-        });
+        const newUser = normalize(
+            new User({
+                username,
+                email,
+                password: hashedPassword,
+            }),
+        );
 
         await newUser.save();
 
         req.session.user = {
-            id: newUser._id,
+            id: newUser.id,
             username: newUser.username,
             email: newUser.email,
         };
 
-        res.redirect('/main.html');
+        return res.redirect('/main.html');
     } catch (error) {
         console.error('Signup error:', error);
         return res.redirect('/signup.html?error=validation_failed');

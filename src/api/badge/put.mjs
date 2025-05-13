@@ -31,7 +31,7 @@ import {badge} from './index.mjs';
  *       404:
  *         description: Badge not found
  */
-badge.put('/:id', async (req, res) => {
+badge.put('/:id', (req, res) => {
     // Const api = await Todo.find();
     res.json({a: req.body});
 });

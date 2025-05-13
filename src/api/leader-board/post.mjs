@@ -37,7 +37,7 @@ import {leaderBoard} from './index.mjs';
  */
 leaderBoard.post('/', async (req, res) => {
     try {
-        const leaderBoard = await new LeaderBoard(
+        const leaderBoardData = await new LeaderBoard(
             Object.fromEntries(
                 ['user', 'rank', 'value'].map((v) => [v, req.body[v]]),
             ),
@@ -45,8 +45,8 @@ leaderBoard.post('/', async (req, res) => {
 
         const errors = [];
         await Promise.all([
-            (async () => {
-                if (!leaderBoard.user) {
+            (() => {
+                if (!leaderBoardData.user) {
                     errors.push(
                         new Error.ValidatorError({
                             message: 'Path `user` is invalid.',
@@ -67,7 +67,9 @@ leaderBoard.post('/', async (req, res) => {
             throw error;
         }
 
-        res.status(status.OK).json(normalize(await leaderBoard.save()).pop());
+        res.status(status.OK).json(
+            normalize(await leaderBoardData.save()).pop(),
+        );
     } catch (e) {
         if (e.name === Error.ValidationError.name) {
             res.status(status.BAD_REQUEST).json(e.errors);

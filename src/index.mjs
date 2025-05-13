@@ -33,7 +33,8 @@ app.use(
         saveUninitialized: false,
         cookie: {
             httpOnly: true,
-            maxAge: 1000 * 60 * 60, // 1 hour
+            // 1 hour
+            maxAge: 1000 * 60 * 60,
         },
     }),
 );
@@ -60,5 +61,5 @@ app.use(
 app.use('/', siteRouter);
 
 app.listen(env.PORT, () => {
-    console.log(`Server running on http://127.0.0.1:${env.PORT}`);
+    console.error(`Server running on http://127.0.0.1:${env.PORT}`);
 });

@@ -31,7 +31,7 @@ import {type} from './index.mjs';
  *       404:
  *         description: Type not found
  */
-type.put('/:id', async (req, res) => {
+type.put('/:id', (req, res) => {
     // Const api = await Todo.find();
     res.json({a: req.body});
 });

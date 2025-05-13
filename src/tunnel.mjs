@@ -14,7 +14,9 @@ import {connect} from 'mongoose';
     if (existsSync(config) && statSync(config).isDirectory()) {
         readdirSync(config)
             .filter((v) => v.endsWith('-token.lock'))
-            .forEach((v) => rmSync(join(config, v)));
+            .forEach((v) => {
+                rmSync(join(config, v));
+            });
     }
 
     execFileSync(bin, ['access', 'login', '--quiet', env.MONGO_SERVER], {

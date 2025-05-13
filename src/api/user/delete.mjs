@@ -26,7 +26,7 @@ import {user} from './index.mjs';
  */
 user.delete('/:id', async (req, res) => {
     try {
-        const user = await User.findOne({
+        const userData = await User.findOne({
             _id: req.params.id,
             $or: [
                 {deletedAt: {$exists: false}},
@@ -34,9 +34,9 @@ user.delete('/:id', async (req, res) => {
                 {deletedAt: {$gt: req.timestamp}},
             ],
         });
-        if (user) {
-            user.deletedAt = req.timestamp;
-            await user.save();
+        if (userData) {
+            userData.deletedAt = req.timestamp;
+            await userData.save();
             res.sendStatus(status.NO_CONTENT);
         } else {
             res.sendStatus(status.NOT_FOUND);

@@ -26,7 +26,7 @@ import {leaderBoard} from './index.mjs';
  */
 leaderBoard.delete('/:id', async (req, res) => {
     try {
-        const leaderBoard = await LeaderBoard.findOne({
+        const leaderBoardData = await LeaderBoard.findOne({
             _id: req.params.id,
             $or: [
                 {deletedAt: {$exists: false}},
@@ -34,9 +34,9 @@ leaderBoard.delete('/:id', async (req, res) => {
                 {deletedAt: {$gt: req.timestamp}},
             ],
         });
-        if (leaderBoard) {
-            leaderBoard.deletedAt = req.timestamp;
-            await leaderBoard.save();
+        if (leaderBoardData) {
+            leaderBoardData.deletedAt = req.timestamp;
+            await leaderBoardData.save();
             res.sendStatus(status.NO_CONTENT);
         } else {
             res.sendStatus(status.NOT_FOUND);

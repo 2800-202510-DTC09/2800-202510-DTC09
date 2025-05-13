@@ -37,13 +37,14 @@ import {user} from './index.mjs';
  *         description: Server internal error
  */
 user.post('/', async (req, res) => {
+    const saltRounds = 10;
     try {
         res.status(status.OK).json(
             normalize(
                 await new User({
                     email: req.body.username,
                     username: req.body.username,
-                    password: await hash(req.body.password, 10),
+                    password: await hash(req.body.password, saltRounds),
                 }).save(),
             ).pop(),
         );

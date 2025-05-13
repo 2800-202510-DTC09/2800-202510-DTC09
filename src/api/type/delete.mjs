@@ -26,7 +26,7 @@ import {type} from './index.mjs';
  */
 type.delete('/:id', async (req, res) => {
     try {
-        const type = await Type.findOne({
+        const typeData = await Type.findOne({
             _id: req.params.id,
             $or: [
                 {deletedAt: {$exists: false}},
@@ -34,9 +34,9 @@ type.delete('/:id', async (req, res) => {
                 {deletedAt: {$gt: req.timestamp}},
             ],
         });
-        if (type) {
-            type.deletedAt = req.timestamp;
-            await type.save();
+        if (typeData) {
+            typeData.deletedAt = req.timestamp;
+            await typeData.save();
             res.sendStatus(status.NO_CONTENT);
         } else {
             res.sendStatus(status.NOT_FOUND);

@@ -31,7 +31,7 @@ import {user} from './index.mjs';
  *       404:
  *         description: User not found
  */
-user.put('/:id', async (req, res) => {
+user.put('/:id', (req, res) => {
     // Const api = await Todo.find();
     res.json({a: req.body});
 });
