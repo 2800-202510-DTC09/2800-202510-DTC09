@@ -19,8 +19,9 @@ export default defineConfig({
     },
     rules: {
         'no-console': ['error', {allow: ['error']}],
+        'import-x/extensions': ['error', 'ignorePackages'],
+        'import-x/no-nodejs-modules': ['off'],
         'import-x/no-useless-path-segments': ['off'],
-        'import-x/extensions': ['off'],
         'prettierPlugin/prettier': ['error'],
     },
 });
