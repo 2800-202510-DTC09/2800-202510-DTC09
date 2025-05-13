@@ -2,7 +2,7 @@
 // Data from:
 // https://ourworldindata.org/food-choice-vs-eating-local
 const beef_co2e_per_kg = 60;
-const lamb_c02e_per_kg = 24;
+const lamb_co2e_per_kg = 24;
 const chicken_co2e_per_kg = 6;
 const pork_co2e_per_kg = 7;
 const cheese_co2e_per_kg = 21;
