@@ -1,5 +1,4 @@
 {
-    "cSpell.words": [
-        "cloudflared"
-    ]
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "cSpell.words": ["cloudflared"]
 }
