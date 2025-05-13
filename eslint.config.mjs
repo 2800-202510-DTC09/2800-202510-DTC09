@@ -18,12 +18,8 @@ export default defineConfig({
         prettierPlugin,
     },
     rules: {
-        'import-x/no-useless-path-segments':[
-            'off'
-        ],
-        'import-x/extensions':[
-            'off'
-        ],
+        'import-x/no-useless-path-segments': ['off'],
+        'import-x/extensions': ['off'],
         'prettierPlugin/prettier': ['error'],
     },
 });

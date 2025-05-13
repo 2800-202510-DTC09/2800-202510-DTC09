@@ -12,7 +12,6 @@
     "bracketSpacing": false,
     "bracketSameLine": false,
     "arrowParens": "always",
-    "multilineArraysWrapThreshold": 0,
     "overrides": [
         {
             "files": ["*.yaml", "*.yml", "*.md"],
