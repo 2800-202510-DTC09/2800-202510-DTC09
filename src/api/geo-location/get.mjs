@@ -1,5 +1,5 @@
 import axios from 'axios';
-import {geoLocation} from '.';
+import {geoLocation} from './index.mjs';
 
 /**
  * Create API doc for Nominatim.

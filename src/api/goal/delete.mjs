@@ -1,6 +1,6 @@
 import {status} from 'http-status';
 import {Goal} from '../../model/goal.mjs';
-import {goal} from '.';
+import {goal} from './index.mjs';
 
 /**
  * @openapi

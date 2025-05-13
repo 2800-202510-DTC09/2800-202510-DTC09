@@ -1,6 +1,6 @@
 import {status} from 'http-status';
 import {LeaderBoard, normalize} from '../../model/leader-board.mjs';
-import {leaderBoard} from '.';
+import {leaderBoard} from './index.mjs';
 
 /**
  * @openapi

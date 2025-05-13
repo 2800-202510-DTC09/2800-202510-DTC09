@@ -1,4 +1,4 @@
-import {goal} from '.';
+import {goal} from './index.mjs';
 
 /**
  * @openapi

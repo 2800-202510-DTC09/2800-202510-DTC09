@@ -1,4 +1,4 @@
-import {leaderBoard} from '.';
+import {leaderBoard} from './index.mjs';
 
 /**
  * @openapi

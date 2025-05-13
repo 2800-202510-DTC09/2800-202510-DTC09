@@ -1,6 +1,6 @@
 import {env} from 'process';
 import axios from 'axios';
-import {ipLocation} from '.';
+import {ipLocation} from './index.mjs';
 
 /**
  * Create API doc for ipapi.

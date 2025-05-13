@@ -1,7 +1,7 @@
 import {status} from 'http-status';
 import {Error} from 'mongoose';
 import {Type, normalize} from '../../model/type.mjs';
-import {type} from '.';
+import {type} from './index.mjs';
 
 /**
  * @openapi

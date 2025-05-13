@@ -6,7 +6,7 @@
 import {status} from 'http-status';
 import {User} from '../../model/user.mjs';
 import {getUserTier} from '../../shared/tierUtils.mjs';
-import {tier} from '.';
+import {tier} from './index.mjs';
 
 /**
  * @openapi

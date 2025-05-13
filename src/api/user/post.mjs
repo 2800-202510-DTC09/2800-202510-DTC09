@@ -2,7 +2,7 @@ import {hash} from 'bcryptjs';
 import {status} from 'http-status';
 import {Error} from 'mongoose';
 import {User, normalize} from '../../model/user.mjs';
-import {user} from '.';
+import {user} from './index.mjs';
 
 /**
  * @openapi

@@ -1,7 +1,7 @@
 import {status} from 'http-status';
 import {Error} from 'mongoose';
 import {LeaderBoard, normalize} from '../../model/leader-board.mjs';
-import {leaderBoard} from '.';
+import {leaderBoard} from './index.mjs';
 
 /**
  * @openapi

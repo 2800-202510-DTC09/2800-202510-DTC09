@@ -7,7 +7,7 @@ import {connect} from 'mongoose';
 import swaggerJsdoc from 'swagger-jsdoc';
 import {serve, setup} from 'swagger-ui-express';
 import {__dirname} from './common-es.mjs';
-import {siteRouter} from './site-routes';
+import {siteRouter} from './site-routes/index.mjs';
 
 if (env.NODE_ENV === 'dev') {
     import('./tunnel.mjs');

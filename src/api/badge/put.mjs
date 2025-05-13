@@ -1,4 +1,4 @@
-import {badge} from '.';
+import {badge} from './index.mjs';
 
 /**
  * @openapi

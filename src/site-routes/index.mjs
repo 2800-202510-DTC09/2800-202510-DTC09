@@ -1,9 +1,9 @@
 import {Router} from 'express';
-import {homeRouter} from './home';
-import {loginRouter} from './login';
-import {logoutRouter} from './logout';
-import {signupRouter} from './signup';
-import {usersRouter} from './users';
+import {homeRouter} from './home/index.mjs';
+import {loginRouter} from './login/index.mjs';
+import {logoutRouter} from './logout/index.mjs';
+import {signupRouter} from './signup/index.mjs';
+import {usersRouter} from './users/index.mjs';
 
 export const siteRouter = Router();
 

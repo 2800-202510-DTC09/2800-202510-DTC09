@@ -1,6 +1,6 @@
 import {status} from 'http-status';
 import {Record, normalize} from '../../model/record.mjs';
-import {record} from '.';
+import {record} from './index.mjs';
 
 /**
  * @openapi

@@ -1,6 +1,6 @@
 import {status} from 'http-status';
 import {Badge} from '../../model/badge.mjs';
-import {badge} from '.';
+import {badge} from './index.mjs';
 
 /**
  * @openapi

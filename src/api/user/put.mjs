@@ -1,4 +1,4 @@
-import {user} from '.';
+import {user} from './index.mjs';
 
 /**
  * @openapi

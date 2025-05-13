@@ -1,7 +1,7 @@
 import {status} from 'http-status';
 import {Error} from 'mongoose';
 import {Goal, normalize} from '../../model/goal.mjs';
-import {goal} from '.';
+import {goal} from './index.mjs';
 
 /**
  * @openapi

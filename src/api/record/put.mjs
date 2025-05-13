@@ -1,4 +1,4 @@
-import {record} from '.';
+import {record} from './index.mjs';
 
 /**
  * @openapi

@@ -1,6 +1,6 @@
 import {status} from 'http-status';
 import {Type} from '../../model/type.mjs';
-import {type} from '.';
+import {type} from './index.mjs';
 
 /**
  * @openapi
