@@ -1,7 +1,7 @@
-import {Error} from 'mongoose';
-import {leaderBoard} from './index.mjs';
-import {LeaderBoard, normalize} from '../../model/leader-board.mjs';
 import {status} from 'http-status';
+import {Error} from 'mongoose';
+import {LeaderBoard, normalize} from '../../model/leader-board.mjs';
+import {leaderBoard} from '.';
 
 /**
  * @openapi
@@ -36,53 +36,44 @@ import {status} from 'http-status';
  *         description: Server internal error
  */
 leaderBoard.post('/', async (req, res) => {
-   try {
-      const leaderBoard = await new LeaderBoard(
-         Object.fromEntries(
-            [
-               'user',
-               'rank',
-               'value',
-            ].map((v) => [
-               v,
-               req.body[v],
-            ]),
-         ),
-      ).populate([
-         'user',
-      ]);
+    try {
+        const leaderBoard = await new LeaderBoard(
+            Object.fromEntries(
+                ['user', 'rank', 'value'].map((v) => [v, req.body[v]]),
+            ),
+        ).populate(['user']);
 
-      const errors = [];
-      await Promise.all([
-         (async () => {
-            if (!leaderBoard.user) {
-               errors.push(
-                  new Error.ValidatorError({
-                     message: 'Path `user` is invalid.',
-                     type: 'required',
-                     path: 'user',
-                     value: req.body.userId,
-                     reason: '`user` not found in `users`',
-                  }),
-               );
-            }
-         })(),
-      ]);
-      if (errors.length) {
-         const error = new Error.ValidationError();
-         errors.forEach((v) => {
-            error.addError(v.path, v);
-         });
-         throw error;
-      }
+        const errors = [];
+        await Promise.all([
+            (async () => {
+                if (!leaderBoard.user) {
+                    errors.push(
+                        new Error.ValidatorError({
+                            message: 'Path `user` is invalid.',
+                            type: 'required',
+                            path: 'user',
+                            value: req.body.userId,
+                            reason: '`user` not found in `users`',
+                        }),
+                    );
+                }
+            })(),
+        ]);
+        if (errors.length) {
+            const error = new Error.ValidationError();
+            errors.forEach((v) => {
+                error.addError(v.path, v);
+            });
+            throw error;
+        }
 
-      res.status(status.OK).json(normalize(await leaderBoard.save()).pop());
-   } catch (e) {
-      if (e.name === Error.ValidationError.name) {
-         res.status(status.BAD_REQUEST).json(e.errors);
-      } else {
-         console.error(e);
-         res.sendStatus(status.INTERNAL_SERVER_ERROR);
-      }
-   }
+        res.status(status.OK).json(normalize(await leaderBoard.save()).pop());
+    } catch (e) {
+        if (e.name === Error.ValidationError.name) {
+            res.status(status.BAD_REQUEST).json(e.errors);
+        } else {
+            console.error(e);
+            res.sendStatus(status.INTERNAL_SERVER_ERROR);
+        }
+    }
 });

@@ -1,5 +1,5 @@
-import { Router } from 'express';
-import { handleLoginGet } from './get.mjs';
+import {Router} from 'express';
+import {handleLoginGet} from './get.mjs';
 
 export const homeRouter = Router();
 

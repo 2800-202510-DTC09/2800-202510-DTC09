@@ -1,4 +1,4 @@
-import {leaderBoard} from './index.mjs';
+import {leaderBoard} from '.';
 
 /**
  * @openapi
@@ -32,6 +32,6 @@ import {leaderBoard} from './index.mjs';
  *         description: LeaderBoard not found
  */
 leaderBoard.put('/:id', async (req, res) => {
-   // const api = await Todo.find();
-   res.json({a: req.body});
+    // Const api = await Todo.find();
+    res.json({a: req.body});
 });

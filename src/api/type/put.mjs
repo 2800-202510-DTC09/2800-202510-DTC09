@@ -1,4 +1,4 @@
-import {type} from './index.mjs';
+import {type} from '.';
 
 /**
  * @openapi
@@ -32,6 +32,6 @@ import {type} from './index.mjs';
  *         description: Type not found
  */
 type.put('/:id', async (req, res) => {
-   // const api = await Todo.find();
-   res.json({a: req.body});
+    // Const api = await Todo.find();
+    res.json({a: req.body});
 });

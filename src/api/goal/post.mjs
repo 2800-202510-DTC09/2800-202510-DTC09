@@ -1,7 +1,7 @@
+import {status} from 'http-status';
 import {Error} from 'mongoose';
 import {Goal, normalize} from '../../model/goal.mjs';
-import {goal} from './index.mjs';
-import {status} from 'http-status';
+import {goal} from '.';
 
 /**
  * @openapi
@@ -48,33 +48,30 @@ import {status} from 'http-status';
  *         description: Server internal error
  */
 goal.post('/', async (req, res) => {
-   try {
-      res.status(status.OK).json(
-         normalize(
-            await new Goal(
-               Object.fromEntries(
-                  [
-                     'name',
-                     'description',
-                     'icon',
-                     'emission',
-                     'emissionDiff',
-                     'emissionDiffStart',
-                     'emissionDiffEnd',
-                  ].map((v) => [
-                     v,
-                     req.body[v],
-                  ]),
-               ),
-            ).save(),
-         ).pop(),
-      );
-   } catch (e) {
-      if (e.name === Error.ValidationError.name) {
-         res.status(status.BAD_REQUEST).json(e.errors);
-      } else {
-         console.error(e);
-         res.sendStatus(status.INTERNAL_SERVER_ERROR);
-      }
-   }
+    try {
+        res.status(status.OK).json(
+            normalize(
+                await new Goal(
+                    Object.fromEntries(
+                        [
+                            'name',
+                            'description',
+                            'icon',
+                            'emission',
+                            'emissionDiff',
+                            'emissionDiffStart',
+                            'emissionDiffEnd',
+                        ].map((v) => [v, req.body[v]]),
+                    ),
+                ).save(),
+            ).pop(),
+        );
+    } catch (e) {
+        if (e.name === Error.ValidationError.name) {
+            res.status(status.BAD_REQUEST).json(e.errors);
+        } else {
+            console.error(e);
+            res.sendStatus(status.INTERNAL_SERVER_ERROR);
+        }
+    }
 });

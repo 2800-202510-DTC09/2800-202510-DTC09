@@ -1,4 +1,4 @@
-import {goal} from './index.mjs';
+import {goal} from '.';
 
 /**
  * @openapi
@@ -32,6 +32,6 @@ import {goal} from './index.mjs';
  *         description: Goal not found
  */
 goal.put('/:id', async (req, res) => {
-   // const api = await Todo.find();
-   res.json({a: req.body});
+    // Const api = await Todo.find();
+    res.json({a: req.body});
 });

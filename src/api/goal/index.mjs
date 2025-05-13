@@ -1,5 +1,5 @@
 import {Router} from 'express';
-import {api} from '../index.mjs';
+import {api} from '..';
 
 export const goal = Router();
 api.use('/goal', goal);

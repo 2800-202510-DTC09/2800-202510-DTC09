@@ -1,6 +1,6 @@
-import {Goal} from '../../model/goal.mjs';
-import {goal} from './index.mjs';
 import {status} from 'http-status';
+import {Goal} from '../../model/goal.mjs';
+import {goal} from '.';
 
 /**
  * @openapi
@@ -25,24 +25,24 @@ import {status} from 'http-status';
  *         description: Server internal error
  */
 goal.delete('/:id', async (req, res) => {
-   try {
-      const goal = await Goal.findOne({
-         _id: req.params.id,
-         $or: [
-            {deletedAt: {$exists: false}},
-            {deletedAt: null},
-            {deletedAt: {$gt: req.timestamp}},
-         ],
-      });
-      if (goal) {
-         goal.deletedAt = req.timestamp;
-         await goal.save();
-         res.sendStatus(status.NO_CONTENT);
-      } else {
-         res.sendStatus(status.NOT_FOUND);
-      }
-   } catch (e) {
-      console.error(e);
-      res.sendStatus(status.INTERNAL_SERVER_ERROR);
-   }
+    try {
+        const goal = await Goal.findOne({
+            _id: req.params.id,
+            $or: [
+                {deletedAt: {$exists: false}},
+                {deletedAt: null},
+                {deletedAt: {$gt: req.timestamp}},
+            ],
+        });
+        if (goal) {
+            goal.deletedAt = req.timestamp;
+            await goal.save();
+            res.sendStatus(status.NO_CONTENT);
+        } else {
+            res.sendStatus(status.NOT_FOUND);
+        }
+    } catch (e) {
+        console.error(e);
+        res.sendStatus(status.INTERNAL_SERVER_ERROR);
+    }
 });

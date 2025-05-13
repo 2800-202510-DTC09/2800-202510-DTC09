@@ -1,6 +1,6 @@
-import {User, normalize} from '../../model/user.mjs';
-import {user} from './index.mjs';
 import {status} from 'http-status';
+import {User, normalize} from '../../model/user.mjs';
+import {user} from '.';
 
 /**
  * @openapi
@@ -25,17 +25,17 @@ import {status} from 'http-status';
  *         description: Server internal error
  */
 user.get('/id/:id', async (req, res) => {
-   try {
-      const users = normalize(await User.findById(req.params.id));
-      if (users.length) {
-         res.status(status.OK).json(users.pop());
-      } else {
-         res.sendStatus(status.NOT_FOUND);
-      }
-   } catch (e) {
-      console.error(e);
-      res.sendStatus(status.INTERNAL_SERVER_ERROR);
-   }
+    try {
+        const users = normalize(await User.findById(req.params.id));
+        if (users.length) {
+            res.status(status.OK).json(users.pop());
+        } else {
+            res.sendStatus(status.NOT_FOUND);
+        }
+    } catch (e) {
+        console.error(e);
+        res.sendStatus(status.INTERNAL_SERVER_ERROR);
+    }
 });
 
 /**
@@ -61,17 +61,17 @@ user.get('/id/:id', async (req, res) => {
  *         description: Server internal error
  */
 user.get('/username/:username', async (req, res) => {
-   try {
-      const users = normalize(
-         await User.findOne({username: req.params.username}),
-      );
-      if (users.length) {
-         res.status(status.OK).json(users.pop());
-      } else {
-         res.sendStatus(status.NOT_FOUND);
-      }
-   } catch (e) {
-      console.error(e);
-      res.sendStatus(status.INTERNAL_SERVER_ERROR);
-   }
+    try {
+        const users = normalize(
+            await User.findOne({username: req.params.username}),
+        );
+        if (users.length) {
+            res.status(status.OK).json(users.pop());
+        } else {
+            res.sendStatus(status.NOT_FOUND);
+        }
+    } catch (e) {
+        console.error(e);
+        res.sendStatus(status.INTERNAL_SERVER_ERROR);
+    }
 });

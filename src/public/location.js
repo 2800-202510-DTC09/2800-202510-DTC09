@@ -1,17 +1,16 @@
-
 /**
  * This script fetches the user's location using the browser's geolocation API, and if that fails, it falls back to using the IPAPI service.
  * It updates the HTML elements on profile with the user's city, country, and timezone. The timezone is set to the browser's timezone.
- * 
+ *
  *  *** NOTE ***
  * I used claude to help me clean up the try catch blocks and make the code more readable.
  * Otherwise, I consulted the documentation for the APIs used in this script.
- * 
+ *
  * @author Dilinder Garcha
  * @version 1.0
  */
 
-window.addEventListener('DOMContentLoaded', function () {
+window.addEventListener('DOMContentLoaded', () => {
     const cityEl = document.querySelector('p[data-location="city"]');
     const countryEl = document.querySelector('p[data-location="country"]');
     const timezoneEl = document.querySelector('p[data-location="timezone"]');
@@ -28,15 +27,15 @@ window.addEventListener('DOMContentLoaded', function () {
                 navigator.geolocation.getCurrentPosition(resolve, reject);
             });
 
-            const { latitude, longitude } = position.coords;
+            const {latitude, longitude} = position.coords;
 
             // Send the JSON geo data to backend for location data
             const res = await fetch('/api/geo-location', {
                 method: 'POST',
                 headers: {
-                    'Content-Type': 'application/json'
+                    'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({ latitude, longitude })
+                body: JSON.stringify({latitude, longitude}),
             });
 
             const data = await res.json();
@@ -48,7 +47,10 @@ window.addEventListener('DOMContentLoaded', function () {
 
             // If geolocation fails, fallback to IP-based locations
         } catch (error) {
-            console.error('Geolocation or Nominatim error:', error.message || error);
+            console.error(
+                'Geolocation or Nominatim error:',
+                error.message || error,
+            );
             fallbackToIP();
         }
     }
@@ -58,18 +60,18 @@ window.addEventListener('DOMContentLoaded', function () {
             // Get the user's IP address from ipecho.net
             const ipResponse = await fetch('https://ipecho.net/plain');
             const userIp = await ipResponse.text();
-            // console.log('Client-detected IP:', userIp); // debugging line
+            // Console.log('Client-detected IP:', userIp); // debugging line
 
             // Send the JSON IP data to backend for location data
             const res = await fetch('/api/ip-location', {
                 method: 'POST',
                 headers: {
-                    'Content-Type': 'application/json'
+                    'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({ clientIp: userIp.trim() })
+                body: JSON.stringify({clientIp: userIp.trim()}),
             });
             const data = await res.json();
-            // console.log('Backend IP data received:', data); // debugging line
+            // Console.log('Backend IP data received:', data); // debugging line
 
             // Update The Card Elements on Profile if found, else set to Unavailable
             cityEl.textContent = `City: ${data.city || 'Unavailable'}`;
@@ -83,7 +85,6 @@ window.addEventListener('DOMContentLoaded', function () {
             countryEl.textContent = 'Country: Unavailable';
             timezoneEl.textContent = `Timezone: ${Intl.DateTimeFormat().resolvedOptions().timeZone || 'Unavailable'}`;
         }
-
     }
 
     // Call the primary function to get the location, fallback to IP if geolocation fails

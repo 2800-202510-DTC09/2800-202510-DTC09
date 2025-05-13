@@ -1,4 +1,4 @@
-import {user} from './index.mjs';
+import {user} from '.';
 
 /**
  * @openapi
@@ -32,6 +32,6 @@ import {user} from './index.mjs';
  *         description: User not found
  */
 user.put('/:id', async (req, res) => {
-   // const api = await Todo.find();
-   res.json({a: req.body});
+    // Const api = await Todo.find();
+    res.json({a: req.body});
 });

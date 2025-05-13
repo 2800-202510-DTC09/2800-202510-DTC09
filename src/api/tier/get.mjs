@@ -1,7 +1,7 @@
-import { User } from '../../model/user.mjs';
-import { tier } from './index.mjs';
-import { status } from 'http-status';
-import { getUserTier } from '../../shared/tierUtils.mjs';
+import {status} from 'http-status';
+import {User} from '../../model/user.mjs';
+import {getUserTier} from '../../shared/tierUtils.mjs';
+import {tier} from '.';
 
 /**
  * @openapi
@@ -52,9 +52,8 @@ tier.get('/', async (req, res) => {
         const tierInfo = getUserTier(user.score || 0);
         res.status(status.OK).json({
             tier: tierInfo,
-            score: user.score || 0
+            score: user.score || 0,
         });
-
     } catch (e) {
         console.error(e);
         res.sendStatus(status.INTERNAL_SERVER_ERROR);

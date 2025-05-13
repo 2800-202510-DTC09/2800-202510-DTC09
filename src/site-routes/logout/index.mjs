@@ -1,5 +1,5 @@
-import { Router } from 'express';
-import { handleLogoutGet } from './get.mjs';
+import {Router} from 'express';
+import {handleLogoutGet} from './get.mjs';
 
 export const logoutRouter = Router();
 

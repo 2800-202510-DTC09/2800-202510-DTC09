@@ -1,6 +1,6 @@
 import {status} from 'http-status';
 import {User} from '../../model/user.mjs';
-import {user} from './index.mjs';
+import {user} from '.';
 
 /**
  * @openapi
@@ -25,24 +25,24 @@ import {user} from './index.mjs';
  *         description: Server internal error
  */
 user.delete('/:id', async (req, res) => {
-   try {
-      const user = await User.findOne({
-         _id: req.params.id,
-         $or: [
-            {deletedAt: {$exists: false}},
-            {deletedAt: null},
-            {deletedAt: {$gt: req.timestamp}},
-         ],
-      });
-      if (user) {
-         user.deletedAt = req.timestamp;
-         await user.save();
-         res.sendStatus(status.NO_CONTENT);
-      } else {
-         res.sendStatus(status.NOT_FOUND);
-      }
-   } catch (e) {
-      console.error(e);
-      res.sendStatus(status.INTERNAL_SERVER_ERROR);
-   }
+    try {
+        const user = await User.findOne({
+            _id: req.params.id,
+            $or: [
+                {deletedAt: {$exists: false}},
+                {deletedAt: null},
+                {deletedAt: {$gt: req.timestamp}},
+            ],
+        });
+        if (user) {
+            user.deletedAt = req.timestamp;
+            await user.save();
+            res.sendStatus(status.NO_CONTENT);
+        } else {
+            res.sendStatus(status.NOT_FOUND);
+        }
+    } catch (e) {
+        console.error(e);
+        res.sendStatus(status.INTERNAL_SERVER_ERROR);
+    }
 });

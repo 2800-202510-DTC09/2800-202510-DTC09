@@ -1,5 +1,5 @@
 import {Router} from 'express';
-import {app} from '../index.mjs';
+import {app} from '..';
 
 export const api = Router();
 app.use('/api', api);

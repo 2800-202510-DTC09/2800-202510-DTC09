@@ -1,85 +1,103 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>SustainMe Dashboard</title>
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SustainMe Dashboard</title>
+        <!-- Google Fonts -->
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Nunito:wght@400&family=Poppins:wght@700&display=swap"
+            rel="stylesheet"
+        />
 
-    <!-- Google Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400&family=Poppins:wght@700&display=swap"
-        rel="stylesheet">
+        <!-- Tailwind CSS -->
+        <script src="https://cdn.tailwindcss.com"></script>
+        <script>
+            const module = {};
+        </script>
+        <script src="/css/tailwind.config.js"></script>
+        <script>
+            tailwind.config = module.exports;
+        </script>
 
-    <!-- Tailwind CSS -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>const module = {};</script>
-    <script src="/css/tailwind.config.js"></script>
-    <script>
-        tailwind.config = module.exports
-    </script>
+        <script src="https://cdn.jsdelivr.net/npm/echarts@5.4.3/dist/echarts.min.js"></script>
 
-    <script src="https://cdn.jsdelivr.net/npm/echarts@5.4.3/dist/echarts.min.js"></script>
+        <link rel="stylesheet" href="/css/style.css" />
+    </head>
 
-    <link rel="stylesheet" href="/css/style.css">
-</head>
+    <body class="bg-neutral-100 font-sans">
+        <!-- Claude was used to help with styling this page -->
 
-<body class="bg-neutral-100 font-sans">
+        <!-- Navbar Placeholder -->
+        <div id="navbarPlaceholder"></div>
 
-    <!-- Claude was used to help with styling this page -->
+        <main class="container mx-auto px-4 py-4 pb-20">
+            <h1 class="text-3xl font-heading text-dark mb-6">Progress</h1>
 
-    <!-- Navbar Placeholder -->
-    <div id="navbarPlaceholder"></div>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+                <a
+                    href="/stats.html"
+                    class="group bg-white rounded-xl shadow-sm hover:shadow-md transition-all duration-200 p-3 block border border-gray-100 hover:border-gray-200 max-w-fit"
+                >
+                    <div class="flex items-center gap-3">
+                        <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            class="h-6 w-6 text-primary"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                            stroke="currentColor"
+                        >
+                            <path
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                stroke-width="2"
+                                d="M9 15 3 9m0 0 6-6M3 9h12a6 6 0 0 1 0 12h-3"
+                            />
+                        </svg>
+                        <h2 class="text-xl font-heading text-dark">Back</h2>
+                    </div>
+                </a>
+            </div>
 
-    <main class="container mx-auto px-4 py-4 pb-20">
-        <h1 class="text-3xl font-heading text-dark mb-6">Progress</h1>
-
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-            <a href="/stats.html"
-                class="group bg-white rounded-xl shadow-sm hover:shadow-md transition-all duration-200 p-3 block border border-gray-100 hover:border-gray-200 max-w-fit">
-                <div class="flex items-center gap-3">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-primary" fill="none" viewBox="0 0 24 24"
-                        stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="M9 15 3 9m0 0 6-6M3 9h12a6 6 0 0 1 0 12h-3" />
-                    </svg>
-                    <h2 class="text-xl font-heading text-dark">Back
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-4">
+                <div class="bg-white rounded-lg shadow-md p-6">
+                    <h2 class="text-xl font-heading text-dark mb-4">
+                        Energy Usage
                     </h2>
+                    <div id="energyChart" class="h-64"></div>
                 </div>
-            </a>
-        </div>
 
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-4">
-            <div class="bg-white rounded-lg shadow-md p-6">
-                <h2 class="text-xl font-heading text-dark mb-4">Energy Usage</h2>
-                <div id="energyChart" class="h-64"></div>
+                <div class="bg-white rounded-lg shadow-md p-6">
+                    <h2 class="text-xl font-heading text-dark mb-4">
+                        Water Consumption
+                    </h2>
+                    <div id="waterChart" class="h-64"></div>
+                </div>
+
+                <div class="bg-white rounded-lg shadow-md p-6">
+                    <h2 class="text-xl font-heading text-dark mb-4">
+                        Carbon Footprint
+                    </h2>
+                    <div id="carbonChart" class="h-64"></div>
+                </div>
             </div>
 
             <div class="bg-white rounded-lg shadow-md p-6">
-                <h2 class="text-xl font-heading text-dark mb-4">Water Consumption</h2>
-                <div id="waterChart" class="h-64"></div>
+                <h2 class="text-xl font-heading text-dark mb-4">
+                    Sustainability Breakdown
+                </h2>
+                <div id="pieChart" class="h-80"></div>
             </div>
+        </main>
 
-            <div class="bg-white rounded-lg shadow-md p-6">
-                <h2 class="text-xl font-heading text-dark mb-4">Carbon Footprint</h2>
-                <div id="carbonChart" class="h-64"></div>
-            </div>
-        </div>
+        <!-- Footer Placeholder -->
+        <div id="footerPlaceholder"></div>
 
-        <div class="bg-white rounded-lg shadow-md p-6">
-            <h2 class="text-xl font-heading text-dark mb-4">Sustainability Breakdown</h2>
-            <div id="pieChart" class="h-80"></div>
-        </div>
-    </main>
-
-    <!-- Footer Placeholder -->
-    <div id="footerPlaceholder"></div>
-
-    <!-- Scripts -->
-    <script src="/chart.js"></script>
-    <script src="/components/templates/skeleton.js"></script>
-</body>
-
-
+        <!-- Scripts -->
+        <script src="/chart.js"></script>
+        <script src="/components/templates/skeleton.js"></script>
+    </body>
 </html>

@@ -1,11 +1,12 @@
-// File: src/api/tier/test.mjs
-// This code created by claude to help with testing the feature 
+/*
+ * File: src/api/tier/test.mjs
+ * This code created by claude to help with testing the feature
+ */
 
-
-import { User } from '../../model/user.mjs';
-import { tier } from './index.mjs';
-import { status } from 'http-status';
-import { getUserTier } from '../../shared/tierUtils.mjs';
+import {status} from 'http-status';
+import {User} from '../../model/user.mjs';
+import {getUserTier} from '../../shared/tierUtils.mjs';
+import {tier} from '.';
 
 /**
  * @openapi
@@ -32,7 +33,7 @@ import { getUserTier } from '../../shared/tierUtils.mjs';
 tier.get('/test/:userId', async (req, res) => {
     try {
         // Extract the user ID from the request parameters
-        const userId = req.params.userId;
+        const {userId} = req.params;
 
         // Find the user by ID
         const user = await User.findById(userId);
@@ -40,7 +41,7 @@ tier.get('/test/:userId', async (req, res) => {
         // If user not found, return 404
         if (!user) {
             return res.status(status.NOT_FOUND).json({
-                error: 'User not found'
+                error: 'User not found',
             });
         }
 
@@ -52,17 +53,19 @@ tier.get('/test/:userId', async (req, res) => {
             userId: user.id,
             username: user.username,
             score: user.score || 0,
-            tier: tierInfo
+            tier: tierInfo,
         });
     } catch (e) {
         console.error('Error fetching tier information:', e);
         res.status(status.INTERNAL_SERVER_ERROR).json({
             error: 'Server error',
-            message: e.message
+            message: e.message,
         });
     }
 });
 
-// Make sure to import this file in your tier/index.mjs
-// Add this line to src/api/tier/index.mjs:
-// import './test.mjs';
+/*
+ * Make sure to import this file in your tier/index.mjs
+ * Add this line to src/api/tier/index.mjs:
+ * import './test.mjs';
+ */

@@ -1,4 +1,4 @@
-import {record} from './index.mjs';
+import {record} from '.';
 
 /**
  * @openapi
@@ -32,6 +32,6 @@ import {record} from './index.mjs';
  *         description: Record not found
  */
 record.put('/:id', async (req, res) => {
-   // const api = await Todo.find();
-   res.json({a: req.body});
+    // Const api = await Todo.find();
+    res.json({a: req.body});
 });

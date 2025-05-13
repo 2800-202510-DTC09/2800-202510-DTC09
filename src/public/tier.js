@@ -1,13 +1,67 @@
 const TIERS = [
-    { name: 'bronze', level: 1, displayName: 'Bronze I', badge: '/assets/Bronze-1.png', threshold: 0 },
-    { name: 'bronze', level: 2, displayName: 'Bronze II', badge: '/assets/Bronze-2.png', threshold: 500 },
-    { name: 'bronze', level: 3, displayName: 'Bronze III', badge: '/assets/Bronze-3.png', threshold: 1000 },
-    { name: 'gold', level: 1, displayName: 'Gold I', badge: '/assets/Gold-1.png', threshold: 1500 },
-    { name: 'gold', level: 2, displayName: 'Gold II', badge: '/assets/Gold-2.png', threshold: 2000 },
-    { name: 'gold', level: 3, displayName: 'Gold III', badge: '/assets/Gold-3.png', threshold: 2500 },
-    { name: 'diamond', level: 1, displayName: 'Diamond I', badge: '/assets/Diamond-1.png', threshold: 3000 },
-    { name: 'diamond', level: 2, displayName: 'Diamond II', badge: '/assets/Diamond-2.png', threshold: 3500 },
-    { name: 'diamond', level: 3, displayName: 'Diamond III', badge: '/assets/Diamond-3.png', threshold: 4000 }
+    {
+        name: 'bronze',
+        level: 1,
+        displayName: 'Bronze I',
+        badge: '/assets/Bronze-1.png',
+        threshold: 0,
+    },
+    {
+        name: 'bronze',
+        level: 2,
+        displayName: 'Bronze II',
+        badge: '/assets/Bronze-2.png',
+        threshold: 500,
+    },
+    {
+        name: 'bronze',
+        level: 3,
+        displayName: 'Bronze III',
+        badge: '/assets/Bronze-3.png',
+        threshold: 1000,
+    },
+    {
+        name: 'gold',
+        level: 1,
+        displayName: 'Gold I',
+        badge: '/assets/Gold-1.png',
+        threshold: 1500,
+    },
+    {
+        name: 'gold',
+        level: 2,
+        displayName: 'Gold II',
+        badge: '/assets/Gold-2.png',
+        threshold: 2000,
+    },
+    {
+        name: 'gold',
+        level: 3,
+        displayName: 'Gold III',
+        badge: '/assets/Gold-3.png',
+        threshold: 2500,
+    },
+    {
+        name: 'diamond',
+        level: 1,
+        displayName: 'Diamond I',
+        badge: '/assets/Diamond-1.png',
+        threshold: 3000,
+    },
+    {
+        name: 'diamond',
+        level: 2,
+        displayName: 'Diamond II',
+        badge: '/assets/Diamond-2.png',
+        threshold: 3500,
+    },
+    {
+        name: 'diamond',
+        level: 3,
+        displayName: 'Diamond III',
+        badge: '/assets/Diamond-3.png',
+        threshold: 4000,
+    },
 ];
 
 function getUserTier(score) {
@@ -24,13 +78,16 @@ function getUserTier(score) {
     let pointsNeeded = null;
     if (nextTier) {
         const range = nextTier.threshold - tier.threshold;
-        progress = Math.min(100, Math.round(((score - tier.threshold) / range) * 100));
+        progress = Math.min(
+            100,
+            Math.round(((score - tier.threshold) / range) * 100),
+        );
         pointsNeeded = nextTier.threshold - score;
     }
     return {
         ...tier,
         progress,
-        nextTier: nextTier ? { ...nextTier, pointsNeeded } : null
+        nextTier: nextTier ? {...nextTier, pointsNeeded} : null,
     };
 }
 
@@ -47,7 +104,8 @@ function updateTierDisplay(score) {
         set('tier-display', t.displayName);
         const badge = document.getElementById('tier-badge');
         if (badge) {
-            badge.src = t.badge; badge.alt = `${t.displayName} Badge`;
+            badge.src = t.badge;
+            badge.alt = `${t.displayName} Badge`;
         }
         const bar = document.getElementById('tier-progress-bar');
         if (bar) {
@@ -59,16 +117,21 @@ function updateTierDisplay(score) {
             set('next-tier-display', t.nextTier.displayName);
             const nextBadge = document.getElementById('next-tier-badge');
             if (nextBadge) {
-                nextBadge.src = t.nextTier.badge; nextBadge.alt = `${t.nextTier.displayName} Badge`;
+                nextBadge.src = t.nextTier.badge;
+                nextBadge.alt = `${t.nextTier.displayName} Badge`;
             }
             set('points-needed', t.nextTier.pointsNeeded);
         } else {
-            set('next-tier', "Max tier reached");
-            set('next-tier-display', "Max tier reached");
+            set('next-tier', 'Max tier reached');
+            set('next-tier-display', 'Max tier reached');
         }
         const container = document.getElementById('tier-container');
         if (container) {
-            container.classList.remove('tier-bronze', 'tier-gold', 'tier-diamond');
+            container.classList.remove(
+                'tier-bronze',
+                'tier-gold',
+                'tier-diamond',
+            );
             container.classList.add(`tier-${t.name}`);
         }
     } catch (e) {
@@ -91,20 +154,23 @@ async function loadAndDisplayUserTier() {
     }
 }
 
-document.addEventListener('DOMContentLoaded', function () {
+document.addEventListener('DOMContentLoaded', () => {
     loadAndDisplayUserTier();
 
     const testBtn = document.getElementById('test-tier-btn');
     if (testBtn) {
-        testBtn.addEventListener('click', function () {
-            const score = parseInt(document.getElementById('test-score').value, 10);
+        testBtn.addEventListener('click', () => {
+            const score = parseInt(
+                document.getElementById('test-score').value,
+                10,
+            );
             if (!isNaN(score)) {
                 updateTierDisplay(score);
             }
         });
     }
 
-    document.querySelectorAll('.preset-btn').forEach(btn => {
+    document.querySelectorAll('.preset-btn').forEach((btn) => {
         btn.addEventListener('click', function () {
             const score = parseInt(this.dataset.score, 10);
             const scoreInput = document.getElementById('test-score');

@@ -1,6 +1,6 @@
-import {Type, normalize} from '../../model/type.mjs';
-import {type} from './index.mjs';
 import {status} from 'http-status';
+import {Type, normalize} from '../../model/type.mjs';
+import {type} from '.';
 
 /**
  * @openapi
@@ -25,15 +25,15 @@ import {status} from 'http-status';
  *         description: Server internal error
  */
 type.get('/:id', async (req, res) => {
-   try {
-      const types = normalize(await Type.findById(req.params.id));
-      if (types.length) {
-         res.status(status.OK).json(types.pop());
-      } else {
-         res.sendStatus(status.NOT_FOUND);
-      }
-   } catch (e) {
-      console.error(e);
-      res.sendStatus(status.INTERNAL_SERVER_ERROR);
-   }
+    try {
+        const types = normalize(await Type.findById(req.params.id));
+        if (types.length) {
+            res.status(status.OK).json(types.pop());
+        } else {
+            res.sendStatus(status.NOT_FOUND);
+        }
+    } catch (e) {
+        console.error(e);
+        res.sendStatus(status.INTERNAL_SERVER_ERROR);
+    }
 });

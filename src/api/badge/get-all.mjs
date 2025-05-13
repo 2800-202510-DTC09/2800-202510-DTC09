@@ -1,6 +1,6 @@
-import {Badge, normalize} from '../../model/badge.mjs';
-import {badge} from './index.mjs';
 import {status} from 'http-status';
+import {Badge, normalize} from '../../model/badge.mjs';
+import {badge} from '.';
 
 /**
  * @openapi
@@ -16,20 +16,20 @@ import {status} from 'http-status';
  *         description: Server internal error
  */
 badge.get('/', async (req, res) => {
-   try {
-      res.status(status.OK).json(
-         normalize(
-            await Badge.find({
-               $or: [
-                  {deletedAt: {$exists: false}},
-                  {deletedAt: null},
-                  {deletedAt: {$gt: req.timestamp}},
-               ],
-            }),
-         ),
-      );
-   } catch (e) {
-      console.error(e);
-      res.sendStatus(status.INTERNAL_SERVER_ERROR);
-   }
+    try {
+        res.status(status.OK).json(
+            normalize(
+                await Badge.find({
+                    $or: [
+                        {deletedAt: {$exists: false}},
+                        {deletedAt: null},
+                        {deletedAt: {$gt: req.timestamp}},
+                    ],
+                }),
+            ),
+        );
+    } catch (e) {
+        console.error(e);
+        res.sendStatus(status.INTERNAL_SERVER_ERROR);
+    }
 });

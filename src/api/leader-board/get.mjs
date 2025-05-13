@@ -1,6 +1,6 @@
-import {LeaderBoard, normalize} from '../../model/leader-board.mjs';
-import {leaderBoard} from './index.mjs';
 import {status} from 'http-status';
+import {LeaderBoard, normalize} from '../../model/leader-board.mjs';
+import {leaderBoard} from '.';
 
 /**
  * @openapi
@@ -25,15 +25,15 @@ import {status} from 'http-status';
  *         description: Server internal error
  */
 leaderBoard.get('/:id', async (req, res) => {
-   try {
-      const records = normalize(await LeaderBoard.findById(req.params.id));
-      if (records.length) {
-         res.status(status.OK).json(records.pop());
-      } else {
-         res.sendStatus(status.NOT_FOUND);
-      }
-   } catch (e) {
-      console.error(e);
-      res.sendStatus(status.INTERNAL_SERVER_ERROR);
-   }
+    try {
+        const records = normalize(await LeaderBoard.findById(req.params.id));
+        if (records.length) {
+            res.status(status.OK).json(records.pop());
+        } else {
+            res.sendStatus(status.NOT_FOUND);
+        }
+    } catch (e) {
+        console.error(e);
+        res.sendStatus(status.INTERNAL_SERVER_ERROR);
+    }
 });

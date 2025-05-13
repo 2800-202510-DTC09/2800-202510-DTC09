@@ -1,4 +1,4 @@
-import {badge} from './index.mjs';
+import {badge} from '.';
 
 /**
  * @openapi
@@ -32,6 +32,6 @@ import {badge} from './index.mjs';
  *         description: Badge not found
  */
 badge.put('/:id', async (req, res) => {
-   // const api = await Todo.find();
-   res.json({a: req.body});
+    // Const api = await Todo.find();
+    res.json({a: req.body});
 });

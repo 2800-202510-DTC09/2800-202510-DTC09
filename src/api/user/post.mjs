@@ -1,8 +1,8 @@
-import {Error} from 'mongoose';
-import {User, normalize} from '../../model/user.mjs';
-import {user} from './index.mjs';
 import {hash} from 'bcryptjs';
 import {status} from 'http-status';
+import {Error} from 'mongoose';
+import {User, normalize} from '../../model/user.mjs';
+import {user} from '.';
 
 /**
  * @openapi
@@ -37,22 +37,22 @@ import {status} from 'http-status';
  *         description: Server internal error
  */
 user.post('/', async (req, res) => {
-   try {
-      res.status(status.OK).json(
-         normalize(
-            await new User({
-               email: req.body.username,
-               username: req.body.username,
-               password: await hash(req.body.password, 10),
-            }).save(),
-         ).pop(),
-      );
-   } catch (e) {
-      if (e.name === Error.ValidationError.name) {
-         res.status(status.BAD_REQUEST).json(e.errors);
-      } else {
-         console.error(e);
-         res.sendStatus(status.INTERNAL_SERVER_ERROR);
-      }
-   }
+    try {
+        res.status(status.OK).json(
+            normalize(
+                await new User({
+                    email: req.body.username,
+                    username: req.body.username,
+                    password: await hash(req.body.password, 10),
+                }).save(),
+            ).pop(),
+        );
+    } catch (e) {
+        if (e.name === Error.ValidationError.name) {
+            res.status(status.BAD_REQUEST).json(e.errors);
+        } else {
+            console.error(e);
+            res.sendStatus(status.INTERNAL_SERVER_ERROR);
+        }
+    }
 });

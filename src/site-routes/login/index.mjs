@@ -1,6 +1,6 @@
-import { Router } from 'express';
-import { handleLoginPost } from './post.mjs';
-import { handleLoginGet } from './get.mjs';
+import {Router} from 'express';
+import {handleLoginGet} from './get.mjs';
+import {handleLoginPost} from './post.mjs';
 
 export const loginRouter = Router();
 

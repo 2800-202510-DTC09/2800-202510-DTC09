@@ -1,5 +1,5 @@
-import { Router } from 'express';
-import { api } from '../index.mjs';
+import {Router} from 'express';
+import {api} from '..';
 
 export const tier = Router();
 api.use('/tier', tier);
