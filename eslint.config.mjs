@@ -18,6 +18,7 @@ export default defineConfig({
         prettierPlugin,
     },
     rules: {
+        'no-console': ['error', {allow: ['error']}],
         'import-x/no-useless-path-segments': ['off'],
         'import-x/extensions': ['off'],
         'prettierPlugin/prettier': ['error'],
