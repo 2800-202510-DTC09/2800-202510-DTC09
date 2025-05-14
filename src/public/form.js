@@ -185,7 +185,7 @@ function loadLifestyleSection(parent) {
         lifestyleDiv,
         'Lifestyle',
         'directions_walk',
-        "look at that mean mini-maui just tippity-tappity tap tap tap hey WHAT CAN I SAY ANYEAY YOU'RE WELCOME",
+        "This section tracks common lifestyle choices and how much they emit. Please pay close attention to the units.",
     );
 
     // Set up lifestyle content
@@ -211,7 +211,7 @@ function loadLifestyleSection(parent) {
         lifestyleContent,
         'flight-class',
         'form-select-large',
-        'What class do you usually fly in?',
+        'What class do you usually fly in?:',
         ['Business', 'First Class'],
     );
     clothingInput = generateSectionInput(
@@ -259,7 +259,7 @@ function loadDietSection(parent) {
         dietDiv,
         'Diet',
         'lunch_dining',
-        'burgers are based',
+        'This section tracks common diet choices and how much they emit. Please pay close attention to the units.',
     );
 
     // Set up diet content
@@ -270,35 +270,35 @@ function loadDietSection(parent) {
     beefInput = generateSectionInput(
         dietContent,
         'beef-eaten',
-        'How much beef do you eat in a month? (kg):',
+        'How much beef do you eat in a month?:',
         'number',
         ['kg'],
     );
     porkInput = generateSectionInput(
         dietContent,
         'pork-eaten',
-        'How much pork do you eat in a month? (kg):',
+        'How much pork do you eat in a month?:',
         'number',
         ['kg'],
     );
     chickenInput = generateSectionInput(
         dietContent,
         'chicken-eaten',
-        'How much chicken do you eat in a month? (kg):',
+        'How much chicken do you eat in a month?:',
         'number',
         ['kg'],
     );
     cheeseInput = generateSectionInput(
         dietContent,
         'cheese-eaten',
-        'How much cheese do you eat in a month? (g):',
+        'How much cheese do you eat in a month?:',
         'number',
         ['kg'],
     );
     milkInput = generateSectionInput(
         dietContent,
         'milk-drunk',
-        'How much milk do you drink in a month? (L):',
+        'How much milk do you drink in a month?:',
         'number',
         ['kg'],
     );
@@ -332,7 +332,7 @@ function loadWaterSection(parent) {
         waterDiv,
         'Water',
         'shower',
-        'water is kinda wet',
+        'This section tracks how much water you use each month. This is not used to calculate emissions.',
     );
 
     // Set up water usage input
@@ -366,14 +366,14 @@ function loadElectricitySection(parent) {
         electricityDiv,
         'Electricity',
         'bolt',
-        'a shocking charge',
+        'This section tracks how much you emit by using electricity. You can find your monthly electricity usage on your energy bill.',
     );
 
     // Set up electricity usage input
     electricityUsageInput = generateSectionInput(
         electricityDiv,
         'electricity-usage',
-        'How much electricity do you use each month?',
+        'How much electricity do you use each month?:',
         'number',
         ['kWh'],
     );
@@ -518,7 +518,7 @@ function loadVehicleSection(parent) {
         vehicleDiv,
         'Vehicle',
         'directions_car',
-        'vehicles are pogchamp',
+        'This section tracks how you emit by driving your vehicle(s). You can enter information for up to four vehicles.',
     );
     vehicleDiv.appendChild(vehicleText);
 
@@ -576,41 +576,50 @@ function loadHousingSection(parent) {
         housingDiv,
         'Housing',
         'home',
-        'an epic house',
+        'This section calculates how much you emit by heating your home. For each heating source, you can enter the amount you use or the kWh of power you get from that source.',
     );
     housingDiv.appendChild(housingText);
 
     // Create inputs
+    peopleInHouseInput = generateSectionInput(
+        housingDiv,
+        'people-in-house',
+        'How many people live in your house?',
+        'number',
+        ['people'],
+    )
+
     naturalGasInput = generateSectionInput(
         housingDiv,
         'natural-gas-amount',
-        'Natural Gas:',
+        'How much natural gas do you use to heat your house each month?:',
         'number',
         ['L', 'kWh'],
     );
     heatingOilInput = generateSectionInput(
         housingDiv,
         'heating-oil-amount',
-        'Heating Oil:',
+        'How much heating oil do you use to heat your house each month?:',
         'number',
         ['L', 'kWh'],
     );
     propaneInput = generateSectionInput(
         housingDiv,
         'propane-amount',
-        'Propane:',
+        'How much propane do you use to heat your house each month?:',
         'number',
         ['L', 'kWh'],
     );
     coalInput = generateSectionInput(
         housingDiv,
         'coalpane-amount',
-        'Coal:',
+        'How much coal do you use to heat your house each month?:',
         'number',
         ['kg', 'kWh'],
     );
 
     // Append inputs to housing div
+    housingDiv.appendChild(peopleInHouseInput);
     housingDiv.appendChild(naturalGasInput);
     housingDiv.appendChild(heatingOilInput);
     housingDiv.appendChild(propaneInput);
