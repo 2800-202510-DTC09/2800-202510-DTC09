@@ -91,6 +91,7 @@ function generateSectionInput(parent, inputName, labelText, inputType, units) {
     // Set up unit select
     sectionUnitSelect.classList.add('form-select');
     sectionUnitSelect.id = `${parent.id}-${inputName}-unit-select`;
+    sectionUnitSelect.setAttribute("name", `${inputName}-units`);
 
     units.forEach((element) => {
         option = document.createElement('option');
