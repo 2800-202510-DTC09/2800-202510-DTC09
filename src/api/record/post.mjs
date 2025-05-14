@@ -39,6 +39,7 @@ import {record} from './index.mjs';
  *         description: Server internal error
  */
 record.post('/', async (req, res) => {
+    console.log(req.body);
     try {
         res.status(status.OK).json(
             normalize(
