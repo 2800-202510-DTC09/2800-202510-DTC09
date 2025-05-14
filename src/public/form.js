@@ -398,7 +398,7 @@ function reloadVehicleInputs(event, vehicleNumber) {
         // Add electric vehicle inputs
         chargeInput = generateSectionInput(
             vehicleInputContainer,
-            'charge-amount',
+            `vehicle-${vehicleNumber}-charge-amount`,
             'How much do you spend at charging stations each week?:',
             'number',
             ['$'],
@@ -681,7 +681,7 @@ function onSave(event) {
 function loadSaveButton(parent) {
     // Create elements
     saveButtonDiv = document.createElement('div');
-    saveButton = document.createElement('div');
+    saveButton = document.createElement('button');
 
     // Set up saveButtonDiv
     saveButtonDiv.classList.add('form-save-button-div');
@@ -689,12 +689,13 @@ function loadSaveButton(parent) {
 
     // Set up saveButton
     saveButton.classList.add('form-button');
+    saveButton.setAttribute('type', 'submit');
     saveButton.id = 'save-button';
     saveButton.textContent = 'Submit';
-    saveButton.addEventListener('click', (event) => {
-        onSave(event);
-        saveButton.removeEventListener('click', arguments.callee);
-    });
+    // saveButton.addEventListener('click', (event) => {
+    //     onSave(event);
+    //     saveButton.removeEventListener('click', arguments.callee);
+    // });
 
     // Add saveButton to saveButtonDiv
     saveButtonDiv.appendChild(saveButton);
@@ -708,6 +709,8 @@ function loadForm() {
     contentDiv = document.getElementsByClassName('form-content')[0];
     formElement = document.createElement('form');
     formElement.classList.add('form-element');
+    formElement.setAttribute('action', "/api/record/");
+    formElement.setAttribute('method', "POST");
 
     contentDiv.innerHTML = '';
     loadHousingSection(formElement);
