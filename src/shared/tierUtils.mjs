@@ -65,22 +65,24 @@ const TIERS = [
 ];
 
 export function getUserTier(score) {
-    let idx = TIERS.length - 1;
-    for (let i = 0; i < TIERS.length; i++) {
+    const ONE = 1;
+    let idx = TIERS.length - ONE;
+    for (let i = 0; i < TIERS.length; i += ONE) {
         if (score < TIERS[i].threshold) {
-            idx = i - 1;
+            idx = i - ONE;
             break;
         }
     }
-    const tier = TIERS[Math.max(0, idx)];
-    const nextTier = TIERS[idx + 1];
+    const zeroIndex = 0;
+    const tier = TIERS[Math.max(zeroIndex, idx)];
+    const nextTier = TIERS[idx + ONE];
     let progress = 100;
     let pointsNeeded = null;
     if (nextTier) {
         const range = nextTier.threshold - tier.threshold;
         progress = Math.min(
-            100,
-            Math.round(((score - tier.threshold) / range) * 100),
+            progress,
+            Math.round(((score - tier.threshold) / range) * progress),
         );
         pointsNeeded = nextTier.threshold - score;
     }
