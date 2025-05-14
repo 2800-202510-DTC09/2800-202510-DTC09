@@ -1,7 +1,7 @@
 import {env} from 'process';
 import axios from 'axios';
 import {status} from 'http-status';
-import {Error, Schema, model, mongo} from 'mongoose';
+import {Error, Schema, model, mongo, trusted} from 'mongoose';
 import mongooseAutoPopulate from 'mongoose-autopopulate';
 import mongooseUniqueValidator from 'mongoose-unique-validator';
 import {normalize as typeNormalize} from './type.mjs';
@@ -15,6 +15,133 @@ export const Record = model(
                 type: Schema.Types.ObjectId,
                 ref: 'user',
                 required: true,
+            },
+            housing_people: {
+                type: Number,
+                required: true,
+                default: 0,
+            },
+            housing_natural_gas_amount: {
+                type: Number,
+                required: true,
+                default: 0,
+            },
+            housing_natural_gas_unit: {
+                type: String,
+                required: true,
+                default: "L",
+            },
+            housing_heating_oil_amount: {
+                type: Number,
+                required: true,
+                default: 0,
+            },
+            housing_heating_oil_unit: {
+                type: String,
+                required: true,
+                default: "L",
+            },
+            housing_propane_amount: {
+                type: Number,
+                required: true,
+                default: 0
+            },
+            housing_propane_unit: {
+                type: String,
+                required: true,
+                default: "L",
+            },
+            housing_coal_amount: {
+                type: Number,
+                required: true,
+                default: "kg",
+            },
+            vehicle_amount: {
+                type: Number,
+                required: true,
+                default: 0,
+            },
+            vehicles: [{
+                vehicle_type: {
+                    type: String,
+                    required: true,
+                    default: "Gas",
+                },
+                vehicle_fuel_efficiency: {
+                    type: Number,
+                    required: false,
+                    default: "0",
+                },
+                vehicle_distance: {
+                    type: Number,
+                    required: false,
+                    default: 0,
+                },
+                vehicle_charging: {
+                    type: Number,
+                    required: false,
+                    default: 0,
+                }
+            }],
+            electricity_amount: {
+                type: Number,
+                required: true,
+                default: 0,
+            },
+            water_amount: {
+                type: Number,
+                required: true,
+                default: 0,
+            },
+            diet_beef_amount: {
+                type: Number,
+                required: true,
+                default: 0,
+            },
+            diet_pork_amount: {
+                type: Number,
+                required: true,
+                default: 0,
+            },
+            diet_chicken_amount: {
+                type: Number,
+                required: true,
+                default: 0,
+            },
+            diet_cheese_amount: {
+                type: Number,
+                required: true,
+                default: 0,
+            },
+            diet_milk_amount: {
+                type: Number,
+                required: true,
+                default: 0,
+            },
+            lifestyle_domestic_flights_distance: {
+                type: Number,
+                required: true,
+                default: 0,
+            },
+            lifestyle_international_flights_distance: {
+                type: Number,
+                required: true,
+                default: 0,
+            },
+            lifestyle_flights_class: {
+                type: String,
+                required: true,
+                default: "Business",
+            },
+            lifestyle_clothing_purchased_amount: {
+                type: Number,
+                required: true,
+                default: 0,
+            },
+            lifestyle_shipping_amount: {
+                type: Number,
+                required: true,
+                default: 0,
             },
             emission: {
                 type: Schema.Types.Number,
