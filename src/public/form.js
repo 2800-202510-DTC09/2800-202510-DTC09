@@ -705,14 +705,38 @@ function loadSaveButton(parent) {
 }
 
 // Load the form
-function loadForm() {
+async function loadForm() {
     contentDiv = document.getElementsByClassName('form-content')[0];
     formElement = document.createElement('form');
     formElement.classList.add('form-element');
     formElement.setAttribute('action', "/api/record/");
     formElement.setAttribute('method', "POST");
+    hiddenInput = document.createElement("input");
+
+
+    try {
+    const response = await fetch('/users');
+    if (!response.ok) throw new Error('Failed to fetch user data');
+
+    const data = await response.json();
+    console.log(data);
+    if (!data?.user?.username) throw new Error("Username not found in response");
+
+    const hiddenInput = document.createElement("input");
+    hiddenInput.type = "hidden";
+    hiddenInput.name = "userID";
+    hiddenInput.id = "userID";
+    hiddenInput.value = data.user.id;
+
+    formElement.appendChild(hiddenInput);
+    } catch (error) {
+        console.error("Error fetching username:", error);
+    }
+    
+
 
     contentDiv.innerHTML = '';
+    formElement.appendChild(hiddenInput);
     loadHousingSection(formElement);
     loadVehicleSection(formElement);
     loadElectricitySection(formElement);
