@@ -613,7 +613,7 @@ function loadHousingSection(parent) {
     );
     coalInput = generateSectionInput(
         housingDiv,
-        'coalpane-amount',
+        'coal-amount',
         'How much coal do you use to heat your house each month?:',
         'number',
         ['kg', 'kWh'],
@@ -727,7 +727,7 @@ async function loadForm() {
     hiddenInput.type = "hidden";
     hiddenInput.name = "userID";
     hiddenInput.id = "userID";
-    hiddenInput.value = data.user.id;
+    hiddenInput.value = JSON.stringify(data.user);
 
     formElement.appendChild(hiddenInput);
     } catch (error) {
