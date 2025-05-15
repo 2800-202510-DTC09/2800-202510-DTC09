@@ -3,9 +3,55 @@
  * Link: https://echarts.apache.org/examples/en/index.html
  */
 
-document.addEventListener('DOMContentLoaded', () => {
-    const monthlyChart = echarts.init(document.getElementById('monthlyChart'));
-    monthlyChart.setOption({
+async function fetchUsers() {
+    let response;
+
+    try {
+        response = await fetch('/users');
+        if (!response.ok) {
+            return null;
+        }
+        const data = await response.json();
+        return data;
+    } catch (error) {
+        console.error("Error fetching users:", error);
+        return null;
+    }
+}
+
+async function getUserRecord(data) {
+    try {
+        const response = await fetch(`/api/record?id=${data.user.id}`, {
+                method: "GET",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+            });
+
+
+        if (!response.ok) {
+            throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+
+        const record = await response.json();
+        console.log("Record:", record);
+        return record;
+    } catch (error) {
+        console.error("Error fetching record:", error);
+        return null;
+    }
+}
+
+
+
+
+async function getData() {
+    const data = await fetchUsers();
+    return data;
+}
+
+function getMonthlyChartOption() {
+    const option = {
         tooltip: {
             trigger: 'axis',
         },
@@ -37,12 +83,13 @@ document.addEventListener('DOMContentLoaded', () => {
                 },
             },
         ],
-    });
+    };
 
-    const categoryChart = echarts.init(
-        document.getElementById('categoryChart'),
-    );
-    categoryChart.setOption({
+    return option;
+}
+
+function getPieChartOption() {
+    let option = {
         tooltip: {
             trigger: 'item',
             formatter: '{a} <br/>{b}: {c} ({d}%)',
@@ -74,10 +121,33 @@ document.addEventListener('DOMContentLoaded', () => {
                 ],
             },
         ],
-    });
+    };
 
+    return option;
+}
+
+function loadGraphs() {
+    const monthlyChart = echarts.init(document.getElementById('monthlyChart'));
+    const categoryChart = echarts.init(document.getElementById('categoryChart'));
+    categoryChart.setOption(getPieChartOption());
+    monthlyChart.setOption(getMonthlyChartOption());
+    
     window.addEventListener('resize', () => {
-        monthlyChart.resize();
-        categoryChart.resize();
+    monthlyChart.resize();
+    categoryChart.resize();
     });
-});
+}
+
+async function main() {
+    document.addEventListener('DOMContentLoaded', () => {
+        loadGraphs();
+    });
+    const data = await getData();
+    const record = await getUserRecord(data);
+    console.log(data);
+    console.log(data.user.id);
+    console.log(record);
+};
+
+
+main();
