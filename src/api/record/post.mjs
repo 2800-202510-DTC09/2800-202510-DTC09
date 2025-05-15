@@ -79,45 +79,6 @@ record.post('/', async (req, res) => {
     const amountShipped = Number(req.body["amount-shipped"]);
     const amountShippedUnits = req.body["amount-shipped-units"];
 
-    console.log("User ID:", user);
-console.log("People in house:", peopleInHouse);
-console.log("People in house (units):", peopleInHouseUnits);
-console.log("Natural gas amount:", naturalGasAmount);
-console.log("Natural gas amount (units):", naturalGasAmountUnits);
-console.log("Heating oil amount:", heatingOilAmount);
-console.log("Heating oil amount (units):", heatingOilAmountUnits);
-console.log("Propane amount:", propaneAmount);
-console.log("Propane amount (units):", propaneAmountUnits);
-console.log("Coal amount:", coalAmount);
-console.log("Coal amount (units):", coalAmountUnits);
-console.log("Number of cars:", numberOfCars);
-console.log("Electricity usage:", electricityUsage);
-console.log("Electricity usage (units):", electricityUsageUnits);
-console.log("Water usage:", waterUsage);
-console.log("Water usage (units):", waterUsageUnits);
-console.log("Beef eaten:", beefEaten);
-console.log("Beef eaten (units):", beefEatenUnits);
-console.log("Pork eaten:", porkEaten);
-console.log("Pork eaten (units):", porkEatenUnits);
-console.log("Chicken eaten:", chickenEaten);
-console.log("Chicken eaten (units):", chickenEatenUnits);
-console.log("Cheese eaten:", cheeseEaten);
-console.log("Cheese eaten (units):", cheeseEatenUnits);
-console.log("Milk drunk:", milkDrunk);
-console.log("Milk drunk (units):", milkDrunkUnits);
-console.log("Domestic flight distance:", domesticFlightDistance);
-console.log("Domestic flight distance (units):", domesticFlightDistanceUnits);
-console.log("International flight distance:", internationalFlightDistance);
-console.log("International flight distance (units):", internationalFlightDistanceUnits);
-console.log("Flight class:", flightClass);
-console.log("Clothing mass:", clothingMass);
-console.log("Clothing mass (units):", clothingMassUnits);
-console.log("Amount shipped:", amountShipped);
-console.log("Amount shipped (units):", amountShippedUnits);
-
-
-
-
     const vehicles = [];
 
     for (let i = 1; i <= numberOfCars; i++) {
@@ -188,7 +149,6 @@ console.log("Amount shipped (units):", amountShippedUnits);
                 })
                 .save(),
             ).pop(),
-            console.log("form saved to db (hopefully)")
          )
     } catch (e) {
         if (e.name === Error.ValidationError.name) {
