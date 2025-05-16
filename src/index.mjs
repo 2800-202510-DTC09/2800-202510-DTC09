@@ -6,7 +6,6 @@ import fastGlob from 'fast-glob';
 import {connect} from 'mongoose';
 import swaggerJsdoc from 'swagger-jsdoc';
 import {serve, setup} from 'swagger-ui-express';
-import {__dirname} from './common-es.mjs';
 import {siteRouter} from './site-routes/index.mjs';
 
 if (env.NODE_ENV === 'dev') {
@@ -21,7 +20,7 @@ app.use((req, res, next) => {
     next();
 });
 
-app.use(express.static(join(__dirname, 'public')));
+app.use(express.static(join(import.meta.dirname, 'public')));
 
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));
@@ -49,10 +48,12 @@ app.use(
                 info: {title: 'SustainMe API'},
                 servers: [{url: '/api'}],
             },
-            apis: fastGlob.sync(`./api/**/*.mjs`, {cwd: __dirname}).map((v) => {
-                import(v);
-                return join(relative(cwd(), __dirname), v);
-            }),
+            apis: fastGlob
+                .sync(`./api/**/*.mjs`, {cwd: import.meta.dirname})
+                .map((v) => {
+                    import(v);
+                    return join(relative(cwd(), import.meta.dirname), v);
+                }),
         }),
     ),
 );
