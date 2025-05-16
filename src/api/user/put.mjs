@@ -24,9 +24,18 @@ import {user} from './index.mjs';
  *           schema:
  *             type: object
  *             properties:
+ *               email:
+ *                 type: string
+ *                 example: alice@example.com
+ *               username:
+ *                 type: string
+ *                 example: alice
  *               password:
  *                 type: string
  *                 example: Super_secure_password
+ *               score:
+ *                 type: number
+ *                 example: 200
  *     responses:
  *       200:
  *         description: User is updated
