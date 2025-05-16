@@ -1,5 +1,5 @@
 export function getHousingEmissions(record) {
-    return 10;
+    return 100;
 }
 
 export function getVehicleEmissions(record) {
