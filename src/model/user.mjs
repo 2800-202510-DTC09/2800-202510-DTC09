@@ -83,6 +83,26 @@ export const User = model(
                 required: true,
                 default: [],
             },
+
+            ip: {
+                type: Schema.Types.String,
+            },
+
+            location: {
+                type: {
+                    latitude: {
+                        type: Number,
+                    },
+                    longitude: {
+                        type: Number,
+                    },
+                    updatedAt: {
+                        type: Date,
+                    },
+                    _id: false,
+                },
+            },
+
             deletedAt: {
                 type: Schema.Types.Date,
             },
@@ -108,6 +128,14 @@ export function normalize(v) {
                             w[x],
                         ]),
                     ),
+                    ip: w.ip,
+                    location: w.location
+                        ? {
+                              latitude: w.location.latitude,
+                              longitude: w.location.longitude,
+                              updatedAt: w.location.updatedAt,
+                          }
+                        : null,
                     badges: w.badges.map((x) => badgeNormalize(x)),
                     goals: w.goals.map((x) => goalNormalize(x)),
                     types: w.types.map((x) => ({
