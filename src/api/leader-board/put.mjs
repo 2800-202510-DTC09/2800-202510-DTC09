@@ -31,7 +31,7 @@ import {leaderBoard} from './index.mjs';
  *       404:
  *         description: LeaderBoard not found
  */
-leaderBoard.put('/:id', async (req, res) => {
-   // const api = await Todo.find();
-   res.json({a: req.body});
+leaderBoard.put('/:id', (req, res) => {
+    // Const api = await Todo.find();
+    res.json({a: req.body});
 });

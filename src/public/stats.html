@@ -1,89 +1,137 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>SustainMe Dashboard</title>
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SustainMe Dashboard</title>
+        <!-- Google Fonts -->
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Nunito:wght@400&family=Poppins:wght@700&display=swap"
+            rel="stylesheet"
+        />
 
-    <!-- Google Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400&family=Poppins:wght@700&display=swap"
-        rel="stylesheet">
+        <!-- Tailwind CSS -->
+        <script src="https://cdn.tailwindcss.com"></script>
+        <script>
+            const module = {};
+        </script>
+        <script src="/css/tailwind.config.js"></script>
+        <script>
+            tailwind.config = module.exports;
+        </script>
 
-    <!-- Tailwind CSS -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>const module = {};</script>
-    <script src="/css/tailwind.config.js"></script>
-    <script>
-        tailwind.config = module.exports
-    </script>
+        <script src="https://cdn.jsdelivr.net/npm/echarts@5.4.3/dist/echarts.min.js"></script>
 
-    <script src="https://cdn.jsdelivr.net/npm/echarts@5.4.3/dist/echarts.min.js"></script>
+        <link rel="stylesheet" href="/css/style.css" />
+    </head>
 
-    <link rel="stylesheet" href="/css/style.css">
-</head>
+    <body class="bg-neutral-100 font-sans">
+        <!-- Claude was used to help with styling this page -->
 
-<body class="bg-neutral-100 font-sans">
+        <!-- Navbar Placeholder -->
+        <div id="navbarPlaceholder"></div>
 
-    <!-- Claude was used to help with styling this page -->
+        <main class="container mx-auto px-4 py-4 pb-20">
+            <h1 class="text-3xl font-heading text-dark mb-6">
+                Your Sustainability Stats
+            </h1>
 
-    <!-- Navbar Placeholder -->
-    <div id="navbarPlaceholder"></div>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+                <a
+                    href="/progress.html"
+                    class="bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition-shadow duration-300 block"
+                >
+                    <div class="flex items-center justify-between">
+                        <h2 class="text-xl font-heading text-dark">
+                            View Progress
+                        </h2>
+                        <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            class="h-6 w-6 text-primary"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                            stroke="currentColor"
+                        >
+                            <path
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                stroke-width="2"
+                                d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"
+                            />
+                        </svg>
+                    </div>
+                    <p class="text-neutral-500 mt-2">
+                        See your detailed sustainability metrics
+                    </p>
+                </a>
 
-    <main class="container mx-auto px-4 py-4 pb-20">
-        <h1 class="text-3xl font-heading text-dark mb-6">Your Sustainability Stats</h1>
+                <a
+                    href="/leaderboard.html"
+                    class="bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition-shadow duration-300 block"
+                >
+                    <div class="flex items-center justify-between">
+                        <h2 class="text-xl font-heading text-dark">
+                            Leaderboard
+                        </h2>
+                        <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            class="h-6 w-6 text-primary"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                            stroke="currentColor"
+                        >
+                            <path
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                stroke-width="2"
+                                d="M16 8v8m-4-5v5m-4-2v2m-2 4h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"
+                            />
+                        </svg>
+                    </div>
+                    <p class="text-neutral-500 mt-2">
+                        Compare your progress with others
+                    </p>
+                </a>
 
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-            <a href="/progress.html"
-                class="bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition-shadow duration-300 block">
-                <div class="flex items-center justify-between">
-                    <h2 class="text-xl font-heading text-dark">View Progress</h2>
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-primary" fill="none" viewBox="0 0 24 24"
-                        stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
-                    </svg>
-                </div>
-                <p class="text-neutral-500 mt-2">See your detailed sustainability metrics</p>
-            </a>
+                <a
+                    href="/achievements.html"
+                    class="bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition-shadow duration-300 block"
+                >
+                    <div class="flex items-center justify-between">
+                        <h2 class="text-xl font-heading text-dark">
+                            Achievements
+                        </h2>
+                        <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            class="h-6 w-6 text-primary"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                            stroke="currentColor"
+                        >
+                            <path
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                stroke-width="2"
+                                d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"
+                            />
+                        </svg>
+                    </div>
+                    <p class="text-neutral-500 mt-2">
+                        View your unlocked badges
+                    </p>
+                </a>
+            </div>
+        </main>
 
-            <a href="/leaderboard.html"
-                class="bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition-shadow duration-300 block">
-                <div class="flex items-center justify-between">
-                    <h2 class="text-xl font-heading text-dark">Leaderboard</h2>
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-primary" fill="none" viewBox="0 0 24 24"
-                        stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="M16 8v8m-4-5v5m-4-2v2m-2 4h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
-                    </svg>
-                </div>
-                <p class="text-neutral-500 mt-2">Compare your progress with others</p>
-            </a>
+        <!-- Footer Placeholder -->
+        <div id="footerPlaceholder"></div>
 
-            <a href="/achievements.html"
-                class="bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition-shadow duration-300 block">
-                <div class="flex items-center justify-between">
-                    <h2 class="text-xl font-heading text-dark">Achievements</h2>
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-primary" fill="none" viewBox="0 0 24 24"
-                        stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
-                    </svg>
-                </div>
-                <p class="text-neutral-500 mt-2">View your unlocked badges</p>
-            </a>
-        </div>
-    </main>
-
-    <!-- Footer Placeholder -->
-    <div id="footerPlaceholder"></div>
-
-    <!-- Scripts -->
-    <script src="/chart.js"></script>
-    <script src="/statChart.js"></script>
-    <script src="/components/templates/skeleton.js"></script>
-</body>
-
+        <!-- Scripts -->
+        <script src="/chart.js"></script>
+        <script src="/statChart.js"></script>
+        <script src="/components/templates/skeleton.js"></script>
+    </body>
 </html>

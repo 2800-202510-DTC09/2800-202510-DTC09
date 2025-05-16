@@ -1,5 +1,6 @@
-import { geoLocation } from './index.mjs';
 import axios from 'axios';
+import {status} from 'http-status';
+import {geoLocation} from './index.mjs';
 
 /**
  * Create API doc for Nominatim.
@@ -60,39 +61,38 @@ import axios from 'axios';
  *                   example: "Unknown"
  */
 geoLocation.post('/', async (req, res) => {
-   const { latitude, longitude } = req.body;
+    const {latitude, longitude} = req.body;
 
-   // Return early if coordinates are missing
-   if (!latitude || !longitude) {
-      return res.status(400).json({
-         error: 'Missing coordinates',
-         city: 'Unknown',
-         country: 'Unknown'
-      });
-   }
+    // Return early if coordinates are missing
+    if (!latitude || !longitude) {
+        return res.status(status.BAD_REQUEST).json({
+            error: 'Missing coordinates',
+            city: 'Unknown',
+            country: 'Unknown',
+        });
+    }
 
-   try {
-      // Query Nominatim API from the backend
-      const response = await axios.get(
-         `https://nominatim.openstreetmap.org/reverse?lat=${latitude}&lon=${longitude}&format=json`,
-         {
-            headers: { 'User-Agent': 'SustainMe/1.0 (dgarcha9@my.bcit.ca)' }
-         }
-      );
+    try {
+        // Query Nominatim API from the backend
+        const response = await axios.get(
+            `https://nominatim.openstreetmap.org/reverse?lat=${latitude}&lon=${longitude}&format=json`,
+            {
+                headers: {'User-Agent': 'SustainMe/1.0 (dgarcha9@my.bcit.ca)'},
+            },
+        );
 
-      const address = response.data.address;
+        const {address} = response.data;
 
-      // Return formatted location data with the same logic as frontend
-      res.json({
-         city: address.city || address.town || address.village || 'Unknown',
-         country: address.country || 'Unknown'
-      });
-
-   } catch (error) {
-      console.error('Coordinates lookup failed:', error.message);
-      res.json({
-         city: 'Unknown',
-         country: 'Unknown'
-      });
-   }
+        // Return formatted location data with the same logic as frontend
+        return res.json({
+            city: address.city || address.town || address.village || 'Unknown',
+            country: address.country || 'Unknown',
+        });
+    } catch (error) {
+        console.error('Coordinates lookup failed:', error.message);
+        return res.json({
+            city: 'Unknown',
+            country: 'Unknown',
+        });
+    }
 });

@@ -1,5 +1,12 @@
 {
-    "cSpell.words": [
-        "cloudflared"
-    ]
+    "editor.codeActionsOnSave": {
+        "source.fixAll.eslint": "explicit"
+    },
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "files.exclude": {
+        "**/node_modules/": true,
+        "**/.pnpm-store/": true
+    },
+    "prettier.requireConfig": true,
+    "cSpell.words": ["cloudflared"]
 }

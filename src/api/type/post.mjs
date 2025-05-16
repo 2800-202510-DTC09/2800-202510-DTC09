@@ -1,7 +1,7 @@
+import {status} from 'http-status';
 import {Error} from 'mongoose';
 import {Type, normalize} from '../../model/type.mjs';
 import {type} from './index.mjs';
-import {status} from 'http-status';
 
 /**
  * @openapi
@@ -33,28 +33,22 @@ import {status} from 'http-status';
  *         description: Server internal error
  */
 type.post('/', async (req, res) => {
-   try {
-      res.status(status.OK).json(
-         normalize(
-            await new Type(
-               Object.fromEntries(
-                  [
-                     'name',
-                     'description',
-                  ].map((v) => [
-                     v,
-                     req.body[v],
-                  ]),
-               ),
-            ).save(),
-         ).pop(),
-      );
-   } catch (e) {
-      if (e.name === Error.ValidationError.name) {
-         res.status(status.BAD_REQUEST).json(e.errors);
-      } else {
-         console.error(e);
-         res.sendStatus(status.INTERNAL_SERVER_ERROR);
-      }
-   }
+    try {
+        res.status(status.OK).json(
+            normalize(
+                await new Type(
+                    Object.fromEntries(
+                        ['name', 'description'].map((v) => [v, req.body[v]]),
+                    ),
+                ).save(),
+            ).pop(),
+        );
+    } catch (e) {
+        if (e.name === Error.ValidationError.name) {
+            res.status(status.BAD_REQUEST).json(e.errors);
+        } else {
+            console.error(e);
+            res.sendStatus(status.INTERNAL_SERVER_ERROR);
+        }
+    }
 });

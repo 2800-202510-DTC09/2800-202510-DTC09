@@ -31,7 +31,7 @@ import {record} from './index.mjs';
  *       404:
  *         description: Record not found
  */
-record.put('/:id', async (req, res) => {
-   // const api = await Todo.find();
-   res.json({a: req.body});
+record.put('/:id', (req, res) => {
+    // Const api = await Todo.find();
+    res.json({a: req.body});
 });

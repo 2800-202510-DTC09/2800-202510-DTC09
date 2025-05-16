@@ -1,7 +1,7 @@
+import {status} from 'http-status';
 import {Error} from 'mongoose';
 import {Badge, normalize} from '../../model/badge.mjs';
 import {badge} from './index.mjs';
-import {status} from 'http-status';
 
 /**
  * @openapi
@@ -36,29 +36,25 @@ import {status} from 'http-status';
  *         description: Server internal error
  */
 badge.post('/', async (req, res) => {
-   try {
-      res.status(status.OK).json(
-         normalize(
-            await new Badge(
-               Object.fromEntries(
-                  [
-                     'name',
-                     'description',
-                     'icon',
-                  ].map((v) => [
-                     v,
-                     req.body[v],
-                  ]),
-               ),
-            ).save(),
-         ).pop(),
-      );
-   } catch (e) {
-      if (e.name === Error.ValidationError.name) {
-         res.status(status.BAD_REQUEST).json(e.errors);
-      } else {
-         console.error(e);
-         res.sendStatus(status.INTERNAL_SERVER_ERROR);
-      }
-   }
+    try {
+        res.status(status.OK).json(
+            normalize(
+                await new Badge(
+                    Object.fromEntries(
+                        ['name', 'description', 'icon'].map((v) => [
+                            v,
+                            req.body[v],
+                        ]),
+                    ),
+                ).save(),
+            ).pop(),
+        );
+    } catch (e) {
+        if (e.name === Error.ValidationError.name) {
+            res.status(status.BAD_REQUEST).json(e.errors);
+        } else {
+            console.error(e);
+            res.sendStatus(status.INTERNAL_SERVER_ERROR);
+        }
+    }
 });

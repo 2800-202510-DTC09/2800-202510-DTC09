@@ -1,5 +1,5 @@
 .form-content {
-    display: flex;  
+    display: flex;
     flex-direction: column;
     justify-content: center;
     width: fit-content;
@@ -19,7 +19,7 @@
 .form-start-button {
     margin-left: auto;
     background-color: blue;
-    color: #FFFFFF;
+    color: #ffffff;
     height: 75px;
     width: 100px;
 }
@@ -38,7 +38,7 @@
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    gap:5px;
+    gap: 5px;
     width: 700px;
 }
 
@@ -46,7 +46,7 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
-    gap:5px;
+    gap: 5px;
     width: 700px;
 }
 
@@ -54,8 +54,8 @@
     display: flex;
     flex-direction: column;
     /* justify-content: space-between; */
-    gap:5px;
-    width:700px
+    gap: 5px;
+    width: 700px;
 }
 
 .form-header-text {
@@ -63,7 +63,7 @@
 }
 
 .form-vehicle-number-div {
-    display:flex;
+    display: flex;
     flex-direction: row;
     justify-content: space-between;
     gap: 5px;
@@ -167,9 +167,9 @@
     padding: 5px;
     color: black; /* Black text */
     background-color: white; /* White background */
-  }
-  
-  .tooltip .tooltiptext {
+}
+
+.tooltip .tooltiptext {
     visibility: hidden;
     width: 100px;
     background-color: white; /* White background */
@@ -185,10 +185,10 @@
     transform: translateX(-50%);
     opacity: 0;
     transition: opacity 0.3s;
-  }
-  
-  .tooltip .tooltiptext::after {
-    content: "";
+}
+
+.tooltip .tooltiptext::after {
+    content: '';
     position: absolute;
     top: 100%;
     left: 50%;
@@ -196,95 +196,95 @@
     border-width: 5px;
     border-style: solid;
     border-color: black transparent transparent transparent; /* Adjusted to match style */
-  }
-  
-  .tooltip:hover .tooltiptext {
+}
+
+.tooltip:hover .tooltiptext {
     visibility: visible;
     opacity: 1;
     font-size: 11px;
-  }
+}
 
-  /* Rest of this is mine */
-  .form-header-div {
+/* Rest of this is mine */
+.form-header-div {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-  }
+}
 
-  .form-header-name-section {
+.form-header-name-section {
     display: flex;
     flex-direction: row;
     gap: 10px;
     justify-content: space-between;
     align-items: center;
-  }
+}
 /* 
   .form-tooltip-div {
     display:flex;
     flex-directio
   } */
 
-  /* .form-header-icon {
+/* .form-header-icon {
     width: 48px;
     height: 48px;
   } */
 
-  .form-input-section-div {
+.form-input-section-div {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     width: 700px;
     gap: 10px;
-  }
+}
 
-  .form-input-input-div {
+.form-input-input-div {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     width: auto;
     gap: 10px;
-  }
+}
 
-  .form-select-div {
+.form-select-div {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     width: 700px;
     gap: 10px;
-  }
+}
 
-  .form-vehicle-section-vehicle-div{
+.form-vehicle-section-vehicle-div {
     display: flex;
     flex-direction: column;
     width: auto;
     gap: 10px;
-  }
+}
 
-  .form-vehicle-section-inputs-div {
+.form-vehicle-section-inputs-div {
     display: flex;
     flex-direction: column;
     width: auto;
     gap: 10px;
-  }
+}
 
-  .form-vehicle-container {
+.form-vehicle-container {
     display: flex;
     flex-direction: column;
     width: auto;
     gap: 20px;
-  }
+}
 
-  .form-subheading {
+.form-subheading {
     font-size: 20px;
-  }
+}
 
-  .form-save-button-div {
+.form-save-button-div {
     display: flex;
     flex-direction: row;
     margin-left: auto;
-  }
+}
 
-  .form-button {
+.form-button {
     background-color: blue;
     color: white;
     border-radius: 10px;
@@ -292,31 +292,31 @@
     padding-bottom: 20px;
     padding-left: 30px;
     padding-right: 30px;
-  }
+}
 
-  .form-select {
+.form-select {
     min-width: 100px;
-    background-color: #E5E4E2;
-  }
+    background-color: #e5e4e2;
+}
 
-  .form-input {
+.form-input {
     width: 150px;
     border-color: black;
     border-width: 2px;
     border-radius: 10px;
     padding-left: 5px;
     padding-right: 5px;
-  }
+}
 
-  .form-input-unconfirmed {
+.form-input-unconfirmed {
     background-color: white;
-  }
+}
 
-  .form-input-confirmed {
+.form-input-confirmed {
     background-color: lightgreen;
-  }
+}
 
-  .form-select-large {
+.form-select-large {
     min-width: 150px;
     border-color: black;
     border-width: 2px;
@@ -325,14 +325,13 @@
     padding-right: 5px;
     margin-right: 110px;
     background-color: lightgreen;
-  }
+}
 
-  .form-option {
+.form-option {
     background-color: white;
-  }
+}
 
-
-  .form-button-large {
+.form-button-large {
     background-color: blue;
     color: white;
     border-radius: 10px;
@@ -342,11 +341,10 @@
     padding-right: 30px;
     width: auto;
     font-size: 20px;
-        text-align: center;
+    text-align: center;
+}
 
-  }
-
-  .form-card {
+.form-card {
     width: 500px;
     height: auto;
     display: flex;
@@ -360,9 +358,9 @@
     gap: 20px;
     border: 1px solid white;
     border-radius: 20px;
-  }
+}
 
-  .form-card-text {
+.form-card-text {
     font-size: 30px;
     text-align: center;
-  }
+}

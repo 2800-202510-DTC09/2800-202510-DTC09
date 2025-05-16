@@ -1,6 +1,6 @@
+import {status} from 'http-status';
 import {Record} from '../../model/record.mjs';
 import {record} from './index.mjs';
-import {status} from 'http-status';
 
 /**
  * @openapi
@@ -25,24 +25,24 @@ import {status} from 'http-status';
  *         description: Server internal error
  */
 record.delete('/:id', async (req, res) => {
-   try {
-      const record = await Record.findOne({
-         _id: req.params.id,
-         $or: [
-            {deletedAt: {$exists: false}},
-            {deletedAt: null},
-            {deletedAt: {$gt: req.timestamp}},
-         ],
-      });
-      if (record) {
-         record.deletedAt = req.timestamp;
-         await record.save();
-         res.sendStatus(status.NO_CONTENT);
-      } else {
-         res.sendStatus(status.NOT_FOUND);
-      }
-   } catch (e) {
-      console.error(e);
-      res.sendStatus(status.INTERNAL_SERVER_ERROR);
-   }
+    try {
+        const recordData = await Record.findOne({
+            _id: req.params.id,
+            $or: [
+                {deletedAt: {$exists: false}},
+                {deletedAt: null},
+                {deletedAt: {$gt: req.timestamp}},
+            ],
+        });
+        if (recordData) {
+            recordData.deletedAt = req.timestamp;
+            await recordData.save();
+            res.sendStatus(status.NO_CONTENT);
+        } else {
+            res.sendStatus(status.NOT_FOUND);
+        }
+    } catch (e) {
+        console.error(e);
+        res.sendStatus(status.INTERNAL_SERVER_ERROR);
+    }
 });

@@ -31,7 +31,7 @@ import {goal} from './index.mjs';
  *       404:
  *         description: Goal not found
  */
-goal.put('/:id', async (req, res) => {
-   // const api = await Todo.find();
-   res.json({a: req.body});
+goal.put('/:id', (req, res) => {
+    // Const api = await Todo.find();
+    res.json({a: req.body});
 });

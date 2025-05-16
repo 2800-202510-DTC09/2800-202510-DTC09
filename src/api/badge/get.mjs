@@ -1,6 +1,6 @@
+import {status} from 'http-status';
 import {Badge, normalize} from '../../model/badge.mjs';
 import {badge} from './index.mjs';
-import {status} from 'http-status';
 
 /**
  * @openapi
@@ -25,15 +25,15 @@ import {status} from 'http-status';
  *         description: Server internal error
  */
 badge.get('/:id', async (req, res) => {
-   try {
-      const badges = normalize(await Badge.findById(req.params.id));
-      if (badges.length) {
-         res.status(status.OK).json(badges.pop());
-      } else {
-         res.sendStatus(status.NOT_FOUND);
-      }
-   } catch (e) {
-      console.error(e);
-      res.sendStatus(status.INTERNAL_SERVER_ERROR);
-   }
+    try {
+        const badges = normalize(await Badge.findById(req.params.id));
+        if (badges.length) {
+            res.status(status.OK).json(badges.pop());
+        } else {
+            res.sendStatus(status.NOT_FOUND);
+        }
+    } catch (e) {
+        console.error(e);
+        res.sendStatus(status.INTERNAL_SERVER_ERROR);
+    }
 });

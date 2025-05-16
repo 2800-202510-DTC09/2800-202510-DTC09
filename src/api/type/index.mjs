@@ -1,5 +1,5 @@
-import {Router} from 'express';
+import {Router as router} from 'express';
 import {api} from '../index.mjs';
 
-export const type = Router();
+export const type = router();
 api.use('/type', type);

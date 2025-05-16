@@ -1,6 +1,6 @@
-import { Router } from 'express';
-import { handleLogoutGet } from './get.mjs';
+import {Router as router} from 'express';
+import {handleLogoutGet} from './get.mjs';
 
-export const logoutRouter = Router();
+export const logoutRouter = router();
 
 logoutRouter.get('/logout', handleLogoutGet);

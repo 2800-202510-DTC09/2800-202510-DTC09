@@ -1,164 +1,282 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>SustainMe Dashboard</title>
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SustainMe Dashboard</title>
+        <!-- Google Fonts -->
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Nunito:wght@400&family=Poppins:wght@700&display=swap"
+            rel="stylesheet"
+        />
 
-    <!-- Google Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400&family=Poppins:wght@700&display=swap"
-        rel="stylesheet">
+        <!-- Tailwind CSS -->
+        <script src="https://cdn.tailwindcss.com"></script>
+        <script>
+            const module = {};
+        </script>
+        <script src="/css/tailwind.config.js"></script>
+        <script>
+            tailwind.config = module.exports;
+        </script>
 
-    <!-- Tailwind CSS -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>const module = {};</script>
-    <script src="/css/tailwind.config.js"></script>
-    <script>
-        tailwind.config = module.exports
-    </script>
+        <script src="https://cdn.jsdelivr.net/npm/echarts@5.4.3/dist/echarts.min.js"></script>
 
-    <script src="https://cdn.jsdelivr.net/npm/echarts@5.4.3/dist/echarts.min.js"></script>
+        <link rel="stylesheet" href="/css/style.css" />
+    </head>
 
-    <link rel="stylesheet" href="/css/style.css">
-</head>
+    <body class="bg-neutral-100 font-sans">
+        <!-- Claude was used to help with styling this page -->
 
-<body class="bg-neutral-100 font-sans">
+        <!-- Navbar Placeholder -->
+        <div id="navbarPlaceholder"></div>
 
-    <!-- Claude was used to help with styling this page -->
+        <main class="container mx-auto px-4 py-4 pb-20">
+            <h1 class="text-3xl font-heading text-dark mb-6">Leaderboard</h1>
 
-    <!-- Navbar Placeholder -->
-    <div id="navbarPlaceholder"></div>
-
-    <main class="container mx-auto px-4 py-4 pb-20">
-        <h1 class="text-3xl font-heading text-dark mb-6">Leaderboard</h1>
-
-        <div class="grid grid-cols-1 md:grid-cols-8 gap-6 mb-8">
-            <a href="/stats.html"
-                class="group bg-white rounded-xl shadow-sm hover:shadow-md transition-all duration-200 p-3 block border border-gray-100 hover:border-gray-200 max-w-fit">
-                <div class="flex items-center gap-3">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-primary" fill="none" viewBox="0 0 24 24"
-                        stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="M9 15 3 9m0 0 6-6M3 9h12a6 6 0 0 1 0 12h-3" />
-                    </svg>
-                    <h2 class="text-xl font-heading text-dark">Back
-                    </h2>
-                </div>
-            </a>
-        </div>
-
-        <div class="bg-white rounded-lg shadow-md p-6 mb-8">
-            <h2 class="text-xl font-heading text-dark mb-4">Community Leaderboard</h2>
-
-            <div class="overflow-x-auto">
-                <table class="min-w-full divide-y divide-neutral-200">
-                    <thead class="bg-neutral-50">
-                        <tr>
-                            <th scope="col"
-                                class="px-6 py-3 text-left text-xs font-medium text-neutral-500 uppercase tracking-wider">
-                                Rank</th>
-                            <th scope="col"
-                                class="px-6 py-3 text-left text-xs font-medium text-neutral-500 uppercase tracking-wider">
-                                User</th>
-                            <th scope="col"
-                                class="px-6 py-3 text-left text-xs font-medium text-neutral-500 uppercase tracking-wider">
-                                Carbon Saved</th>
-                            <th scope="col"
-                                class="px-6 py-3 text-left text-xs font-medium text-neutral-500 uppercase tracking-wider">
-                                Streak</th>
-                            <th scope="col"
-                                class="px-6 py-3 text-left text-xs font-medium text-neutral-500 uppercase tracking-wider">
-                                Points</th>
-                        </tr>
-                    </thead>
-                    <tbody class="bg-white divide-y divide-neutral-200">
-                        <tr class="bg-primary/10">
-                            <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-dark">#4</td>
-                            <td class="px-6 py-4 whitespace-nowrap">
-                                <div class="flex items-center">
-                                    <div
-                                        class="h-8 w-8 rounded-full bg-primary flex items-center justify-center text-white mr-3">
-                                        U</div>
-                                    <span class="font-medium">You</span>
-                                </div>
-                            </td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-dark">42 kg</td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-dark">14 days</td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-dark">1,240</td>
-                        </tr>
-
-                        <tr>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-dark">#1</td>
-                            <td class="px-6 py-4 whitespace-nowrap">
-                                <div class="flex items-center">
-                                    <div
-                                        class="h-8 w-8 rounded-full bg-amber-500 flex items-center justify-center text-white mr-3">
-                                        E</div>
-                                    <span>Dilinder</span>
-                                </div>
-                            </td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-dark">78 kg</td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-dark">32 days</td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-dark">2,450</td>
-                        </tr>
-                        <tr>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-dark">#2</td>
-                            <td class="px-6 py-4 whitespace-nowrap">
-                                <div class="flex items-center">
-                                    <div
-                                        class="h-8 w-8 rounded-full bg-emerald-500 flex items-center justify-center text-white mr-3">
-                                        G</div>
-                                    <span>Leo</span>
-                                </div>
-                            </td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-dark">65 kg</td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-dark">28 days</td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-dark">2,120</td>
-                        </tr>
-                        <tr>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-dark">#3</td>
-                            <td class="px-6 py-4 whitespace-nowrap">
-                                <div class="flex items-center">
-                                    <div
-                                        class="h-8 w-8 rounded-full bg-blue-500 flex items-center justify-center text-white mr-3">
-                                        S</div>
-                                    <span>Jago</span>
-                                </div>
-                            </td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-dark">53 kg</td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-dark">21 days</td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-dark">1,780</td>
-                        </tr>
-                        <tr>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-dark">#5</td>
-                            <td class="px-6 py-4 whitespace-nowrap">
-                                <div class="flex items-center">
-                                    <div
-                                        class="h-8 w-8 rounded-full bg-purple-500 flex items-center justify-center text-white mr-3">
-                                        B</div>
-                                    <span>Patrick</span>
-                                </div>
-                            </td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-dark">38 kg</td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-dark">12 days</td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-dark">1,150</td>
-                        </tr>
-                    </tbody>
-                </table>
+            <div class="grid grid-cols-1 md:grid-cols-8 gap-6 mb-8">
+                <a
+                    href="/stats.html"
+                    class="group bg-white rounded-xl shadow-sm hover:shadow-md transition-all duration-200 p-3 block border border-gray-100 hover:border-gray-200 max-w-fit"
+                >
+                    <div class="flex items-center gap-3">
+                        <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            class="h-6 w-6 text-primary"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                            stroke="currentColor"
+                        >
+                            <path
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                stroke-width="2"
+                                d="M9 15 3 9m0 0 6-6M3 9h12a6 6 0 0 1 0 12h-3"
+                            />
+                        </svg>
+                        <h2 class="text-xl font-heading text-dark">Back</h2>
+                    </div>
+                </a>
             </div>
-        </div>
-    </main>
 
-    <!-- Footer Placeholder -->
-    <div id="footerPlaceholder"></div>
+            <div class="bg-white rounded-lg shadow-md p-6 mb-8">
+                <h2 class="text-xl font-heading text-dark mb-4">
+                    Community Leaderboard
+                </h2>
 
-    <!-- Scripts -->
-    <script src="/chart.js"></script>
-    <script src="/statChart.js"></script>
-    <script src="/components/templates/skeleton.js"></script>
-</body>
+                <div class="overflow-x-auto">
+                    <table class="min-w-full divide-y divide-neutral-200">
+                        <thead class="bg-neutral-50">
+                            <tr>
+                                <th
+                                    scope="col"
+                                    class="px-6 py-3 text-left text-xs font-medium text-neutral-500 uppercase tracking-wider"
+                                >
+                                    Rank
+                                </th>
+                                <th
+                                    scope="col"
+                                    class="px-6 py-3 text-left text-xs font-medium text-neutral-500 uppercase tracking-wider"
+                                >
+                                    User
+                                </th>
+                                <th
+                                    scope="col"
+                                    class="px-6 py-3 text-left text-xs font-medium text-neutral-500 uppercase tracking-wider"
+                                >
+                                    Carbon Saved
+                                </th>
+                                <th
+                                    scope="col"
+                                    class="px-6 py-3 text-left text-xs font-medium text-neutral-500 uppercase tracking-wider"
+                                >
+                                    Streak
+                                </th>
+                                <th
+                                    scope="col"
+                                    class="px-6 py-3 text-left text-xs font-medium text-neutral-500 uppercase tracking-wider"
+                                >
+                                    Points
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody class="bg-white divide-y divide-neutral-200">
+                            <tr class="bg-primary/10">
+                                <td
+                                    class="px-6 py-4 whitespace-nowrap text-sm font-medium text-dark"
+                                >
+                                    #4
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    <div class="flex items-center">
+                                        <div
+                                            class="h-8 w-8 rounded-full bg-primary flex items-center justify-center text-white mr-3"
+                                        >
+                                            U
+                                        </div>
+                                        <span class="font-medium">You</span>
+                                    </div>
+                                </td>
+                                <td
+                                    class="px-6 py-4 whitespace-nowrap text-sm text-dark"
+                                >
+                                    42 kg
+                                </td>
+                                <td
+                                    class="px-6 py-4 whitespace-nowrap text-sm text-dark"
+                                >
+                                    14 days
+                                </td>
+                                <td
+                                    class="px-6 py-4 whitespace-nowrap text-sm text-dark"
+                                >
+                                    1,240
+                                </td>
+                            </tr>
 
+                            <tr>
+                                <td
+                                    class="px-6 py-4 whitespace-nowrap text-sm font-medium text-dark"
+                                >
+                                    #1
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    <div class="flex items-center">
+                                        <div
+                                            class="h-8 w-8 rounded-full bg-amber-500 flex items-center justify-center text-white mr-3"
+                                        >
+                                            E
+                                        </div>
+                                        <span>Dilinder</span>
+                                    </div>
+                                </td>
+                                <td
+                                    class="px-6 py-4 whitespace-nowrap text-sm text-dark"
+                                >
+                                    78 kg
+                                </td>
+                                <td
+                                    class="px-6 py-4 whitespace-nowrap text-sm text-dark"
+                                >
+                                    32 days
+                                </td>
+                                <td
+                                    class="px-6 py-4 whitespace-nowrap text-sm text-dark"
+                                >
+                                    2,450
+                                </td>
+                            </tr>
+                            <tr>
+                                <td
+                                    class="px-6 py-4 whitespace-nowrap text-sm font-medium text-dark"
+                                >
+                                    #2
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    <div class="flex items-center">
+                                        <div
+                                            class="h-8 w-8 rounded-full bg-emerald-500 flex items-center justify-center text-white mr-3"
+                                        >
+                                            G
+                                        </div>
+                                        <span>Leo</span>
+                                    </div>
+                                </td>
+                                <td
+                                    class="px-6 py-4 whitespace-nowrap text-sm text-dark"
+                                >
+                                    65 kg
+                                </td>
+                                <td
+                                    class="px-6 py-4 whitespace-nowrap text-sm text-dark"
+                                >
+                                    28 days
+                                </td>
+                                <td
+                                    class="px-6 py-4 whitespace-nowrap text-sm text-dark"
+                                >
+                                    2,120
+                                </td>
+                            </tr>
+                            <tr>
+                                <td
+                                    class="px-6 py-4 whitespace-nowrap text-sm font-medium text-dark"
+                                >
+                                    #3
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    <div class="flex items-center">
+                                        <div
+                                            class="h-8 w-8 rounded-full bg-blue-500 flex items-center justify-center text-white mr-3"
+                                        >
+                                            S
+                                        </div>
+                                        <span>Jago</span>
+                                    </div>
+                                </td>
+                                <td
+                                    class="px-6 py-4 whitespace-nowrap text-sm text-dark"
+                                >
+                                    53 kg
+                                </td>
+                                <td
+                                    class="px-6 py-4 whitespace-nowrap text-sm text-dark"
+                                >
+                                    21 days
+                                </td>
+                                <td
+                                    class="px-6 py-4 whitespace-nowrap text-sm text-dark"
+                                >
+                                    1,780
+                                </td>
+                            </tr>
+                            <tr>
+                                <td
+                                    class="px-6 py-4 whitespace-nowrap text-sm font-medium text-dark"
+                                >
+                                    #5
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    <div class="flex items-center">
+                                        <div
+                                            class="h-8 w-8 rounded-full bg-purple-500 flex items-center justify-center text-white mr-3"
+                                        >
+                                            B
+                                        </div>
+                                        <span>Patrick</span>
+                                    </div>
+                                </td>
+                                <td
+                                    class="px-6 py-4 whitespace-nowrap text-sm text-dark"
+                                >
+                                    38 kg
+                                </td>
+                                <td
+                                    class="px-6 py-4 whitespace-nowrap text-sm text-dark"
+                                >
+                                    12 days
+                                </td>
+                                <td
+                                    class="px-6 py-4 whitespace-nowrap text-sm text-dark"
+                                >
+                                    1,150
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </main>
+
+        <!-- Footer Placeholder -->
+        <div id="footerPlaceholder"></div>
+
+        <!-- Scripts -->
+        <script src="/chart.js"></script>
+        <script src="/statChart.js"></script>
+        <script src="/components/templates/skeleton.js"></script>
+    </body>
 </html>

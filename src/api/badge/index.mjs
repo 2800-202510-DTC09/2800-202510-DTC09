@@ -1,5 +1,5 @@
-import {Router} from 'express';
+import {Router as router} from 'express';
 import {api} from '../index.mjs';
 
-export const badge = Router();
+export const badge = router();
 api.use('/badge', badge);
