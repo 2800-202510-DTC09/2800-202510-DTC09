@@ -1,3 +1,6 @@
+/**
+ * Claude 3.7 was used to help with the code.
+ */
 const MIN_TYPING_DELAY = 500;
 const MAX_TYPING_DELAY = 1500;
 const SUGGESTION_DELAY = 500;
@@ -36,7 +39,9 @@ function scrollToBottom() {
 function addSuggestions() {
     const chatMessages = document.getElementById('chatMessages');
     const messageInput = document.getElementById('messageInput');
-    if (!chatMessages || !messageInput) return;
+    if (!chatMessages || !messageInput) {
+        return;
+    }
 
     const suggestionsDiv = document.createElement('div');
     suggestionsDiv.className = 'suggestions flex flex-wrap gap-2 mb-4';
@@ -57,29 +62,55 @@ function addSuggestions() {
     scrollToBottom();
 }
 
-function addMessage(message, isUser = false) {
-    const chatMessages = document.getElementById('chatMessages');
-    if (!chatMessages) {
-        return;
-    }
+function createProfileImg() {
+    const profileImg = document.createElement('img');
+    profileImg.src = '/assets/botPFP.png';
+    profileImg.alt = 'Bot';
+    profileImg.className = 'w-10 h-10 rounded-full object-cover';
+    return profileImg;
+}
 
+function createMessageDiv(message, isUser) {
     const messageDiv = document.createElement('div');
     messageDiv.className = isUser
-        ? 'user-message p-3 mb-4'
-        : 'bot-message p-3 mb-4';
+        ? 'user-message p-3 bg-primary text-white rounded-xl max-w-sm'
+        : 'bot-message p-3 bg-gray-100 rounded-xl';
 
     const messagePara = document.createElement('p');
     messagePara.textContent = message;
     messageDiv.appendChild(messagePara);
 
-    chatMessages.appendChild(messageDiv);
+    return messageDiv;
+}
 
+function removeSuggestionsIfUser(isUser) {
     if (isUser) {
         const suggestionsDiv = document.querySelector('.suggestions');
         if (suggestionsDiv) {
             suggestionsDiv.remove();
         }
     }
+}
+
+function addMessage(message, isUser = false) {
+    const chatMessages = document.getElementById('chatMessages');
+    if (!chatMessages) {
+        return;
+    }
+
+    const messageWrapper = document.createElement('div');
+    messageWrapper.className = `flex items-start gap-3 mb-4 ${
+        isUser ? 'justify-end' : ''
+    }`;
+
+    if (!isUser) {
+        messageWrapper.appendChild(createProfileImg());
+    }
+
+    messageWrapper.appendChild(createMessageDiv(message, isUser));
+    chatMessages.appendChild(messageWrapper);
+
+    removeSuggestionsIfUser(isUser);
 
     scrollToBottom();
 }
@@ -139,9 +170,13 @@ function getFallbackResponse(message) {
 
 function sendMessage() {
     const messageInput = document.getElementById('messageInput');
-    if (!messageInput) return;
+    if (!messageInput) {
+        return;
+    }
     const message = messageInput.value.trim();
-    if (message === '') return;
+    if (message === '') {
+        return;
+    }
 
     addMessage(message, true);
     messageInput.value = '';
