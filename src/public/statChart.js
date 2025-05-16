@@ -2,6 +2,14 @@
  * The code exmples on the Echart websites were used as reference to create these charts.
  * Link: https://echarts.apache.org/examples/en/index.html
  */
+import {
+    getDietEmissions,
+    getElectricityEmissions,
+    getHousingEmissions,
+    getLifestyleEmissions,
+    getVehicleEmissions,
+    getWaterEmissions,
+} from './calculateEmissions.js';
 
 async function fetchUsers() {
     let response;
@@ -14,43 +22,58 @@ async function fetchUsers() {
         const data = await response.json();
         return data;
     } catch (error) {
-        console.error("Error fetching users:", error);
+        console.error('Error fetching users:', error);
         return null;
     }
 }
-
-async function getUserRecord(data) {
-    try {
-        const response = await fetch(`/api/record?id=${data.user.id}`, {
-                method: "GET",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-            });
-
-
-        if (!response.ok) {
-            throw new Error(`HTTP error! Status: ${response.status}`);
-        }
-
-        const record = await response.json();
-        console.log("Record:", record);
-        return record;
-    } catch (error) {
-        console.error("Error fetching record:", error);
-        return null;
-    }
-}
-
-
-
 
 async function getData() {
     const data = await fetchUsers();
     return data;
 }
 
-function getMonthlyChartOption() {
+async function getUserRecord() {
+    const data = await getData();
+    try {
+        const response = await fetch(`/api/record?id=${data.user.id}`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        });
+
+        if (!response.ok) {
+            throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+
+        const record = await response.json();
+        return record;
+    } catch (error) {
+        console.error('Error fetching record:', error);
+        return null;
+    }
+}
+
+async function getMonthlyChartData() {
+    return [100,300,200,500];
+}
+
+async function getPieChartData() {
+    const userRecord = await getUserRecord();
+    const chartData = {
+        housingEmissions: Number(getHousingEmissions(userRecord)),
+        vehicleEmissions: Number(getVehicleEmissions(userRecord)),
+        waterEmissions: Number(getWaterEmissions(userRecord)),
+        electricityEmissions: Number(getElectricityEmissions(userRecord)),
+        dietEmissions: Number(getDietEmissions(userRecord)),
+        lifestyleEmissions: Number(getLifestyleEmissions(userRecord)),
+    };
+
+    return chartData;
+}
+
+async function getMonthlyChartOption() {
+    const monthlyData = await getMonthlyChartData();
     const option = {
         tooltip: {
             trigger: 'axis',
@@ -65,7 +88,7 @@ function getMonthlyChartOption() {
         },
         series: [
             {
-                data: [280, 320, 400, 240],
+                data: [monthlyData[0], monthlyData[1], monthlyData[2], monthlyData[3]],
                 type: 'line',
                 smooth: true,
                 lineStyle: {
@@ -88,37 +111,34 @@ function getMonthlyChartOption() {
     return option;
 }
 
-function getPieChartOption() {
-    let option = {
+async function getPieChartOption() {
+    const chartData = await getPieChartData();
+    const option = {
         tooltip: {
             trigger: 'item',
-            formatter: '{a} <br/>{b}: {c} ({d}%)',
+        },
+        legend: {
+            show: false,
         },
         series: [
             {
-                name: 'Impact Areas',
+                name: 'Access From',
                 type: 'pie',
-                radius: '70%',
-                itemStyle: {
-                    borderRadius: 5,
-                    borderColor: '#fff',
-                    borderWidth: 2,
-                },
-                label: {
-                    show: true,
-                    formatter: '{b}: {d}%',
-                },
+                radius: '50%',
                 data: [
-                    {value: 35, name: 'Energy', itemStyle: {color: '#4F46E5'}},
-                    {value: 25, name: 'Water', itemStyle: {color: '#10B981'}},
-                    {value: 20, name: 'Waste', itemStyle: {color: '#F59E0B'}},
-                    {
-                        value: 15,
-                        name: 'Transport',
-                        itemStyle: {color: '#EF4444'},
-                    },
-                    {value: 5, name: 'Food', itemStyle: {color: '#8B5CF6'}},
+                    {value: 10, name: 'Housing'},
+                    {value: 10, name: 'Vehicle'},
+                    {value: 10, name: 'Electricity'},
+                    {value: 10, name: 'Diet'},
+                    {value: 10, name: 'Lifestyle'},
                 ],
+                emphasis: {
+                    itemStyle: {
+                        shadowBlur: 10,
+                        shadowOffsetX: 0,
+                        shadowColor: 'rgba(0, 0, 0, 0.5)',
+                    },
+                },
             },
         ],
     };
@@ -126,28 +146,22 @@ function getPieChartOption() {
     return option;
 }
 
-function loadGraphs() {
+async function loadGraphs() {
     const monthlyChart = echarts.init(document.getElementById('monthlyChart'));
     const categoryChart = echarts.init(document.getElementById('categoryChart'));
-    categoryChart.setOption(getPieChartOption());
-    monthlyChart.setOption(getMonthlyChartOption());
-    
+    categoryChart.setOption(await getPieChartOption());
+    monthlyChart.setOption(await getMonthlyChartOption());
+
     window.addEventListener('resize', () => {
-    monthlyChart.resize();
-    categoryChart.resize();
+        monthlyChart.resize();
+        categoryChart.resize();
     });
 }
 
-async function main() {
+function main() {
     document.addEventListener('DOMContentLoaded', () => {
         loadGraphs();
     });
-    const data = await getData();
-    const record = await getUserRecord(data);
-    console.log(data);
-    console.log(data.user.id);
-    console.log(record);
-};
-
+}
 
 main();
