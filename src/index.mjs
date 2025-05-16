@@ -7,6 +7,7 @@ import {parse, toSeconds} from 'iso8601-duration';
 import {connect} from 'mongoose';
 import swaggerJsdoc from 'swagger-jsdoc';
 import {serve, setup} from 'swagger-ui-express';
+import {toMillisecond} from './helper.mjs';
 import {siteRouter} from './site-routes/index.mjs';
 
 if (env.NODE_ENV === 'dev') {
@@ -34,7 +35,7 @@ app.use(
         cookie: {
             httpOnly: true,
             // 1 hour
-            maxAge: 1000 * 60 * 60,
+            maxAge: toMillisecond(toSeconds(parse('PT1H'))),
         },
     }),
 );
@@ -69,10 +70,9 @@ fastGlob
         func();
         setInterval(
             func,
-            toSeconds(parse(v.replace(/.*-/gu, '').replace(/\..*/gu, ''))) *
-                // To millisecond
-                // eslint-disable-next-line no-magic-numbers
-                1000,
+            toMillisecond(
+                toSeconds(parse(v.replace(/.*-/gu, '').replace(/\..*/gu, ''))),
+            ),
         );
     });
 
