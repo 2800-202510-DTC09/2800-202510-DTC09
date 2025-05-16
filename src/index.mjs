@@ -3,6 +3,7 @@ import {cwd, env} from 'process';
 import express from 'express';
 import session from 'express-session';
 import fastGlob from 'fast-glob';
+import {parse, toSeconds} from 'iso8601-duration';
 import {connect} from 'mongoose';
 import swaggerJsdoc from 'swagger-jsdoc';
 import {serve, setup} from 'swagger-ui-express';
@@ -60,6 +61,20 @@ app.use(
 
 // Route requests to site resources.
 app.use('/', siteRouter);
+
+fastGlob
+    .sync(`./scheduler/**/*.mjs`, {cwd: import.meta.dirname})
+    .forEach((v) => {
+        setInterval(
+            async () => {
+                (await import(v)).default();
+            },
+            toSeconds(parse(v.replace(/.*-/gu, '').replace(/\..*/gu, ''))) *
+                // To millisecond
+                // eslint-disable-next-line no-magic-numbers
+                1000,
+        );
+    });
 
 app.listen(env.PORT, () => {
     console.error(`Server running on http://127.0.0.1:${env.PORT}`);

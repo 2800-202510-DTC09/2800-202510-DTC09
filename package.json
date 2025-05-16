@@ -13,6 +13,7 @@
         "express-session": "^1.18.1",
         "fast-glob": "^3.3.3",
         "http-status": "^2.1.0",
+        "iso8601-duration": "^2.1.2",
         "mongoose": "^8.14.0",
         "mongoose-autopopulate": "^1.1.0",
         "mongoose-unique-validator": "^4.0.1",
