@@ -39,8 +39,12 @@ import {user} from './index.mjs';
  *     responses:
  *       200:
  *         description: User is updated
+ *       400:
+ *         description: Given data is invalid
  *       404:
  *         description: User not found
+ *       500:
+ *         description: Server internal error
  */
 user.put('/:id', async (req, res) => {
     try {
@@ -63,7 +67,11 @@ user.put('/:id', async (req, res) => {
             res.sendStatus(status.NOT_FOUND);
         }
     } catch (e) {
-        console.error(e);
-        res.sendStatus(status.INTERNAL_SERVER_ERROR);
+        if (e.name === Error.ValidationError.name) {
+            res.status(status.BAD_REQUEST).json(e.errors);
+        } else {
+            console.error(e);
+            res.sendStatus(status.INTERNAL_SERVER_ERROR);
+        }
     }
 });
