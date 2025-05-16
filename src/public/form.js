@@ -535,7 +535,7 @@ function loadVehicleSection(parent) {
     vehicleNumberLabel.textContent =
         'How many vehicles do you regularly drive?:';
     vehicleNumberLabel.setAttribute('for', vehicleNumberSelection.id);
-
+    
     // Set up element for vehicle number selection
     vehicleNumberSelection.classList.add('form-select-large');
     vehicleNumberSelection.id = 'vehicle-number-select';

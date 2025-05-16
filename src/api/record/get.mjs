@@ -1,4 +1,5 @@
 import {status} from 'http-status';
+import mongoose from 'mongoose';
 import {Record, normalize} from '../../model/record.mjs';
 import {record} from './index.mjs';
 
@@ -24,16 +25,17 @@ import {record} from './index.mjs';
  *       500:
  *         description: Server internal error
  */
-record.get('/:id', async (req, res) => {
+record.get('/', async (req, res) => {
     try {
-        const records = normalize(await Record.findById(req.params.id));
-        if (records.length) {
-            res.status(status.OK).json(records.pop());
+        const userRecord = await Record.findOne({user: req.query.id});
+
+        if (userRecord) {
+            res.status(200).json(userRecord);
         } else {
-            res.sendStatus(status.NOT_FOUND);
+            res.sendStatus(404);
         }
-    } catch (e) {
-        console.error(e);
-        res.sendStatus(status.INTERNAL_SERVER_ERROR);
+    } catch (error) {
+        console.error('Error fetching record:', error);
+        res.sendStatus(500);
     }
 });
