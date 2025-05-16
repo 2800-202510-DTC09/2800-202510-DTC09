@@ -32,6 +32,9 @@ importers:
       http-status:
         specifier: ^2.1.0
         version: 2.1.0
+      iso8601-duration:
+        specifier: ^2.1.2
+        version: 2.1.2
       mongoose:
         specifier: ^8.14.0
         version: 8.14.0(@aws-sdk/credential-providers@3.804.0)(socks@2.8.4)
@@ -1341,6 +1344,9 @@ packages:
   isexe@3.1.1:
     resolution: {integrity: sha512-LpB/54B+/2J5hqQ7imZHfdU31OlgQqx7ZicVlkm9kzg9/w8GKLEcFfJl/t7DCEDueOyBAD6zCCwTO6Fzs0NoEQ==}
     engines: {node: '>=16'}
+
+  iso8601-duration@2.1.2:
+    resolution: {integrity: sha512-yXteYUiKv6x8seaDzyBwnZtPpmx766KfvQuaVNyPifYOjmPdOo3ajd4phDNa7Y5mTQGnXsNEcXFtVun1FjYXxQ==}
 
   js-yaml@4.1.0:
     resolution: {integrity: sha512-wpxZs9NoxZaJESJGIZTyDEaYpl0FKSA+FB9aJiyemKhMwkxQg63h4T1KJgUGHpTqPDNRcmmYLugrRjJlBtWvRA==}
@@ -3781,6 +3787,8 @@ snapshots:
   isexe@2.0.0: {}
 
   isexe@3.1.1: {}
+
+  iso8601-duration@2.1.2: {}
 
   js-yaml@4.1.0:
     dependencies:

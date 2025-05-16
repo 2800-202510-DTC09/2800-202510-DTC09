@@ -14,14 +14,12 @@ export async function handleSignupPost(req, res) {
         const hashedPassword = await bcrypt.hash(password, saltRounds);
 
         const newUser = normalize(
-            new User({
+            await new User({
                 username,
                 email,
                 password: hashedPassword,
-            }),
+            }).save(),
         );
-
-        await newUser.save();
 
         req.session.user = {
             id: newUser.id,

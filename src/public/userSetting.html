@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>SustainMe - Settings</title>
+
+        <!-- Google Fonts -->
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Nunito:wght@400&family=Poppins:wght@700&display=swap"
+            rel="stylesheet"
+        />
+
+        <!-- Tailwind CSS -->
+        <script src="https://cdn.tailwindcss.com"></script>
+        <script>
+            const module = {};
+        </script>
+        <script src="/css/tailwind.config.js"></script>
+        <script>
+            tailwind.config = module.exports;
+        </script>
+
+        <link rel="stylesheet" href="/css/style.css" />
+    </head>
+
+    <body class="bg-neutral-100 font-sans">
+        <!-- Navbar Placeholder -->
+        <div id="navbarPlaceholder"></div>
+
+        <main class="container mx-auto px-4 py-4 pb-20">
+            <h1 class="text-3xl font-heading text-dark mb-6">
+                Account Settings
+            </h1>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+                <a
+                    href="/profileNew.html"
+                    class="group bg-white rounded-xl shadow-sm hover:shadow-md transition-all duration-200 p-3 block border border-gray-100 hover:border-gray-200 max-w-fit"
+                >
+                    <div class="flex items-center gap-3">
+                        <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            class="h-6 w-6 text-primary"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                            stroke="currentColor"
+                        >
+                            <path
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                stroke-width="2"
+                                d="M9 15 3 9m0 0 6-6M3 9h12a6 6 0 0 1 0 12h-3"
+                            />
+                        </svg>
+                        <h2 class="text-xl font-heading text-dark">
+                            Back to Profile
+                        </h2>
+                    </div>
+                </a>
+            </div>
+
+            <div class="bg-white rounded-lg shadow-md p-6 mb-8">
+                <form id="settingsForm" class="space-y-6">
+                    <!-- Profile Picture -->
+                    <div>
+                        <label
+                            class="block text-sm font-medium text-neutral-700 mb-2"
+                            >Profile Picture</label
+                        >
+                        <div class="flex items-center gap-4">
+                            <div
+                                class="h-20 w-20 rounded-full bg-primary flex items-center justify-center text-white text-3xl"
+                            >
+                                <span id="settingsInitial">U</span>
+                            </div>
+                            <button
+                                type="button"
+                                class="text-primary hover:text-secondary transition-colors"
+                            >
+                                Change Picture
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Account Information -->
+                    <div>
+                        <h2 class="text-xl font-heading text-dark mb-4">
+                            Account Information
+                        </h2>
+                        <div class="space-y-4">
+                            <div>
+                                <label
+                                    for="username"
+                                    class="block text-sm font-medium text-neutral-700"
+                                    >Username</label
+                                >
+                                <input
+                                    type="text"
+                                    id="username"
+                                    name="username"
+                                    class="mt-1 block w-full rounded-md border-neutral-300 shadow-sm focus:border-primary focus:ring-primary"
+                                    required
+                                />
+                            </div>
+                            <div>
+                                <label
+                                    for="email"
+                                    class="block text-sm font-medium text-neutral-700"
+                                    >Email</label
+                                >
+                                <input
+                                    type="email"
+                                    id="email"
+                                    name="email"
+                                    class="mt-1 block w-full rounded-md border-neutral-300 shadow-sm focus:border-primary focus:ring-primary"
+                                    required
+                                />
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Change Password -->
+                    <div>
+                        <h2 class="text-xl font-heading text-dark mb-4">
+                            Change Password
+                        </h2>
+                        <div class="space-y-4">
+                            <div>
+                                <label
+                                    for="currentPassword"
+                                    class="block text-sm font-medium text-neutral-700"
+                                    >Current Password</label
+                                >
+                                <input
+                                    type="password"
+                                    id="currentPassword"
+                                    name="currentPassword"
+                                    class="mt-1 block w-full rounded-md border-neutral-300 shadow-sm focus:border-primary focus:ring-primary"
+                                />
+                            </div>
+                            <div>
+                                <label
+                                    for="newPassword"
+                                    class="block text-sm font-medium text-neutral-700"
+                                    >New Password</label
+                                >
+                                <input
+                                    type="password"
+                                    id="newPassword"
+                                    name="newPassword"
+                                    class="mt-1 block w-full rounded-md border-neutral-300 shadow-sm focus:border-primary focus:ring-primary"
+                                />
+                            </div>
+                            <div>
+                                <label
+                                    for="confirmPassword"
+                                    class="block text-sm font-medium text-neutral-700"
+                                    >Confirm New Password</label
+                                >
+                                <input
+                                    type="password"
+                                    id="confirmPassword"
+                                    name="confirmPassword"
+                                    class="mt-1 block w-full rounded-md border-neutral-300 shadow-sm focus:border-primary focus:ring-primary"
+                                />
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Notification Preferences -->
+                    <div>
+                        <h2 class="text-xl font-heading text-dark mb-4">
+                            Notification Preferences
+                        </h2>
+                        <div class="space-y-2">
+                            <div class="flex items-center">
+                                <input
+                                    id="goalReminders"
+                                    name="goalReminders"
+                                    type="checkbox"
+                                    class="h-4 w-4 rounded border-neutral-300 text-primary focus:ring-primary"
+                                />
+                                <label
+                                    for="goalReminders"
+                                    class="ml-2 block text-sm text-neutral-700"
+                                >
+                                    Notification settings?
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="border-t border-neutral-200 pt-6">
+                        <div
+                            class="flex items-center justify-between flex-wrap gap-4"
+                        >
+                            <button
+                                type="button"
+                                class="inline-flex items-center px-4 py-2 border border-red-300 text-sm font-medium rounded-md text-red-700 bg-white hover:bg-red-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500"
+                            >
+                                Delete My Account
+                            </button>
+                            <button
+                                type="submit"
+                                class="inline-flex justify-center rounded-md border border-transparent bg-primary py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-secondary focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2"
+                            >
+                                Save Changes
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </main>
+
+        <!-- Footer Placeholder -->
+        <div id="footerPlaceholder"></div>
+
+        <!-- Scripts -->
+        <script src="/components/templates/skeleton.js"></script>
+    </body>
+</html>

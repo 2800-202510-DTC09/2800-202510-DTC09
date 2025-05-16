@@ -3,10 +3,11 @@ import {cwd, env} from 'process';
 import express from 'express';
 import session from 'express-session';
 import fastGlob from 'fast-glob';
+import {parse, toSeconds} from 'iso8601-duration';
 import {connect} from 'mongoose';
 import swaggerJsdoc from 'swagger-jsdoc';
 import {serve, setup} from 'swagger-ui-express';
-import {__dirname} from './common-es.mjs';
+import {toMillisecond} from './helper.mjs';
 import {siteRouter} from './site-routes/index.mjs';
 
 if (env.NODE_ENV === 'dev') {
@@ -21,7 +22,7 @@ app.use((req, res, next) => {
     next();
 });
 
-app.use(express.static(join(__dirname, 'public')));
+app.use(express.static(join(import.meta.dirname, 'public')));
 
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));
@@ -34,7 +35,7 @@ app.use(
         cookie: {
             httpOnly: true,
             // 1 hour
-            maxAge: 1000 * 60 * 60,
+            maxAge: toMillisecond(toSeconds(parse('PT1H'))),
         },
     }),
 );
@@ -49,16 +50,31 @@ app.use(
                 info: {title: 'SustainMe API'},
                 servers: [{url: '/api'}],
             },
-            apis: fastGlob.sync(`./api/**/*.mjs`, {cwd: __dirname}).map((v) => {
-                import(v);
-                return join(relative(cwd(), __dirname), v);
-            }),
+            apis: fastGlob
+                .sync(`./api/**/*.mjs`, {cwd: import.meta.dirname})
+                .map((v) => {
+                    import(v);
+                    return join(relative(cwd(), import.meta.dirname), v);
+                }),
         }),
     ),
 );
 
 // Route requests to site resources.
 app.use('/', siteRouter);
+
+fastGlob
+    .sync(`./scheduler/**/*.mjs`, {cwd: import.meta.dirname})
+    .forEach(async (v) => {
+        const {default: func} = await import(v);
+        func();
+        setInterval(
+            func,
+            toMillisecond(
+                toSeconds(parse(v.replace(/.*-/gu, '').replace(/\..*/gu, ''))),
+            ),
+        );
+    });
 
 app.listen(env.PORT, () => {
     console.error(`Server running on http://127.0.0.1:${env.PORT}`);
