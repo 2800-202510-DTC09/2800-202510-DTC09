@@ -64,11 +64,11 @@ app.use('/', siteRouter);
 
 fastGlob
     .sync(`./scheduler/**/*.mjs`, {cwd: import.meta.dirname})
-    .forEach((v) => {
+    .forEach(async (v) => {
+        const {default: func} = await import(v);
+        func();
         setInterval(
-            async () => {
-                (await import(v)).default();
-            },
+            func,
             toSeconds(parse(v.replace(/.*-/gu, '').replace(/\..*/gu, ''))) *
                 // To millisecond
                 // eslint-disable-next-line no-magic-numbers
