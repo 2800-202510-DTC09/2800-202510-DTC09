@@ -18,6 +18,15 @@ export async function handleSignupPost(req, res) {
                 username,
                 email,
                 password: hashedPassword,
+                ip: req.ip,
+                location:
+                    req.body.latitude && req.body.longitude
+                        ? {
+                              latitude: req.body.latitude,
+                              longitude: req.body.longitude,
+                              updatedAt: new Date(),
+                          }
+                        : null,
             }).save(),
         );
 
