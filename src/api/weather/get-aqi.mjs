@@ -2,6 +2,11 @@ import axios from 'axios';
 import {status} from 'http-status';
 import {weather} from './index.mjs';
 
+/**
+ * @openapi
+ * TODO
+ * @DSG
+ */
 weather.get('/air-quality', async (req, res) => {
     const {lat, lon} = req.query;
     if (!lat || !lon) {
