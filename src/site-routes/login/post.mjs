@@ -23,6 +23,7 @@ export async function handleLoginPost(req, res) {
         // Update user location if available
         if (req.body.latitude && req.body.longitude) {
             await User.findByIdAndUpdate(user._id, {
+                ip: req.ip,
                 location: {
                     latitude: req.body.latitude,
                     longitude: req.body.longitude,
