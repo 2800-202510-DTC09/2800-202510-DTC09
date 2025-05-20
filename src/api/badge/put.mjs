@@ -1,3 +1,5 @@
+import {status} from 'http-status';
+import {Badge, normalize} from '../../model/badge.mjs';
 import {badge} from './index.mjs';
 
 /**
@@ -22,16 +24,47 @@ import {badge} from './index.mjs';
  *           schema:
  *             type: object
  *             properties:
- *               criteria:
+ *               name:
  *                 type: string
- *                 example: date > 0
+ *                 example: New comer
+ *               description:
+ *                 type: string
+ *                 example: Joined the app
+ *               icon:
+ *                 type: string
+ *                 example: /assets/leaf.png
  *     responses:
  *       200:
  *         description: Badge is updated
+ *       400:
+ *         description: Given data is invalid
  *       404:
  *         description: Badge not found
+ *       500:
+ *         description: Server internal error
  */
-badge.put('/:id', (req, res) => {
-    // Const api = await Todo.find();
-    res.json({a: req.body});
+badge.put('/:id', async (req, res) => {
+    try {
+        const badgeData = await Badge.findOne({
+            _id: req.params.id,
+            $or: [
+                {deletedAt: {$exists: false}},
+                {deletedAt: null},
+                {deletedAt: {$gt: req.timestamp}},
+            ],
+        });
+        if (badgeData) {
+            ['name', 'description', 'icon'].forEach((v) => {
+                if (req.body[v]) {
+                    badgeData[v] = req.body[v];
+                }
+            });
+            res.status(status.OK).json(normalize(await badgeData.save()).pop());
+        } else {
+            res.sendStatus(status.NOT_FOUND);
+        }
+    } catch (e) {
+        console.error(e);
+        res.sendStatus(status.INTERNAL_SERVER_ERROR);
+    }
 });

@@ -1,6 +1,11 @@
 import {status} from 'http-status';
 import {User, normalize} from '../../model/user.mjs';
 
+/**
+ * @openapi
+ * TODO
+ * @DSG
+ */
 export function registerBadgeRoute(user) {
     user.get('/show-badges', async (req, res) => {
         try {
