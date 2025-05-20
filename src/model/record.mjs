@@ -16,67 +16,67 @@ export const Record = model(
             user: {
                 type: Schema.Types.ObjectId,
                 ref: 'user',
-                required: true,
+                required: false,
             },
             housing_people: {
                 type: Number,
-                required: true,
+                required: false,
                 default: 0,
             },
             housing_people_unit: {
                 type: String,
-                required: true,
+                required: false,
                 default: "people",
             },
             housing_natural_gas_amount: {
                 type: Number,
-                required: true,
+                required: false,
                 default: 0,
             },
             housing_natural_gas_unit: {
                 type: String,
-                required: true,
+                required: false,
                 default: "L",
             },
             housing_heating_oil_amount: {
                 type: Number,
-                required: true,
+                required: false,
                 default: 0,
             },
             housing_heating_oil_unit: {
                 type: String,
-                required: true,
+                required: false,
                 default: "L",
             },
             housing_propane_amount: {
                 type: Number,
-                required: true,
+                required: false,
                 default: 0
             },
             housing_propane_unit: {
                 type: String,
-                required: true,
+                required: false,
                 default: "L",
             },
             housing_coal_amount: {
                 type: Number,
-                required: true,
+                required: false,
                 default: 0,
             },
             housing_coal_unit: {
                 type: String,
-                required: true,
+                required: false,
                 default: "kg",
             },
             vehicle_amount: {
                 type: Number,
-                required: true,
+                required: false,
                 default: 0,
             },
             vehicles: [{
                 vehicle_type: {
                     type: String,
-                    required: true,
+                    required: false,
                     default: "Gas",
                 },
                 vehicle_fuel_efficiency: {
@@ -97,132 +97,119 @@ export const Record = model(
             }],
             electricity_amount: {
                 type: Number,
-                required: true,
+                required: false,
                 default: 0,
             },
             electricity_amount_unit: {
                 type: String,
-                required: true,
+                required: false,
                 default: "kWh",
             },
             water_amount: {
                 type: Number,
-                required: true,
+                required: false,
                 default: 0,
             },
             water_amount_unit: {
                 type: String,
-                required: true,
+                required: false,
                 default:"m³"
             },
             diet_beef_amount: {
                 type: Number,
-                required: true,
+                required: false,
                 default: 0,
             },
             diet_beef_unit: {
                 type: String,
-                required: true,
+                required: false,
                 default: "kg",
             },
             diet_pork_amount: {
                 type: Number,
-                required: true,
+                required: false,
                 default: 0,
             },
             diet_pork_unit: {
                 type: String,
-                required: true,
+                required: false,
                 default: "kg",
             },
             diet_chicken_amount: {
                 type: Number,
-                required: true,
+                required: false,
                 default: 0,
             },
             diet_chicken_unit: {
                 type: String,
-                required: true,
+                required: false,
                 default: "kg",
             },
             diet_cheese_amount: {
                 type: Number,
-                required: true,
+                required: false,
                 default: 0,
             },
             diet_cheese_unit: {
                 type: String,
-                required: true,
+                required: false,
                 default: "kg",
             },
             diet_milk_amount: {
                 type: Number,
-                required: true,
+                required: false,
                 default: 0,
             },
             diet_milk_unit: {
                 type: String,
-                required: true,
+                required: false,
                 default: "L",
             },
             lifestyle_domestic_flights_distance: {
                 type: Number,
-                required: true,
+                required: false,
                 default: 0,
             },
             lifestyle_domestic_flights_distance_unit: {
                 type: String,
-                required: true,
+                required: false,
                 default: "km",
             },
             lifestyle_international_flights_distance: {
                 type: Number,
-                required: true,
+                required: false,
                 default: 0,
             },
             lifestyle_international_flights_distance_unit: {
                 type: String,
-                required: true,
+                required: false,
                 default: "km",
             },
             lifestyle_flights_class: {
                 type: String,
-                required: true,
+                required: false,
                 default: "Business",
             },
             lifestyle_clothing_purchased_amount: {
                 type: Number,
-                required: true,
+                required: false,
                 default: 0,
             },
             lifestyle_clothing_purchased_amount_unit: {
                 type: String,
-                required: true,
+                required: false,
                 default: "kg",
             },
             lifestyle_shipping_amount: {
                 type: Number,
-                required: true,
+                required: false,
                 default: 0,
             },
             lifestyle_shipping_amount_unit: {
                 type: String,
-                required: true,
+                required: false,
                 default: "packages",
-            },
-            emission: {
-                type: Schema.Types.Number,
-                required: true,
-                default: 0,
-            },
-            description: {
-                type: Schema.Types.String,
-                required: true,
-                default: 'no description provided',
-            },
-            deletedAt: {
-                type: Schema.Types.Date,
-            },
+            }
         },
         {timestamps: true},
     )
