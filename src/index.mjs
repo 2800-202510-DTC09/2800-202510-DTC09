@@ -22,7 +22,11 @@ app.use((req, res, next) => {
     next();
 });
 
-app.use(express.static(join(import.meta.dirname, 'public')));
+app.use(
+    express.static(join(import.meta.dirname, 'public'), {
+        extensions: 'html',
+    }),
+);
 
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));
