@@ -11,6 +11,7 @@ export const LeaderBoard = model(
                 type: Schema.Types.ObjectId,
                 ref: 'user',
                 required: true,
+                autopopulate: true,
             },
             rank: {
                 type: Schema.Types.Number,
@@ -45,7 +46,7 @@ export function normalize(v) {
                     user:
                         w.user instanceof mongo.ObjectId
                             ? w.user
-                            : userNormalize(w.user),
+                            : userNormalize(w.user).pop(),
                 };
             }
             return null;
