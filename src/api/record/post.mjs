@@ -82,7 +82,7 @@ record.post('/', async (req, res) => {
     console.log("lifetime shipping amount " + req.body["lifetime_shipping_amount"]);
     const vehicles = [];
 
-    for (let i = 1; i <= req.body[`numberOfCars`]; i++) {
+    for (let i = 1; i <= vehicle_amount; i++) {
         const vehicle = {
             vehicle_type: req.body[`vehicle-${i}-type`]
         };
@@ -114,6 +114,7 @@ record.post('/', async (req, res) => {
                     housing_coal_amount: housing_coal_amount,
                     housing_coal_unit: housing_coal_unit,
                     vehicle_amount: vehicle_amount,
+                    vehicles: vehicles,
                     electricity_amount: electricity_amount,
                     electricity_amount_unit: electricity_amount_unit,
                     water_amount: water_amount,
