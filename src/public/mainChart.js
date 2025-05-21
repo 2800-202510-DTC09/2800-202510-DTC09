@@ -57,7 +57,19 @@ async function getUserRecord() {
 }
 
 async function getMonthlyChartData() {
-    return [100,300,200,500];
+    const data = await getData();
+    const response = await fetch(`/api/monthly-data/?user=${data.user.id}`);
+    let monthlyDataObject = await response.json();
+    monthlyDataObject = monthlyDataObject[0]
+    const monthlyData = monthlyDataObject.data.filter(e=>e.label === "Score").sort((a,b)=> new Date(b.date) -  new Date(a.date));
+    console.log("Monthly Data", monthlyData);
+    const dataPoints = [];
+    for (let i = 0; i < 4; i++) {
+        dataPoints.push(monthlyData[i]);
+    }
+
+    console.log(dataPoints);
+    return dataPoints;
 }
 
 async function getPieChartData() {
@@ -77,14 +89,24 @@ async function getPieChartData() {
 }
 
 async function getMonthlyChartOption() {
-    const monthlyData = await getMonthlyChartData();
+    const monthlyDataPoints = await getMonthlyChartData();
+
+    //Process Data Points
+    const monthlyData = [];
+    const months = [];
+    monthlyDataPoints.forEach((e)=>{
+        const eDate = new Date(e.date);
+        monthlyData.push(e.value);
+        months.push(eDate.toLocaleString('default', {month: 'short'}));
+    })
+
     const option = {
         tooltip: {
             trigger: 'axis',
         },
         xAxis: {
             type: 'category',
-            data: ['Week 1', 'Week 2', 'Week 3', 'Week 4'],
+            data: months,
         },
         yAxis: {
             type: 'value',
@@ -92,7 +114,7 @@ async function getMonthlyChartOption() {
         },
         series: [
             {
-                data: [monthlyData[0], monthlyData[1], monthlyData[2], monthlyData[3]],
+                data: monthlyData,
                 type: 'line',
                 smooth: true,
                 lineStyle: {
