@@ -69,6 +69,7 @@ async function getPieChartData() {
         lifestyleEmissions: Number(getLifestyleEmissions(userRecord)),
     };
 
+        console.log(JSON.stringify(chartData));
     return chartData;
 }
 
@@ -126,11 +127,11 @@ async function getPieChartOption() {
                 type: 'pie',
                 radius: '50%',
                 data: [
-                    {value: 10, name: 'Housing'},
-                    {value: 10, name: 'Vehicle'},
-                    {value: 10, name: 'Electricity'},
-                    {value: 10, name: 'Diet'},
-                    {value: 10, name: 'Lifestyle'},
+                    {value: chartData.housingEmissions, name: 'Housing'},
+                    {value: chartData.vehicleEmissions, name: 'Vehicle'},
+                    {value: chartData.electricityEmissions, name: 'Electricity'},
+                    {value: chartData.dietEmissions, name: 'Diet'},
+                    {value: chartData.lifestyleEmissions, name: 'Lifestyle'},
                 ],
                 emphasis: {
                     itemStyle: {
