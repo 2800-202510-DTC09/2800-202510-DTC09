@@ -40,14 +40,13 @@ import { Record } from '../../model/record.mjs';
 user.post('/', async (req, res) => {
     const saltRounds = 10;
     try {
+        // eslint-disable-next-line no-console
         const newUser = await new User({
             email: req.body.username,
             username: req.body.username,
             password: await hash(req.body.password, saltRounds),
         }).save();
-
-        await new Record({user: newUser.id});
-
+        
         res.status(status.OK).json(normalize(newUser).pop());
     } catch (e) {
         if (e.name === Error.ValidationError.name) {

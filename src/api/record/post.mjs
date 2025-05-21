@@ -1,8 +1,18 @@
+/* eslint-disable object-shorthand */
+/* eslint-disable no-plusplus */
+/* eslint-disable no-undefined */
+/* eslint-disable dot-notation */
+/* eslint-disable prettierPlugin/prettier */
+/* eslint-disable prefer-destructuring */
+/* eslint-disable camelcase */
+/* eslint-disable max-statements */
+/* eslint-disable max-lines-per-function */
 import {status} from 'http-status';
 import {Error, Mongoose} from 'mongoose';
 import {Record, normalize} from '../../model/record.mjs';
 import {record} from './index.mjs';
 import mongoose from 'mongoose';
+import { truncates } from 'bcryptjs';
 
 
 /**
@@ -79,7 +89,6 @@ record.post('/', async (req, res) => {
     const lifestyle_clothing_purchased_amount_unit = req.body["lifestyle_clothing_purchased_amount_unit"];
     const lifestyle_shipping_amount_unit = req.body["lifestyle_shipping_amount_unit"];
     
-    console.log("lifetime shipping amount " + req.body["lifetime_shipping_amount"]);
     const vehicles = [];
 
     for (let i = 1; i <= vehicle_amount; i++) {
@@ -101,8 +110,9 @@ record.post('/', async (req, res) => {
     };
 
     try {
-            const newRecord = await new Record({
-                    user: user,
+            const newRecord = await Record.findOneAndUpdate(
+                {user: user},
+                {$set: {
                     housing_people: housing_people,
                     housing_people_unit: housing_people_unit,
                     housing_natural_gas_amount: housing_natural_gas_amount,
@@ -138,7 +148,9 @@ record.post('/', async (req, res) => {
                     lifestyle_clothing_purchased_amount_unit: lifestyle_clothing_purchased_amount_unit,
                     lifestyle_shipping_amount: lifestyle_shipping_amount,
                     lifestyle_shipping_amount_unit: lifestyle_shipping_amount_unit
-                }).save()
+                }},
+                {new: true}
+            )
     } catch (e) {
         if (e.name === Error.ValidationError.name) {
         res.status(status.BAD_REQUEST).json(e.errors);
