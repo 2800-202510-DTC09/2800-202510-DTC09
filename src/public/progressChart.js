@@ -57,9 +57,20 @@ async function getUserRecord() {
     }
 }
 
-function getEnergyChartData() {
-    const data = [700, 600, 500, 400, 300, 200, 100];
-    return data;
+async function getEnergyChartData() {
+    const data = await getData();
+    const response = await fetch(`/api/monthly-data/?user=${data.user.id}`);
+    let monthlyDataObject = await response.json();
+    monthlyDataObject = monthlyDataObject[0]
+    const monthlyData = monthlyDataObject.data.filter(e=>e.label === "Electricity").sort((a,b)=> new Date(b.date) -  new Date(a.date));
+    console.log("Monthly Data", monthlyData);
+    const dataPoints = [];
+    for (let i = 0; i < 7; i++) {
+        dataPoints.push(monthlyData[i]);
+    }
+
+    console.log(dataPoints);
+    return dataPoints;
 }
 
 function getWaterChartData() {
@@ -87,15 +98,24 @@ async function getEmissionsChartData() {
     return chartData;
 }
 
-function getEnergyChartOption() {
-    const energyChartData = getEnergyChartData();
+async function getEnergyChartOption() {
+    const energyChartData = await getEnergyChartData();
+
+    //Process Data Points
+    const monthlyData = [];
+    const months = [];
+    energyChartData.forEach((e)=>{
+        const eDate = new Date(e.date);
+        monthlyData.push(e.value);
+        months.push(eDate.toLocaleString('default', {month: 'short'}));
+    })
     const option = {
         tooltip: {
             trigger: 'axis',
         },
         xAxis: {
             type: 'category',
-            data: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul'],
+            data: months,
         },
         yAxis: {
             type: 'value',
@@ -103,7 +123,7 @@ function getEnergyChartOption() {
         },
         series: [
             {
-                data: energyChartData,
+                data: monthlyData,
                 type: 'line',
                 smooth: true,
                 lineStyle: {
@@ -246,12 +266,12 @@ async function getEmissionsChartOption() {
     return option;
 }
 
-function main() {
+async function main() {
     document.addEventListener('DOMContentLoaded', async () => {
         const energyChart = echarts.init(
             document.getElementById('energyChart'),
         );
-        energyChart.setOption(getEnergyChartOption());
+        energyChart.setOption(await getEnergyChartOption());
 
         const waterChart = echarts.init(document.getElementById('waterChart'));
         waterChart.setOption(getWaterChartOption());
