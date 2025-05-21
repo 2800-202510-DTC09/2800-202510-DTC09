@@ -1,5 +1,6 @@
 import bcrypt from 'bcryptjs';
 import {User, normalize} from '../../model/user.mjs';
+import {Record} from '../../model/record.mjs'
 
 export async function handleSignupPost(req, res) {
     const {username, email, password} = req.body;
@@ -28,8 +29,8 @@ export async function handleSignupPost(req, res) {
                           }
                         : null,
             }).save(),
-        );
-
+        ).pop();
+        const newRecord = await new Record({user: newUser.id}).save();
         req.session.user = {
             id: newUser.id,
             username: newUser.username,
