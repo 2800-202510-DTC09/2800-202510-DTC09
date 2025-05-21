@@ -1,5 +1,68 @@
+import * as constants from "./climate-emissions-factors.mjs";
+
+function consoletest() {
+    console.log("Beef CO₂ per kg:", constants.beef_co2e_per_kg);
+    console.log("Lamb CO₂ per kg:", constants.lamb_co2e_per_kg);
+    console.log("Chicken CO₂ per kg:", constants.chicken_co2e_per_kg);
+    console.log("Pork CO₂ per kg:", constants.pork_co2e_per_kg);
+    console.log("Cheese CO₂ per kg:", constants.cheese_co2e_per_kg);
+    console.log("Milk CO₂ per L:", constants.milk_co2e_per_L);
+
+    console.log("Amazon shipping emissions per dollar:", constants.grams_of_co2e_emitted_per_dollar_on_amazon_shipping);
+
+    console.log("Electricity CO₂ per kWh:", constants.electricity_grams_of_co2e_per_kwh);
+
+    console.log("Domestic business class emissions per km:", constants.domestic_business_class_coefficient_per_km);
+    console.log("Domestic first class emissions per km:", constants.domestic_first_class_coefficent_per_km);
+    console.log("International business class emissions per km:", constants.international_business_class_coefficient_per_km);
+    console.log("International first class emissions per km:", constants.international_first_class_coefficient_per_km);
+
+    console.log("Clothing production emissions per kg:", constants.kg_of_co2e_produced_by_kg_of_clothing_production);
+
+    console.log("Natural gas emissions per kWh:", constants.housing_natural_gas_coefficient_per_kWh);
+    console.log("Heating oil emissions per kWh:", constants.housing_heating_oil_coefficient_per_kWh);
+    console.log("Coal emissions per kWh:", constants.housing_coal_coefficient_per_kWh);
+    console.log("Propane emissions per kWh:", constants.housing_propane_coefficient_per_kWh);
+
+    console.log("Natural gas emissions per cubic meter:", constants.housing_natural_gas_coefficient_per_meter_cubed);
+    console.log("Heating oil emissions per litre:", constants.housing_heating_oil_coefficient_per_litre);
+    console.log("Coal emissions per kg:", constants.housing_coal_coefficient_per_kg);
+    console.log("Propane emissions per litre:", constants.housing_propane_coefficient_per_litre);
+
+    console.log("Gasoline emissions per litre:", constants.vehicle_gasoline_coefficient_per_litre);
+    console.log("Diesel emissions per litre:", constants.vehicle_diesel_coefficient_per_litre);
+}
+
 export function getHousingEmissions(record) {
-    return 100;
+    let housingEmissions = 0;
+
+    if (record.housing_natural_gas_unit === "m³") {
+        housingEmissions += record.housing_natural_gas_amount * constants.housing_natural_gas_coefficient_per_meter_cubed;
+    } else if (record.housing_natural_gas_unit === "kWh") {
+        housingEmissions += record.housing_natural_gas_amount * constants.housing_natural_gas_coefficient_per_kWh;
+    }
+
+    if (record.housing_heating_oil_unit === "L") {
+        housingEmissions += record.housing_heating_oil_amount * constants.housing_heating_oil_coefficient_per_litre;
+    } else if (record.housing_natural_gas_unit === "kWh") {
+        housingEmissions += record.housing_heating_oil_amount * constants.housing_heating_oil_coefficient_per_kWh;
+    }
+
+    if (record.housing_coal_unit === "kg") {
+        housingEmissions += record.housing_coal_amount * constants.housing_coal_coefficient_per_kg;
+    } else if (record.housing_coal_unit === "kWh") {
+        housingEmissions += record.housing_coal_amount * constants.housing_coal_coefficient_per_kWh;
+    }
+
+    if (record.housing_propane_unit === "L") {
+        housingEmissions += record.housing_propane_amount * constants.housing_propane_coefficient_per_litre;
+    } else if (record.housing_propane_unit === "kWh") {
+        housingEmissions += record.housing_propane_amount * constants.housing_propane_coefficient_per_kWh;
+    }
+
+    housingEmissions /= record.housing_people;
+
+    return housingEmissions;
 }
 
 export function getVehicleEmissions(record) {
@@ -20,3 +83,18 @@ export function getDietEmissions(record) {
 export function getLifestyleEmissions(record) {
     return 10;
 }
+
+export function getAllEmissions(record) {
+    const emissions = {
+        housingEmissions: getHousingEmissions(record),
+        vehicleEmissions: getVehicleEmissions(record),
+        waterEmissions: getWaterEmissions(record),
+        electricityEmissions: getElectricityEmissions(record),
+        dietEmissions: getDietEmissions(record),
+        lifestyleEmissions: getLifestyleEmissions()
+    };
+
+    return emissions;
+}
+
+consoletest();
