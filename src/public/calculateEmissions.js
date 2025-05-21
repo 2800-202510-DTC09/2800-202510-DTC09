@@ -103,7 +103,29 @@ export function getElectricityEmissions(record) {
 }
 
 export function getDietEmissions(record) {
-    return 10;
+    let dietEmissions = 0;
+
+    if (record.diet_beef_unit === "kg") {
+        dietEmissions += record.diet_beef_amount * constants.beef_co2e_per_kg;
+    }
+
+    if (record.diet_pork_unit === "kg") {
+        dietEmissions += record.diet_pork_amount * constants.pork_co2e_per_kg;
+    }
+
+    if (record.diet_chicken_unit === "kg") {
+        dietEmissions += record.diet_chicken_amount * constants.chicken_co2e_per_kg;
+    }
+
+    if (record.diet_cheese_unit === "kg") {
+        dietEmissions += record.diet_cheese_amount * constants.cheese_co2e_per_kg;
+    }
+
+    if (record.diet_milk_unit === "L") {
+        dietEmissions = record.diet_milk_amount * constants.milk_co2e_per_L;
+    }
+
+    return dietEmissions;
 }
 export function getLifestyleEmissions(record) {
     return 10;
@@ -116,7 +138,7 @@ export function getAllEmissions(record) {
         waterEmissions: getWaterEmissions(record),
         electricityEmissions: getElectricityEmissions(record),
         dietEmissions: getDietEmissions(record),
-        lifestyleEmissions: getLifestyleEmissions()
+        lifestyleEmissions: getLifestyleEmissions(record),
     };
 
     return emissions;
