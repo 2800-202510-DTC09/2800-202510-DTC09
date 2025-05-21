@@ -4,6 +4,7 @@
  */
 
 import {
+    getAllEmissions,
     getDietEmissions,
     getElectricityEmissions,
     getHousingEmissions,
@@ -11,6 +12,7 @@ import {
     getVehicleEmissions,
     getWaterEmissions,
 } from './calculateEmissions.js';
+
 
 async function fetchUsers() {
     let response;
@@ -79,6 +81,7 @@ async function getEmissionsChartData() {
         electricityEmissions: Number(getElectricityEmissions(userRecord)),
         dietEmissions: Number(getDietEmissions(userRecord)),
         lifestyleEmissions: Number(getLifestyleEmissions(userRecord)),
+        totalEmissions: Number(getAllEmissions(userRecord)),
     };
 
     return chartData;
@@ -200,48 +203,42 @@ function getCarbonFootprintChartOption() {
 
 async function getEmissionsChartOption() {
     const emissionsChartData = await getEmissionsChartData();
+    console.log("Emission chart data:", emissionsChartData)
     const option = {
-        tooltip: {
-            trigger: 'item',
-            formatter: '{a} <br/>{b}: {c} ({d}%)',
+        dataset: {
+            source: [
+                ['emissions', 'amount', 'category'],
+                [emissionsChartData.housingEmissions, emissionsChartData.housingEmissions, 'Housing'],
+                [emissionsChartData.vehicleEmissions, emissionsChartData.vehicleEmissions, 'Vehicles'],
+                [emissionsChartData.electricityEmissions, emissionsChartData.electricityEmissions, 'Electricity'],
+                [emissionsChartData.dietEmissions, emissionsChartData.dietEmissions, 'Diet'],
+                [emissionsChartData.lifestyleEmissions, emissionsChartData.lifestyleEmissions, 'Lifestyle'],
+            ],
         },
-        legend: {
-            orient: 'vertical',
-            left: 10,
-            data: ['Energy', 'Water', 'Waste', 'Transport', 'Food'],
+        grid: {containLabel: true},
+        xAxis: {name: 'amount'},
+        yAxis: {type: 'category'},
+        visualMap: {
+            orient: 'horizontal',
+            left: 'center',
+            min: 0,
+            max: emissionsChartData.totalEmissions,
+            text: ['High Contribution', 'Low Contribution'],
+            // Map the score column to color
+            dimension: 0,
+            inRange: {
+                color: ['#00A32E', '#FFC400', '#E60026'],
+            },
         },
         series: [
             {
-                name: 'Sustainability Breakdown',
-                type: 'pie',
-                radius: ['50%', '70%'],
-                avoidLabelOverlap: false,
-                itemStyle: {
-                    borderRadius: 10,
-                    borderColor: '#fff',
-                    borderWidth: 2,
+                type: 'bar',
+                encode: {
+                    // Map the "amount" column to X axis.
+                    x: 'amount',
+                    // Map the "product" column to Y axis
+                    y: 'category',
                 },
-                label: {
-                    show: false,
-                    position: 'center',
-                },
-                emphasis: {
-                    label: {
-                        show: true,
-                        fontSize: '18',
-                        fontWeight: 'bold',
-                    },
-                },
-                labelLine: {
-                    show: false,
-                },
-                data: [
-                    {value: emissionsChartData.housingEmissions, name: 'Housing'},
-                    {value: emissionsChartData.vehicleEmissions, name: 'Vehicle'},
-                    {value: emissionsChartData.electricityEmissions, name: 'Electricity'},
-                    {value: emissionsChartData.dietEmissions, name: 'Diet'},
-                    {value: emissionsChartData.lifestyleEmissions, name: 'Lifestyle'},
-                ],
             },
         ],
     };
@@ -249,19 +246,22 @@ async function getEmissionsChartOption() {
     return option;
 }
 
-function main(){
-    // eslint-disable-next-line max-lines-per-function
+function main() {
     document.addEventListener('DOMContentLoaded', async () => {
-        const energyChart = echarts.init(document.getElementById('energyChart'));
+        const energyChart = echarts.init(
+            document.getElementById('energyChart'),
+        );
         energyChart.setOption(getEnergyChartOption());
 
         const waterChart = echarts.init(document.getElementById('waterChart'));
         waterChart.setOption(getWaterChartOption());
 
-        const carbonChart = echarts.init(document.getElementById('carbonChart'));
+        const carbonChart = echarts.init(
+            document.getElementById('carbonChart'),
+        );
         carbonChart.setOption(getCarbonFootprintChartOption());
 
-        const pieChart = echarts.init(document.getElementById('pieChart'));
+        const pieChart = echarts.init(document.getElementById('emissionChart'));
         pieChart.setOption(await getEmissionsChartOption());
 
         window.addEventListener('resize', () => {

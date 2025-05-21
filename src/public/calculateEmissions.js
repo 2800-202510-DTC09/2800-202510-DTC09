@@ -163,15 +163,13 @@ export function getLifestyleEmissions(record) {
 }
 
 export function getAllEmissions(record) {
-    const emissions = {
-        housingEmissions: getHousingEmissions(record),
-        vehicleEmissions: getVehicleEmissions(record),
-        waterEmissions: getWaterEmissions(record),
-        electricityEmissions: getElectricityEmissions(record),
-        dietEmissions: getDietEmissions(record),
-        lifestyleEmissions: getLifestyleEmissions(record),
-    };
-
+    let emissions = 0;
+    emissions += getHousingEmissions(record);
+    emissions += getVehicleEmissions(record);
+    emissions += getWaterEmissions(record);
+    emissions += getElectricityEmissions(record);
+    emissions += getDietEmissions(record);
+    emissions += getLifestyleEmissions(record);
     return emissions;
 }
 
