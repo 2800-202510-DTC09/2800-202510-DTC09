@@ -3,6 +3,7 @@ import {status} from 'http-status';
 import {Error} from 'mongoose';
 import {User, normalize} from '../../model/user.mjs';
 import {user} from './index.mjs';
+import { Record } from '../../model/record.mjs';
 
 /**
  * @openapi
@@ -39,15 +40,15 @@ import {user} from './index.mjs';
 user.post('/', async (req, res) => {
     const saltRounds = 10;
     try {
-        res.status(status.OK).json(
-            normalize(
-                await new User({
-                    email: req.body.username,
-                    username: req.body.username,
-                    password: await hash(req.body.password, saltRounds),
-                }).save(),
-            ).pop(),
-        );
+        const newUser = await new User({
+            email: req.body.username,
+            username: req.body.username,
+            password: await hash(req.body.password, saltRounds),
+        }).save();
+
+        await new Record({user: newUser.id});
+
+        res.status(status.OK).json(normalize(newUser).pop());
     } catch (e) {
         if (e.name === Error.ValidationError.name) {
             res.status(status.BAD_REQUEST).json(e.errors);
