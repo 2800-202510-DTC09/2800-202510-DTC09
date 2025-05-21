@@ -13,6 +13,15 @@ Use this command `pnpm i --frozen-lockfile` to install dependencies.
 Use this command `pnpm local` to start server locally.
 
 ## References
+Data used by the carbon emission estimator chatbot comes form:
+
+[EXIOBASE](https://www.exiobase.eu/index.php)
+
+[Misa Sato (2014)](https://www.lse.ac.uk/granthaminstitute/publication/product-level-embodied-carbon-flows-in-bilateral-trade-ecological-economics/)
+
+[Bovizta's Datavizta](https://github.com/Boavizta/datavizta)
+
+[Poore & Nemecek (2018)](https://pubmed.ncbi.nlm.nih.gov/29853680)
 
 ### Logo
 
