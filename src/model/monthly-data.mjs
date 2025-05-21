@@ -12,14 +12,13 @@ export const MonthlyData = model(
                 required: true,
                 autopopulate: true,
             },
-            emissions: [
+            data: [
                 {
                     label: {type: String, required: true},
                     value: {type: Number, required: true},
+                    date: {type: Date, required: true},
                 },
             ],
-            month: {type: Number, required: true},
-            year: {type: Number, required: true},
         },
         {timestamps: true},
     )
