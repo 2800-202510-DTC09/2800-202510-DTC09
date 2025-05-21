@@ -36,7 +36,7 @@ async function getData() {
 async function getUserRecord() {
     const data = await getData();
     try {
-        const response = await fetch(`/api/record?id=${data.user.id}`, {
+        const response = await fetch(`/api/record/${data.user.id}`, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',

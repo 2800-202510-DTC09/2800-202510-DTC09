@@ -1,3 +1,4 @@
+/* eslint-disable max-statements */
 // Change input background color when updated
 function changeInputColor(event) {
     if (event.target.value !== '') {

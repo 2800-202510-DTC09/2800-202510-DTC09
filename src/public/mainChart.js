@@ -34,8 +34,9 @@ async function getData() {
 
 async function getUserRecord() {
     const data = await getData();
+    console.log(data.user.id)
     try {
-        const response = await fetch(`/api/record?id=${data.user.id}`, {
+        const response = await fetch(`/api/record/${data.user.id}`, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
@@ -46,7 +47,8 @@ async function getUserRecord() {
             throw new Error(`HTTP error! Status: ${response.status}`);
         }
 
-        const record = await response.json();
+        let record = await response.json();
+        console.log("record", record)
         return record;
     } catch (error) {
         console.error('Error fetching record:', error);
@@ -60,6 +62,7 @@ async function getMonthlyChartData() {
 
 async function getPieChartData() {
     const userRecord = await getUserRecord();
+    console.log("User record", userRecord)
     const chartData = {
         housingEmissions: Number(getHousingEmissions(userRecord)),
         vehicleEmissions: Number(getVehicleEmissions(userRecord)),
