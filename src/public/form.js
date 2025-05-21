@@ -595,7 +595,7 @@ function loadHousingSection(parent) {
         'housing_natural_gas_amount',
         'How much natural gas do you use to heat your house each month?:',
         'number',
-        ['L', 'kWh'],
+        ['m³', 'kWh'],
     );
     heatingOilInput = generateSectionInput(
         housingDiv,

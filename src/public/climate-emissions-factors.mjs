@@ -24,10 +24,25 @@ export const electricity_grams_of_co2e_per_kwh = 12.3;
 // https://assets.publishing.service.gov.uk/media/66a9fe4ca3c2a28abb50da4a/2024-greenhouse-gas-conversion-factors-methodology.pdf
 export const domestic_business_class_coefficient_per_km = 280.96;
 export const domestic_first_class_coefficent_per_km = 700.0;
-export const international_business_class_coefficient_per_km = 594.24
+export const international_business_class_coefficient_per_km = 594.24;
 export const international_first_class_coefficient_per_km = 819.61;
 
 // Clothing
 // Data from:
 // https://createfashionbrand.com/carbon-footprint/
 export const kg_of_co2e_produced_by_kg_of_clothing_production = 22.0;
+
+//Home Heating
+export const housing_natural_gas_coefficient_per_kWh = 0.214;
+export const housing_heating_oil_coefficient_per_kWh = 0.253;
+export const housing_coal_coefficient_per_kWh = 0.328;
+export const housing_propane_coefficient_per_kWh = 0.214;
+
+export const housing_natural_gas_coefficient_per_meter_cubed = 1.947;
+export const housing_heating_oil_coefficient_per_litre = 2.68;
+export const housing_coal_coefficient_per_kg = 1.93;
+export const housing_propane_coefficient_per_litre = 1.58;
+
+//Vehicles
+export const vehicle_gasoline_coefficient_per_litre = 2.3;
+export const vehicle_diesel_coefficient_per_litre = 2.6;
