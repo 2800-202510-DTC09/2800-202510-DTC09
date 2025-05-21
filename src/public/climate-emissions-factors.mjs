@@ -46,3 +46,4 @@ export const housing_propane_coefficient_per_litre = 1.58;
 //Vehicles
 export const vehicle_gasoline_coefficient_per_litre = 2.3;
 export const vehicle_diesel_coefficient_per_litre = 2.6;
+export const vehicle_charging_coefficent_per_dollar = 0;

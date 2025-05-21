@@ -66,7 +66,20 @@ export function getHousingEmissions(record) {
 }
 
 export function getVehicleEmissions(record) {
-    return 10;
+    let vehicleEmissions = 0;
+
+    for (let i = 0; i < record.vehicle_amount; i++) {
+        const vehicle = record.vehicles[i];
+        if (vehicle.vehicle_type === "Gas") {
+            vehicleEmissions += vehicle.vehicle_distance * vehicle.vehicle_fuel_efficiency * constants.vehicle_gasoline_coefficient_per_litre / 100;
+        } else if (vehicle.vehicle_type === "Diesel") {
+            vehicleEmissions += vehicle.vehicle_distance * vehicle.vehicle_fuel_efficiency * constants.vehicle_diesel_coefficient_per_litre / 100;
+        } else if (vehicle.vehicles_type === "Electric") {
+            vehicleEmissions += vehicle_charging * constants.vehicle_charging_coefficent_per_dollar / 100;
+        }
+    }
+
+    return vehicleEmissions;
 }
 
 export function getWaterEmissions(record) {
