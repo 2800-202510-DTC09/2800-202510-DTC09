@@ -83,7 +83,13 @@ export function getVehicleEmissions(record) {
 }
 
 export function getWaterEmissions(record) {
-    return 10;
+    let waterEmissions = 0;
+
+    if (record.water_amount_unit === "m³") {
+        waterEmissions += record.water_amount * constants.water_coefficient_per_mcubed;
+    }
+
+    return waterEmissions;
 }
 
 export function getElectricityEmissions(record) {
