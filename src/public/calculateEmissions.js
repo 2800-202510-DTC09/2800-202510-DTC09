@@ -93,7 +93,13 @@ export function getWaterEmissions(record) {
 }
 
 export function getElectricityEmissions(record) {
-    return 10;
+    let electricityEmissions = 0;
+
+    if (record.electricity_amount_unit === "kWh") {
+        electricityEmissions += record.electricity_amount * constants.electricity_grams_of_co2e_per_kwh / 1000;
+    }
+
+    return electricityEmissions;
 }
 
 export function getDietEmissions(record) {
