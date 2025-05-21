@@ -23,7 +23,7 @@ export const electricity_grams_of_co2e_per_kwh = 12.3;
 // Data from:
 // https://assets.publishing.service.gov.uk/media/66a9fe4ca3c2a28abb50da4a/2024-greenhouse-gas-conversion-factors-methodology.pdf
 export const domestic_business_class_coefficient_per_km = 280.96;
-export const domestic_first_class_coefficent_per_km = 700.0;
+export const domestic_first_class_coefficient_per_km = 700.0;
 export const international_business_class_coefficient_per_km = 594.24;
 export const international_first_class_coefficient_per_km = 819.61;
 

@@ -225,9 +225,9 @@ function loadLifestyleSection(parent) {
     shippingInput = generateSectionInput(
         lifestyleContent,
         'lifestyle_shipping_amount',
-        'How many times is something shipped to your house each month?:',
+        'How much is something shipped to your house each month?:',
         'number',
-        ['packages'],
+        ['$'],
     );
 
     // Add children to lifestyle content

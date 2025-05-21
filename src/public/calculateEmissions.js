@@ -128,7 +128,35 @@ export function getDietEmissions(record) {
     return dietEmissions;
 }
 export function getLifestyleEmissions(record) {
-    return 10;
+    let lifestyleEmissions = 0;
+
+    if (record.lifestyle_flights_class === "Business") {
+        if (record.lifestyle_domestic_flights_distance_unit === "km") {
+            lifestyleEmissions += record.lifestyle_domestic_flights_distance_unit * constants.domestic_business_class_coefficient_per_km;
+        }
+
+        if (record.lifestyle_international_flights_distance_unit === "km") {
+            lifestyleEmissions += record.lifestyle_international_flights_distance * constants.international_business_class_coefficient_per_km;
+        }
+    } else if (record.lifestyle_flights_class === "First Class") {
+        if (record.lifestyle_domestic_flights_distance_unit === "km") {
+            lifestyleEmissions += record.lifestyle_domestic_flights_distance_unit * constants.domestic_first_class_coefficient_per_km;
+        }
+
+        if (record.lifestyle_international_flights_distance_unit === "km") {
+            lifestyleEmissions += record.lifestyle_international_flights_distance * constants.international_first_class_coefficient_per_km;
+        }
+    }
+
+    if (record.lifestyle_clothing_purchased_amount_unit === "kg") {
+        lifestyleEmissions += record.lifestyle_clothing_purchased_amount * constants.kg_of_co2e_produced_by_kg_of_clothing_production;
+    }
+
+    if (record.lifestyle_shipping_amount_unit === "$") {
+        lifestyleEmissions += record.lifestyle_shipping_amount * constants.grams_of_co2e_emitted_per_dollar_on_amazon_shipping / 1000;
+    }
+
+    return lifestyleEmissions;
 }
 
 export function getAllEmissions(record) {
