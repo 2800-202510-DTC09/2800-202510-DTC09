@@ -19,6 +19,7 @@
         "mongoose-autopopulate": "^1.1.0",
         "mongoose-unique-validator": "^4.0.1",
         "multer": "^2.0.0",
+        "nodemailer": "^7.0.3",
         "openai": "^4.98.0",
         "swagger-jsdoc": "^6.2.8",
         "swagger-ui-express": "^5.0.1"
