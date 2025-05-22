@@ -208,7 +208,7 @@ function loadLifestyleSection(parent, record) {
     domesticFlightInput = generateSectionInput(
         lifestyleContent,
         'lifestyle_domestic_flights_distance',
-        'How much have you flown on domestic flights this year?:',
+        'How much have you flown on domestic flights this month?:',
         'number',
         ['km'],
         record,
@@ -216,7 +216,7 @@ function loadLifestyleSection(parent, record) {
     internationalFlightInput = generateSectionInput(
         lifestyleContent,
         'lifestyle_international_flights_distance',
-        'How much have you flown on international flights this year?:',
+        'How much have you flown on international flights this month?:',
         'number',
         ['km'],
         record,
@@ -232,7 +232,7 @@ function loadLifestyleSection(parent, record) {
     clothingInput = generateSectionInput(
         lifestyleContent,
         'lifestyle_clothing_purchased_amount',
-        'How much clothing do you buy in a year?:',
+        'How much clothing do you buy in a month?:',
         'number',
         ['kg'],
         record,
@@ -423,7 +423,7 @@ function reloadVehicleInputs(event, vehicleNumber, record) {
         chargeInput = generateSectionInput(
             vehicleInputContainer,
             `vehicle-${vehicleNumber}-charge-amount`,
-            'How much do you spend at charging stations each week?:',
+            'How much do you spend at charging stations each month?:',
             'number',
             ['$'],
         );
@@ -455,7 +455,7 @@ function reloadVehicleInputs(event, vehicleNumber, record) {
         vehicleDistanceInput = generateSectionInput(
             vehicleInputsDiv,
             `vehicle-${vehicleNumber}-distance`,
-            'How far do you drive your vehicle each week?:',
+            'How far do you drive your vehicle each month?:',
             'number',
             ['km'],
         );
@@ -513,7 +513,7 @@ function loadVehicle(vehicleNumber, record) {
         chargeInput = generateSectionInput(
             vehicleInputsDiv,
             `vehicle-${vehicleNumber}-charge-amount`,
-            'How much do you spend at charging stations each week?:',
+            'How much do you spend at charging stations each month?:',
             'number',
             ['$'],
         );
@@ -545,7 +545,7 @@ function loadVehicle(vehicleNumber, record) {
         vehicleDistanceInput = generateSectionInput(
             vehicleInputsDiv,
             `vehicle-${vehicleNumber}-distance`,
-            'How far do you drive your vehicle each week?:',
+            'How far do you drive your vehicle each month?:',
             'number',
             ['km'],
         );
