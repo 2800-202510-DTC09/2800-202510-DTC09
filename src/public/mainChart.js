@@ -145,6 +145,10 @@ async function getMonthlyChartOption() {
 async function getPieChartOption() {
     const chartData = await getPieChartData();
     const option = {
+        title: {
+            subtext: 'kgCO2',
+            left: 'center',
+        },
         tooltip: {
             trigger: 'item',
         },
