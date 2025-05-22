@@ -1,3 +1,4 @@
+/* eslint-disable max-lines-per-function */
 /* eslint-disable max-lines */
 /* eslint-disable max-statements */
 // Change input background color when updated
@@ -51,7 +52,9 @@ function generateSectionSelect(
         select.appendChild(option);
     });
 
-    select.setAttribute('value', record[selectName])
+    if (!selectName.includes('vehicle')) {
+        select.setAttribute('value', record[selectName])
+    }
 
     // Add children to selectDiv
     selectDiv.appendChild(label);
@@ -86,7 +89,9 @@ function generateSectionInput(parent, inputName, labelText, inputType, units, re
     sectionInput.addEventListener('change', (event) => {
         changeInputColor(event);
     });
-    sectionInput.setAttribute('value', record[inputName]);
+    if(!inputName.includes('vehicle')) {
+        sectionInput.setAttribute('value', record[inputName]);
+    }
 
     // Set up section label
     sectionLabel.classList.add('form-label');
@@ -406,7 +411,7 @@ function loadElectricitySection(parent, record) {
 }
 
 // Reload a vehicle's input if type changes
-function reloadVehicleInputs(event, vehicleNumber) {
+function reloadVehicleInputs(event, vehicleNumber, record) {
     // Get vehicle input container
     vehicleInputContainer = document.getElementById(
         `form-vehicle-section-vehicle-${vehicleNumber}-inputs-div`,
@@ -422,6 +427,13 @@ function reloadVehicleInputs(event, vehicleNumber) {
             'number',
             ['$'],
         );
+
+        if (record.vehicle_amount >= vehicleNumber) {
+            chargeInput.children[1].children[0].value = record.vehicles[vehicleNumber-1].vehicle_charging;
+        } else {
+            chargeInput.children[1].children[0].value = 0;
+        }
+
         vehicleInputContainer.appendChild(chargeInput);
     } else {
         // Add non-electric vehicle inputs
@@ -432,6 +444,14 @@ function reloadVehicleInputs(event, vehicleNumber) {
             'number',
             ['L/100km'],
         );
+
+        if (record.vehicle_amount >= vehicleNumber) {
+            console.log(vehicleEfficiencyInput.children[1])
+            vehicleEfficiencyInput.children[1].children[0].value = record.vehicles[vehicleNumber-1].vehicle_fuel_efficiency;
+        } else {
+            vehicleEfficiencyInput.children[1].children[0].value = 0;
+        }
+
         vehicleDistanceInput = generateSectionInput(
             vehicleInputsDiv,
             `vehicle-${vehicleNumber}-distance`,
@@ -439,13 +459,19 @@ function reloadVehicleInputs(event, vehicleNumber) {
             'number',
             ['km'],
         );
+
+        if (record.vehicle_amount >= vehicleNumber) {
+            vehicleDistanceInput.children[1].children[0].value = record.vehicles[vehicleNumber-1].vehicle_distance;
+        } else {
+            vehicleDistanceInput.children[1].children[0].value = 0;
+        }
         vehicleInputContainer.appendChild(vehicleEfficiencyInput);
         vehicleInputContainer.appendChild(vehicleDistanceInput);
     }
 }
 
 // Load one vehicle
-function loadVehicle(vehicleNumber) {
+function loadVehicle(vehicleNumber, record) {
     // Create elements
     vehicleDiv = document.createElement('div');
     vehicleName = document.createElement('p');
@@ -473,31 +499,66 @@ function loadVehicle(vehicleNumber) {
         ['Gas', 'Diesel', 'Electric'],
     );
 
+    if (record.vehicle_amount >= vehicleNumber) {
+        vehicleTypeSelect.children[1].value = record.vehicles[vehicleNumber-1].vehicle_type;
+    }
+
     // Add event listener to vehicle type select
     vehicleTypeSelect.addEventListener('change', (event) => {
-        reloadVehicleInputs(event, vehicleNumber);
+        reloadVehicleInputs(event, vehicleNumber, record);
     });
 
-    // Set up vehicle inputs
-    vehicleEfficiencyInput = generateSectionInput(
-        vehicleInputsDiv,
-        `vehicle-${vehicleNumber}-efficiency`,
-        "What is the vehicle's fuel efficiency?:",
-        'number',
-        ['L/100km'],
-    );
-    vehicleDistanceInput = generateSectionInput(
-        vehicleInputsDiv,
-        `vehicle-${vehicleNumber}-distance`,
-        'How far do you drive your vehicle each week?:',
-        'number',
-        ['km'],
-    );
+    if (vehicleTypeSelect.children[1].value == 'Electric') {
+        // Add electric vehicle inputs
+        chargeInput = generateSectionInput(
+            vehicleInputsDiv,
+            `vehicle-${vehicleNumber}-charge-amount`,
+            'How much do you spend at charging stations each week?:',
+            'number',
+            ['$'],
+        );
 
-    // Add inputs to vehicleInputsDiv
-    vehicleInputsDiv.appendChild(vehicleEfficiencyInput);
-    vehicleInputsDiv.appendChild(vehicleDistanceInput);
+        if (record.vehicle_amount >= vehicleNumber) {
+            chargeInput.children[1].children[0].value = record.vehicles[vehicleNumber-1].vehicle_charging;
+        } else {
+            chargeInput.children[1].children[0].value = 0;
+        }
 
+        vehicleInputsDiv.appendChild(chargeInput);
+    } else {
+        // Add non-electric vehicle inputs
+        vehicleEfficiencyInput = generateSectionInput(
+            vehicleInputsDiv,
+            `vehicle-${vehicleNumber}-efficiency`,
+            "What is the vehicle's fuel efficiency?:",
+            'number',
+            ['L/100km'],
+        );
+
+        if (record.vehicle_amount >= vehicleNumber) {
+            console.log(vehicleEfficiencyInput.children[1])
+            vehicleEfficiencyInput.children[1].children[0].value = record.vehicles[vehicleNumber-1].vehicle_fuel_efficiency;
+        } else {
+            vehicleEfficiencyInput.children[1].children[0].value = 0;
+        }
+
+        vehicleDistanceInput = generateSectionInput(
+            vehicleInputsDiv,
+            `vehicle-${vehicleNumber}-distance`,
+            'How far do you drive your vehicle each week?:',
+            'number',
+            ['km'],
+        );
+
+        if (record.vehicle_amount >= vehicleNumber) {
+            vehicleDistanceInput.children[1].children[0].value = record.vehicles[vehicleNumber-1].vehicle_distance;
+        } else {
+            vehicleDistanceInput.children[1].children[0].value = 0;
+        }
+
+        vehicleInputsDiv.appendChild(vehicleEfficiencyInput);
+        vehicleInputsDiv.appendChild(vehicleDistanceInput);
+    }
     // Add children to vehicleDiv
     vehicleDiv.appendChild(vehicleName);
     vehicleDiv.appendChild(vehicleTypeSelect);
@@ -508,7 +569,7 @@ function loadVehicle(vehicleNumber) {
 }
 
 // Load individual vehicle inputs
-function loadVehicleInputs(event, parent) {
+function loadVehicleInputs(event, parent, record) {
     // Get the parent and clear its innner HTML
     parent.innerHTML = '';
 
@@ -517,13 +578,13 @@ function loadVehicleInputs(event, parent) {
 
     // Load each vehicle
     for (let i = 1; i <= number; i++) {
-        vehicle = loadVehicle(i);
+        vehicle = loadVehicle(i, record);
         parent.append(vehicle);
     }
 }
 
 // Load vehicle section of the form
-function loadVehicleSection(parent) {
+function loadVehicleSection(parent, record) {
     // Create elements
     vehicleDiv = document.createElement('div');
     vehicleContainer = document.createElement('div');
@@ -559,7 +620,7 @@ function loadVehicleSection(parent) {
     vehicleNumberSelection.id = 'vehicle-number-select';
     vehicleNumberSelection.setAttribute('name', 'vehicle_amount');
     vehicleNumberSelection.addEventListener('change', () =>
-        loadVehicleInputs(vehicleNumberSelection, vehicleContainer),
+        loadVehicleInputs(vehicleNumberSelection, vehicleContainer, record),
     );
 
     // Add options for vehicle number selection
@@ -570,6 +631,9 @@ function loadVehicleSection(parent) {
         option.setAttribute('value', i);
         option.textContent = i;
         vehicleNumberSelection.appendChild(option);
+        if (record.vehicle_amount == option.value) {
+            option.selected = true;
+        }
     }
 
     // Append children into vehicleNumberDiv
@@ -582,6 +646,8 @@ function loadVehicleSection(parent) {
 
     // Append vehicleNumberDiv to parent
     parent.appendChild(vehicleDiv);
+
+    loadVehicleInputs(vehicleNumberSelection, vehicleContainer, record);
 }
 
 // Load housing section for form
@@ -770,7 +836,7 @@ async function loadForm() {
     contentDiv.innerHTML = '';
     formElement.appendChild(hiddenInput);
     loadHousingSection(formElement, record);
-    loadVehicleSection(formElement);
+    loadVehicleSection(formElement, record);
     loadElectricitySection(formElement, record);
     loadWaterSection(formElement, record);
     loadDietSection(formElement, record);
