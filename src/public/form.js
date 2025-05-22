@@ -1,3 +1,4 @@
+/* eslint-disable max-lines */
 /* eslint-disable max-statements */
 // Change input background color when updated
 function changeInputColor(event) {
@@ -18,6 +19,7 @@ function generateSectionSelect(
     selectionType,
     labelText,
     options,
+    record,
 ) {
     // Create elements
     selectDiv = document.createElement('div');
@@ -49,6 +51,8 @@ function generateSectionSelect(
         select.appendChild(option);
     });
 
+    select.setAttribute('value', record[selectName])
+
     // Add children to selectDiv
     selectDiv.appendChild(label);
     selectDiv.appendChild(select);
@@ -57,7 +61,7 @@ function generateSectionSelect(
     return selectDiv;
 }
 
-function generateSectionInput(parent, inputName, labelText, inputType, units) {
+function generateSectionInput(parent, inputName, labelText, inputType, units, record) {
     // Create elements
     sectionDiv = document.createElement('div');
     sectionInputDiv = document.createElement('div');
@@ -82,6 +86,7 @@ function generateSectionInput(parent, inputName, labelText, inputType, units) {
     sectionInput.addEventListener('change', (event) => {
         changeInputColor(event);
     });
+    sectionInput.setAttribute('value', record[inputName]);
 
     // Set up section label
     sectionLabel.classList.add('form-label');
@@ -173,7 +178,7 @@ function generateSectionHeader(parent, headerText, headerIcon, toolTipText) {
 }
 
 // Load Lifestyle section
-function loadLifestyleSection(parent) {
+function loadLifestyleSection(parent, record) {
     // Create elements
     lifestyleDiv = document.createElement('div');
     lifestyleContent = document.createElement('div');
@@ -201,6 +206,7 @@ function loadLifestyleSection(parent) {
         'How much have you flown on domestic flights this year?:',
         'number',
         ['km'],
+        record,
     );
     internationalFlightInput = generateSectionInput(
         lifestyleContent,
@@ -208,6 +214,7 @@ function loadLifestyleSection(parent) {
         'How much have you flown on international flights this year?:',
         'number',
         ['km'],
+        record,
     );
     flightClassInput = generateSectionSelect(
         lifestyleContent,
@@ -215,6 +222,7 @@ function loadLifestyleSection(parent) {
         'form-select-large',
         'What class do you usually fly in?:',
         ['Business', 'First Class'],
+        record,
     );
     clothingInput = generateSectionInput(
         lifestyleContent,
@@ -222,6 +230,7 @@ function loadLifestyleSection(parent) {
         'How much clothing do you buy in a year?:',
         'number',
         ['kg'],
+        record,
     );
     shippingInput = generateSectionInput(
         lifestyleContent,
@@ -229,6 +238,7 @@ function loadLifestyleSection(parent) {
         'How much is something shipped to your house each month?:',
         'number',
         ['$'],
+        record,
     );
 
     // Add children to lifestyle content
@@ -247,7 +257,7 @@ function loadLifestyleSection(parent) {
 }
 
 // Load diet section
-function loadDietSection(parent) {
+function loadDietSection(parent, record) {
     // Create elements
     dietDiv = document.createElement('div');
     dietContent = document.createElement('div');
@@ -275,6 +285,7 @@ function loadDietSection(parent) {
         'How much beef do you eat in a month?:',
         'number',
         ['kg'],
+        record,
     );
     porkInput = generateSectionInput(
         dietContent,
@@ -282,6 +293,7 @@ function loadDietSection(parent) {
         'How much pork do you eat in a month?:',
         'number',
         ['kg'],
+        record,
     );
     chickenInput = generateSectionInput(
         dietContent,
@@ -289,6 +301,7 @@ function loadDietSection(parent) {
         'How much chicken do you eat in a month?:',
         'number',
         ['kg'],
+        record,
     );
     cheeseInput = generateSectionInput(
         dietContent,
@@ -296,6 +309,7 @@ function loadDietSection(parent) {
         'How much cheese do you eat in a month?:',
         'number',
         ['kg'],
+        record,
     );
     milkInput = generateSectionInput(
         dietContent,
@@ -303,6 +317,7 @@ function loadDietSection(parent) {
         'How much milk do you drink in a month?:',
         'number',
         ['kg'],
+        record,
     );
 
     // Add inputs to diet content
@@ -321,7 +336,7 @@ function loadDietSection(parent) {
 }
 
 // Load water section
-function loadWaterSection(parent) {
+function loadWaterSection(parent, record) {
     // Create elements
     waterDiv = document.createElement('div');
 
@@ -344,6 +359,7 @@ function loadWaterSection(parent) {
         'How much water do you use each month?:',
         'number',
         ['m³', 'L'],
+        record,
     );
 
     // Add children to electricity section
@@ -355,7 +371,7 @@ function loadWaterSection(parent) {
 }
 
 // Load electricity section
-function loadElectricitySection(parent) {
+function loadElectricitySection(parent, record) {
     // Create elements
     electricityDiv = document.createElement('div');
 
@@ -378,6 +394,7 @@ function loadElectricitySection(parent) {
         'How much electricity do you use each month?:',
         'number',
         ['kWh'],
+        record,
     );
 
     // Add children to electricity section
@@ -568,7 +585,7 @@ function loadVehicleSection(parent) {
 }
 
 // Load housing section for form
-function loadHousingSection(parent) {
+function loadHousingSection(parent, record) {
     // Create and get all elements
     housingDiv = document.createElement('div');
     housingDiv.classList.add('form-housing-div');
@@ -578,7 +595,7 @@ function loadHousingSection(parent) {
         housingDiv,
         'Housing',
         'home',
-        'This section calculates how much you emit by heating your home. For each heating source, you can enter the amount you use or the kWh of power you get from that source.',
+        'This section calculates how much you emit by heating your home. For each heating source, you can enter the amount you use or the kWh of power you get from that source.'
     );
     housingDiv.appendChild(housingText);
 
@@ -589,6 +606,7 @@ function loadHousingSection(parent) {
         'How many people live in your house?',
         'number',
         ['people'],
+        record,
     )
 
     naturalGasInput = generateSectionInput(
@@ -597,6 +615,7 @@ function loadHousingSection(parent) {
         'How much natural gas do you use to heat your house each month?:',
         'number',
         ['m³', 'kWh'],
+        record,
     );
     heatingOilInput = generateSectionInput(
         housingDiv,
@@ -604,6 +623,7 @@ function loadHousingSection(parent) {
         'How much heating oil do you use to heat your house each month?:',
         'number',
         ['L', 'kWh'],
+        record,
     );
     propaneInput = generateSectionInput(
         housingDiv,
@@ -611,6 +631,7 @@ function loadHousingSection(parent) {
         'How much propane do you use to heat your house each month?:',
         'number',
         ['L', 'kWh'],
+        record,
     );
     coalInput = generateSectionInput(
         housingDiv,
@@ -618,6 +639,7 @@ function loadHousingSection(parent) {
         'How much coal do you use to heat your house each month?:',
         'number',
         ['kg', 'kWh'],
+        record,
     );
 
     // Append inputs to housing div
@@ -719,11 +741,12 @@ function loadSaveButton(parent, formElement) {
 
 // Load the form
 async function loadForm() {
+
     contentDiv = document.getElementsByClassName('form-content')[0];
     formElement = document.createElement('form');
     formElement.classList.add('form-element');
-   formElement.setAttribute('action', "/api/record/");
-   formElement.setAttribute('method', "POST");
+    formElement.setAttribute('action', "/api/record/");
+     formElement.setAttribute('method', "POST");
     hiddenInput = document.createElement("input");
 
     try {
@@ -731,6 +754,8 @@ async function loadForm() {
     if (!response.ok) throw new Error('Failed to fetch user data');
 
     const data = await response.json();
+    const recordResponse = await fetch(`/api/record/${data.user.id}`);
+    const record = await recordResponse.json()
     console.log(data);
     if (!data?.user?.username) throw new Error("Username not found in response");
 
@@ -741,22 +766,20 @@ async function loadForm() {
     hiddenInput.value = data.user.id;
 
     formElement.appendChild(hiddenInput);
-    } catch (error) {
-        console.error("Error fetching username:", error);
-    }
-    
-
 
     contentDiv.innerHTML = '';
     formElement.appendChild(hiddenInput);
-    loadHousingSection(formElement);
+    loadHousingSection(formElement, record);
     loadVehicleSection(formElement);
-    loadElectricitySection(formElement);
-    loadWaterSection(formElement);
-    loadDietSection(formElement);
-    loadLifestyleSection(formElement);
+    loadElectricitySection(formElement, record);
+    loadWaterSection(formElement, record);
+    loadDietSection(formElement, record);
+    loadLifestyleSection(formElement,record );
     loadSaveButton(formElement);
     contentDiv.appendChild(formElement);
+    } catch (error) {
+        console.error("Error fetching username:", error);
+    }
 }
 
 // Load get started box
