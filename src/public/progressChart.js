@@ -282,7 +282,7 @@ async function getCarbonFootprintChartOption() {
 
 async function getEmissionsChartOption() {
     const emissionsChartData = await getEmissionsChartData();
-    console.log("Emission chart data:", emissionsChartData)
+    console.log("Emission chart data:", emissionsChartData);
     const option = {
         dataset: {
             source: [

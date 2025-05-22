@@ -72,10 +72,10 @@ record.post('/', async (req, res) => {
     const lifestyle_shipping_amount = Number(req.body["lifestyle_shipping_amount"]);
 
     const housing_people_unit = req.body["housing_people_unit"];
-    const housing_natural_gas_unit = req.body["housing_natural_gas_unit"];
-    const housing_heating_oil_unit = req.body["housing_heating_oil_unit"];
-    const housing_propane_unit = req.body["housing_propane_unit"];
-    const housing_coal_unit = req.body["housing_coal_unit"];
+    const housing_natural_gas_unit = req.body["housing_natural_gas_amount_unit"];
+    const housing_heating_oil_unit = req.body["housing_heating_oil_amount_unit"];
+    const housing_propane_unit = req.body["housing_propane_amount_unit"];
+    const housing_coal_unit = req.body["housing_coal_amount_unit"];
     const electricity_amount_unit = req.body["electricity_amount_unit"];
     const water_amount_unit = req.body["water_amount_unit"];
     const diet_beef_unit = req.body["diet_beef_unit"];
