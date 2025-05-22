@@ -798,7 +798,7 @@ function loadGetStarted() {
 
 // Main function. Executes once forms.html loads
 function main() {
-    loadGetStarted();
+    loadForm();
 }
 
 // Call main function
