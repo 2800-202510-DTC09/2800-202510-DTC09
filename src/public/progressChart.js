@@ -57,19 +57,65 @@ async function getUserRecord() {
     }
 }
 
-function getEnergyChartData() {
-    const data = [700, 600, 500, 400, 300, 200, 100];
-    return data;
+async function getEnergyChartData() {
+    const data = await getData();
+    const response = await fetch(`/api/monthly-data/?user=${data.user.id}`);
+    let monthlyDataObject = await response.json();
+    monthlyDataObject = monthlyDataObject[0]
+    const monthlyData = monthlyDataObject.data.filter(e=>e.label === "Electricity").sort((a,b)=> new Date(b.date) -  new Date(a.date));
+    console.log("Monthly Data", monthlyData);
+    const dataPoints = [];
+
+    if (monthlyData.length < 7) {
+        return monthlyData;
+    }
+
+    for (let i = 0; i < 7; i++) {
+        dataPoints.push(monthlyData[i]);
+    }
+
+    console.log(dataPoints);
+    return dataPoints;
 }
 
-function getWaterChartData() {
-    const data = [700, 600, 500, 400, 300, 200, 100];
-    return data;
+async function getWaterChartData() {
+    const data = await getData();
+    const response = await fetch(`/api/monthly-data/?user=${data.user.id}`);
+    let monthlyDataObject = await response.json();
+    monthlyDataObject = monthlyDataObject[0]
+    const monthlyData = monthlyDataObject.data.filter(e=>e.label === "Water").sort((a,b)=> new Date(b.date) -  new Date(a.date));
+    console.log("Monthly Data", monthlyData);
+    const dataPoints = [];
+    if (monthlyData.length < 7) {
+        return monthlyData;
+    }
+    
+    for (let i = 0; i < 7; i++) {
+        dataPoints.push(monthlyData[i]);
+    }
+
+    console.log(dataPoints);
+    return dataPoints;
 }
 
-function getCarbonFootprintChartData() {
-    const data = [1000, 500, 250, 125];
-    return data;
+async function getCarbonFootprintChartData() {
+    const data = await getData();
+    const response = await fetch(`/api/monthly-data/?user=${data.user.id}`);
+    let monthlyDataObject = await response.json();
+    monthlyDataObject = monthlyDataObject[0]
+    const monthlyData = monthlyDataObject.data.filter(e=>e.label === "Emissions").sort((a,b)=> new Date(b.date) -  new Date(a.date));
+    console.log("Monthly Data", monthlyData);
+    const dataPoints = [];
+    if (monthlyData.length < 7) {
+        return monthlyData;
+    }
+    
+    for (let i = 0; i < 7; i++) {
+        dataPoints.push(monthlyData[i]);
+    }
+
+    console.log(dataPoints);
+    return dataPoints;
 }
 
 async function getEmissionsChartData() {
@@ -87,15 +133,24 @@ async function getEmissionsChartData() {
     return chartData;
 }
 
-function getEnergyChartOption() {
-    const energyChartData = getEnergyChartData();
+async function getEnergyChartOption() {
+    const energyChartData = await getEnergyChartData();
+
+    //Process Data Points
+    const monthlyData = [];
+    const months = [];
+    energyChartData.forEach((e)=>{
+        const eDate = new Date(e.date);
+        monthlyData.push(e.value);
+        months.push(eDate.toLocaleString('default', {month: 'short'}));
+    });
     const option = {
         tooltip: {
             trigger: 'axis',
         },
         xAxis: {
             type: 'category',
-            data: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul'],
+            data: months,
         },
         yAxis: {
             type: 'value',
@@ -103,7 +158,7 @@ function getEnergyChartOption() {
         },
         series: [
             {
-                data: energyChartData,
+                data: monthlyData,
                 type: 'line',
                 smooth: true,
                 lineStyle: {
@@ -126,8 +181,17 @@ function getEnergyChartOption() {
     return option;
 }
 
-function getWaterChartOption() {
-    const waterChartData = getWaterChartData();
+async function getWaterChartOption() {
+    const waterChartData = await getWaterChartData();
+
+    //Process Data Points
+    const monthlyData = [];
+    const months = [];
+    waterChartData.forEach((e)=>{
+        const eDate = new Date(e.date);
+        monthlyData.push(e.value);
+        months.push(eDate.toLocaleString('default', {month: 'short'}));
+    });
     const option = {
         tooltip: {
             trigger: 'axis',
@@ -137,7 +201,7 @@ function getWaterChartOption() {
         },
         xAxis: {
             type: 'category',
-            data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+            data: months,
         },
         yAxis: {
             type: 'value',
@@ -145,7 +209,7 @@ function getWaterChartOption() {
         },
         series: [
             {
-                data: waterChartData,
+                data: monthlyData,
                 type: 'bar',
                 itemStyle: {
                     color(params) {
@@ -165,15 +229,24 @@ function getWaterChartOption() {
     return option;
 }
 
-function getCarbonFootprintChartOption() {
-    const carbonFootprintChartData = getCarbonFootprintChartData();
+async function getCarbonFootprintChartOption() {
+    const carbonFootprintChartData = await getCarbonFootprintChartData();
+
+    //Process Data Points
+    const monthlyData = [];
+    const months = [];
+    carbonFootprintChartData.forEach((e)=>{
+        const eDate = new Date(e.date);
+        monthlyData.push(e.value);
+        months.push(eDate.toLocaleString('default', {month: 'short'}));
+    });
     const option = {
         tooltip: {
             trigger: 'axis',
         },
         xAxis: {
             type: 'category',
-            data: ['Week 1', 'Week 2', 'Week 3', 'Week 4'],
+            data: months,
         },
         yAxis: {
             type: 'value',
@@ -181,7 +254,7 @@ function getCarbonFootprintChartOption() {
         },
         series: [
             {
-                data: carbonFootprintChartData,
+                data: monthlyData,
                 type: 'line',
                 symbol: 'circle',
                 symbolSize: 10,
@@ -207,7 +280,7 @@ async function getEmissionsChartOption() {
     const option = {
         dataset: {
             source: [
-                ['emissions', 'amount', 'category'],
+                ['emissions', 'kgCO2', 'category'],
                 [emissionsChartData.housingEmissions, emissionsChartData.housingEmissions, 'Housing'],
                 [emissionsChartData.vehicleEmissions, emissionsChartData.vehicleEmissions, 'Vehicles'],
                 [emissionsChartData.electricityEmissions, emissionsChartData.electricityEmissions, 'Electricity'],
@@ -216,7 +289,7 @@ async function getEmissionsChartOption() {
             ],
         },
         grid: {containLabel: true},
-        xAxis: {name: 'amount'},
+        xAxis: {name: 'kgCO2'},
         yAxis: {type: 'category'},
         visualMap: {
             orient: 'horizontal',
@@ -246,20 +319,20 @@ async function getEmissionsChartOption() {
     return option;
 }
 
-function main() {
+async function main() {
     document.addEventListener('DOMContentLoaded', async () => {
         const energyChart = echarts.init(
             document.getElementById('energyChart'),
         );
-        energyChart.setOption(getEnergyChartOption());
+        energyChart.setOption(await getEnergyChartOption());
 
         const waterChart = echarts.init(document.getElementById('waterChart'));
-        waterChart.setOption(getWaterChartOption());
+        waterChart.setOption(await getWaterChartOption());
 
         const carbonChart = echarts.init(
             document.getElementById('carbonChart'),
         );
-        carbonChart.setOption(getCarbonFootprintChartOption());
+        carbonChart.setOption(await getCarbonFootprintChartOption());
 
         const pieChart = echarts.init(document.getElementById('emissionChart'));
         pieChart.setOption(await getEmissionsChartOption());
