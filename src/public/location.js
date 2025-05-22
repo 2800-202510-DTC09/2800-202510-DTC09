@@ -43,7 +43,9 @@ window.addEventListener('DOMContentLoaded', () => {
             // Update The Card Elements on Profile
             cityEl.textContent = `City: ${data.city}`;
             countryEl.textContent = `Country: ${data.country}`;
-            timezoneEl.textContent = `Timezone: ${Intl.DateTimeFormat().resolvedOptions().timeZone}`;
+            timezoneEl.textContent = `Timezone: ${
+                Intl.DateTimeFormat().resolvedOptions().timeZone
+            }`;
 
             // If geolocation fails, fallback to IP-based locations
         } catch (error) {
@@ -71,19 +73,26 @@ window.addEventListener('DOMContentLoaded', () => {
                 body: JSON.stringify({clientIp: userIp.trim()}),
             });
             const data = await res.json();
-            // Console.log('Backend IP data received:', data); // debugging line
 
             // Update The Card Elements on Profile if found, else set to Unavailable
             cityEl.textContent = `City: ${data.city || 'Unavailable'}`;
-            countryEl.textContent = `Country: ${data.countryName || 'Unavailable'}`;
-            timezoneEl.textContent = `Timezone: ${Intl.DateTimeFormat().resolvedOptions().timeZone || 'Unavailable'}`;
+            countryEl.textContent = `Country: ${
+                data.countryName || 'Unavailable'
+            }`;
+            timezoneEl.textContent = `Timezone: ${
+                Intl.DateTimeFormat().resolvedOptions().timeZone ||
+                'Unavailable'
+            }`;
 
             // If errors occur, set the elements to Unavailable in catch block
         } catch (error) {
             console.error('IPAPI fallback error:', error);
             cityEl.textContent = 'City: Unavailable';
             countryEl.textContent = 'Country: Unavailable';
-            timezoneEl.textContent = `Timezone: ${Intl.DateTimeFormat().resolvedOptions().timeZone || 'Unavailable'}`;
+            timezoneEl.textContent = `Timezone: ${
+                Intl.DateTimeFormat().resolvedOptions().timeZone ||
+                'Unavailable'
+            }`;
         }
     }
 

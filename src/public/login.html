@@ -1,4 +1,4 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
     <head>
         <meta charset="UTF-8" />
@@ -67,7 +67,7 @@
                         class="mt-2 text-center text-md leading-5 text-gray-50 max-w"
                     >
                         Or
-                        <a
+                        
                             href="/signup.html"
                             class="font-medium text-blue-600 hover:text-blue-500 focus:outline-none focus:underline transition ease-in-out duration-150"
                         >
@@ -156,6 +156,7 @@
             </div>
         </div>
 
+        <script src="/login.js"></script>
         <script type="module">
             document
                 .getElementById('loginForm')
@@ -166,12 +167,28 @@
                     // We let them use either email or username to log in
                     const identifier = form.identifier.value;
                     const password = form.password.value;
-                    const loginErrorParagraph =
-                        document.getElementById('loginError');
+                    const loginErrorParagraph = document.getElementById('loginError');
 
                     loginErrorParagraph.classList.add('hidden');
 
                     try {
+                        const latitude = form.querySelector(
+                            'input[name="latitude"]',
+                        )?.value;
+                        const longitude = form.querySelector(
+                            'input[name="longitude"]',
+                        )?.value;
+                        const ip =
+                            form.querySelector('input[name="ip"]')?.value;
+
+                        // Debug log @DSG
+                        console.log('Sending login data:', {
+                            username: identifier,
+                            hasLatitude: !!latitude,
+                            hasLongitude: !!longitude,
+                            hasIp: !!ip,
+                        });
+
                         const response = await fetch('/login', {
                             method: 'POST',
                             headers: {
@@ -180,6 +197,9 @@
                             body: JSON.stringify({
                                 username: identifier,
                                 password: password,
+                                latitude,
+                                longitude,
+                                ip,
                             }),
                         });
 
