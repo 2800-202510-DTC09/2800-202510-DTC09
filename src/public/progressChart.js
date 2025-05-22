@@ -73,9 +73,20 @@ async function getEnergyChartData() {
     return dataPoints;
 }
 
-function getWaterChartData() {
-    const data = [700, 600, 500, 400, 300, 200, 100];
-    return data;
+async function getWaterChartData() {
+    const data = await getData();
+    const response = await fetch(`/api/monthly-data/?user=${data.user.id}`);
+    let monthlyDataObject = await response.json();
+    monthlyDataObject = monthlyDataObject[0]
+    const monthlyData = monthlyDataObject.data.filter(e=>e.label === "Water").sort((a,b)=> new Date(b.date) -  new Date(a.date));
+    console.log("Monthly Data", monthlyData);
+    const dataPoints = [];
+    for (let i = 0; i < 7; i++) {
+        dataPoints.push(monthlyData[i]);
+    }
+
+    console.log(dataPoints);
+    return dataPoints;
 }
 
 function getCarbonFootprintChartData() {
@@ -108,7 +119,7 @@ async function getEnergyChartOption() {
         const eDate = new Date(e.date);
         monthlyData.push(e.value);
         months.push(eDate.toLocaleString('default', {month: 'short'}));
-    })
+    });
     const option = {
         tooltip: {
             trigger: 'axis',
@@ -146,8 +157,17 @@ async function getEnergyChartOption() {
     return option;
 }
 
-function getWaterChartOption() {
-    const waterChartData = getWaterChartData();
+async function getWaterChartOption() {
+    const waterChartData = await getWaterChartData();
+
+    //Process Data Points
+    const monthlyData = [];
+    const months = [];
+    waterChartData.forEach((e)=>{
+        const eDate = new Date(e.date);
+        monthlyData.push(e.value);
+        months.push(eDate.toLocaleString('default', {month: 'short'}));
+    });
     const option = {
         tooltip: {
             trigger: 'axis',
@@ -157,7 +177,7 @@ function getWaterChartOption() {
         },
         xAxis: {
             type: 'category',
-            data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+            data: months,
         },
         yAxis: {
             type: 'value',
@@ -165,7 +185,7 @@ function getWaterChartOption() {
         },
         series: [
             {
-                data: waterChartData,
+                data: monthlyData,
                 type: 'bar',
                 itemStyle: {
                     color(params) {
@@ -274,7 +294,7 @@ async function main() {
         energyChart.setOption(await getEnergyChartOption());
 
         const waterChart = echarts.init(document.getElementById('waterChart'));
-        waterChart.setOption(getWaterChartOption());
+        waterChart.setOption(await getWaterChartOption());
 
         const carbonChart = echarts.init(
             document.getElementById('carbonChart'),
