@@ -89,9 +89,20 @@ async function getWaterChartData() {
     return dataPoints;
 }
 
-function getCarbonFootprintChartData() {
-    const data = [1000, 500, 250, 125];
-    return data;
+async function getCarbonFootprintChartData() {
+    const data = await getData();
+    const response = await fetch(`/api/monthly-data/?user=${data.user.id}`);
+    let monthlyDataObject = await response.json();
+    monthlyDataObject = monthlyDataObject[0]
+    const monthlyData = monthlyDataObject.data.filter(e=>e.label === "Emissions").sort((a,b)=> new Date(b.date) -  new Date(a.date));
+    console.log("Monthly Data", monthlyData);
+    const dataPoints = [];
+    for (let i = 0; i < 7; i++) {
+        dataPoints.push(monthlyData[i]);
+    }
+
+    console.log(dataPoints);
+    return dataPoints;
 }
 
 async function getEmissionsChartData() {
@@ -205,15 +216,24 @@ async function getWaterChartOption() {
     return option;
 }
 
-function getCarbonFootprintChartOption() {
-    const carbonFootprintChartData = getCarbonFootprintChartData();
+async function getCarbonFootprintChartOption() {
+    const carbonFootprintChartData = await getCarbonFootprintChartData();
+
+    //Process Data Points
+    const monthlyData = [];
+    const months = [];
+    carbonFootprintChartData.forEach((e)=>{
+        const eDate = new Date(e.date);
+        monthlyData.push(e.value);
+        months.push(eDate.toLocaleString('default', {month: 'short'}));
+    });
     const option = {
         tooltip: {
             trigger: 'axis',
         },
         xAxis: {
             type: 'category',
-            data: ['Week 1', 'Week 2', 'Week 3', 'Week 4'],
+            data: months,
         },
         yAxis: {
             type: 'value',
@@ -221,7 +241,7 @@ function getCarbonFootprintChartOption() {
         },
         series: [
             {
-                data: carbonFootprintChartData,
+                data: monthlyData,
                 type: 'line',
                 symbol: 'circle',
                 symbolSize: 10,
@@ -299,7 +319,7 @@ async function main() {
         const carbonChart = echarts.init(
             document.getElementById('carbonChart'),
         );
-        carbonChart.setOption(getCarbonFootprintChartOption());
+        carbonChart.setOption(await getCarbonFootprintChartOption());
 
         const pieChart = echarts.init(document.getElementById('emissionChart'));
         pieChart.setOption(await getEmissionsChartOption());
