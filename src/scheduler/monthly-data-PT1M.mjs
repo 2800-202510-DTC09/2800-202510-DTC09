@@ -21,11 +21,16 @@ export default async () => {
                     userMonthlyData = await new MonthlyData({user: user.id}).save();
                 }
 
+                const mostRecentMonth = new Date(userMonthlyData.data.sort((a, b)=> new Date(b.date) - new Date(a.date))[0].date).getMonth();
+                console.log("recent month: ", mostRecentMonth);
+
+                if (mostRecentMonth != new Date().getMonth()) {
                 userMonthlyData.data.push({label: "Emissions", value: monthlyEmissions, date: new Date()});
                 userMonthlyData.data.push({label: "Water", value: monthlyWater, date: new Date()});
                 userMonthlyData.data.push({label: "Electricity", value: monthlyElectricity, date: new Date()});
                 userMonthlyData.data.push({label: "Score", value: monthlyScore, date: new Date()});
                 await userMonthlyData.save();
+                } 
             }; 
         } catch (error) {
             console.log(error);
