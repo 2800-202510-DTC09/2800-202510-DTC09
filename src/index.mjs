@@ -7,7 +7,7 @@ import {parse, toSeconds} from 'iso8601-duration';
 import {connect} from 'mongoose';
 import swaggerJsdoc from 'swagger-jsdoc';
 import {serve, setup} from 'swagger-ui-express';
-import {toMillisecond} from './helper.mjs';
+import {ONE, ZERO, toMillisecond} from './helper.mjs';
 import {siteRouter} from './site-routes/index.mjs';
 
 if (env.NODE_ENV === 'dev') {
@@ -72,12 +72,17 @@ fastGlob
     .forEach(async (v) => {
         const {default: func} = await import(v);
         func();
-        setInterval(
-            func,
-            toMillisecond(
-                toSeconds(parse(v.replace(/.*-/gu, '').replace(/\..*/gu, ''))),
-            ),
+        let count = 0;
+        const seconds = toSeconds(
+            parse(v.replace(/.*-/gu, '').replace(/\..*/gu, '')),
         );
+        setInterval(() => {
+            count += ONE;
+            if (count >= seconds) {
+                count = ZERO;
+                func();
+            }
+        }, toMillisecond(ONE));
     });
 
 app.listen(env.PORT, () => {
