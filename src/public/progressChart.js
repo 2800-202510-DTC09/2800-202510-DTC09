@@ -280,7 +280,7 @@ async function getEmissionsChartOption() {
     const option = {
         dataset: {
             source: [
-                ['emissions', 'amount', 'category'],
+                ['emissions', 'kgCO2', 'category'],
                 [emissionsChartData.housingEmissions, emissionsChartData.housingEmissions, 'Housing'],
                 [emissionsChartData.vehicleEmissions, emissionsChartData.vehicleEmissions, 'Vehicles'],
                 [emissionsChartData.electricityEmissions, emissionsChartData.electricityEmissions, 'Electricity'],
@@ -289,7 +289,7 @@ async function getEmissionsChartOption() {
             ],
         },
         grid: {containLabel: true},
-        xAxis: {name: 'amount'},
+        xAxis: {name: 'kgCO2'},
         yAxis: {type: 'category'},
         visualMap: {
             orient: 'horizontal',
