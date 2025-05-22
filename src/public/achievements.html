@@ -1,4 +1,4 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
     <head>
         <meta charset="UTF-8" />
@@ -34,189 +34,18 @@
         <!-- Navbar Placeholder -->
         <div id="navbarPlaceholder"></div>
 
-        <main class="container mx-auto px-4 py-4 pb-20">
-            <h1 class="text-3xl font-heading text-dark mb-6">Achievements</h1>
-
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-                <a
-                    href="/stats.html"
-                    class="group bg-white rounded-xl shadow-sm hover:shadow-md transition-all duration-200 p-3 block border border-gray-100 hover:border-gray-200 max-w-fit"
-                >
-                    <div class="flex items-center gap-3">
-                        <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            class="h-6 w-6 text-primary"
-                            fill="none"
-                            viewBox="0 0 24 24"
-                            stroke="currentColor"
-                        >
-                            <path
-                                stroke-linecap="round"
-                                stroke-linejoin="round"
-                                stroke-width="2"
-                                d="M9 15 3 9m0 0 6-6M3 9h12a6 6 0 0 1 0 12h-3"
-                            />
-                        </svg>
-                        <h2 class="text-xl font-heading text-dark">Back</h2>
-                    </div>
-                </a>
-            </div>
-
+        <main class="container mx-auto px-4 py-6">
             <div class="bg-white rounded-lg shadow-md p-6">
-                <h2 class="text-xl font-heading text-dark mb-4">
-                    Achievements
-                </h2>
-                <div class="flex space-x-4">
-                    <div class="bg-amber-100 text-amber-800 p-3 rounded-full">
-                        <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            fill="none"
-                            viewBox="0 0 24 24"
-                            stroke-width="1.5"
-                            stroke="currentColor"
-                            class="size-6"
-                        >
-                            <path
-                                stroke-linecap="round"
-                                stroke-linejoin="round"
-                                d="M9.813 15.904 9 18.75l-.813-2.846a4.5 4.5 0 0 0-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 0 0 3.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 0 0 3.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 0 0-3.09 3.09ZM18.259 8.715 18 9.75l-.259-1.035a3.375 3.375 0 0 0-2.455-2.456L14.25 6l1.036-.259a3.375 3.375 0 0 0 2.455-2.456L18 2.25l.259 1.035a3.375 3.375 0 0 0 2.456 2.456L21.75 6l-1.035.259a3.375 3.375 0 0 0-2.456 2.456ZM16.894 20.567 16.5 21.75l-.394-1.183a2.25 2.25 0 0 0-1.423-1.423L13.5 18.75l1.183-.394a2.25 2.25 0 0 0 1.423-1.423l.394-1.183.394 1.183a2.25 2.25 0 0 0 1.423 1.423l1.183.394-1.183.394a2.25 2.25 0 0 0-1.423 1.423Z"
-                            />
-                        </svg>
-                    </div>
-                    <div
-                        class="bg-emerald-100 text-emerald-800 p-3 rounded-full"
-                    >
-                        <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            class="h-6 w-6"
-                            fill="none"
-                            viewBox="0 0 24 24"
-                            stroke="currentColor"
-                        >
-                            <path
-                                stroke-linecap="round"
-                                stroke-linejoin="round"
-                                stroke-width="2"
-                                d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"
-                            />
-                        </svg>
-                    </div>
-                    <div class="bg-blue-100 text-blue-800 p-3 rounded-full">
-                        <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            class="h-6 w-6"
-                            fill="none"
-                            viewBox="0 0 24 24"
-                            stroke="currentColor"
-                        >
-                            <path
-                                stroke-linecap="round"
-                                stroke-linejoin="round"
-                                stroke-width="2"
-                                d="M13 10V3L4 14h7v7l9-11h-7z"
-                            />
-                        </svg>
-                    </div>
-                </div>
-                <p class="text-neutral-500 mt-3">3/12 badges unlocked</p>
+                <h2 class="text-xl font-heading text-dark mb-4">Your Badges</h2>
+                <div
+                    id="badge-container"
+                    class="grid grid-cols-2 md:grid-cols-4 gap-4"
+                ></div>
             </div>
-
-            <br class="my-6" />
-
-            <div class="bg-white rounded-lg shadow-md p-6">
-                <h2 class="text-xl font-heading text-dark mb-4">
-                    Recent Activity
-                </h2>
-                <div class="space-y-4">
-                    <div class="flex items-start">
-                        <div
-                            class="bg-emerald-100 text-emerald-800 p-2 rounded-full mr-4"
-                        >
-                            <svg
-                                xmlns="http://www.w3.org/2000/svg"
-                                class="h-5 w-5"
-                                fill="none"
-                                viewBox="0 0 24 24"
-                                stroke="currentColor"
-                            >
-                                <path
-                                    stroke-linecap="round"
-                                    stroke-linejoin="round"
-                                    stroke-width="2"
-                                    d="M5 13l4 4L19 7"
-                                />
-                            </svg>
-                        </div>
-                        <div>
-                            <p class="font-medium">Completed daily goal</p>
-                            <p class="text-sm text-neutral-500">
-                                Reduced shower time by 3 minutes
-                            </p>
-                            <p class="text-xs text-neutral-400 mt-1">
-                                Today, 8:32 AM
-                            </p>
-                        </div>
-                    </div>
-                    <div class="flex items-start">
-                        <div
-                            class="bg-blue-100 text-blue-800 p-2 rounded-full mr-4"
-                        >
-                            <svg
-                                xmlns="http://www.w3.org/2000/svg"
-                                class="h-5 w-5"
-                                fill="none"
-                                viewBox="0 0 24 24"
-                                stroke="currentColor"
-                            >
-                                <path
-                                    stroke-linecap="round"
-                                    stroke-linejoin="round"
-                                    stroke-width="2"
-                                    d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"
-                                />
-                            </svg>
-                        </div>
-                        <div>
-                            <p class="font-medium">7-day streak</p>
-                            <p class="text-sm text-neutral-500">
-                                Consistent energy savings
-                            </p>
-                            <p class="text-xs text-neutral-400 mt-1">
-                                Yesterday, 7:15 PM
-                            </p>
-                        </div>
-                    </div>
-                    <div class="flex items-start">
-                        <div
-                            class="bg-amber-100 text-amber-800 p-2 rounded-full mr-4"
-                        >
-                            <svg
-                                xmlns="http://www.w3.org/2000/svg"
-                                class="h-5 w-5"
-                                fill="none"
-                                viewBox="0 0 24 24"
-                                stroke="currentColor"
-                            >
-                                <path
-                                    stroke-linecap="round"
-                                    stroke-linejoin="round"
-                                    stroke-width="2"
-                                    d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z"
-                                />
-                            </svg>
-                        </div>
-                        <div>
-                            <p class="font-medium">New achievement</p>
-                            <p class="text-sm text-neutral-500">
-                                Eco Hero badge unlocked
-                            </p>
-                            <p class="text-xs text-neutral-400 mt-1">
-                                2 days ago
-                            </p>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            <h1 class="text-2xl font-heading font-bold text-dark mb-6">
+                Complete a Goal
+            </h1>
+            <div id="goalList" class="space-y-6"></div>
         </main>
 
         <!-- Footer Placeholder -->
@@ -225,6 +54,8 @@
         <!-- Scripts -->
         <script src="/chart.js"></script>
         <script src="/statChart.js"></script>
+        <script src="badges.js"></script>
+        <script type="module" src="/myGoals.js"></script>
         <script src="/components/templates/skeleton.js"></script>
     </body>
 </html>

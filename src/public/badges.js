@@ -8,7 +8,7 @@ window.addEventListener('DOMContentLoaded', async () => {
         if (!res.ok) throw new Error(`Fetch failed: ${res.status}`);
 
         // Find the badge container in the HTML
-        const {badges = []} = await res.json();
+        const { badges = [] } = await res.json();
         const container = document.getElementById('badge-container');
         if (!container) {
             console.error('Badge container not found in HTML');
