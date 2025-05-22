@@ -65,6 +65,11 @@ async function getEnergyChartData() {
     const monthlyData = monthlyDataObject.data.filter(e=>e.label === "Electricity").sort((a,b)=> new Date(b.date) -  new Date(a.date));
     console.log("Monthly Data", monthlyData);
     const dataPoints = [];
+
+    if (monthlyData.length < 7) {
+        return monthlyData;
+    }
+
     for (let i = 0; i < 7; i++) {
         dataPoints.push(monthlyData[i]);
     }
@@ -81,6 +86,10 @@ async function getWaterChartData() {
     const monthlyData = monthlyDataObject.data.filter(e=>e.label === "Water").sort((a,b)=> new Date(b.date) -  new Date(a.date));
     console.log("Monthly Data", monthlyData);
     const dataPoints = [];
+    if (monthlyData.length < 7) {
+        return monthlyData;
+    }
+    
     for (let i = 0; i < 7; i++) {
         dataPoints.push(monthlyData[i]);
     }
@@ -97,6 +106,10 @@ async function getCarbonFootprintChartData() {
     const monthlyData = monthlyDataObject.data.filter(e=>e.label === "Emissions").sort((a,b)=> new Date(b.date) -  new Date(a.date));
     console.log("Monthly Data", monthlyData);
     const dataPoints = [];
+    if (monthlyData.length < 7) {
+        return monthlyData;
+    }
+    
     for (let i = 0; i < 7; i++) {
         dataPoints.push(monthlyData[i]);
     }

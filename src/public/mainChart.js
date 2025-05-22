@@ -64,7 +64,12 @@ async function getMonthlyChartData() {
     const monthlyData = monthlyDataObject.data.filter(e=>e.label === "Score").sort((a,b)=> new Date(b.date) -  new Date(a.date));
     console.log("Monthly Data", monthlyData);
     const dataPoints = [];
-    for (let i = 0; i < 4; i++) {
+    
+    if (monthlyData.length < 7) {
+        return monthlyData;
+    }
+    
+    for (let i = 0; i < 7; i++) {
         dataPoints.push(monthlyData[i]);
     }
 
