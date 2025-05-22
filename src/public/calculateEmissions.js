@@ -60,7 +60,10 @@ export function getHousingEmissions(record) {
         housingEmissions += record.housing_propane_amount * constants.housing_propane_coefficient_per_kWh;
     }
 
-    housingEmissions /= record.housing_people;
+    if(record.housing_people > 0) {
+            housingEmissions /= record.housing_people;
+    }
+    console.log("Housing emissions", housingEmissions)
 
     return housingEmissions;
 }
@@ -104,7 +107,7 @@ export function getElectricityEmissions(record) {
 
 export function getDietEmissions(record) {
     let dietEmissions = 0;
-
+    console.log(record.diet_beef_unit === "kg")
     if (record.diet_beef_unit === "kg") {
         dietEmissions += record.diet_beef_amount * constants.beef_co2e_per_kg;
     }
@@ -122,7 +125,7 @@ export function getDietEmissions(record) {
     }
 
     if (record.diet_milk_unit === "L") {
-        dietEmissions = record.diet_milk_amount * constants.milk_co2e_per_L;
+        dietEmissions += record.diet_milk_amount * constants.milk_co2e_per_L;
     }
 
     return dietEmissions;
@@ -132,7 +135,7 @@ export function getLifestyleEmissions(record) {
 
     if (record.lifestyle_flights_class === "Business") {
         if (record.lifestyle_domestic_flights_distance_unit === "km") {
-            lifestyleEmissions += record.lifestyle_domestic_flights_distance_unit * constants.domestic_business_class_coefficient_per_km;
+            lifestyleEmissions += record.lifestyle_domestic_flights_distance* constants.domestic_business_class_coefficient_per_km;
         }
 
         if (record.lifestyle_international_flights_distance_unit === "km") {
@@ -140,7 +143,7 @@ export function getLifestyleEmissions(record) {
         }
     } else if (record.lifestyle_flights_class === "First Class") {
         if (record.lifestyle_domestic_flights_distance_unit === "km") {
-            lifestyleEmissions += record.lifestyle_domestic_flights_distance_unit * constants.domestic_first_class_coefficient_per_km;
+            lifestyleEmissions += record.lifestyle_domestic_flights_distance * constants.domestic_first_class_coefficient_per_km;
         }
 
         if (record.lifestyle_international_flights_distance_unit === "km") {
@@ -155,20 +158,18 @@ export function getLifestyleEmissions(record) {
     if (record.lifestyle_shipping_amount_unit === "$") {
         lifestyleEmissions += record.lifestyle_shipping_amount * constants.grams_of_co2e_emitted_per_dollar_on_amazon_shipping / 1000;
     }
-
+    console.log("lifestyle emissions", lifestyleEmissions)
     return lifestyleEmissions;
 }
 
 export function getAllEmissions(record) {
-    const emissions = {
-        housingEmissions: getHousingEmissions(record),
-        vehicleEmissions: getVehicleEmissions(record),
-        waterEmissions: getWaterEmissions(record),
-        electricityEmissions: getElectricityEmissions(record),
-        dietEmissions: getDietEmissions(record),
-        lifestyleEmissions: getLifestyleEmissions(record),
-    };
-
+    let emissions = 0;
+    emissions += getHousingEmissions(record);
+    emissions += getVehicleEmissions(record);
+    emissions += getWaterEmissions(record);
+    emissions += getElectricityEmissions(record);
+    emissions += getDietEmissions(record);
+    emissions += getLifestyleEmissions(record);
     return emissions;
 }
 
