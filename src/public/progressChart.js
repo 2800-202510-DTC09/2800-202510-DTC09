@@ -144,6 +144,8 @@ async function getEnergyChartOption() {
         monthlyData.push(e.value);
         months.push(eDate.toLocaleString('default', {month: 'short'}));
     });
+    months.reverse();
+    monthlyData.reverse();
     const option = {
         tooltip: {
             trigger: 'axis',
@@ -192,6 +194,8 @@ async function getWaterChartOption() {
         monthlyData.push(e.value);
         months.push(eDate.toLocaleString('default', {month: 'short'}));
     });
+    months.reverse();
+    monthlyData.reverse();
     const option = {
         tooltip: {
             trigger: 'axis',
@@ -240,6 +244,8 @@ async function getCarbonFootprintChartOption() {
         monthlyData.push(e.value);
         months.push(eDate.toLocaleString('default', {month: 'short'}));
     });
+    months.reverse();
+    monthlyData.reverse();
     const option = {
         tooltip: {
             trigger: 'axis',

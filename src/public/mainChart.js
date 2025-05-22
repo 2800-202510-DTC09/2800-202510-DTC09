@@ -104,6 +104,8 @@ async function getMonthlyChartOption() {
         monthlyData.push(e.value);
         months.push(eDate.toLocaleString('default', {month: 'short'}));
     })
+    months.reverse();
+    monthlyData.reverse();
 
     const option = {
         tooltip: {
