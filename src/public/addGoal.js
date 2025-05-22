@@ -61,10 +61,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
         if (res.ok) {
             alert('Goal added!');
-            window.location.href = '/goals.html';
+            window.location.href = '/achievements.html';
         } else {
-            const errorData = await res.json();
-            alert(errorData.error || 'Error adding goal.');
+            const errorText = await res.text();
+            alert(errorText || 'Error adding goal.');
         }
     });
 });
