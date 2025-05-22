@@ -25,6 +25,7 @@ export default async () => {
                 console.log("recent month: ", mostRecentMonth);
 
                 if (mostRecentMonth != new Date().getMonth()) {
+                    console.log("adding data")
                 userMonthlyData.data.push({label: "Emissions", value: monthlyEmissions, date: new Date()});
                 userMonthlyData.data.push({label: "Water", value: monthlyWater, date: new Date()});
                 userMonthlyData.data.push({label: "Electricity", value: monthlyElectricity, date: new Date()});
