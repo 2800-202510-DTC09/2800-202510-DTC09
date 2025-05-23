@@ -73,7 +73,7 @@ app.use(
 // Route requests to site resources.
 app.use('/', siteRouter);
 
-//
+// Set up scheduler
 fastGlob
     .sync(`./scheduler/**/*.mjs`, {cwd: import.meta.dirname})
     .forEach(async (v) => {
