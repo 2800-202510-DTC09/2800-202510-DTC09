@@ -364,3 +364,53 @@
     font-size: 30px;
     text-align: center;
 }
+
+@media (max-width: 750px) {
+    .form-input-section-div {
+        flex-direction: column;
+        width: 400px;
+    }
+    .form-select-div {
+        flex-direction: column;
+        width: 400px;
+    }
+    .form-vehicle-number-div {
+        flex-direction: column;
+        width: 400px;
+    }
+    .form-element {
+        width: 410px;
+        padding-left: 5px;
+        padding-right: 5px;
+    }
+    
+    .form-housing-div {
+       width: auto;
+    }
+
+    .form-vehicle-div {
+       width: auto;
+    }
+
+    .form-electricity-div {
+       width: auto;
+    }
+    .form-water-div {
+       width: auto;
+    }
+    .form-diet-div {
+       width: auto;
+    }
+    .form-lifestyle-div {
+       width: auto;
+    }
+    .form-save-div {
+       width: auto;
+    }
+    .form-diet-content {
+        width: auto;
+    }
+    .form-lifestyle-content {
+        width: auto;
+    }
+}

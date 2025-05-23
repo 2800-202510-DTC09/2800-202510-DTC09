@@ -21,8 +21,8 @@ export default async () => {
 
         await LeaderBoard.insertMany(
             users
-                .sort((a, b) => b.score - a.score)
                 .sort((a, b) => a.createdAt - b.createdAt)
+                .sort((a, b) => b.score - a.score)
                 .map((v, i) => ({
                     user: v.id,
                     rank: i + COUNT_FROM,
