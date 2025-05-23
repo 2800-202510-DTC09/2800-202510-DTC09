@@ -92,6 +92,7 @@ fastGlob
         }, toMillisecond(ONE));
     });
 
+// Start the server
 app.listen(env.PORT, () => {
     console.error(`Server running on http://127.0.0.1:${env.PORT}`);
 });
