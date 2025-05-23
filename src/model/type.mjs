@@ -22,9 +22,11 @@ export const Type = model(
         },
         {timestamps: true},
     )
+        // Check for unique values
         .plugin(mongooseUniqueValidator, {
             message: 'Path `{PATH}` is not unique.',
         })
+        // Automatically populate fields
         .plugin(mongooseAutoPopulate),
 );
 
@@ -34,6 +36,7 @@ export function normalize(v) {
         .filter((w) => w)
         .map((w) => {
             if (!w.deletedAt || w.deletedAt > Date.now()) {
+                // Only return the fields we want to expose
                 return Object.fromEntries(
                     ['id', 'name', 'description'].map((x) => [x, w[x]]),
                 );

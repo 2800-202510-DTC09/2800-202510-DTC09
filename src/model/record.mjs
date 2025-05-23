@@ -7,8 +7,6 @@ import mongooseUniqueValidator from 'mongoose-unique-validator';
 import {normalize as typeNormalize} from './type.mjs';
 import {normalize as userNormalize} from './user.mjs';
 
-
-
 export const Record = model(
     'record',
     new Schema(
@@ -26,7 +24,7 @@ export const Record = model(
             housing_people_unit: {
                 type: String,
                 required: false,
-                default: "people",
+                default: 'people',
             },
             housing_natural_gas_amount: {
                 type: Number,
@@ -36,7 +34,7 @@ export const Record = model(
             housing_natural_gas_unit: {
                 type: String,
                 required: false,
-                default: "L",
+                default: 'L',
             },
             housing_heating_oil_amount: {
                 type: Number,
@@ -46,17 +44,17 @@ export const Record = model(
             housing_heating_oil_unit: {
                 type: String,
                 required: false,
-                default: "L",
+                default: 'L',
             },
             housing_propane_amount: {
                 type: Number,
                 required: false,
-                default: 0
+                default: 0,
             },
             housing_propane_unit: {
                 type: String,
                 required: false,
-                default: "L",
+                default: 'L',
             },
             housing_coal_amount: {
                 type: Number,
@@ -66,35 +64,37 @@ export const Record = model(
             housing_coal_unit: {
                 type: String,
                 required: false,
-                default: "kg",
+                default: 'kg',
             },
             vehicle_amount: {
                 type: Number,
                 required: false,
                 default: 0,
             },
-            vehicles: [{
-                vehicle_type: {
-                    type: String,
-                    required: false,
-                    default: "Gas",
+            vehicles: [
+                {
+                    vehicle_type: {
+                        type: String,
+                        required: false,
+                        default: 'Gas',
+                    },
+                    vehicle_fuel_efficiency: {
+                        type: Number,
+                        required: false,
+                        default: '0',
+                    },
+                    vehicle_distance: {
+                        type: Number,
+                        required: false,
+                        default: 0,
+                    },
+                    vehicle_charging: {
+                        type: Number,
+                        required: false,
+                        default: 0,
+                    },
                 },
-                vehicle_fuel_efficiency: {
-                    type: Number,
-                    required: false,
-                    default: "0",
-                },
-                vehicle_distance: {
-                    type: Number,
-                    required: false,
-                    default: 0,
-                },
-                vehicle_charging: {
-                    type: Number,
-                    required: false,
-                    default: 0,
-                }
-            }],
+            ],
             electricity_amount: {
                 type: Number,
                 required: false,
@@ -103,7 +103,7 @@ export const Record = model(
             electricity_amount_unit: {
                 type: String,
                 required: false,
-                default: "kWh",
+                default: 'kWh',
             },
             water_amount: {
                 type: Number,
@@ -113,7 +113,7 @@ export const Record = model(
             water_amount_unit: {
                 type: String,
                 required: false,
-                default:"m³"
+                default: 'm³',
             },
             diet_beef_amount: {
                 type: Number,
@@ -123,7 +123,7 @@ export const Record = model(
             diet_beef_unit: {
                 type: String,
                 required: false,
-                default: "kg",
+                default: 'kg',
             },
             diet_pork_amount: {
                 type: Number,
@@ -133,7 +133,7 @@ export const Record = model(
             diet_pork_unit: {
                 type: String,
                 required: false,
-                default: "kg",
+                default: 'kg',
             },
             diet_chicken_amount: {
                 type: Number,
@@ -143,7 +143,7 @@ export const Record = model(
             diet_chicken_unit: {
                 type: String,
                 required: false,
-                default: "kg",
+                default: 'kg',
             },
             diet_cheese_amount: {
                 type: Number,
@@ -153,7 +153,7 @@ export const Record = model(
             diet_cheese_unit: {
                 type: String,
                 required: false,
-                default: "kg",
+                default: 'kg',
             },
             diet_milk_amount: {
                 type: Number,
@@ -163,7 +163,7 @@ export const Record = model(
             diet_milk_unit: {
                 type: String,
                 required: false,
-                default: "L",
+                default: 'L',
             },
             lifestyle_domestic_flights_distance: {
                 type: Number,
@@ -173,7 +173,7 @@ export const Record = model(
             lifestyle_domestic_flights_distance_unit: {
                 type: String,
                 required: false,
-                default: "km",
+                default: 'km',
             },
             lifestyle_international_flights_distance: {
                 type: Number,
@@ -183,12 +183,12 @@ export const Record = model(
             lifestyle_international_flights_distance_unit: {
                 type: String,
                 required: false,
-                default: "km",
+                default: 'km',
             },
             lifestyle_flights_class: {
                 type: String,
                 required: false,
-                default: "Business",
+                default: 'Business',
             },
             lifestyle_clothing_purchased_amount: {
                 type: Number,
@@ -198,7 +198,7 @@ export const Record = model(
             lifestyle_clothing_purchased_amount_unit: {
                 type: String,
                 required: false,
-                default: "kg",
+                default: 'kg',
             },
             lifestyle_shipping_amount: {
                 type: Number,
@@ -208,15 +208,18 @@ export const Record = model(
             lifestyle_shipping_amount_unit: {
                 type: String,
                 required: false,
-                default: "packages",
-            }
+                default: 'packages',
+            },
         },
         {timestamps: true},
     )
+        // Check for unique values
         .plugin(mongooseUniqueValidator, {
             message: 'Path `{PATH}` is not unique.',
         })
+        // Automatically populate fields
         .plugin(mongooseAutoPopulate)
+        // Validate user
         .plugin((schema) => {
             schema.post('validate', async (res, next) => {
                 const e = new Error.ValidationError();
@@ -255,48 +258,49 @@ export function normalize(v) {
         .filter((w) => w)
         .map((w) => {
             if (!w.deletedAt || w.deletedAt > Date.now()) {
+                // Only return the fields we want to expose
                 return {
                     ...Object.fromEntries(
                         [
-                            "user",
-                            "housing_people",
-                            "housing_people_unit",
-                            "housing_natural_gas_amount",
-                            "housing_natural_gas_unit",
-                            "housing_heating_oil_amount",
-                            "housing_heating_oil_unit",
-                            "housing_propane_amount",
-                            "housing_propane_unit",
-                            "housing_coal_amount",
-                            "housing_coal_unit",
-                            "vehicle_amount",
-                            "vehicles",
-                            "electricity_amount",
-                            "electricity_amount_unit",
-                            "water_amount",
-                            "water_amount_unit",
-                            "diet_beef_amount",
-                            "diet_beef_unit",
-                            "diet_pork_amount",
-                            "diet_pork_unit",
-                            "diet_chicken_amount",
-                            "diet_chicken_unit",
-                            "diet_cheese_amount",
-                            "diet_cheese_unit",
-                            "diet_milk_amount",
-                            "diet_milk_unit",
-                            "lifestyle_domestic_flights_distance",
-                            "lifestyle_domestic_flights_distance_unit",
-                            "lifestyle_international_flights_distance",
-                            "lifestyle_international_flights_distance_unit",
-                            "lifestyle_flights_class",
-                            "lifestyle_clothing_purchased_amount",
-                            "lifestyle_clothing_purchased_amount_unit",
-                            "lifestyle_shipping_amount",
-                            "lifestyle_shipping_amount_unit",
-                            "emission",
-                            "description",
-                            "deletedAt"
+                            'user',
+                            'housing_people',
+                            'housing_people_unit',
+                            'housing_natural_gas_amount',
+                            'housing_natural_gas_unit',
+                            'housing_heating_oil_amount',
+                            'housing_heating_oil_unit',
+                            'housing_propane_amount',
+                            'housing_propane_unit',
+                            'housing_coal_amount',
+                            'housing_coal_unit',
+                            'vehicle_amount',
+                            'vehicles',
+                            'electricity_amount',
+                            'electricity_amount_unit',
+                            'water_amount',
+                            'water_amount_unit',
+                            'diet_beef_amount',
+                            'diet_beef_unit',
+                            'diet_pork_amount',
+                            'diet_pork_unit',
+                            'diet_chicken_amount',
+                            'diet_chicken_unit',
+                            'diet_cheese_amount',
+                            'diet_cheese_unit',
+                            'diet_milk_amount',
+                            'diet_milk_unit',
+                            'lifestyle_domestic_flights_distance',
+                            'lifestyle_domestic_flights_distance_unit',
+                            'lifestyle_international_flights_distance',
+                            'lifestyle_international_flights_distance_unit',
+                            'lifestyle_flights_class',
+                            'lifestyle_clothing_purchased_amount',
+                            'lifestyle_clothing_purchased_amount_unit',
+                            'lifestyle_shipping_amount',
+                            'lifestyle_shipping_amount_unit',
+                            'emission',
+                            'description',
+                            'deletedAt',
                         ].map((x) => [x, w[x]]),
                     ),
                     user:
