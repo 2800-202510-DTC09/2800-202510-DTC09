@@ -1,5 +1,5 @@
-import { fetchAQI } from './airQuality.js';
-import { fetchUVIndex } from './uvIndex.js';
+import {fetchAQI} from './airQuality.js';
+import {fetchUVIndex} from './uvIndex.js';
 
 // Function to get user location from the backend API
 async function getUserLocation() {

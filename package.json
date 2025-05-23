@@ -1,4 +1,5 @@
 {
+    "type": "module",
     "scripts": {
         "local": "nodemon --exec dotenvx --ext js,mjs,json -- run --overload --strict -f .env.local -- node ./src/index.mjs",
         "format": "prettier --write . && eslint --fix .",

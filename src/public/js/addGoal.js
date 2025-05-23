@@ -1,4 +1,4 @@
-import { goalTemplates } from './goalTemplates.js';
+import {goalTemplates} from './goalTemplates.js';
 
 document.addEventListener('DOMContentLoaded', () => {
     const dropdown = document.getElementById('goalSelect');
@@ -61,7 +61,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         if (res.ok) {
             alert('Goal added!');
-            window.location.href = '/achievements.html';
+            window.location.href = './achievements.html';
         } else {
             const errorText = await res.text();
             alert(errorText || 'Error adding goal.');
