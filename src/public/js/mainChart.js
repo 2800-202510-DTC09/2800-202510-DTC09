@@ -9,7 +9,7 @@ import {
     getLifestyleEmissions,
     getVehicleEmissions,
     getWaterEmissions,
-} from './calculateEmissions.js';
+} from '/js/calculateEmissions.js';
 
 async function fetchUsers() {
     let response;
