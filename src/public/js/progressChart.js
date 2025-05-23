@@ -63,7 +63,6 @@ async function getEnergyChartData() {
     let monthlyDataObject = await response.json();
     monthlyDataObject = monthlyDataObject[0]
     const monthlyData = monthlyDataObject.data.filter(e=>e.label === "Electricity").sort((a,b)=> new Date(b.date) -  new Date(a.date));
-    console.log("Monthly Data", monthlyData);
     const dataPoints = [];
 
     if (monthlyData.length < 7) {
@@ -84,7 +83,6 @@ async function getWaterChartData() {
     let monthlyDataObject = await response.json();
     monthlyDataObject = monthlyDataObject[0]
     const monthlyData = monthlyDataObject.data.filter(e=>e.label === "Water").sort((a,b)=> new Date(b.date) -  new Date(a.date));
-    console.log("Monthly Data", monthlyData);
     const dataPoints = [];
     if (monthlyData.length < 7) {
         return monthlyData;
@@ -104,7 +102,6 @@ async function getCarbonFootprintChartData() {
     let monthlyDataObject = await response.json();
     monthlyDataObject = monthlyDataObject[0]
     const monthlyData = monthlyDataObject.data.filter(e=>e.label === "Emissions").sort((a,b)=> new Date(b.date) -  new Date(a.date));
-    console.log("Monthly Data", monthlyData);
     const dataPoints = [];
     if (monthlyData.length < 7) {
         return monthlyData;
@@ -114,7 +111,6 @@ async function getCarbonFootprintChartData() {
         dataPoints.push(monthlyData[i]);
     }
 
-    console.log(dataPoints);
     return dataPoints;
 }
 
@@ -282,7 +278,6 @@ async function getCarbonFootprintChartOption() {
 
 async function getEmissionsChartOption() {
     const emissionsChartData = await getEmissionsChartData();
-    console.log("Emission chart data:", emissionsChartData);
     const option = {
         dataset: {
             source: [

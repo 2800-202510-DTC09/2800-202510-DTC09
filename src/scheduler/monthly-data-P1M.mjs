@@ -5,16 +5,14 @@
 import {MonthlyData} from '../model/monthly-data.mjs';
 import {Record} from '../model/record.mjs';
 import {User} from '../model/user.mjs';
-import {getAllEmissions} from '../public/calculateEmissions.js';
+import {getAllEmissions} from '../public/js/calculateEmissions.js';
 
 export default async () => {
     const users = await User.find();
-    console.log("users", users)
     users.forEach(async (user) => {
         try {
             const record = await Record.findOne({user: user.id});
             if (record) {
-                console.log('Got something for: ', user.id);
                 const monthlyEmissions = getAllEmissions(record);
                 const monthlyScore = user.score;
                 const monthlyElectricity = record.electricity_amount;
@@ -34,10 +32,8 @@ export default async () => {
                         (a, b) => new Date(b.date) - new Date(a.date),
                     )[0].date,
                 ).getMonth();
-                console.log('recent month: ', mostRecentMonth);
 
                 if (mostRecentMonth !== new Date().getMonth()) {
-                    console.log('adding data');
                     userMonthlyData.data.push({
                         label: 'Emissions',
                         value: monthlyEmissions,

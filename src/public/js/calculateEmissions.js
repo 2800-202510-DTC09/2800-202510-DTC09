@@ -130,7 +130,6 @@ export function getHousingEmissions(record) {
     if (record.housing_people > 0) {
         housingEmissions /= record.housing_people;
     }
-    console.log('Housing emissions', housingEmissions);
 
     return housingEmissions;
 }
@@ -189,7 +188,6 @@ export function getElectricityEmissions(record) {
 
 export function getDietEmissions(record) {
     let dietEmissions = 0;
-    console.log(record.diet_beef_unit === 'kg');
     if (record.diet_beef_unit === 'kg') {
         dietEmissions += record.diet_beef_amount * constants.beef_co2e_per_kg;
     }
@@ -255,7 +253,6 @@ export function getLifestyleEmissions(record) {
                 constants.grams_of_co2e_emitted_per_dollar_on_amazon_shipping) /
             1000;
     }
-    console.log('lifestyle emissions', lifestyleEmissions);
     return lifestyleEmissions;
 }
 
@@ -269,5 +266,3 @@ export function getAllEmissions(record) {
     emissions += getLifestyleEmissions(record);
     return emissions;
 }
-
-consoletest();

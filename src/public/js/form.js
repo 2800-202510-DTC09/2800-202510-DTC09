@@ -536,7 +536,6 @@ function loadVehicle(vehicleNumber, record) {
         );
 
         if (record.vehicle_amount >= vehicleNumber) {
-            console.log(vehicleEfficiencyInput.children[1])
             vehicleEfficiencyInput.children[1].children[0].value = record.vehicles[vehicleNumber-1].vehicle_fuel_efficiency;
         } else {
             vehicleEfficiencyInput.children[1].children[0].value = 0;
@@ -822,7 +821,6 @@ async function loadForm() {
     const data = await response.json();
     const recordResponse = await fetch(`/api/record/${data.user.id}`);
     const record = await recordResponse.json()
-    console.log(data);
     if (!data?.user?.username) throw new Error("Username not found in response");
 
     const hiddenInput = document.createElement("input");
