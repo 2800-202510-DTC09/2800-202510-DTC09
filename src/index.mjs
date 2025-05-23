@@ -10,27 +10,32 @@ import {serve, setup} from 'swagger-ui-express';
 import {ONE, ZERO, toMillisecond} from './helper.mjs';
 import {siteRouter} from './site-routes/index.mjs';
 
+// If the environment is local
 if (env.NODE_ENV === 'dev') {
     import('./tunnel.mjs');
 } else {
     connect(`mongodb://${env.MONGO_HOST}:${env.MONGO_PORT}/sustain-me`);
 }
 
+// Initialize the express app with timestamp middleware
 export const app = express();
 app.use((req, res, next) => {
     req.timestamp = Date.now();
     next();
 });
 
+// Serve static files from the public directory
 app.use(
     express.static(join(import.meta.dirname, 'public'), {
         extensions: 'html',
     }),
 );
 
+// Enable middleware for parsing JSON and URL-encoded data
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));
 
+// Enable middleware for parsing cookies
 app.use(
     session({
         secret: 'bad secret',
@@ -44,6 +49,7 @@ app.use(
     }),
 );
 
+// Enable middleware for api documentation
 app.use(
     '/api-docs',
     serve,
@@ -67,6 +73,7 @@ app.use(
 // Route requests to site resources.
 app.use('/', siteRouter);
 
+//
 fastGlob
     .sync(`./scheduler/**/*.mjs`, {cwd: import.meta.dirname})
     .forEach(async (v) => {
