@@ -35,7 +35,7 @@
 
             <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
                 <a
-                    href="/stats.html"
+                    href="/add.html"
                     class="group bg-white rounded-xl shadow-sm hover:shadow-md transition-all duration-200 p-3 block border border-gray-100 hover:border-gray-200 max-w-fit"
                 >
                     <div class="flex items-center gap-3">
@@ -59,21 +59,33 @@
             </div>
 
             <div class="bg-white rounded-lg shadow-md p-6 mb-8">
-                <form id="goalForm" class="space-y-6">
+                <form id="goalForm">
                     <div>
-                        He
+                        <label
+                            for="goalSelect"
+                            class="block text-sm font-medium text-neutral-700"
+                            >Select a Goal</label
+                        >
+                        <select
+                            id="goalSelect"
+                            class="mt-1 block w-full rounded-md border-neutral-300 shadow-sm focus:border-primary focus:ring-primary"
+                            required
+                        >
+                            <option value="">Choose a goal...</option>
+                        </select>
+                    </div>
+
+                    <div>
                         <label
                             for="goalName"
                             class="block text-sm font-medium text-neutral-700"
-                            >Goal Name</label
+                            >Name</label
                         >
                         <input
                             type="text"
                             id="goalName"
-                            name="goalName"
-                            class="mt-1 block w-full rounded-md border-neutral-300 shadow-sm focus:border-primary focus:ring-primary"
-                            placeholder="e.g. Reduce shower time"
-                            required
+                            readonly
+                            class="mt-1 block w-full rounded-md border-neutral-300 shadow-sm bg-neutral-100"
                         />
                     </div>
 
@@ -85,89 +97,63 @@
                         >
                         <textarea
                             id="goalDescription"
-                            name="goalDescription"
                             rows="3"
-                            class="mt-1 block w-full rounded-md border-neutral-300 shadow-sm focus:border-primary focus:ring-primary"
-                            placeholder="Describe your goal..."
+                            readonly
+                            class="mt-1 block w-full rounded-md border-neutral-300 shadow-sm bg-neutral-100"
                         ></textarea>
                     </div>
-
                     <div>
                         <label
-                            for="goalCategory"
                             class="block text-sm font-medium text-neutral-700"
-                            >Category</label
+                            >Emission Saved</label
                         >
-                        <select
-                            id="goalCategory"
-                            name="goalCategory"
-                            class="mt-1 block w-full rounded-md border-neutral-300 shadow-sm focus:border-primary focus:ring-primary"
-                            required
+                        <p id="goalEmissionDiff" class="mt-1 text-neutral-800">
+                            –
+                        </p>
+                    </div>
+                    <div>
+                        <label
+                            class="block text-sm font-medium text-neutral-700"
+                            >Score Points</label
                         >
-                            <option value="">Select a category</option>
-                            <option value="energy">Energy</option>
-                            <option value="water">Water</option>
-                            <option value="transportation">
-                                Transportation
-                            </option>
-                            <option value="waste">Waste Reduction</option>
-                            <option value="food">Food</option>
-                        </select>
+                        <p id="goalScorePoints" class="mt-1 text-neutral-800">
+                            –
+                        </p>
                     </div>
 
-                    <div>
-                        <label
-                            for="targetValue"
-                            class="block text-sm font-medium text-neutral-700"
-                            >Target Value</label
-                        >
-                        <div class="mt-1 flex rounded-md shadow-sm">
-                            <input
-                                type="number"
-                                id="targetValue"
-                                name="targetValue"
-                                class="block w-full rounded-none rounded-l-md border-neutral-300 focus:border-primary focus:ring-primary"
-                                placeholder="100"
-                                required
-                            />
-                            <span
-                                class="inline-flex items-center rounded-r-md border border-l-0 border-neutral-300 bg-neutral-50 px-3 text-neutral-500 sm:text-sm"
-                                id="unitDisplay"
-                                >%</span
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <div>
+                            <label
+                                for="goalStartDate"
+                                class="block text-sm font-medium text-neutral-700"
+                                >Start Date</label
                             >
+                            <input
+                                type="date"
+                                id="goalStartDate"
+                                class="mt-1 block w-full rounded-md border-neutral-300 shadow-sm"
+                            />
+                        </div>
+                        <div>
+                            <label
+                                for="goalEndDate"
+                                class="block text-sm font-medium text-neutral-700"
+                                >End Date</label
+                            >
+                            <input
+                                type="date"
+                                id="goalEndDate"
+                                class="mt-1 block w-full rounded-md border-neutral-300 shadow-sm"
+                            />
                         </div>
                     </div>
 
-                    <div>
-                        <label
-                            for="timeframe"
-                            class="block text-sm font-medium text-neutral-700"
-                            >Timeframe</label
-                        >
-                        <select
-                            id="timeframe"
-                            name="timeframe"
-                            class="mt-1 block w-full rounded-md border-neutral-300 shadow-sm focus:border-primary focus:ring-primary"
-                            required
-                        >
-                            <option value="">Select timeframe</option>
-                            <option value="1week">1 Week</option>
-                            <option value="2weeks">2 Weeks</option>
-                            <option value="1month">1 Month</option>
-                            <option value="3months">3 Months</option>
-                            <option value="6months">6 Months</option>
-                            <option value="1year">1 Year</option>
-                        </select>
-                    </div>
-
-                    <div class="flex justify-end">
-                        <button
-                            type="submit"
-                            class="inline-flex justify-center rounded-md border border-transparent bg-primary py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-secondary focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2"
-                        >
-                            Create Goal
-                        </button>
-                    </div>
+                    <button
+                        type="submit"
+                        class="bg-primary text-white px-4 py-2 rounded hover:bg-secondary"
+                    >
+                        Add Goal
+                    </button>
                 </form>
             </div>
         </main>
@@ -177,44 +163,6 @@
 
         <!-- Scripts -->
         <script src="/components/templates/skeleton.js"></script>
-        <script>
-            document.addEventListener('DOMContentLoaded', () => {
-                const goalForm = document.getElementById('goalForm');
-                const goalCategory = document.getElementById('goalCategory');
-                const unitDisplay = document.getElementById('unitDisplay');
-
-                goalCategory.addEventListener('change', (e) => {
-                    const category = e.target.value;
-                    switch (category) {
-                        case 'energy':
-                            unitDisplay.textContent = 'kWh';
-                            break;
-                        case 'water':
-                            unitDisplay.textContent = 'L';
-                            break;
-                        case 'transportation':
-                            unitDisplay.textContent = 'km';
-                            break;
-                        case 'waste':
-                            unitDisplay.textContent = 'kg';
-                            break;
-                        case 'food':
-                            unitDisplay.textContent = 'meals';
-                            break;
-                        default:
-                            unitDisplay.textContent = '%';
-                    }
-                });
-
-                goalForm.addEventListener('submit', (e) => {
-                    e.preventDefault();
-
-                    // Collect form data
-
-                    alert('Goal created successfully!');
-                    window.location.href = '/add.html';
-                });
-            });
-        </script>
+        <script type="module" src="/addGoal.js"></script>
     </body>
 </html>

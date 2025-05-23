@@ -34,8 +34,9 @@ async function getData() {
 
 async function getUserRecord() {
     const data = await getData();
+    console.log(data.user.id)
     try {
-        const response = await fetch(`/api/record?id=${data.user.id}`, {
+        const response = await fetch(`/api/record/${data.user.id}`, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
@@ -46,7 +47,8 @@ async function getUserRecord() {
             throw new Error(`HTTP error! Status: ${response.status}`);
         }
 
-        const record = await response.json();
+        let record = await response.json();
+        console.log("record", record)
         return record;
     } catch (error) {
         console.error('Error fetching record:', error);
@@ -55,11 +57,29 @@ async function getUserRecord() {
 }
 
 async function getMonthlyChartData() {
-    return [100,300,200,500];
+    const data = await getData();
+    const response = await fetch(`/api/monthly-data/?user=${data.user.id}`);
+    let monthlyDataObject = await response.json();
+    monthlyDataObject = monthlyDataObject[0]
+    const monthlyData = monthlyDataObject.data.filter(e=>e.label === "Score").sort((a,b)=> new Date(b.date) -  new Date(a.date));
+    console.log("Monthly Data", monthlyData);
+    const dataPoints = [];
+    
+    if (monthlyData.length < 7) {
+        return monthlyData;
+    }
+    
+    for (let i = 0; i < 7; i++) {
+        dataPoints.push(monthlyData[i]);
+    }
+
+    console.log(dataPoints);
+    return dataPoints;
 }
 
 async function getPieChartData() {
     const userRecord = await getUserRecord();
+    console.log("User record", userRecord)
     const chartData = {
         housingEmissions: Number(getHousingEmissions(userRecord)),
         vehicleEmissions: Number(getVehicleEmissions(userRecord)),
@@ -69,18 +89,31 @@ async function getPieChartData() {
         lifestyleEmissions: Number(getLifestyleEmissions(userRecord)),
     };
 
+        console.log(JSON.stringify(chartData));
     return chartData;
 }
 
 async function getMonthlyChartOption() {
-    const monthlyData = await getMonthlyChartData();
+    const monthlyDataPoints = await getMonthlyChartData();
+
+    //Process Data Points
+    const monthlyData = [];
+    const months = [];
+    monthlyDataPoints.forEach((e)=>{
+        const eDate = new Date(e.date);
+        monthlyData.push(e.value);
+        months.push(eDate.toLocaleString('default', {month: 'short'}));
+    })
+    months.reverse();
+    monthlyData.reverse();
+
     const option = {
         tooltip: {
             trigger: 'axis',
         },
         xAxis: {
             type: 'category',
-            data: ['Week 1', 'Week 2', 'Week 3', 'Week 4'],
+            data: months,
         },
         yAxis: {
             type: 'value',
@@ -88,7 +121,7 @@ async function getMonthlyChartOption() {
         },
         series: [
             {
-                data: [monthlyData[0], monthlyData[1], monthlyData[2], monthlyData[3]],
+                data: monthlyData,
                 type: 'line',
                 smooth: true,
                 lineStyle: {
@@ -114,6 +147,10 @@ async function getMonthlyChartOption() {
 async function getPieChartOption() {
     const chartData = await getPieChartData();
     const option = {
+        title: {
+            subtext: 'kgCO2',
+            left: 'center',
+        },
         tooltip: {
             trigger: 'item',
         },
@@ -126,11 +163,11 @@ async function getPieChartOption() {
                 type: 'pie',
                 radius: '50%',
                 data: [
-                    {value: 10, name: 'Housing'},
-                    {value: 10, name: 'Vehicle'},
-                    {value: 10, name: 'Electricity'},
-                    {value: 10, name: 'Diet'},
-                    {value: 10, name: 'Lifestyle'},
+                    {value: chartData.housingEmissions, name: 'Housing'},
+                    {value: chartData.vehicleEmissions, name: 'Vehicle'},
+                    {value: chartData.electricityEmissions, name: 'Electricity'},
+                    {value: chartData.dietEmissions, name: 'Diet'},
+                    {value: chartData.lifestyleEmissions, name: 'Lifestyle'},
                 ],
                 emphasis: {
                     itemStyle: {

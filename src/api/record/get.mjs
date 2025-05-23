@@ -25,9 +25,12 @@ import {record} from './index.mjs';
  *       500:
  *         description: Server internal error
  */
-record.get('/', async (req, res) => {
+record.get('/:id', async (req, res) => {
     try {
-        const userRecord = await Record.findOne({user: req.query.id});
+        const userId = new mongoose.Types.ObjectId(req.params.id);
+        const userRecord = await Record.findOne({user: userId});
+        // eslint-disable-next-line no-console
+        console.log(userRecord)
 
         if (userRecord) {
             res.status(200).json(userRecord);

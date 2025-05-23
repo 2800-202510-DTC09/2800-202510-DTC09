@@ -38,6 +38,24 @@ export const Goal = model(
             emissionDiffEnd: {
                 type: Schema.Types.Date,
             },
+            badge: {
+                type: Schema.Types.ObjectId,
+                ref: 'badge',
+                autopopulate: true,
+            },
+            durationDays: {
+                type: Schema.Types.Number,
+            },
+            scorePoints: {
+                type: Schema.Types.Number,
+                required: true,
+            },
+
+            completed: {
+                type: Schema.Types.Boolean,
+                default: false,
+            },
+
             deletedAt: {
                 type: Schema.Types.Date,
             },
@@ -167,6 +185,10 @@ export function normalize(v) {
                             'emissionDiff',
                             'emissionDiffStart',
                             'emissionDiffEnd',
+                            'scorePoints',
+                            'durationDays',
+                            'badge',
+                            'completed',
                         ].map((x) => [x, w[x]]),
                     ),
                     user:

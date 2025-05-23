@@ -1,3 +1,6 @@
+/* eslint-disable max-lines-per-function */
+/* eslint-disable max-lines */
+/* eslint-disable max-statements */
 // Change input background color when updated
 function changeInputColor(event) {
     if (event.target.value !== '') {
@@ -17,6 +20,7 @@ function generateSectionSelect(
     selectionType,
     labelText,
     options,
+    record,
 ) {
     // Create elements
     selectDiv = document.createElement('div');
@@ -48,6 +52,10 @@ function generateSectionSelect(
         select.appendChild(option);
     });
 
+    if (!selectName.includes('vehicle')) {
+        select.setAttribute('value', record[selectName])
+    }
+
     // Add children to selectDiv
     selectDiv.appendChild(label);
     selectDiv.appendChild(select);
@@ -56,7 +64,7 @@ function generateSectionSelect(
     return selectDiv;
 }
 
-function generateSectionInput(parent, inputName, labelText, inputType, units) {
+function generateSectionInput(parent, inputName, labelText, inputType, units, record) {
     // Create elements
     sectionDiv = document.createElement('div');
     sectionInputDiv = document.createElement('div');
@@ -81,6 +89,9 @@ function generateSectionInput(parent, inputName, labelText, inputType, units) {
     sectionInput.addEventListener('change', (event) => {
         changeInputColor(event);
     });
+    if(!inputName.includes('vehicle')) {
+        sectionInput.setAttribute('value', record[inputName]);
+    }
 
     // Set up section label
     sectionLabel.classList.add('form-label');
@@ -91,7 +102,7 @@ function generateSectionInput(parent, inputName, labelText, inputType, units) {
     // Set up unit select
     sectionUnitSelect.classList.add('form-select');
     sectionUnitSelect.id = `${parent.id}-${inputName}-unit-select`;
-    sectionUnitSelect.setAttribute("name", `${inputName}-units`);
+    sectionUnitSelect.setAttribute("name", `${inputName}_unit`);
 
     units.forEach((element) => {
         option = document.createElement('option');
@@ -172,7 +183,7 @@ function generateSectionHeader(parent, headerText, headerIcon, toolTipText) {
 }
 
 // Load Lifestyle section
-function loadLifestyleSection(parent) {
+function loadLifestyleSection(parent, record) {
     // Create elements
     lifestyleDiv = document.createElement('div');
     lifestyleContent = document.createElement('div');
@@ -196,38 +207,43 @@ function loadLifestyleSection(parent) {
     // Create inputs for lifestyle content
     domesticFlightInput = generateSectionInput(
         lifestyleContent,
-        'domestic-flight-distance',
-        'How much have you flown on domestic flights this year?:',
+        'lifestyle_domestic_flights_distance',
+        'How much have you flown on domestic flights this month?:',
         'number',
         ['km'],
+        record,
     );
     internationalFlightInput = generateSectionInput(
         lifestyleContent,
-        'international-flight-distance',
-        'How much have you flown on international flights this year?:',
+        'lifestyle_international_flights_distance',
+        'How much have you flown on international flights this month?:',
         'number',
         ['km'],
+        record,
     );
     flightClassInput = generateSectionSelect(
         lifestyleContent,
-        'flight-class',
+        'lifestyle_flights_class',
         'form-select-large',
         'What class do you usually fly in?:',
         ['Business', 'First Class'],
+        record,
     );
     clothingInput = generateSectionInput(
         lifestyleContent,
-        'clothing-mass',
-        'How much clothing do you buy in a year?:',
+        'lifestyle_clothing_purchased_amount',
+        'How much clothing do you buy in a month?:',
         'number',
         ['kg'],
+        record,
     );
     shippingInput = generateSectionInput(
         lifestyleContent,
-        'amount-shipped',
-        'How many times is something shipped to your house each month?:',
+        'lifestyle_shipping_amount',
+        'How much is something shipped to your house each month?:',
         'number',
-        ['packages'],
+        ['$'],
+        record,
     );
 
     // Add children to lifestyle content
@@ -246,7 +262,7 @@ function loadLifestyleSection(parent) {
 }
 
 // Load diet section
-function loadDietSection(parent) {
+function loadDietSection(parent, record) {
     // Create elements
     dietDiv = document.createElement('div');
     dietContent = document.createElement('div');
@@ -270,38 +286,43 @@ function loadDietSection(parent) {
     // Create inputs
     beefInput = generateSectionInput(
         dietContent,
-        'beef-eaten',
+        'diet_beef_amount',
         'How much beef do you eat in a month?:',
         'number',
         ['kg'],
+        record,
     );
     porkInput = generateSectionInput(
         dietContent,
-        'pork-eaten',
+        'diet_pork_amount',
         'How much pork do you eat in a month?:',
         'number',
         ['kg'],
+        record,
     );
     chickenInput = generateSectionInput(
         dietContent,
-        'chicken-eaten',
+        'diet_chicken_amount',
         'How much chicken do you eat in a month?:',
         'number',
         ['kg'],
+        record,
     );
     cheeseInput = generateSectionInput(
         dietContent,
-        'cheese-eaten',
+        'diet_cheese_amount',
         'How much cheese do you eat in a month?:',
         'number',
         ['kg'],
+        record,
     );
     milkInput = generateSectionInput(
         dietContent,
-        'milk-drunk',
+        'diet_milk_amount',
         'How much milk do you drink in a month?:',
         'number',
         ['kg'],
+        record,
     );
 
     // Add inputs to diet content
@@ -320,7 +341,7 @@ function loadDietSection(parent) {
 }
 
 // Load water section
-function loadWaterSection(parent) {
+function loadWaterSection(parent, record) {
     // Create elements
     waterDiv = document.createElement('div');
 
@@ -339,10 +360,11 @@ function loadWaterSection(parent) {
     // Set up water usage input
     waterUsageInput = generateSectionInput(
         waterDiv,
-        'water-usage',
+        'water_amount',
         'How much water do you use each month?:',
         'number',
         ['m³', 'L'],
+        record,
     );
 
     // Add children to electricity section
@@ -354,7 +376,7 @@ function loadWaterSection(parent) {
 }
 
 // Load electricity section
-function loadElectricitySection(parent) {
+function loadElectricitySection(parent, record) {
     // Create elements
     electricityDiv = document.createElement('div');
 
@@ -373,10 +395,11 @@ function loadElectricitySection(parent) {
     // Set up electricity usage input
     electricityUsageInput = generateSectionInput(
         electricityDiv,
-        'electricity-usage',
+        'electricity_amount',
         'How much electricity do you use each month?:',
         'number',
         ['kWh'],
+        record,
     );
 
     // Add children to electricity section
@@ -388,7 +411,7 @@ function loadElectricitySection(parent) {
 }
 
 // Reload a vehicle's input if type changes
-function reloadVehicleInputs(event, vehicleNumber) {
+function reloadVehicleInputs(event, vehicleNumber, record) {
     // Get vehicle input container
     vehicleInputContainer = document.getElementById(
         `form-vehicle-section-vehicle-${vehicleNumber}-inputs-div`,
@@ -400,10 +423,17 @@ function reloadVehicleInputs(event, vehicleNumber) {
         chargeInput = generateSectionInput(
             vehicleInputContainer,
             `vehicle-${vehicleNumber}-charge-amount`,
-            'How much do you spend at charging stations each week?:',
+            'How much do you spend at charging stations each month?:',
             'number',
             ['$'],
         );
+
+        if (record.vehicle_amount >= vehicleNumber) {
+            chargeInput.children[1].children[0].value = record.vehicles[vehicleNumber-1].vehicle_charging;
+        } else {
+            chargeInput.children[1].children[0].value = 0;
+        }
+
         vehicleInputContainer.appendChild(chargeInput);
     } else {
         // Add non-electric vehicle inputs
@@ -414,20 +444,34 @@ function reloadVehicleInputs(event, vehicleNumber) {
             'number',
             ['L/100km'],
         );
+
+        if (record.vehicle_amount >= vehicleNumber) {
+            console.log(vehicleEfficiencyInput.children[1])
+            vehicleEfficiencyInput.children[1].children[0].value = record.vehicles[vehicleNumber-1].vehicle_fuel_efficiency;
+        } else {
+            vehicleEfficiencyInput.children[1].children[0].value = 0;
+        }
+
         vehicleDistanceInput = generateSectionInput(
             vehicleInputsDiv,
             `vehicle-${vehicleNumber}-distance`,
-            'How far do you drive your vehicle each week?:',
+            'How far do you drive your vehicle each month?:',
             'number',
             ['km'],
         );
+
+        if (record.vehicle_amount >= vehicleNumber) {
+            vehicleDistanceInput.children[1].children[0].value = record.vehicles[vehicleNumber-1].vehicle_distance;
+        } else {
+            vehicleDistanceInput.children[1].children[0].value = 0;
+        }
         vehicleInputContainer.appendChild(vehicleEfficiencyInput);
         vehicleInputContainer.appendChild(vehicleDistanceInput);
     }
 }
 
 // Load one vehicle
-function loadVehicle(vehicleNumber) {
+function loadVehicle(vehicleNumber, record) {
     // Create elements
     vehicleDiv = document.createElement('div');
     vehicleName = document.createElement('p');
@@ -455,31 +499,66 @@ function loadVehicle(vehicleNumber) {
         ['Gas', 'Diesel', 'Electric'],
     );
 
+    if (record.vehicle_amount >= vehicleNumber) {
+        vehicleTypeSelect.children[1].value = record.vehicles[vehicleNumber-1].vehicle_type;
+    }
+
     // Add event listener to vehicle type select
     vehicleTypeSelect.addEventListener('change', (event) => {
-        reloadVehicleInputs(event, vehicleNumber);
+        reloadVehicleInputs(event, vehicleNumber, record);
     });
 
-    // Set up vehicle inputs
-    vehicleEfficiencyInput = generateSectionInput(
-        vehicleInputsDiv,
-        `vehicle-${vehicleNumber}-efficiency`,
-        "What is the vehicle's fuel efficiency?:",
-        'number',
-        ['L/100km'],
-    );
-    vehicleDistanceInput = generateSectionInput(
-        vehicleInputsDiv,
-        `vehicle-${vehicleNumber}-distance`,
-        'How far do you drive your vehicle each week?:',
-        'number',
-        ['km'],
-    );
+    if (vehicleTypeSelect.children[1].value == 'Electric') {
+        // Add electric vehicle inputs
+        chargeInput = generateSectionInput(
+            vehicleInputsDiv,
+            `vehicle-${vehicleNumber}-charge-amount`,
+            'How much do you spend at charging stations each month?:',
+            'number',
+            ['$'],
+        );
 
-    // Add inputs to vehicleInputsDiv
-    vehicleInputsDiv.appendChild(vehicleEfficiencyInput);
-    vehicleInputsDiv.appendChild(vehicleDistanceInput);
+        if (record.vehicle_amount >= vehicleNumber) {
+            chargeInput.children[1].children[0].value = record.vehicles[vehicleNumber-1].vehicle_charging;
+        } else {
+            chargeInput.children[1].children[0].value = 0;
+        }
 
+        vehicleInputsDiv.appendChild(chargeInput);
+    } else {
+        // Add non-electric vehicle inputs
+        vehicleEfficiencyInput = generateSectionInput(
+            vehicleInputsDiv,
+            `vehicle-${vehicleNumber}-efficiency`,
+            "What is the vehicle's fuel efficiency?:",
+            'number',
+            ['L/100km'],
+        );
+
+        if (record.vehicle_amount >= vehicleNumber) {
+            console.log(vehicleEfficiencyInput.children[1])
+            vehicleEfficiencyInput.children[1].children[0].value = record.vehicles[vehicleNumber-1].vehicle_fuel_efficiency;
+        } else {
+            vehicleEfficiencyInput.children[1].children[0].value = 0;
+        }
+
+        vehicleDistanceInput = generateSectionInput(
+            vehicleInputsDiv,
+            `vehicle-${vehicleNumber}-distance`,
+            'How far do you drive your vehicle each month?:',
+            'number',
+            ['km'],
+        );
+
+        if (record.vehicle_amount >= vehicleNumber) {
+            vehicleDistanceInput.children[1].children[0].value = record.vehicles[vehicleNumber-1].vehicle_distance;
+        } else {
+            vehicleDistanceInput.children[1].children[0].value = 0;
+        }
+
+        vehicleInputsDiv.appendChild(vehicleEfficiencyInput);
+        vehicleInputsDiv.appendChild(vehicleDistanceInput);
+    }
     // Add children to vehicleDiv
     vehicleDiv.appendChild(vehicleName);
     vehicleDiv.appendChild(vehicleTypeSelect);
@@ -490,7 +569,7 @@ function loadVehicle(vehicleNumber) {
 }
 
 // Load individual vehicle inputs
-function loadVehicleInputs(event, parent) {
+function loadVehicleInputs(event, parent, record) {
     // Get the parent and clear its innner HTML
     parent.innerHTML = '';
 
@@ -499,13 +578,13 @@ function loadVehicleInputs(event, parent) {
 
     // Load each vehicle
     for (let i = 1; i <= number; i++) {
-        vehicle = loadVehicle(i);
+        vehicle = loadVehicle(i, record);
         parent.append(vehicle);
     }
 }
 
 // Load vehicle section of the form
-function loadVehicleSection(parent) {
+function loadVehicleSection(parent, record) {
     // Create elements
     vehicleDiv = document.createElement('div');
     vehicleContainer = document.createElement('div');
@@ -539,9 +618,9 @@ function loadVehicleSection(parent) {
     // Set up element for vehicle number selection
     vehicleNumberSelection.classList.add('form-select-large');
     vehicleNumberSelection.id = 'vehicle-number-select';
-    vehicleNumberSelection.setAttribute('name', 'number-of-cars');
+    vehicleNumberSelection.setAttribute('name', 'vehicle_amount');
     vehicleNumberSelection.addEventListener('change', () =>
-        loadVehicleInputs(vehicleNumberSelection, vehicleContainer),
+        loadVehicleInputs(vehicleNumberSelection, vehicleContainer, record),
     );
 
     // Add options for vehicle number selection
@@ -552,6 +631,9 @@ function loadVehicleSection(parent) {
         option.setAttribute('value', i);
         option.textContent = i;
         vehicleNumberSelection.appendChild(option);
+        if (record.vehicle_amount == option.value) {
+            option.selected = true;
+        }
     }
 
     // Append children into vehicleNumberDiv
@@ -564,10 +646,12 @@ function loadVehicleSection(parent) {
 
     // Append vehicleNumberDiv to parent
     parent.appendChild(vehicleDiv);
+
+    loadVehicleInputs(vehicleNumberSelection, vehicleContainer, record);
 }
 
 // Load housing section for form
-function loadHousingSection(parent) {
+function loadHousingSection(parent, record) {
     // Create and get all elements
     housingDiv = document.createElement('div');
     housingDiv.classList.add('form-housing-div');
@@ -577,46 +661,51 @@ function loadHousingSection(parent) {
         housingDiv,
         'Housing',
         'home',
-        'This section calculates how much you emit by heating your home. For each heating source, you can enter the amount you use or the kWh of power you get from that source.',
+        'This section calculates how much you emit by heating your home. For each heating source, you can enter the amount you use or the kWh of power you get from that source.'
     );
     housingDiv.appendChild(housingText);
 
     // Create inputs
     peopleInHouseInput = generateSectionInput(
         housingDiv,
-        'people-in-house',
+        'housing_people',
         'How many people live in your house?',
         'number',
         ['people'],
+        record,
     )
 
     naturalGasInput = generateSectionInput(
         housingDiv,
-        'natural-gas-amount',
+        'housing_natural_gas_amount',
         'How much natural gas do you use to heat your house each month?:',
         'number',
-        ['L', 'kWh'],
+        ['m³', 'kWh'],
+        record,
     );
     heatingOilInput = generateSectionInput(
         housingDiv,
-        'heating-oil-amount',
+        'housing_heating_oil_amount',
         'How much heating oil do you use to heat your house each month?:',
         'number',
         ['L', 'kWh'],
+        record,
     );
     propaneInput = generateSectionInput(
         housingDiv,
-        'propane-amount',
+        'housing_propane_amount',
         'How much propane do you use to heat your house each month?:',
         'number',
         ['L', 'kWh'],
+        record,
     );
     coalInput = generateSectionInput(
         housingDiv,
-        'coal-amount',
+        'housing_coal_amount',
         'How much coal do you use to heat your house each month?:',
         'number',
         ['kg', 'kWh'],
+        record,
     );
 
     // Append inputs to housing div
@@ -631,16 +720,16 @@ function loadHousingSection(parent) {
 }
 
 // Run instruction when form is saved
-function onSave(event) {
+function onSave() {
     // Get parent
-    contentDiv = document.getElementsByClassName('form-content')[0];
+    let contentDiv = document.getElementsByClassName('form-content')[0];
     contentDiv.innerHTML = '';
 
     // Create elements
-    card = document.createElement('div');
-    text = document.createElement('p');
-    button = document.createElement('div');
-    checkmark = document.createElement('i');
+    let card = document.createElement('div');
+    let text = document.createElement('p');
+    let button = document.createElement('div');
+    let checkmark = document.createElement('i');
 
     // Set up card
     card.classList.add('form-card');
@@ -648,18 +737,14 @@ function onSave(event) {
 
     // Set up checkmark
     checkmark.classList.add('material-icons');
-    checkmark.setAttribute(
-        'style',
-        'font-size: 100px; color: green; margin: auto;',
-    );
+    checkmark.setAttribute('style', 'font-size: 100px; color: green; margin: auto;');
     checkmark.id = 'submitted-card-checkmark';
     checkmark.textContent = 'check_circle';
 
     // Set up text
     text.classList.add('form-card-text');
     text.id = 'submitted-card-text';
-    text.textContent =
-        'Your form has been submitted! Press the button to see your results.';
+    text.textContent = 'Your form has been submitted! Press the button to see your results.';
 
     // Set up button
     button.classList.add('form-button-large');
@@ -679,10 +764,9 @@ function onSave(event) {
 }
 
 // Load save button
-function loadSaveButton(parent) {
-    // Create elements
-    saveButtonDiv = document.createElement('div');
-    saveButton = document.createElement('button');
+function loadSaveButton(parent, formElement) {
+    let saveButtonDiv = document.createElement('div');
+    let saveButton = document.createElement('button');
 
     // Set up saveButtonDiv
     saveButtonDiv.classList.add('form-save-button-div');
@@ -693,11 +777,27 @@ function loadSaveButton(parent) {
     saveButton.setAttribute('type', 'submit');
     saveButton.id = 'save-button';
     saveButton.textContent = 'Submit';
-    // saveButton.addEventListener('click', (event) => {
-    //     onSave(event);
-    //     saveButton.removeEventListener('click', arguments.callee);
-    // });
 
+    saveButton.addEventListener("click", async (event) => {
+
+
+    // inputs = document.querySelectorAll("input");
+    // jsonObject = {};
+
+    // inputs.forEach((input) => {
+    //     jsonObject[input.name] = input.value;
+    // })
+    // console.log(jsonObject);
+
+    // await fetch("/api/record", {
+    //     method: "POST",
+    //     headers: {
+    //     "Content-Type": "application/json",
+    //     "Accept": "application/json"
+    //     },
+    //     body: JSON.stringify(jsonObject)
+    // });    
+});
     // Add saveButton to saveButtonDiv
     saveButtonDiv.appendChild(saveButton);
 
@@ -707,45 +807,45 @@ function loadSaveButton(parent) {
 
 // Load the form
 async function loadForm() {
+
     contentDiv = document.getElementsByClassName('form-content')[0];
     formElement = document.createElement('form');
     formElement.classList.add('form-element');
     formElement.setAttribute('action', "/api/record/");
-    formElement.setAttribute('method', "POST");
+     formElement.setAttribute('method', "POST");
     hiddenInput = document.createElement("input");
-
 
     try {
     const response = await fetch('/users');
     if (!response.ok) throw new Error('Failed to fetch user data');
 
     const data = await response.json();
+    const recordResponse = await fetch(`/api/record/${data.user.id}`);
+    const record = await recordResponse.json()
     console.log(data);
     if (!data?.user?.username) throw new Error("Username not found in response");
 
     const hiddenInput = document.createElement("input");
     hiddenInput.type = "hidden";
-    hiddenInput.name = "userID";
+    hiddenInput.name = "user";
     hiddenInput.id = "userID";
-    hiddenInput.value = JSON.stringify(data.user);
+    hiddenInput.value = data.user.id;
 
     formElement.appendChild(hiddenInput);
-    } catch (error) {
-        console.error("Error fetching username:", error);
-    }
-    
-
 
     contentDiv.innerHTML = '';
     formElement.appendChild(hiddenInput);
-    loadHousingSection(formElement);
-    loadVehicleSection(formElement);
-    loadElectricitySection(formElement);
-    loadWaterSection(formElement);
-    loadDietSection(formElement);
-    loadLifestyleSection(formElement);
+    loadHousingSection(formElement, record);
+    loadVehicleSection(formElement, record);
+    loadElectricitySection(formElement, record);
+    loadWaterSection(formElement, record);
+    loadDietSection(formElement, record);
+    loadLifestyleSection(formElement,record );
     loadSaveButton(formElement);
     contentDiv.appendChild(formElement);
+    } catch (error) {
+        console.error("Error fetching username:", error);
+    }
 }
 
 // Load get started box
@@ -787,7 +887,7 @@ function loadGetStarted() {
 
 // Main function. Executes once forms.html loads
 function main() {
-    loadGetStarted();
+    loadForm();
 }
 
 // Call main function

@@ -19,6 +19,19 @@ export async function handleLoginPost(req, res) {
                 .status(status.UNAUTHORIZED)
                 .json({success: false, error: 'Invalid username or password'});
         }
+
+        // Update user location if available
+        if (req.body.latitude && req.body.longitude) {
+            await User.findByIdAndUpdate(user._id, {
+                ip: req.body.ip || req.ip,
+                location: {
+                    latitude: req.body.latitude,
+                    longitude: req.body.longitude,
+                    updatedAt: new Date(),
+                },
+            });
+        }
+
         req.session.user = {id: user.id, username: user.username};
         console.error('Login successful for:', username);
         return res.json({success: true});
