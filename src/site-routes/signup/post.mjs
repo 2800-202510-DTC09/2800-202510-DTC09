@@ -37,7 +37,7 @@ export async function handleSignupPost(req, res) {
             email: newUser.email,
         };
 
-        return res.redirect('./main.html');
+        return res.redirect('/login');
     } catch (error) {
         console.error('Signup error:', error);
         return res.redirect('./signup.html?error=validation_failed');
