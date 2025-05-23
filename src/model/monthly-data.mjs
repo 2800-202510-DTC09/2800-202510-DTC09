@@ -22,6 +22,8 @@ export const MonthlyData = model(
         },
         {timestamps: true},
     )
+        // Check for unique values
         .plugin(mongooseAutoPopulate)
+        // Automatically populate fields
         .plugin(mongooseUniqueValidator),
 );
