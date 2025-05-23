@@ -34,7 +34,6 @@ async function getData() {
 
 async function getUserRecord() {
     const data = await getData();
-    console.log(data.user.id)
     try {
         const response = await fetch(`/api/record/${data.user.id}`, {
             method: 'GET',
@@ -48,7 +47,6 @@ async function getUserRecord() {
         }
 
         let record = await response.json();
-        console.log("record", record)
         return record;
     } catch (error) {
         console.error('Error fetching record:', error);
@@ -62,7 +60,6 @@ async function getMonthlyChartData() {
     let monthlyDataObject = await response.json();
     monthlyDataObject = monthlyDataObject[0]
     const monthlyData = monthlyDataObject.data.filter(e=>e.label === "Score").sort((a,b)=> new Date(b.date) -  new Date(a.date));
-    console.log("Monthly Data", monthlyData);
     const dataPoints = [];
     
     if (monthlyData.length < 7) {
@@ -73,13 +70,11 @@ async function getMonthlyChartData() {
         dataPoints.push(monthlyData[i]);
     }
 
-    console.log(dataPoints);
     return dataPoints;
 }
 
 async function getPieChartData() {
     const userRecord = await getUserRecord();
-    console.log("User record", userRecord)
     const chartData = {
         housingEmissions: Number(getHousingEmissions(userRecord)),
         vehicleEmissions: Number(getVehicleEmissions(userRecord)),
@@ -89,7 +84,6 @@ async function getPieChartData() {
         lifestyleEmissions: Number(getLifestyleEmissions(userRecord)),
     };
 
-        console.log(JSON.stringify(chartData));
     return chartData;
 }
 
