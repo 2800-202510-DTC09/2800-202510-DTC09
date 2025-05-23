@@ -7,7 +7,7 @@ export async function handleSignupPost(req, res) {
 
     // Basic input check
     if (!username || !password || !email) {
-        return res.redirect('./signup.html?error=values_missing');
+        return res.redirect('/html/signup.html?error=values_missing');
     }
 
     try {
@@ -40,6 +40,6 @@ export async function handleSignupPost(req, res) {
         return res.redirect('/login');
     } catch (error) {
         console.error('Signup error:', error);
-        return res.redirect('./signup.html?error=validation_failed');
+        return res.redirect('/html/signup.html?error=validation_failed');
     }
 }
