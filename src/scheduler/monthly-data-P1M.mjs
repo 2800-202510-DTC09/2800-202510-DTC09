@@ -5,7 +5,7 @@
 import {MonthlyData} from '../model/monthly-data.mjs';
 import {Record} from '../model/record.mjs';
 import {User} from '../model/user.mjs';
-import {getAllEmissions} from '../public/calculateEmissions.js';
+import {getAllEmissions} from '../public/js/calculateEmissions.js';
 
 export default async () => {
     const users = await User.find();
