@@ -3,7 +3,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Load header
     const navbarPlaceholder = document.getElementById('navbarPlaceholder');
     if (navbarPlaceholder) {
-        fetch('components/nav/header.html')
+        fetch('/components/nav/header.html')
             .then((response) => response.text())
             .then((html) => {
                 navbarPlaceholder.innerHTML = html;
@@ -50,7 +50,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Load footer
     const footerPlaceholder = document.getElementById('footerPlaceholder');
     if (footerPlaceholder) {
-        fetch('components/nav/footer.html')
+        fetch('/components/nav/footer.html')
             .then((response) => response.text())
             .then((html) => {
                 footerPlaceholder.innerHTML = html;

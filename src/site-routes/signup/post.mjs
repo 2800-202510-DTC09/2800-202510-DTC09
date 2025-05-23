@@ -1,13 +1,13 @@
 import bcrypt from 'bcryptjs';
+import {Record} from '../../model/record.mjs';
 import {User, normalize} from '../../model/user.mjs';
-import {Record} from '../../model/record.mjs'
 
 export async function handleSignupPost(req, res) {
     const {username, email, password} = req.body;
 
     // Basic input check
     if (!username || !password || !email) {
-        return res.redirect('/signup.html?error=values_missing');
+        return res.redirect('./signup.html?error=values_missing');
     }
 
     try {
@@ -19,6 +19,15 @@ export async function handleSignupPost(req, res) {
                 username,
                 email,
                 password: hashedPassword,
+                ip: req.ip,
+                location:
+                    req.body.latitude && req.body.longitude
+                        ? {
+                              latitude: req.body.latitude,
+                              longitude: req.body.longitude,
+                              updatedAt: new Date(),
+                          }
+                        : null,
             }).save(),
         ).pop();
         const newRecord = await new Record({user: newUser.id}).save();
@@ -31,6 +40,6 @@ export async function handleSignupPost(req, res) {
         return res.redirect('/login');
     } catch (error) {
         console.error('Signup error:', error);
-        return res.redirect('/signup.html?error=validation_failed');
+        return res.redirect('./signup.html?error=validation_failed');
     }
 }

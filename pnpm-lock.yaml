@@ -50,6 +50,9 @@ importers:
       multer:
         specifier: ^2.0.0
         version: 2.0.0
+      nodemailer:
+        specifier: ^7.0.3
+        version: 7.0.3
       openai:
         specifier: ^4.98.0
         version: 4.98.0(zod@3.24.4)
@@ -1599,6 +1602,10 @@ packages:
     peerDependenciesMeta:
       encoding:
         optional: true
+
+  nodemailer@7.0.3:
+    resolution: {integrity: sha512-Ajq6Sz1x7cIK3pN6KesGTah+1gnwMnx5gKl3piQlQQE/PwyJ4Mbc8is2psWYxK3RJTVeqsDaCv8ZzXLCDHMTZw==}
+    engines: {node: '>=6.0.0'}
 
   nodemon@3.1.10:
     resolution: {integrity: sha512-WDjw3pJ0/0jMFmyNDp3gvY2YizjLmmOUQo6DEBY+JgdvW/yQ9mEeSw6H5ythl5Ny2ytb7f9C2nIbjSxMNzbJXw==}
@@ -4096,6 +4103,8 @@ snapshots:
   node-fetch@2.7.0:
     dependencies:
       whatwg-url: 5.0.0
+
+  nodemailer@7.0.3: {}
 
   nodemon@3.1.10:
     dependencies:
