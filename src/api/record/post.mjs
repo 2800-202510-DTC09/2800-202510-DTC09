@@ -192,5 +192,5 @@ record.post('/', async (req, res) => {
         }
     }
 
-    res.redirect('./progress.html');
+    res.redirect('/html/progress.html');
 });
