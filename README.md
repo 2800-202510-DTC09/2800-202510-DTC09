@@ -32,7 +32,7 @@ The Logo was generated using Canva DreamLab
 Background Image: <https://www.deviantart.com/emilianoai/art/Giant-tree-975716119>
 Leafs: <https://www.google.com/url?sa=i&url=https%3A%2F%2Fpngtree.com%2Fso%2Fcartoon-leaf&psig=AOvVaw2nBLCAwFy7oyS5ZWQlUMAF&ust=1746212374195000&source=images&cd=vfe&opi=89978449&ved=0CBQQjRxqFwoTCIiFvpP6go0DFQAAAAAdAAAAABAE>
 
-### Currently Implemented APIs
+### APIs used
 
 - [OpenStreetMap Nominatim](https://nominatim.org/)
 - [IPAPI](https://ipapi.com/)

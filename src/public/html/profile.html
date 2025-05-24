@@ -1,9 +1,9 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>Profile</title>
+        <title>SustainMe - Profile</title>
 
         <!-- Google Fonts -->
         <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -23,148 +23,208 @@
             tailwind.config = module.exports;
         </script>
 
-        <script src="https://cdn.jsdelivr.net/npm/echarts@5.4.3/dist/echarts.min.js"></script>
-        <link rel="stylesheet" href="./css/style.css" />
+        <link rel="stylesheet" href="/css/style.css" />
     </head>
 
-    <body class="bg-light text-dark font-sans">
+    <body class="bg-neutral-100 font-sans">
         <!-- Navbar Placeholder -->
         <div id="navbarPlaceholder"></div>
 
-        <main class="container mx-auto px-4 py-4">
-            <div class="flex justify-between items-start mb-6">
-                <div class="flex items-center space-x-6">
-                    <!-- Profile Picture Placeholder -->
-                    <div
-                        class="h-24 w-24 rounded-full bg-primary flex items-center justify-center text-white text-3xl font-bold"
-                    >
-                        U
-                    </div>
-                    <div>
-                        <h1 class="text-3xl font-heading text-dark">
-                            Welcome, User
-                        </h1>
-                        <p class="text-neutral-500">
-                            Joined: Jan 2024 • 14-day streak
-                        </p>
-                        <div
-                            id="badge-container"
-                            class="badge-bar flex gap-2 mt-2"
-                        ></div>
-                    </div>
-                </div>
-
-                <div class="bg-green-100 rounded-lg p-4 shadow-md max-w-xs">
-                    <h2 class="text-lg font-heading text-dark mb-2">
-                        📍 Location
-                    </h2>
-                    <p class="text-neutral-700" data-location="city">
-                        City: Loading...
-                    </p>
-                    <p class="text-neutral-700" data-location="country">
-                        Country: Loading...
-                    </p>
-                    <p class="text-neutral-700" data-location="timezone">
-                        Timezone: Loading...
-                    </p>
-                </div>
-            </div>
-
-            <div
-                id="tier-container"
-                class="rounded-lg p-4 shadow-md mb-6 border-2"
-            >
-                <h2 class="text-xl font-heading text-dark mb-3">Your Tier</h2>
-                <div
-                    class="flex flex-col md:flex-row justify-between items-center md:items-start gap-6"
-                >
-                    <div
-                        class="flex flex-col items-center text-center md:items-start md:text-left"
-                    >
-                        <div class="flex items-center gap-3 mb-2">
-                            <img
-                                id="tier-badge"
-                                src="/assets/Bronze-1.png"
-                                alt="Tier Badge"
-                                class="w-16 h-16"
-                            />
-                            <span id="current-tier" class="text-2xl font-bold"
-                                >Loading...</span
-                            >
-                        </div>
-                    </div>
-                    <div class="flex-1 w-full max-w-md">
-                        <div class="flex justify-between mb-1">
-                            <span class="text-sm font-medium"
-                                >Progress to Next Tier</span
-                            >
-                            <span
-                                id="tier-progress-text"
-                                class="text-sm font-medium"
-                                >Calculating...</span
-                            >
-                        </div>
-                        <div class="tier-progress-container">
-                            <div
-                                id="tier-progress-bar"
-                                class="tier-progress-bar"
-                                style="width: 0%"
-                            ></div>
-                        </div>
-                        <div class="flex justify-between items-center mt-2">
-                            <div>
-                                <span class="text-xs text-neutral-600"
-                                    >Need
-                                    <span id="points-needed" class="font-bold"
-                                        >...</span
-                                    >
-                                    more points</span
-                                >
-                            </div>
-                            <div class="flex items-center gap-2">
-                                <span class="text-sm">Next: </span>
-                                <img
-                                    id="next-tier-badge"
-                                    src="/assets/Bronze-2.png"
-                                    alt="Next Tier Badge"
-                                    class="w-8 h-8"
-                                />
-                                <span
-                                    id="next-tier"
-                                    class="text-sm font-semibold"
-                                    >Loading...</span
-                                >
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+        <main class="container mx-auto px-4 py-4 pb-20">
+            <h1 class="text-3xl font-heading text-dark mb-6">Your Profile</h1>
 
             <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-                <div class="bg-white rounded-lg shadow-md p-6">
-                    <h2 class="text-xl font-heading text-dark mb-4">
-                        Total Carbon Saved
-                    </h2>
-                    <div class="text-4xl font-bold text-dark">♻️ 42 kg</div>
-                </div>
+                <a
+                    href="./main.html"
+                    class="group bg-white rounded-xl shadow-sm hover:shadow-md transition-all duration-200 p-3 block border border-gray-100 hover:border-gray-200 max-w-fit"
+                >
+                    <div class="flex items-center gap-3">
+                        <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            class="h-6 w-6 text-primary"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                            stroke="currentColor"
+                        >
+                            <path
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                stroke-width="2"
+                                d="M9 15 3 9m0 0 6-6M3 9h12a6 6 0 0 1 0 12h-3"
+                            />
+                        </svg>
+                        <h2 class="text-xl font-heading text-dark">Back</h2>
+                    </div>
+                </a>
+            </div>
 
-                <div class="bg-white rounded-lg shadow-md p-6">
-                    <h2 class="text-xl font-heading text-dark mb-4">
-                        Total Water Saved
-                    </h2>
-                    <div class="text-4xl font-bold text-dark">💧 320 L</div>
-                </div>
+            <div class="bg-white rounded-lg shadow-md p-6 mb-8">
+                <div class="flex flex-col md:flex-row gap-8">
+                    <!-- Profile Picture and Basic Info -->
+                    <div class="flex flex-col items-center">
+                        <div
+                            class="h-32 w-32 rounded-full bg-primary flex items-center justify-center text-white text-5xl mb-4"
+                        >
+                            <span id="profileInitial">U</span>
+                        </div>
+                        <h2
+                            class="text-2xl font-heading text-dark"
+                            id="profileUsername"
+                        >
+                            {Username Here}
+                        </h2>
+                        <p class="text-neutral-500" id="profileEmail">
+                            {Email Here}
+                        </p>
+                        <a
+                            href="./userSetting.html"
+                            class="mt-4 text-primary hover:text-secondary transition-colors"
+                        >
+                            Edit Profile
+                        </a>
+                    </div>
 
-                <div class="bg-white rounded-lg shadow-md p-6">
-                    <h2 class="text-xl font-heading text-dark mb-4">
-                        Badges Earned
-                    </h2>
-                    <div class="text-4xl font-bold text-dark">🏆 5/12</div>
+                    <!-- Stats and Location -->
+                    <div class="flex-1">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <!-- Tier Status -->
+                            <div
+                                id="tier-container"
+                                class="bg-white border border-primary rounded-lg p-4"
+                            >
+                                <h3 class="text-lg font-heading text-dark mb-2">
+                                    Your Tier
+                                </h3>
+                                <div
+                                    class="flex flex-col sm:flex-row items-center gap-4"
+                                >
+                                    <img
+                                        id="tier-badge"
+                                        src="/assets/Bronze-1.png"
+                                        alt="Tier Badge"
+                                        class="h-16 w-16"
+                                    />
+                                    <div class="w-full">
+                                        <p
+                                            class="font-medium"
+                                            id="current-tier"
+                                        >
+                                            Loading...
+                                        </p>
+                                        <div
+                                            class="tier-progress-container w-full"
+                                        >
+                                            <div
+                                                id="tier-progress-bar"
+                                                class="tier-progress-bar"
+                                                style="width: 0%"
+                                            ></div>
+                                        </div>
+                                        <p
+                                            class="text-sm text-neutral-500"
+                                            id="tier-progress-text"
+                                        >
+                                            Calculating...
+                                        </p>
+                                        <div
+                                            class="flex flex-col sm:flex-row justify-between items-center mt-2 gap-2"
+                                        >
+                                            <div>
+                                                <span
+                                                    class="text-xs text-neutral-600"
+                                                >
+                                                    Need
+                                                    <span
+                                                        id="points-needed"
+                                                        class="font-bold"
+                                                        >...</span
+                                                    >
+                                                    more points
+                                                </span>
+                                            </div>
+                                            <div
+                                                class="flex items-center gap-2"
+                                            >
+                                                <span class="text-sm"
+                                                    >Next:</span
+                                                >
+                                                <img
+                                                    id="next-tier-badge"
+                                                    src="/assets/Bronze-2.png"
+                                                    alt="Next Tier Badge"
+                                                    class="w-8 h-8"
+                                                />
+                                                <span
+                                                    id="next-tier"
+                                                    class="text-sm font-semibold"
+                                                    >Loading...</span
+                                                >
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Stats -->
+                            <div
+                                class="bg-white border border-primary rounded-lg p-4"
+                            >
+                                <h3 class="text-lg font-heading text-dark mb-2">
+                                    Your Stats
+                                </h3>
+                                <div class="space-y-2">
+                                    <p>
+                                        <span class="font-medium">Score:</span>
+                                        <span id="profileScore"
+                                            >{Score Here}</span
+                                        >
+                                    </p>
+                                    <!-- <p>
+                                        <span class="font-medium"
+                                            >Carbon Saved:</span
+                                        >
+                                        <span id="carbonSaved">{number}</span>
+                                    </p> -->
+                                    <!-- <p>
+                                        <span class="font-medium"
+                                            >Current Streak:</span
+                                        >
+                                        <span id="currentStreak">{number}</span>
+                                    </p> -->
+                                </div>
+                            </div>
+
+                            <!-- Location -->
+                            <div
+                                class="bg-white border border-primary rounded-lg p-4 md:col-span-2"
+                            >
+                                <h3 class="text-lg font-heading text-dark mb-2">
+                                    Location
+                                </h3>
+                                <div
+                                    class="grid grid-cols-1 md:grid-cols-3 gap-4"
+                                >
+                                    <p data-location="city">City: Loading...</p>
+                                    <p data-location="country">
+                                        Country: Loading...
+                                    </p>
+                                    <p data-location="timezone">
+                                        Timezone: Loading...
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
 
-            <div class="flex space-x-4">
-                <button class="btn btn-primary">Edit Profile</button>
+            <!-- Badges Section -->
+            <div class="bg-white rounded-lg shadow-md p-6">
+                <h2 class="text-xl font-heading text-dark mb-4">Your Badges</h2>
+                <div
+                    id="badge-container"
+                    class="grid grid-cols-2 md:grid-cols-4 gap-4"
+                ></div>
             </div>
         </main>
 
@@ -173,8 +233,9 @@
 
         <!-- Scripts -->
         <script src="/components/templates/skeleton.js"></script>
+        <script src="/js/profile.js"></script>
         <script src="/js/location.js"></script>
-        <script src="/js/badges.js"></script>
         <script src="/js/tier.js"></script>
+        <script src="/js/badges.js"></script>
     </body>
 </html>

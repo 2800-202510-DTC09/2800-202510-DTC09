@@ -1,3 +1,14 @@
+/**
+ * Utility functions and data for managing user tiers based on score thresholds.
+ * Provides tier definitions and a function to determine a user's current tier,
+ * progress within the tier, and information about the next tier.
+ * 
+ * * Resources used * *
+ * [Claude 3.7]
+ * 
+ * @author Gurmehak Tuli
+ * @version 1.1
+ */
 const TIERS = [
     {
         name: 'bronze',

@@ -1,3 +1,14 @@
+/**
+ * This script manages the tier system for users based on their scores.
+ * It determines the user's current tier, progress, and next tier,
+ * and updates the UI accordingly.
+ * 
+ * * Resources used * *
+ * [Claude 3.7]
+ * 
+ * @author Gurmehak Tuli
+ * @version 1.1
+ */
 const TIERS = [
     {
         name: 'bronze',

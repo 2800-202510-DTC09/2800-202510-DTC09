@@ -1,9 +1,14 @@
 /**
- * Claude 3.7 was used to help with the code.
- */
-
-/**
- * Carbon Emissions Chatbot
+ * This script runs the Carbon Emissions Chatbot. It handles user messages,
+ * shows responses, and connects to the backend for carbon footprint data.
+ * It also manages suggestions and fallback replies.
+ * 
+ * * Resources used * *
+ * [https://platform.openai.com/docs/quickstart?api-mode=responses]
+ * [Claude 3.7]
+ * 
+ * @author Gurmehak Tuli
+ * @version 1.0
  */
 const MIN_TYPING_DELAY = 500;
 const MAX_TYPING_DELAY = 1500;
