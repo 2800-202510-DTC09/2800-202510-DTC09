@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>SustainMe Home</title>
+
+        <!-- Google Fonts -->
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Nunito:wght@400&family=Poppins:wght@700&display=swap"
+            rel="stylesheet"
+        />
+
+        <!-- Tailwind CSS -->
+        <script src="https://cdn.tailwindcss.com"></script>
+        <script>
+            const module = {};
+        </script>
+        <script src="/css/tailwind.config.js"></script>
+        <script>
+            tailwind.config = module.exports;
+        </script>
+
+        <!-- Custom CSS -->
+        <link rel="stylesheet" href="/css/style.css" />
+    </head>
+
+    <!-- The background page was created with the help of a youtube guide -->
+    <!-- Link: https://youtu.be/CZTCciHE72I -->
+
+    <body class="overflow-hidden">
+        <div
+            class="relative w-full h-screen bg-cover bg-center"
+            style="background-image: url('/assets/background.jpg')"
+        >
+            <nav
+                class="w-11/12 md:w-10/12 lg:w-9/12 mx-auto h-[10%] flex items-center justify-between"
+            >
+                <img
+                    src="/assets/DTC9Logo1.png"
+                    class="h-20 w-20 md:h-20 md:w-20 cursor-pointer"
+                    alt="Logo"
+                />
+                <div>
+                    <button
+                        onclick="window.location.href='/index.html'"
+                        type="button"
+                        class="btn btn-outline mr-2"
+                    >
+                        Back
+                    </button>
+                </div>
+            </nav>
+
+            <div
+                class="min-h-screen bg-transparent flex flex-col justify-center py-12 sm:px-6 lg:px-8"
+            >
+                <div class="sm:mx-auto sm:w-full sm:max-w-md">
+                    <h2
+                        class="mt-6 text-center text-4xl leading-9 font-extrabold text-gray-50"
+                    >
+                        Log in to your account
+                    </h2>
+                    <p
+                        class="mt-2 text-center text-md leading-5 text-gray-50 max-w"
+                    >
+                        Or
+                        <a
+                            href="/html/signup.html"
+                            class="font-medium text-blue-600 hover:text-blue-500 focus:outline-none focus:underline transition ease-in-out duration-150"
+                        >
+                            create a new account
+                        </a>
+                        </a>
+                    </p>
+                </div>
+
+                <div
+                    class="mt-8 sm:mx-auto sm:w-full sm:max-w-md relative z-10"
+                >
+                    <div
+                        class="bg-white bg-opacity-30 py-8 px-4 shadow sm:rounded-lg sm:px-10"
+                    >
+                        <form
+                            id="loginForm"
+                            method="POST"
+                            action="/login"
+                            class="opacity-100"
+                        >
+                            <div>
+                                <label
+                                    for="identifier"
+                                    class="block text-sm font-medium leading-5 text-black"
+                                    >Username or Email</label
+                                >
+                                <div class="mt-1 relative rounded-md shadow-sm">
+                                    <input
+                                        id="identifier"
+                                        name="identifier"
+                                        placeholder="yourusername or user@example.com"
+                                        type="text"
+                                        required
+                                        class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out sm:text-sm sm:leading-5"
+                                    />
+                                </div>
+                            </div>
+
+                            <div class="mt-6">
+                                <label
+                                    for="password"
+                                    class="block text-sm font-medium leading-5 text-black"
+                                    >Password</label
+                                >
+                                <div class="mt-1 rounded-md shadow-sm">
+                                    <input
+                                        id="password"
+                                        name="password"
+                                        type="password"
+                                        required
+                                        class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out sm:text-sm sm:leading-5"
+                                    />
+                                </div>
+                            </div>
+
+                            <p
+                                id="loginError"
+                                class="hidden text-red-500 text-xs italic mt-2"
+                            ></p>
+
+                            <div class="mt-6">
+                                <span class="block w-full rounded-md shadow-sm">
+                                    <button
+                                        type="submit"
+                                        class="w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-500 focus:outline-none focus:border-indigo-700 focus:shadow-outline-indigo active:bg-indigo-700 transition duration-150 ease-in-out"
+                                    >
+                                        Log in
+                                    </button>
+                                </span>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <div
+                class="leaf absolute bottom-[-70px] w-full flex items-center justify-around z-0"
+            >
+                <img src="/assets/leaf.png" class="w-8 md:w-10 lg:w-12" />
+                <img src="/assets/leaf.png" class="w-10 md:w-12 lg:w-[50px]" />
+                <img src="/assets/leaf.png" class="w-6 md:w-8 lg:w-10" />
+                <img src="/assets/leaf.png" class="w-10 md:w-12 lg:w-[50px]" />
+                <img src="/assets/leaf.png" class="w-8 md:w-10 lg:w-12" />
+                <img src="/assets/leaf.png" class="w-5 md:w-6 lg:w-7" />
+                <img src="/assets/leaf.png" class="w-7 md:w-9 lg:w-11" />
+            </div>
+        </div>
+
+        <script src="/js/login.js"></script>
+        <script type="module">
+            document
+                .getElementById('loginForm')
+                .addEventListener('submit', async (event) => {
+                    event.preventDefault();
+
+                    const form = event.target;
+                    // We let them use either email or username to log in
+                    const identifier = form.identifier.value;
+                    const password = form.password.value;
+                    const loginErrorParagraph = document.getElementById('loginError');
+
+                    loginErrorParagraph.classList.add('hidden');
+
+                    try {
+                        const latitude = form.querySelector(
+                            'input[name="latitude"]',
+                        )?.value;
+                        const longitude = form.querySelector(
+                            'input[name="longitude"]',
+                        )?.value;
+                        const ip =
+                            form.querySelector('input[name="ip"]')?.value;
+
+                        // Debug log @DSG
+                        console.log('Sending login data:', {
+                            username: identifier,
+                            hasLatitude: !!latitude,
+                            hasLongitude: !!longitude,
+                            hasIp: !!ip,
+                        });
+
+                        const response = await fetch('/login', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json',
+                            },
+                            body: JSON.stringify({
+                                username: identifier,
+                                password: password,
+                                latitude,
+                                longitude,
+                                ip,
+                            }),
+                        });
+
+                        if (!response.ok) {
+                            let errorMessage =
+                                'Login failed. Please check your credentials.';
+                            try {
+                                const errorData = await response.json();
+                                if (errorData && errorData.error) {
+                                    errorMessage = errorData.error;
+                                } else if (response.status === 401) {
+                                    errorMessage =
+                                        'Invalid username/email or password.';
+                                }
+                            } catch (e) {
+                                if (response.status === 401) {
+                                    errorMessage =
+                                        'Invalid username/email or password.';
+                                }
+                                console.error(
+                                    'Error parsing error response:',
+                                    e,
+                                );
+                            }
+                            loginErrorParagraph.textContent = errorMessage;
+                            loginErrorParagraph.classList.remove('hidden');
+                            return;
+                        }
+
+                        const result = await response.json();
+
+                        if (result.success) {
+                            window.location.href = './main.html';
+                        } else {
+                            loginErrorParagraph.textContent =
+                                result.error ||
+                                'Login failed. Please try again.';
+                            loginErrorParagraph.classList.remove('hidden');
+                        }
+                    } catch (error) {
+                        console.error('Login request failed:', error);
+                        loginErrorParagraph.textContent =
+                            'An error occurred. Please try again later.';
+                        loginErrorParagraph.classList.remove('hidden');
+                    }
+                });
+        </script>
+    </body>
+</html>

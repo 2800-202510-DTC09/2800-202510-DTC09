@@ -1,3 +1,3 @@
 export function handleSignupGet(req, res) {
-    res.redirect('/signup.html');
+    res.redirect('/html/signup.html');
 }

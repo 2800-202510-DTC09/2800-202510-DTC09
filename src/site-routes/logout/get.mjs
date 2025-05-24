@@ -9,6 +9,6 @@ export function handleLogoutGet(req, res) {
                 .send('Error logging out');
         }
         res.clearCookie('connect.sid');
-        return res.redirect('/login.html');
+        return res.redirect('/html/login.html');
     });
 }

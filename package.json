@@ -1,4 +1,5 @@
 {
+    "type": "module",
     "scripts": {
         "local": "nodemon --exec dotenvx --ext js,mjs,json -- run --overload --strict -f .env.local -- node ./src/index.mjs",
         "format": "prettier --write . && eslint --fix .",
@@ -6,6 +7,9 @@
     },
     "dependencies": {
         "@dotenvx/dotenvx": "^1.42.0",
+        "@langchain/community": "^0.3.43",
+        "@langchain/core": "^0.3.56",
+        "@langchain/openai": "^0.5.10",
         "axios": "^1.9.0",
         "bcryptjs": "^3.0.2",
         "common-es": "^1.0.1",
@@ -15,13 +19,16 @@
         "fast-glob": "^3.3.3",
         "http-status": "^2.1.0",
         "iso8601-duration": "^2.1.2",
+        "langchain": "^0.3.26",
         "mongoose": "^8.14.0",
         "mongoose-autopopulate": "^1.1.0",
         "mongoose-unique-validator": "^4.0.1",
         "multer": "^2.0.0",
+        "nodemailer": "^7.0.3",
         "openai": "^4.98.0",
         "swagger-jsdoc": "^6.2.8",
-        "swagger-ui-express": "^5.0.1"
+        "swagger-ui-express": "^5.0.1",
+        "uuid": "^11.1.0"
     },
     "devDependencies": {
         "@silver886/eslint-config": "^3.0.3",

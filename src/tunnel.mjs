@@ -6,10 +6,12 @@ import {bin, install} from 'cloudflared';
 import {connect} from 'mongoose';
 
 (async () => {
+    // Check if cloudflared is installed
     if (!existsSync(bin)) {
         await install(bin);
     }
 
+    // Check if cloudflared is running
     const config = join(env.HOME ?? env.USERPROFILE, '.cloudflared');
     if (existsSync(config) && statSync(config).isDirectory()) {
         readdirSync(config)
@@ -19,10 +21,12 @@ import {connect} from 'mongoose';
             });
     }
 
+    // Check if the token is valid
     execFileSync(bin, ['access', 'login', '--quiet', env.MONGO_SERVER], {
         stdio: 'inherit',
     });
 
+    // Start the tunnel
     const cloudflared = spawn(
         bin,
         [
@@ -36,10 +40,12 @@ import {connect} from 'mongoose';
         {stdio: 'inherit'},
     );
 
+    // Handle exit signals
     process.on('SIGUSR2', () => {
         cloudflared.kill();
         process.kill(process.pid, 'SIGTERM');
     });
 
+    // Wait for the database to be ready
     await connect(`mongodb://${env.MONGO_HOST}:${env.MONGO_PORT}/sustain-me`);
 })();

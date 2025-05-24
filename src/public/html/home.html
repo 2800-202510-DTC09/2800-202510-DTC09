@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en" class="bg-light text-dark font-sans">
+    <head>
+        <meta charset="UTF-8" />
+        <title>Home</title>
+        <script src="https://cdn.tailwindcss.com"></script>
+        <link rel="stylesheet" href="./css/style.css" />
+    </head>
+    <body
+        class="flex flex-col items-center justify-center min-h-screen bg-light text-dark font-sans"
+    >
+        <main class="text-center">
+            <h1 class="text-3xl font-heading mb-4">
+                Welcome, <span id="username">...</span>!
+            </h1>
+
+            <a
+                href="/logout"
+                class="btn-primary px-4 py-2 text-white rounded hover:opacity-90 transition"
+            >
+                Log Out
+            </a>
+        </main>
+
+        <script>
+            async function loadUser() {
+                try {
+                    const res = await fetch('/users');
+                    if (!res.ok) throw new Error('Not logged in');
+                    const data = await res.json();
+                    document.getElementById('username').textContent =
+                        data.user.username;
+                } catch (err) {
+                    window.location.href = '/html/login.html';
+                }
+            }
+
+            loadUser();
+        </script>
+    </body>
+</html>

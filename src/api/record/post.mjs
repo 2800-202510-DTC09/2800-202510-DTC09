@@ -12,8 +12,7 @@ import {Error, Mongoose} from 'mongoose';
 import {Record, normalize} from '../../model/record.mjs';
 import {record} from './index.mjs';
 import mongoose from 'mongoose';
-import { truncates } from 'bcryptjs';
-
+import {truncates} from 'bcryptjs';
 
 /**
  * @openapi
@@ -51,68 +50,93 @@ import { truncates } from 'bcryptjs';
  *         description: Server internal error
  */
 record.post('/', async (req, res) => {
-    const user = req.body["user"];
+    const user = req.body['user'];
 
-    const housing_people = Number(req.body["housing_people"]);
-    const housing_natural_gas_amount = Number(req.body["housing_natural_gas_amount"]);
-    const housing_heating_oil_amount = Number(req.body["housing_heating_oil_amount"]);
-    const housing_propane_amount = Number(req.body["housing_propane_amount"]);
-    const housing_coal_amount = Number(req.body["housing_coal_amount"]);
-    const vehicle_amount = Number(req.body["vehicle_amount"]);
-    const electricity_amount = Number(req.body["electricity_amount"]);
-    const water_amount = Number(req.body["water_amount"]);
-    const diet_beef_amount = Number(req.body["diet_beef_amount"]);
-    const diet_pork_amount = Number(req.body["diet_pork_amount"]);
-    const diet_chicken_amount = Number(req.body["diet_chicken_amount"]);
-    const diet_cheese_amount = Number(req.body["diet_cheese_amount"]);
-    const diet_milk_amount = Number(req.body["diet_milk_amount"]);
-    const lifestyle_domestic_flights_distance = Number(req.body["lifestyle_domestic_flights_distance"]);
-    const lifestyle_international_flights_distance = Number(req.body["lifestyle_international_flights_distance"]);
-    const lifestyle_clothing_purchased_amount = Number(req.body["lifestyle_clothing_purchased_amount"]);
-    const lifestyle_shipping_amount = Number(req.body["lifestyle_shipping_amount"]);
+    const housing_people = Number(req.body['housing_people']);
+    const housing_natural_gas_amount = Number(
+        req.body['housing_natural_gas_amount'],
+    );
+    const housing_heating_oil_amount = Number(
+        req.body['housing_heating_oil_amount'],
+    );
+    const housing_propane_amount = Number(req.body['housing_propane_amount']);
+    const housing_coal_amount = Number(req.body['housing_coal_amount']);
+    const vehicle_amount = Number(req.body['vehicle_amount']);
+    const electricity_amount = Number(req.body['electricity_amount']);
+    const water_amount = Number(req.body['water_amount']);
+    const diet_beef_amount = Number(req.body['diet_beef_amount']);
+    const diet_pork_amount = Number(req.body['diet_pork_amount']);
+    const diet_chicken_amount = Number(req.body['diet_chicken_amount']);
+    const diet_cheese_amount = Number(req.body['diet_cheese_amount']);
+    const diet_milk_amount = Number(req.body['diet_milk_amount']);
+    const lifestyle_domestic_flights_distance = Number(
+        req.body['lifestyle_domestic_flights_distance'],
+    );
+    const lifestyle_international_flights_distance = Number(
+        req.body['lifestyle_international_flights_distance'],
+    );
+    const lifestyle_clothing_purchased_amount = Number(
+        req.body['lifestyle_clothing_purchased_amount'],
+    );
+    const lifestyle_shipping_amount = Number(
+        req.body['lifestyle_shipping_amount'],
+    );
 
-    const housing_people_unit = req.body["housing_people_unit"];
-    const housing_natural_gas_unit = req.body["housing_natural_gas_amount_unit"];
-    const housing_heating_oil_unit = req.body["housing_heating_oil_amount_unit"];
-    const housing_propane_unit = req.body["housing_propane_amount_unit"];
-    const housing_coal_unit = req.body["housing_coal_amount_unit"];
-    const electricity_amount_unit = req.body["electricity_amount_unit"];
-    const water_amount_unit = req.body["water_amount_unit"];
-    const diet_beef_unit = req.body["diet_beef_unit"];
-    const diet_pork_unit = req.body["diet_pork_unit"];
-    const diet_chicken_unit = req.body["diet_chicken_unit"];
-    const diet_cheese_unit = req.body["diet_cheese_unit"];
-    const diet_milk_unit = req.body["diet_milk_unit"];
-    const lifestyle_domestic_flights_distance_unit = req.body["lifestyle_domestic_flights_distance_unit"];
-    const lifestyle_international_flights_distance_unit = req.body["lifestyle_international_flights_distance_unit"];
-    const lifestyle_flights_class = req.body["lifestyle_flights_class"];
-    const lifestyle_clothing_purchased_amount_unit = req.body["lifestyle_clothing_purchased_amount_unit"];
-    const lifestyle_shipping_amount_unit = req.body["lifestyle_shipping_amount_unit"];
-    
+    const housing_people_unit = req.body['housing_people_unit'];
+    const housing_natural_gas_unit =
+        req.body['housing_natural_gas_amount_unit'];
+    const housing_heating_oil_unit =
+        req.body['housing_heating_oil_amount_unit'];
+    const housing_propane_unit = req.body['housing_propane_amount_unit'];
+    const housing_coal_unit = req.body['housing_coal_amount_unit'];
+    const electricity_amount_unit = req.body['electricity_amount_unit'];
+    const water_amount_unit = req.body['water_amount_unit'];
+    const diet_beef_unit = req.body['diet_beef_unit'];
+    const diet_pork_unit = req.body['diet_pork_unit'];
+    const diet_chicken_unit = req.body['diet_chicken_unit'];
+    const diet_cheese_unit = req.body['diet_cheese_unit'];
+    const diet_milk_unit = req.body['diet_milk_unit'];
+    const lifestyle_domestic_flights_distance_unit =
+        req.body['lifestyle_domestic_flights_distance_unit'];
+    const lifestyle_international_flights_distance_unit =
+        req.body['lifestyle_international_flights_distance_unit'];
+    const lifestyle_flights_class = req.body['lifestyle_flights_class'];
+    const lifestyle_clothing_purchased_amount_unit =
+        req.body['lifestyle_clothing_purchased_amount_unit'];
+    const lifestyle_shipping_amount_unit =
+        req.body['lifestyle_shipping_amount_unit'];
+
     const vehicles = [];
 
     for (let i = 1; i <= vehicle_amount; i++) {
         const vehicle = {
-            vehicle_type: req.body[`vehicle-${i}-type`]
+            vehicle_type: req.body[`vehicle-${i}-type`],
         };
 
         if (req.body[`vehicle-${i}-efficiency`] !== undefined) {
-            vehicle.vehicle_fuel_efficiency = Number(req.body[`vehicle-${i}-efficiency`]);
+            vehicle.vehicle_fuel_efficiency = Number(
+                req.body[`vehicle-${i}-efficiency`],
+            );
         }
         if (req.body[`vehicle-${i}-distance`] !== undefined) {
-            vehicle.vehicle_distance = Number(req.body[`vehicle-${i}-distance`]);
+            vehicle.vehicle_distance = Number(
+                req.body[`vehicle-${i}-distance`],
+            );
         }
         if (req.body[`vehicle-${i}-charge-amount`] !== undefined) {
-            vehicle.vehicle_charging = Number(req.body[`vehicle-${i}-charge-amount`]);
+            vehicle.vehicle_charging = Number(
+                req.body[`vehicle-${i}-charge-amount`],
+            );
         }
 
         vehicles.push(vehicle);
-    };
+    }
 
     try {
-            const newRecord = await Record.findOneAndUpdate(
-                {user: user},
-                {$set: {
+        const newRecord = await Record.findOneAndUpdate(
+            {user: user},
+            {
+                $set: {
                     housing_people: housing_people,
                     housing_people_unit: housing_people_unit,
                     housing_natural_gas_amount: housing_natural_gas_amount,
@@ -139,26 +163,34 @@ record.post('/', async (req, res) => {
                     diet_cheese_unit: diet_cheese_unit,
                     diet_milk_amount: diet_milk_amount,
                     diet_milk_unit: diet_milk_unit,
-                    lifestyle_domestic_flights_distance: lifestyle_domestic_flights_distance,
-                    lifestyle_domestic_flights_distance_unit: lifestyle_domestic_flights_distance_unit,
-                    lifestyle_international_flights_distance: lifestyle_international_flights_distance,
-                    lifestyle_international_flights_distance_unit: lifestyle_international_flights_distance_unit,
+                    lifestyle_domestic_flights_distance:
+                        lifestyle_domestic_flights_distance,
+                    lifestyle_domestic_flights_distance_unit:
+                        lifestyle_domestic_flights_distance_unit,
+                    lifestyle_international_flights_distance:
+                        lifestyle_international_flights_distance,
+                    lifestyle_international_flights_distance_unit:
+                        lifestyle_international_flights_distance_unit,
                     lifestyle_flights_class: lifestyle_flights_class,
-                    lifestyle_clothing_purchased_amount: lifestyle_clothing_purchased_amount,
-                    lifestyle_clothing_purchased_amount_unit: lifestyle_clothing_purchased_amount_unit,
+                    lifestyle_clothing_purchased_amount:
+                        lifestyle_clothing_purchased_amount,
+                    lifestyle_clothing_purchased_amount_unit:
+                        lifestyle_clothing_purchased_amount_unit,
                     lifestyle_shipping_amount: lifestyle_shipping_amount,
-                    lifestyle_shipping_amount_unit: lifestyle_shipping_amount_unit
-                }},
-                {new: true}
-            )
+                    lifestyle_shipping_amount_unit:
+                        lifestyle_shipping_amount_unit,
+                },
+            },
+            {new: true},
+        );
     } catch (e) {
         if (e.name === Error.ValidationError.name) {
-        res.status(status.BAD_REQUEST).json(e.errors);
-    } else {
-        console.error(e);
-        res.sendStatus(status.INTERNAL_SERVER_ERROR);
-    }
+            res.status(status.BAD_REQUEST).json(e.errors);
+        } else {
+            console.error(e);
+            res.sendStatus(status.INTERNAL_SERVER_ERROR);
+        }
     }
 
-    res.redirect("/progress.html")
+    res.redirect('/html/progress.html');
 });
